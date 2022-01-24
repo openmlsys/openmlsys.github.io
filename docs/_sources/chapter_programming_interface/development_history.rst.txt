@@ -4,7 +4,7 @@
 
 .. _img_framedh:
 
-.. figure:: ../img/ch02/framework_development_history.png
+.. figure:: ../img/ch02/framework_development_history.svg
    :width: 800px
 
    机器学习编程库发展历程

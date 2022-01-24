@@ -16,7 +16,7 @@ Network，RNN)；为了加速训练，防止过拟合通常用到批标准化（
 
 .. _fc_layer:
 
-.. figure:: ../img/ch02/fc_layer_1.png
+.. figure:: ../img/ch02/fc_layer_1.svg
    :width: 800px
 
    全连接层
@@ -29,7 +29,7 @@ Map）。
 
 .. _conv_comp:
 
-.. figure:: ../img/ch02/conv_component.png
+.. figure:: ../img/ch02/conv_component.svg
    :width: 800px
 
    卷积操作的组成
@@ -42,7 +42,7 @@ Map）。
 
 .. _single_conv:
 
-.. figure:: ../img/ch02/single_channel_conv.png
+.. figure:: ../img/ch02/single_channel_conv.svg
    :width: 800px
 
    卷积的具体运算过程
@@ -56,7 +56,7 @@ Map）。
 
 .. _channels_conv:
 
-.. figure:: ../img/ch02/channels_conv.png
+.. figure:: ../img/ch02/channels_conv.svg
    :width: 800px
 
    多通道卷积
@@ -68,7 +68,7 @@ Map）。
 
 .. _pooling:
 
-.. figure:: ../img/ch02/pooling.png
+.. figure:: ../img/ch02/pooling.svg
    :width: 800px
 
    池化操作
@@ -85,7 +85,7 @@ Map）。
 
 .. _nn_network:
 
-.. figure:: ../img/ch02/nn_network.png
+.. figure:: ../img/ch02/nn_network.svg
    :width: 800px
 
    卷积神经网络模型
@@ -150,7 +150,7 @@ Cell和Module是模型抽象方法也是所有网络的基类。 现有模型抽
 
 .. _model_build:
 
-.. figure:: ../img/ch02/model_build.png
+.. figure:: ../img/ch02/model_build.svg
    :width: 800px
 
    神经网络模型构建细节
@@ -161,7 +161,7 @@ Cell和Module是模型抽象方法也是所有网络的基类。 现有模型抽
 
 .. _cell_abs:
 
-.. figure:: ../img/ch02/cell_abstract.png
+.. figure:: ../img/ch02/cell_abstract.svg
    :width: 800px
 
    神经网络基类抽象方法

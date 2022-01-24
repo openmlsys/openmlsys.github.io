@@ -23,7 +23,7 @@
 
 .. _img_workflow:
 
-.. figure:: ../img/ch02/workflow.png
+.. figure:: ../img/ch02/workflow.svg
    :width: 800px
 
    机器学习系统工作流
