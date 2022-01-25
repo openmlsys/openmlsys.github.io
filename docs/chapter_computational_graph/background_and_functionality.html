@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>1. 导论 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>3.1. 计算图的设计背景和作用 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -25,15 +25,16 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. 编程接口" href="../chapter_programming_interface/index.html" />
-    <link rel="prev" title="机器学习系统：设计和实现" href="../index.html" /> 
+    <link rel="next" title="3.2. 计算图的基本构成" href="components_of_computational_graph.html" />
+    <link rel="prev" title="3. 计算图的设计背景和作用" href="index.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link is-active"><span class="section-number">1. </span>导论</a>
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">3. </span>计算图的设计背景和作用</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">3.1. </span>计算图的设计背景和作用</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -56,7 +57,7 @@
         
 <a id="button-show-source"
     class="mdl-button mdl-js-button mdl-button--icon"
-    href="../_sources/chapter_introduction/index.rst.txt" rel="nofollow">
+    href="../_sources/chapter_computational_graph/background_and_functionality.rst.txt" rel="nofollow">
   <i class="material-icons">code</i>
 </a>
 <div class="mdl-tooltip" data-mdl-for="button-show-source">
@@ -93,7 +94,7 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -102,12 +103,12 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. 计算图的设计背景和作用</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">3.5. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -139,7 +140,7 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -148,12 +149,12 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. 计算图的设计背景和作用</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">3.5. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -168,55 +169,46 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">1. </span>导论<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>本书试图全面地讲解机器学习系统的设计和实现，从而帮助学生，工程师和科研人员理解机器学习系统背后的原理，并且可以根据自身需求改进和构建机器学习系统。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>机器学习应用<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>通俗来讲，机器学习是指从数据中学习出有用知识的计算技术。从处理的数据类型和学习模式来说，机器学习可以分为监督学习（Supervised
-Learning）、无监督学习（Unsupervised Learning）、强化学习（Reinforcement
-Learning）等等。监督学习是已知输入输出对应关系情况下的学习，比如给定输入图像和它对应的内容标签，则学习图像分类（Classification）；而无监督学习是只有输入数据但不知道输出标签情况下的学习，比如：给定一堆猫和狗的图像，自主学会猫和狗的分类，这种无监督分类也称为聚类（Clustering）；强化学习则是给定一个学习环境和任务目标，算法自主地去不断尝试、改进自己、以实现任务目标。比如AlphaGo围棋就是用强化学习实现的，给定的环境是围棋的规则、而目标则是胜利得分。</p>
-<p>从应用领域上划分，主要可以包括计算机视觉、自然语言处理和智能决策这三大部分，而且这三大部分之间也有很多交集。
-狭义上来讲基于图像的应用都可归为计算机视觉方面的应用，典型的应用有人脸识别、物体识别、目标跟踪、人体姿态估计、以及图像的理解、修复、分割与检测等等。
-计算机视觉方法广泛应用于自动驾驶、智慧城市、智慧安防等领域。
-自然语言处理涉及文本或者语音方面的应用，典型的应用包括语言翻译、文本转语音、语音转文本、以及文本理解、分类、风格变换与纠错等等。
-计算机视觉和自然语言处理有很多交集，例如图像的文本描述生成、基于文本的图像生成、基于文本的图像处理等应用都同时涉及到了语言和图像两种数据类型。
-智能决策方面，往往通过结合计算机视觉、自然语言处理、强化学习、控制论等技术手段，实现决策类任务，广泛用于机器人、自动驾驶、游戏、推荐系统、智能工厂、智能电网等领域。</p>
+<h1><span class="section-number">3.1. </span>计算图的设计背景和作用<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-default" id="id2">
+<span id="dag"></span><a class="reference internal image-reference" href="../_images/dag.svg"><img alt="../_images/dag.svg" src="../_images/dag.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图3.1.1 </span><span class="caption-text">基于计算图的架构</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
+<p>早期的机器学习框架主要为了支持基于卷积神经网络的图像分类问题。这些神经网络的拓扑结构简单（神经网络层往往通过串行构建），他们的拓扑结构可以用简单的配置文件来表达（例如Caffe中基于Protocol
+Buffer格式的模型定义）。随着机器学习的进一步发展，模型的拓扑日益复杂（包括混合专家，生成对抗网络，多注意力模型）。这些模型的复杂拓扑（例如说，分枝结构，带有条件的if-else结构）。而复杂的拓扑会影响模型算子的执行，自动化计算梯度（一般称为自动微分）和训练参数的自动化判断。为此，我们需要一个更加通用的技术来执行任意机器学习模型。因此，计算图应运而生。综合来看，计算图对于一个机器学习框架提供了以下几个关键作用：</p>
+<ul class="simple">
+<li><p><strong>对于输入数据，算子和算子执行顺序的统一表达。</strong>
+机器学习框架用户可以用多种高层次编程语言（Python，Julia和C++）来编写训练程序。这些高层次程序需要统一的表达成框架底层C和C++算子的执行。因此，计算图的第一个核心作用是可以作为一个统一的数据结构来表达用户用不同语言编写的训练程序。这个数据结构可以准确表述用户的输入数据，模型所带有的多个算子，以及算子之间的执行顺序。</p></li>
+<li><p><strong>定义中间状态和模型状态。</strong>
+在一个用户训练程序中，用户会生成中间变量（神经网络层之间传递的激活值和梯度）来完成复杂的训练过程。而这其中，只有模型参数需要最后持久化，从而为后续的模型推理做准备。通过计算图，机器学习框架可以准确分析出中间状态的生命周期（一个中间变量何时生成，以及何时销毁），从而帮助框架更好的管理内存。</p></li>
+<li><p><strong>自动化计算梯度。</strong>
+用户给定的训练程序仅仅包含了一个机器学习模型如何将用户输入（一般为训练数据）转化为输出（一般为损失函数）的过程。而为了训练这个模型，机器学习框架需要分析任意机器学习模型和其中的算子，找出自动化计算梯度的方法。计算图的出现让自动化分析模型定义和自动化计算梯度成为可能。</p></li>
+<li><p><strong>高效程序执行。</strong>
+用户给定的模型程序往往是“串行化”地连接起来多个神经网络层。通过利用计算图来分析模型中算子的执行关系，机器学习框架可以更好地发现将算子进行异步执行的机会，从而以更快的速度完成模型程序的执行。</p></li>
+</ul>
 </div>
 
 
         </div>
         <div class="side-doc-outline">
             <div class="side-doc-outline--content"> 
-<div class="localtoc">
-    <p class="caption">
-      <span class="caption-text">Table Of Contents</span>
-    </p>
-    <ul>
-<li><a class="reference internal" href="#">1. 导论</a><ul>
-<li><a class="reference internal" href="#id2">1.1. 机器学习应用</a></li>
-</ul>
-</li>
-</ul>
-
-</div>
             </div>
         </div>
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="../index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>机器学习系统：设计和实现</div>
+            <div>3. 计算图的设计背景和作用</div>
          </div>
      </a>
-     <a id="button-next" href="../chapter_programming_interface/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+     <a id="button-next" href="components_of_computational_graph.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>2. 编程接口</div>
+            <div>3.2. 计算图的基本构成</div>
         </div>
      </a>
   </div>
