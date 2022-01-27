@@ -95,7 +95,13 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -141,7 +147,13 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -233,8 +245,9 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
 </pre></div>
 </div>
 <p>在静态生成过程中，计算框架获取完整的计算图可以分析出计算<span class="math notranslate nohighlight">\(\boldsymbol{Y_1}\)</span>和<span class="math notranslate nohighlight">\(\boldsymbol{Y_2}\)</span>的过程相对独立，可以将其进行自动并行计算，加快计算效率。而动态生成的过程中，若无手动配置并行策略，计算框架无法获取图结构不能分析出算子之间的独立性，则只能按照代码顺序执行。模型在输出结果之前执行了<em>add</em>和<em>relu</em>算子操作，在静态生成过程中利用计算图优化策略中的算子融合方法，可以将这两个算子融合为一个算子执行，这样减少了中间变量<span class="math notranslate nohighlight">\(\boldsymbol{Y}\)</span>的存储与读取过程，加快了计算效率，减少了内存占用。而动态生成过程则需要按照顺序执行<em>add</em>和<em>relu</em>两步操作，需要存储变量<span class="math notranslate nohighlight">\(\boldsymbol{Y}\)</span>。除此之外，由于静态生成能够同时分析重构出前向计算图和反向计算图，可以提前确定反向计算中需要保存的前向中间变量信息。而动态生成则在完成前向计算后才能构建出反向计算图，为了保证反向计算效率需要保存更多的前向计算中间变量信息，相比之下静态生成的过程更加节省内存占用。</p>
-<p>为了方便读者对比，将静态图和动态图特性总结见表。</p>
-<table class="docutils align-default">
+<p>为了方便读者对比，将静态图和动态图特性总结见表3.3.1。</p>
+<span id="cmp-dynamic-static"></span><table class="docutils align-default" id="id10">
+<caption><span class="caption-number">表3.3.1 </span><span class="caption-text">静态图和动态图对比</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 29%" />
 <col style="width: 36%" />
@@ -286,9 +299,9 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
 <p><strong>基于追踪转换</strong>的原理相对简单，当使用动态图模式构建好网络后，使用追踪（Tracing）进行转换将分为两个阶段。第一个阶段计算框架会创建一个新的计算图，此时以动态图模式执行代码，计算框架会自动追踪数据流的流动以及算子的调度，将所有的操作捕获并根据调度顺序构建静态图模型。第二个阶段，当执行完一次动态图后，计算框架已生成静态图，当再次调用相同的模型时，计算框架会自动指向静态图模型，以高效的性能执行计算。追踪技术只是记录第一次执行动态图时调度的算子，但若是模型中存在依赖于中间结果的条件分支控制流，只能追踪到根据第一次执行时触发的分支。此时构建的静态图模型并不是完整的，缺失了数据未流向的其他分支。在后续的调用中，因为静态模型已无法再改变，若计算过程中数据流向缺失分支会导致模型运行错误。同样的，依赖于中间数据结果的循环控制也无法追踪到全部的迭代状态。</p>
 <p>动态图基于前端语言自身的解释器进行模型代码的解析执行。比如当python作为前端语言，采取原生python边运行边解释的特性，配合框架提供的数据处理/算子分发的功能计算，即可实现动态图的即时执行特性。而且静态图则采用计算框架自带的图编译器，对神经网络模型进行建图后，再调用图结构进行计算。动态图代码与静态图代码之间存在差异，不能直接使用静态图编译器，因此基于源码转换的方法需要将动态图代码转换为静态图代码描述。</p>
 <p><strong>基于源码转换</strong>的方式则能够改善基于追踪转换的缺陷。如图3.3.5中所示，基于源码转换的流程经历两个阶段。第一个阶段，对动态图模式下的代码扫描进行词法分析，通过词法分析器分析源代码中的所有字符，对代码进行分割并移除空白符、注释等，将所有的单词或字符都转化成符合规范的语法单元列表。接着进行语法分析即解析器，将得到的语法单元列表转换成树形式，并对语法进行检查避免错误。第二阶段，动态图转静态图的核心部分就是对抽象语法树进行转写，计算框架中对每一个需要转换的语法都预设有转换器，每一个转换器对语法树进行扫描改写，将动态图代码语法映射为静态图代码语法。其中最为重要的前端语言控制流，会在这一阶段分析转换为静态图接口进行实现。转写完毕之后，将新的语法树再还原回静态图代码，就可以使用静态生成执行。使用该方式可以避免基于追踪转换中控制流表达缺失的情况。</p>
-<div class="figure align-default" id="id10">
+<div class="figure align-default" id="id11">
 <span id="ast"></span><a class="reference internal image-reference" href="../_images/ast.svg"><img alt="../_images/ast.svg" src="../_images/ast.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图3.3.5 </span><span class="caption-text">基于源码转换流程</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图3.3.5 </span><span class="caption-text">基于源码转换流程</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>在使用上述功能的过程中，可以将整体模型动态图代码全部转换为静态图代码，提高计算效率并用于硬件部署。同时也可以将整体模型中的部分函数转化为局部静态子图，静态子图会被计算框架视为一个完整的算子并嵌入动态图中。执行整体动态图时，当计算到对应的函数会自动调用静态子图。使用该方式在一定程度上既保留代码调试改进的灵活性，又提高了计算效率。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@ms_function</span> <span class="c1">#mindspore中基于源码转换的函数装饰器，可以将该函数转换为静态图</span>
@@ -309,8 +322,9 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
 <p>代码中模型整体可以采用动态生成，而&#64;ms_function可以使用基于源码转换的技术将模块<em>add_and_relu</em>的转化为静态图结构。与动态生成中代码执行相同，模型接受输入按照模型定义的计算顺序进行调度执行，并生成临时图结构，当执行语句<em>Y=add_and_relu(Y,b)</em>
 时，计算框架会自动调用该模块静态生成的图结构执行计算。模块<em>add_and_relu</em>
 可以利用静态图中的优化技术来提高计算性能，实现动态图和静态图的混合执行。此外，动静态转换的技术常用于模型部署阶段，动态图预测部署时除了需要已经训练完成的参数文件，还须提供最初的模型组网前端代码，这使得动态图部署受到局限性，部署硬件中往往难以提供支持前端语言执行环境。因此当使用动态图模式训练完成模型参数后，可以将整体网络结构转换为静态图格式，将神经网络模型和参数文件进行序列化保存，与前端代码完全解耦，扩大模型部署的硬件支持范围。</p>
-<p>主流的计算框架TensorFlow、MindSpore等中均提供动静态相互转换与融合执行的技术，我们将各框架中支持源码转换和追踪转换技术的接口梳理如下表所示。</p>
-<table class="docutils align-default">
+<p>主流的计算框架TensorFlow、MindSpore等中均提供动静态相互转换与融合执行的技术，我们将各框架中支持源码转换和追踪转换技术的接口梳理如下表3.3.2所示。</p>
+<span id="dynamic-static-switch"></span><table class="docutils align-default" id="id12">
+<caption><span class="caption-number">表3.3.2 </span><span class="caption-text">主流框架动态图转换静态图支持</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 37%" />
 <col style="width: 63%" />

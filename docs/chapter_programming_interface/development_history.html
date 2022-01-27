@@ -94,7 +94,13 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">2. 编程接口</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -140,7 +146,13 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">2. 编程接口</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. 机器学习系统编程模型的演进</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ml_workflow.html">2.2. 机器学习工作流</a></li>
@@ -174,7 +186,7 @@ Show Source
 <span id="img-framedh"></span><a class="reference internal image-reference" href="../_images/framework_development_history.svg"><img alt="../_images/framework_development_history.svg" src="../_images/framework_development_history.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图2.1.1 </span><span class="caption-text">机器学习编程库发展历程</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-<p>随着机器学习通的诞生，如何设计易用且高性能的编程接口就一直成为了框架设计者首要解决的问题。在早期的机器学习框架中（如图2.1.1所示），人们选择用Lua（Torch）和Python（Theano）等高层次编程语言来编写机器学习程序。这些早期的机器学习框架提供了机器学习必须的模型定义，自动微分等功能，其适用于编写小型和科研为导向的机器学习应用。</p>
+<p>随着机器学习系统的诞生，如何设计易用且高性能的编程接口就一直成为了框架设计者首要解决的问题。在早期的机器学习框架中（如图2.1.1所示），人们选择用Lua（Torch）和Python（Theano）等高层次编程语言来编写机器学习程序。这些早期的机器学习框架提供了机器学习必须的模型定义，自动微分等功能，其适用于编写小型和科研为导向的机器学习应用。</p>
 <p>在2011年，深度神经网络快速崛起，并很快在各个AI应用领域（计算机视觉，语音识别，自然语言处理等）取得了最先进的性能。训练深度神经网络需要消耗大量的算力，而这些算力无法被以Lua和Python所主导开发的Torch和Theano所满足。与此同时，计算加速卡（如英伟达GPU）的通用编程接口（例如CUDA
 C）日趋成熟，而构建于CPU多核技术之上的多线程库（POSIX
 Threads）也被广大开发者所接受。因此，许多的机器学习用户希望基于C和C++来开发高性能的深度学习应用。这一类需求被Caffe等一系列以C和C++作为核心编程接口的框架所满足。</p>
