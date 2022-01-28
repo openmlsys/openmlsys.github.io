@@ -183,7 +183,8 @@ Show Source
         
   <div class="section" id="id1">
 <h1><span class="section-number">3.2. </span>计算图的基本构成<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>计算图是用来表示深度学习网络模型在训练与推理过程中计算逻辑与状态的工具。计算框架在后端会将前端语言构建的神经网络模型前向计算与反向梯度计算以计算图的形式来进行表示。计算图由基本数据结构张量(Tensor)和基本运算单元算子(Operator)构成。在计算图中通常使用节点来表示算子，节点间的有向线段来表示张量状态，同时也描述了计算间的依赖关系。如图3.2.1所示，将<span class="math notranslate nohighlight">\(\boldsymbol{Z}=relu(\boldsymbol{X}*\boldsymbol{Y})\)</span>转化为计算图表示，数据流将根据图中流向与算子进行前向计算和反向梯度计算来更新图中张量状态，以此达到训练模型的目的。</p>
+<p>计算图是用来表示深度学习网络模型在训练与推理过程中计算逻辑与状态的工具。计算框架在后端会将前端语言构建的神经网络模型前向计算与反向梯度计算以计算图的形式来进行表示。计算图由基本数据结构张量(Tensor)和基本运算单元算子(Operator)构成。在计算图中通常使用节点来表示算子，节点间的有向线段来表示张量状态，同时也描述了计算间的依赖关系。如
+<a class="reference internal" href="#simpledag"><span class="std std-numref">图3.2.1</span></a>所示，将<span class="math notranslate nohighlight">\(\boldsymbol{Z}=relu(\boldsymbol{X}*\boldsymbol{Y})\)</span>转化为计算图表示，数据流将根据图中流向与算子进行前向计算和反向梯度计算来更新图中张量状态，以此达到训练模型的目的。</p>
 <div class="figure align-default" id="id6">
 <span id="simpledag"></span><a class="reference internal image-reference" href="../_images/simpledag.svg"><img alt="../_images/simpledag.svg" src="../_images/simpledag.svg" width="300px" /></a>
 <p class="caption"><span class="caption-number">图3.2.1 </span><span class="caption-text">简单计算图</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
@@ -222,12 +223,14 @@ Show Source
 </tbody>
 </table>
 <p>张量的形状是一个重要的属性，它记录了每个轴的长度，也就是张量每个维度的元素数量。秩则代表张量的轴数或者阶数。张量中通常可以保存布尔类型、浮点数、整型数以及复数和字符串数据。每一个张量都具有唯一的数据类型，在计算过程中会对所有参与运算的张量进行类型检查，当发现类型不匹配时就会报错。部分特殊的计算则必须使用指定的数据类型，比如逻辑运算应为布尔类型。在部分计算框架中张量的属性中包含可以指明张量存储的设备位置，比如存储于CPU、GPU等。张量数据的存储状态可以分为可变和不可变两种，不可变张量一般用于用户初始化的数据或者网络模型输入的数据；而可变张量则存储网络权重参数，根据梯度信息更新自身数据。</p>
-<p>如图3.2.2所示，标量就是一个零阶张量，包含单个数值但没有轴信息。向量即为一阶张量，具有一个轴。二阶张量具有两个轴即秩为二。</p>
+<p>如
+<a class="reference internal" href="#tensor"><span class="std std-numref">图3.2.2</span></a>，标量就是一个零阶张量，包含单个数值但没有轴信息。向量即为一阶张量，具有一个轴。二阶张量具有两个轴即秩为二。</p>
 <div class="figure align-default" id="id8">
 <span id="tensor"></span><a class="reference internal image-reference" href="../_images/tensor.svg"><img alt="../_images/tensor.svg" src="../_images/tensor.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.2.2 </span><span class="caption-text">张量</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-<p>通常我们使用的张量是“整齐”的，每个轴上的具有相同的元素个数，就像一个“矩形”或者“立方体”。在特定的环境中，也会使用特殊类型的张量，比如不规则张量和稀疏张量，如图3.2.3中所示。不规则张量在某个轴上可能具有不同的元素个数，它们支持存储和处理包含非均匀形状的数据，在自然语言处理领域，不规则张量可以存储不同长度文本的信息。稀疏张量则通常应用于图数据与图神经网络中，采用特殊的存储格式如坐标表格式（Coordinate
+<p>通常我们使用的张量是“整齐”的，每个轴上的具有相同的元素个数，就像一个“矩形”或者“立方体”。在特定的环境中，也会使用特殊类型的张量，比如不规则张量和稀疏张量，如
+<a class="reference internal" href="#tensorclass"><span class="std std-numref">图3.2.3</span></a>中所示。不规则张量在某个轴上可能具有不同的元素个数，它们支持存储和处理包含非均匀形状的数据，在自然语言处理领域，不规则张量可以存储不同长度文本的信息。稀疏张量则通常应用于图数据与图神经网络中，采用特殊的存储格式如坐标表格式（Coordinate
 List， COO），可以高效存储稀疏数据，节省存储空间。</p>
 <div class="figure align-default" id="id9">
 <span id="tensorclass"></span><a class="reference internal image-reference" href="../_images/tensorclass.svg"><img alt="../_images/tensorclass.svg" src="../_images/tensorclass.svg" width="800px" /></a>
@@ -253,18 +256,21 @@ Estimation,Adam)等。</p></li>
 <span id="dependence"></span><a class="reference internal image-reference" href="../_images/dependence.svg"><img alt="../_images/dependence.svg" src="../_images/dependence.svg" width="400px" /></a>
 <p class="caption"><span class="caption-number">图3.2.4 </span><span class="caption-text">计算依赖</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
-<p>如图3.2.4中所示，在此简单的计算图中，若将<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>算子移除则该节点无输出，导致后续的激活函数无法得到输入，从而计算图中的数据流动中断，这表明计算图中的算子间具有依赖关系并且存在传递性。我们对依赖关系进行区分如下：</p>
+<p>如
+<a class="reference internal" href="#dependence"><span class="std std-numref">图3.2.4</span></a>中所示，在此简单的计算图中，若将<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>算子移除则该节点无输出，导致后续的激活函数无法得到输入，从而计算图中的数据流动中断，这表明计算图中的算子间具有依赖关系并且存在传递性。我们对依赖关系进行区分如下：</p>
 <ul class="simple">
 <li><p><strong>直接依赖</strong>：节点<span class="math notranslate nohighlight">\(\mathbf{ReLU1}\)</span>直接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>，即如果节点<span class="math notranslate nohighlight">\(\mathbf{ReLU1}\)</span>要执行运算，必须接受直接来自节点<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>的输出数据；</p></li>
 <li><p><strong>间接依赖</strong>：节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>间接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>，即节点<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>的数据并未直接传输给节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>，而是经过了某个或者某些中间节点进行处理后再传输给节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>，而这些中间节点可能是节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>的直接依赖节点，也可能是间接依赖节点；</p></li>
 <li><p><strong>相互独立</strong>：在计算图中节点节点<span class="math notranslate nohighlight">\(\mathbf{Matmul1}\)</span>与节点<span class="math notranslate nohighlight">\(\mathbf{Matmul2}\)</span>之间并无数据输入输出依赖关系，所以这两个节点间相互独立。</p></li>
 </ul>
-<p>掌握依赖关系后，分析图3.2.5可以得出节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>间接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Matmul}\)</span>，而节点<span class="math notranslate nohighlight">\(\mathbf{Matmul}\)</span>直接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>，此时两个节点互相等待对方计算完成输出数据，将无法执行计算任务。若我们手动同时给两个节点赋予输入，计算将持续不间断进行，模型训练将无法停止造成死循环。循环依赖产生正反馈数据流，被传递的数值可能在正方向上无限放大，导致数值上溢，或者负方向上放大导致数值下溢，也可能导致数值无限逼近于0，这些情况都会致使模型训练无法得到预期结果。在构建深度学习模型时，应避免算子间产生循环依赖。</p>
+<p>掌握依赖关系后，分析
+<a class="reference internal" href="#recurrent"><span class="std std-numref">图3.2.5</span></a>可以得出节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>间接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Matmul}\)</span>，而节点<span class="math notranslate nohighlight">\(\mathbf{Matmul}\)</span>直接依赖于节点<span class="math notranslate nohighlight">\(\mathbf{Add}\)</span>，此时两个节点互相等待对方计算完成输出数据，将无法执行计算任务。若我们手动同时给两个节点赋予输入，计算将持续不间断进行，模型训练将无法停止造成死循环。循环依赖产生正反馈数据流，被传递的数值可能在正方向上无限放大，导致数值上溢，或者负方向上放大导致数值下溢，也可能导致数值无限逼近于0，这些情况都会致使模型训练无法得到预期结果。在构建深度学习模型时，应避免算子间产生循环依赖。</p>
 <div class="figure align-default" id="id11">
 <span id="recurrent"></span><a class="reference internal image-reference" href="../_images/recurrent.svg"><img alt="../_images/recurrent.svg" src="../_images/recurrent.svg" width="300px" /></a>
 <p class="caption"><span class="caption-number">图3.2.5 </span><span class="caption-text">循环依赖</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
-<p>在深度学习计算框架中，表示循环关系通常是以<strong>展开</strong>机制（Unrolling）来实现。当需要实现循环关系时，循环体的计算子图按照迭代次数进行复制，将代表相邻迭代轮次的子图进行串联，相邻迭代轮次的计算子图之间就是直接依赖关系。循环三次的计算图进行展开如图3.2.6。在计算图中，每一个张量和运算符都具有独特的标识符，即使是相同的操作运算，在参与不同计算任务时都具有不同的标识符。区分循环关系和循环依赖的关键在于，是否两个独特标识符之间的运算互相具有直接依赖和相互依赖。循环关系在展开复制计算子图的时候会给复制的所有张量和运算符赋予新的标识符，区分被复制的原始子图，以避免形成循环依赖。</p>
+<p>在深度学习计算框架中，表示循环关系通常是以<strong>展开</strong>机制（Unrolling）来实现。当需要实现循环关系时，循环体的计算子图按照迭代次数进行复制，将代表相邻迭代轮次的子图进行串联，相邻迭代轮次的计算子图之间就是直接依赖关系。循环三次的计算图进行展开如
+<a class="reference internal" href="#unroll"><span class="std std-numref">图3.2.6</span></a>。在计算图中，每一个张量和运算符都具有独特的标识符，即使是相同的操作运算，在参与不同计算任务时都具有不同的标识符。区分循环关系和循环依赖的关键在于，是否两个独特标识符之间的运算互相具有直接依赖和相互依赖。循环关系在展开复制计算子图的时候会给复制的所有张量和运算符赋予新的标识符，区分被复制的原始子图，以避免形成循环依赖。</p>
 <div class="figure align-default" id="id12">
 <span id="unroll"></span><a class="reference internal image-reference" href="../_images/unroll.svg"><img alt="../_images/unroll.svg" src="../_images/unroll.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.2.6 </span><span class="caption-text">循环展开</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
@@ -296,7 +302,7 @@ approach）。计算框架PyTorch、MindSpore中就直接使用python的控制�
 <span id="if"></span><a class="reference internal image-reference" href="../_images/if.svg"><img alt="../_images/if.svg" src="../_images/if.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">图3.2.7 </span><span class="caption-text">条件控制计算图</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
-<p>图3.2.7描述上述代码的前向计算图和反向计算图。对于具有if-条件的模型，梯度计算需要知道采用了条件的哪个分支，然后将梯度逻辑应用于该分支。在前向计算图中张量<span class="math notranslate nohighlight">\({C}\)</span>经过条件控制不参与计算，在反向计算时同样遵守控制流决策，不会计算关于张量<span class="math notranslate nohighlight">\(C\)</span>的梯度。</p>
+<p><a class="reference internal" href="#if"><span class="std std-numref">图3.2.7</span></a>描述上述代码的前向计算图和反向计算图。对于具有if-条件的模型，梯度计算需要知道采用了条件的哪个分支，然后将梯度逻辑应用于该分支。在前向计算图中张量<span class="math notranslate nohighlight">\({C}\)</span>经过条件控制不参与计算，在反向计算时同样遵守控制流决策，不会计算关于张量<span class="math notranslate nohighlight">\(C\)</span>的梯度。</p>
 <p>当模型中有循环控制时，循环中的操作可以执行零次或者多次。此时采用展开机制，对每一次操作都赋予独特的运算标识符，以此来区分相同运算操作的多次调用。每一次循环都直接依赖于前一次循环的计算结果，所以在循环控制中需要维护一个张量列表，将循环迭代的中间结果缓存起来，这些中间结果将参与前向计算和梯度计算。下面这段代码描述了简单的循环控制，将其展开得到等价代码后，可以清楚的理解需要维护张量<span class="math notranslate nohighlight">\(\boldsymbol{Y_i}\)</span>和<span class="math notranslate nohighlight">\(\boldsymbol{W_i}\)</span>的列表。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">recurrent_control</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">cur_num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cur_num</span><span class="p">):</span>
@@ -310,7 +316,8 @@ approach）。计算框架PyTorch、MindSpore中就直接使用python的控制�
     <span class="k">return</span> <span class="n">Y</span>
 </pre></div>
 </div>
-<p>如图3.2.8描述了上述代码的前向计算图和反向计算图，循环控制的梯度同样也是一个循环，它与前向循环相迭代次数相同，执行循环体的梯度计算。循环体输出的梯度值作为下一次梯度计算的初始值，直至循环结束。</p>
+<p>如
+<a class="reference internal" href="#while"><span class="std std-numref">图3.2.8</span></a>描述了上述代码的前向计算图和反向计算图，循环控制的梯度同样也是一个循环，它与前向循环相迭代次数相同，执行循环体的梯度计算。循环体输出的梯度值作为下一次梯度计算的初始值，直至循环结束。</p>
 <div class="figure align-default" id="id14">
 <span id="while"></span><a class="reference internal image-reference" href="../_images/while.svg"><img alt="../_images/while.svg" src="../_images/while.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">图3.2.8 </span><span class="caption-text">循环控制计算图</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
@@ -351,7 +358,8 @@ propagation）。在神经网络模型中，反向传播通常使用损失函数
 <span class="n">grad_W</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">grad_Y1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>结合公式、代码以及图3.2.9我们可以看出，在反向传播过程中使用到前向传播的中间变量。因此保存网络中间层输出状态和中间变量，尽管占用了部分内存但能够复用计算结果，达到了提高反向传播计算效率的目的。</p>
+<p>结合公式、代码以及
+<a class="reference internal" href="#chain"><span class="std std-numref">图3.2.9</span></a>我们可以看出，在反向传播过程中使用到前向传播的中间变量。因此保存网络中间层输出状态和中间变量，尽管占用了部分内存但能够复用计算结果，达到了提高反向传播计算效率的目的。</p>
 <div class="figure align-default" id="id15">
 <span id="chain"></span><a class="reference internal image-reference" href="../_images/chain.svg"><img alt="../_images/chain.svg" src="../_images/chain.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">图3.2.9 </span><span class="caption-text">反向传播局部计算图</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>

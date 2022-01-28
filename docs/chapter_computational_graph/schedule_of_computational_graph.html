@@ -188,7 +188,8 @@ Show Source
 <p>算子的执行调度包含两个步骤，第一个，根据拓扑排序算法，将计算图进行拓扑排序得到线性的算子调度序列；第二步，将序列中的算子分配到执行流进行运算。算子调度执行的目标是根据计算图中算子依赖关系，确定算子调度序列，尽可能将序列中的算子并行执行，提高计算资源的利用率。</p>
 <p>计算图中依赖边和算子构成了一张有向无环图(Directed Acyclic
 Graph)，计算框架后端需要将包含这种依赖关系的算子准确地发送到计算资源，比如GPU、NPU上执行。因此，就要求算子需要按照一定的顺序排列好再发送给GPU/NPU执行。针对有向无环图，我们通常使用拓扑排序来得到一串线性的序列。</p>
-<p>如图3.4.1所示，左边是一张有向无环图。图中包含了a,b,c,d,e五个节点和a-&gt;d,b-&gt;c,c-&gt;d,d-&gt;e四条边(a-&gt;d表示d依赖于a，称之为依赖边)。将图的依赖边表达成节点的入度(图论中通常指有向图中某点作为图中边的终点的次数之和)，可以得到各个节点的入度信息(a:0,
+<p>如
+<a class="reference internal" href="#schedule"><span class="std std-numref">图3.4.1</span></a>所示，左边是一张有向无环图。图中包含了a,b,c,d,e五个节点和a-&gt;d,b-&gt;c,c-&gt;d,d-&gt;e四条边(a-&gt;d表示d依赖于a，称之为依赖边)。将图的依赖边表达成节点的入度(图论中通常指有向图中某点作为图中边的终点的次数之和)，可以得到各个节点的入度信息(a:0,
 b:0, c:1, d:2,
 e:1)。拓扑排序就是不断循环将入度为0的节点取出放入队列中，直至所有有向无环图中的节点都加入到队列中，循环结束。例如，第一步将入度为0的a,b节点放入到队列中，此时有向无环图中c,d的入度需要减1，得到新的入度信息(c:0,
 d:1, e:1)。以此类推，将所有的将所有的节点都放入到队列中并结束排序。</p>
@@ -205,13 +206,15 @@ d:1, e:1)。以此类推，将所有的将所有的节点都放入到队列中�
 <li><p><strong>串行</strong>：队列中的任务必须按照顺序进行调度执行直至队列结束；</p></li>
 <li><p><strong>并行</strong>：队列中的任务可以同时进行调度执行，加快执行效率。</p></li>
 </ul>
-<p>首先我们从微观上来分析计算图内部的串行调度。计算图中大多数算子之间存在直接依赖或者间接依赖关系，具有依赖关系的算子间任务调度则必定存在执行前后的时间顺序。如图3.4.2，计算图接受输入数据进行前向计算得到预测值，计算损失函数进行反向梯度计算，整体代码流程后序算子的计算有赖于前序算子的输出。此时算子的执行队列只能以串行的方式进行调度，保证算子都能正确接受到输入数据，才能完成计算图的一次完整执行。</p>
+<p>首先我们从微观上来分析计算图内部的串行调度。计算图中大多数算子之间存在直接依赖或者间接依赖关系，具有依赖关系的算子间任务调度则必定存在执行前后的时间顺序。如
+<a class="reference internal" href="#order"><span class="std std-numref">图3.4.2</span></a>，计算图接受输入数据进行前向计算得到预测值，计算损失函数进行反向梯度计算，整体代码流程后序算子的计算有赖于前序算子的输出。此时算子的执行队列只能以串行的方式进行调度，保证算子都能正确接受到输入数据，才能完成计算图的一次完整执行。</p>
 <div class="figure align-default" id="id6">
 <span id="order"></span><a class="reference internal image-reference" href="../_images/order.svg"><img alt="../_images/order.svg" src="../_images/order.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.4.2 </span><span class="caption-text">算子的串行</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>宏观上来看迭代训练之间，每一轮迭代中计算图必须读取训练数据，执行完整的前向计算和反向梯度计算，将图中所有参数值更新完毕后，才能开始下一轮的计算图迭代计算更新。所以“数据载入-数据处理-模型训练”的计算图整体任务调度是以串行方式进行的。</p>
-<p>在分析计算图内部算子依赖关系时，除了直接依赖和间接依赖之外，存在算子间相互独立的情况。如图3.4.3中op1和op2之间相互独立，此时可以将两个算子分配到两个硬件上进行并行计算。对比串行执行，并行计算可以同时利用更多的计算资源来缩短执行时间。</p>
+<p>在分析计算图内部算子依赖关系时，除了直接依赖和间接依赖之外，存在算子间相互独立的情况。如
+<a class="reference internal" href="#para"><span class="std std-numref">图3.4.3</span></a>中op1和op2之间相互独立，此时可以将两个算子分配到两个硬件上进行并行计算。对比串行执行，并行计算可以同时利用更多的计算资源来缩短执行时间。</p>
 <div class="figure align-default" id="id7">
 <span id="para"></span><a class="reference internal image-reference" href="../_images/para.svg"><img alt="../_images/para.svg" src="../_images/para.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.4.3 </span><span class="caption-text">算子的并行</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
@@ -225,17 +228,20 @@ d:1, e:1)。以此类推，将所有的将所有的节点都放入到队列中�
 <li><p><strong>同步</strong>：顺序执行任务，当前任务执行完后会等待后续任务执行情况，任务之间需要等待、协调运行；</p></li>
 <li><p><strong>异步</strong>：当前任务完成后，不需要等待后续任务的执行情况，可继续执行当前任务下一轮迭代。</p></li>
 </ul>
-<p>以同步机制来执行计算图训练时，如图3.4.4所示，每一轮迭代中，数据读取后进行数据预处理操作，然后传输给计算图进行训练。每一个环节执行完当前迭代中的任务后，会一直等待后续环节的处理，直至计算图完成一次迭代训练更新参数值后，才会进行下一轮迭代的数据读取、数据处理以及网络训练。当进行数据载入时，数据处理、模型训练处于等待的状态，相反模型处于训练时，数据载入的I/O通道处于空闲，同步机制造成计算资源和通信资源的浪费。</p>
+<p>以同步机制来执行计算图训练时，如
+<a class="reference internal" href="#synchronization"><span class="std std-numref">图3.4.4</span></a>所示，每一轮迭代中，数据读取后进行数据预处理操作，然后传输给计算图进行训练。每一个环节执行完当前迭代中的任务后，会一直等待后续环节的处理，直至计算图完成一次迭代训练更新参数值后，才会进行下一轮迭代的数据读取、数据处理以及网络训练。当进行数据载入时，数据处理、模型训练处于等待的状态，相反模型处于训练时，数据载入的I/O通道处于空闲，同步机制造成计算资源和通信资源的浪费。</p>
 <div class="figure align-default" id="id8">
 <span id="synchronization"></span><a class="reference internal image-reference" href="../_images/synchronization.svg"><img alt="../_images/synchronization.svg" src="../_images/synchronization.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.4.4 </span><span class="caption-text">同步机制</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-<p>以异步机制来执行计算图训练时，如图3.4.5所示，在迭代训练中，当数据通道将数据读取后交给后续的数据与处理环节后，不需要等待计算图训练迭代完成，直接读取下一批次的数据。对比同步机制，异步机制的引入减少了数据载入、数据预处理、网络训练三个环节的空闲等待时间，能够大幅度缩短循环训练的整体时间，提高任务执行效率。</p>
+<p>以异步机制来执行计算图训练时，如
+<a class="reference internal" href="#asynchronous"><span class="std std-numref">图3.4.5</span></a>所示，在迭代训练中，当数据通道将数据读取后交给后续的数据与处理环节后，不需要等待计算图训练迭代完成，直接读取下一批次的数据。对比同步机制，异步机制的引入减少了数据载入、数据预处理、网络训练三个环节的空闲等待时间，能够大幅度缩短循环训练的整体时间，提高任务执行效率。</p>
 <div class="figure align-default" id="id9">
 <span id="asynchronous"></span><a class="reference internal image-reference" href="../_images/asynchronous.svg"><img alt="../_images/asynchronous.svg" src="../_images/asynchronous.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.4.5 </span><span class="caption-text">异步机制</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
-<p>当我们将异步机制与并行计算结合在一起，如图3.4.6所示，利用丰富的计算资源可以进一步提高计算图训练效率，缩短训练时间。</p>
+<p>当我们将异步机制与并行计算结合在一起，如
+<a class="reference internal" href="#asyn-para"><span class="std std-numref">图3.4.6</span></a>所示，利用丰富的计算资源可以进一步提高计算图训练效率，缩短训练时间。</p>
 <div class="figure align-default" id="id10">
 <span id="asyn-para"></span><a class="reference internal image-reference" href="../_images/asyn_para.svg"><img alt="../_images/asyn_para.svg" src="../_images/asyn_para.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图3.4.6 </span><span class="caption-text">异步并行</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
