@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -152,13 +153,13 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="reference.html">7.7. 引用</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">模型部署</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">8. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">9. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">7. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">10. 附录：机器学习介绍</a><ul class="simple">
@@ -251,13 +252,13 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="reference.html">7.7. 引用</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">模型部署</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">8. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">9. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">7. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">10. 附录：机器学习介绍</a><ul class="simple">
@@ -274,10 +275,10 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">7.6. </span>章节总结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本章我们围绕着易用性、高效性和保序性三个维度展开研究如何设计实现机器学习系统中的数据预处理模块。在易用性维度我们重点探讨了数据模块的编程模型，通过借鉴历史上优秀的并行数据处理系统的设计经验，我们认为基于描述数据集变换的编程抽象较为适合作为数据模块的编程模型，在具体的系统实现中，我们不仅要在上述的编程模型的基础上提供足够多内置算子方便的用户的数据预处理编程，同时还要考虑如何支持用户方便的使用自定义算子。在高效性方面，我们从数据读取和计算、两个分别介绍了特殊文件格式设计和计算并行架构设计。我们也使用我们在前几章中学习到的模型计算图编译优化技术来优化用户的数据预处理计算图，以进一步的达到更高的数据处理吞吐率。机器学习场景中模型对数据输入顺序敏感，于是衍生出来保序性这一特殊性质，我们在本章中对此进行了分析并通过MindSpore中的Connector的特殊约束实现来展示真实系统实现中如何确保保序性。最后，我们也针对部分情况下单机CPU数据预处理性能的问题，介绍了当前基于异构处理加速的纵向扩展方案，和基于分布式数据预处理的横向扩展方案，我们相信读者学习了本章后能够对机器学习系统中的数据模块有深刻的认知，也对数据模块未来面临的挑战有所了解。</p>
-</div>
+</section>
 
 
         </div>
