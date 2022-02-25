@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -108,7 +109,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
@@ -129,7 +130,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
 </ul>
@@ -213,7 +214,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
@@ -234,7 +235,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
 </ul>
@@ -285,7 +286,7 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">7. </span>数据处理框架<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在前两个章节中，我们介绍了编译器前后端的相关内容，详细地阐述了源程序到目标程序的转换优化过程。除了让芯片在训练/推理过程中高性能地运行，我们还需要将数据高效地发送给芯片，以实现全流程的性能最优。机器学习模型训练和推理需要从存储设备（如本地磁盘和内存、远端的存储系统等）中加载数据集，对数据集进行一系列处理变换，将处理结果发送到到GPU或者华为昇腾Ascend等加速器中完成模型计算，该流程的任何一个步骤出现性能问题都会对训练和推理的吞吐率造成负面影响。本章我们将核心介绍如何设计、并实现一个面向机器学习场景的数据系统，以帮助用户轻松构建各种复杂的数据处理流水线(Data
 Pipeline)，同时我们的数据系统要有足够高的执行性能，以确保数据预处理步骤不会成为模型训练和推理的性能瓶颈。</p>
@@ -326,7 +327,7 @@ Pipeline)，同时我们的数据系统要有足够高的执行性能，以确�
 <li class="toctree-l1"><a class="reference internal" href="reference.html">7.7. 引用</a></li>
 </ul>
 </div>
-</div>
+</section>
 
 
         </div>
