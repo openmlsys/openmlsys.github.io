@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>5.4. 内存分配 {#sec:ch06/ch06-memory-pool} &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.5. 计算调度与执行" href="compute_schedule_and_execute.html" />
+    <link rel="prev" title="5.3. 算子选择" href="kernel_selecter.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">5. </span>编译器后端和运行时</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">5.4. </span>内存分配 {#sec:ch06/ch06-memory-pool}</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_compiler_backend_and_runtime/memory_allocator.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. 编译器后端和运行时</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_optimizer.html">5.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_selecter.html">5.3. 算子选择</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_hardware_accelerator/index.html">6. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_introduction.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_programming.html">6.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/summary.html">6.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">7. 框架拓展</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">10. 附录：机器学习介绍</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. 编译器后端和运行时</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_optimizer.html">5.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_selecter.html">5.3. 算子选择</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_hardware_accelerator/index.html">6. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_introduction.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_programming.html">6.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/summary.html">6.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">7. 框架拓展</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">10. 附录：机器学习介绍</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <section id="sec-ch06-ch06-memory-pool">
+<h1><span class="section-number">5.4. </span>内存分配 {#sec:ch06/ch06-memory-pool}<a class="headerlink" href="#sec-ch06-ch06-memory-pool" title="Permalink to this headline">¶</a></h1>
+<p>内存在传统计算机存储器层次结构中有着重要的地位，它是连接高速缓存和磁盘之间的桥
+梁，有着比高速缓存更大的空间，比磁盘更快的访问速度。随着深度学习的发展，深度神经网络的模型越来越复杂，AI芯片上的内存很可能无法容纳一个大型网络模型。因此，对内存进行复用是一个重要的优化手段。此外，通过连续内存分配和
+In-Place内存分配还可以提高某些算子的执行效率。</p>
+<section id="device">
+<h2><span class="section-number">5.4.1. </span>Device内存概念<a class="headerlink" href="#device" title="Permalink to this headline">¶</a></h2>
+<p>在深度学习体系结构中，我们通常将与硬件加速器（如GPU，AI芯片等）相邻的内存称之为设备(Device)内存，而与CPU相邻的内存称之为主机(Host)内存。如图:numref:<cite>host-device-memory</cite>所示，CPU可以合法地访问主机上的内存，而无法直接访问设备上的内存；同理，AI芯片可以访问设备上的内存，却无法访问主机上的内存。因此，在网络训练过程中，我们往往需要从磁盘加载数据到主机内存中，然后在主机内存中做数据处理，再从主机内存拷贝到设备内存中，最后设备才能合法地访问数据。算子全部计算完成后，用户要获取训练结果，又需要把数据从设备内存拷贝到主机内存中。</p>
+<figure class="align-default" id="id6">
+<span id="id1"></span><span id="host-device-memory"></span><a class="reference internal image-reference" href="../_images/host-device-memory.png"><img alt="../_images/host-device-memory.png" src="../_images/host-device-memory.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.1 </span><span class="caption-text">主机内存和设备内存</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id2">
+<h2><span class="section-number">5.4.2. </span>内存分配<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>内存分配模块主要负责给图中算子的输入、输出分配Device内存。用户的前端脚本经过编译器前端处理后得到中间表达，后端根据中间表达进行算子选择和相关优化，可以得到算子最终的输入输出Tensor的形状、数据类型(Data
+Type)、格式(Format)等信息，根据这些信息我们可以计算出算子输入、输出Tensor的尺寸大小。基本的计算方法为:</p>
+<div class="math notranslate nohighlight" id="equation-chapter-compiler-backend-and-runtime-memory-allocator-0">
+<span class="eqno">(5.4.1)<a class="headerlink" href="#equation-chapter-compiler-backend-and-runtime-memory-allocator-0" title="Permalink to this equation">¶</a></span>\[size=\prod_{i=0}^{dimention}shape_i * sizeof\left ( data type \right )\]</div>
+<p>得到Tensor的尺寸大小后，往往还需要对内存大小进行对齐操作。内存通常以4字节、8字节或16字节为一组进行访问，如果被搬运的内存大小不是这些值的倍数，内存后面会填充相应数量的空数据以使得内存长度达到这些值的倍数。因此，访问非对齐的内存可能会更加耗时。</p>
+<figure class="align-default" id="id7">
+<span id="memory-allocate"></span><a class="reference internal image-reference" href="../_images/memory_allocate.png"><img alt="../_images/memory_allocate.png" src="../_images/memory_allocate.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.2 </span><span class="caption-text">内存分配示例</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>下面以图:numref:<cite>memory_allocate</cite>为例介绍内存分配的大致流程。首先我们会给Input
+Tensor、Conv2D的权重和Conv2D的输出分配内存地址。然后为BatchNorm的输入分配地址时，我们发现BatchNorm的输入就是Conv2D算子的输出，而该Tensor的地址已经在之前分配过了，因此只需要将Conv2D算子的输出地址共享给BatchNorm的输入，就可以避免内存的重复申请以及内存的冗余拷贝。以此类推，可以发现整个过程中可以将待分配的内存分成三种类型：一是整张图的输入Tensor，二是算子的权重或者属性，三是算子的输出Tensor，三种Tensor在训练过程中的生命周期有所不同。</p>
+<p>在CPU上我们常常使用malloc函数直接申请内存，这种方式申请内存好处是随时申请随时释放，简单易用。然而在许多对性能要求严苛的计算场景中，由于所申请内存块的大小不定，频繁申请释放会降低性能。通常我们会使用内存池的方式去管理内存，先申请一定数量和大小的内存块留作备用，当程序有内存申请需求时，直接从内存池中的内存块中申请。当程序释放该内存块时，内存池会进行回收并用作后续程序内存申请时使用。
+在深度学习框架中，Device内存的申请也是非常频繁的，往往也是通过内存池的方式去管理Device内存，并让Device内存的生命周期与Tensor的生命周期保持一致。不同的深度学习框架在内存池的设计上大同小异，我们以图:numref:<cite>device_malloc</cite>的MindSpore框架内存申请为例，进程会从Device上申请足够大的内存，然后通过双游标从两端偏移为Tensor分配内存。首先从申请的首地址开始进行偏移，为算子权重的Tensor分配内存，这部分Tensor生命周期较长，往往持续整个训练过程。然后从申请Device地址的末尾开始偏移，为算子的输出Tensor分配内存，这部分内存的生命周期较短，往往在该算子计算结束并且后续计算过程中无需使用再次使用该算子的输出的情况下，其生命周期就可以结束。通过这种方式，我们只需要从Device上申请一次足够大的内存，后续算子的内存分配都是通过指针偏移进行分配，减少了直接从设备申请内存的耗时。</p>
+<figure class="align-default" id="id8">
+<span id="device-malloc"></span><a class="reference internal image-reference" href="../_images/device_malloc.png"><img alt="../_images/device_malloc.png" src="../_images/device_malloc.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.3 </span><span class="caption-text">双游标法分配内存</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id3">
+<h2><span class="section-number">5.4.3. </span>内存复用<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>在机器学习系统中，内存复用是指分析Tensor的生命周期，将生命周期结束的Tensor的Device内存释放回内存池并用于后续Tensor的内存分配。内存复用的目的是提高内存的利用率，让有限的设备内存容纳更大的模型。
+以图:numref:<cite>memory_allocate</cite>为例，当BatchNorm算子计算结束后，output1不再被任何算子使用，则该Tensor的Device内存可以被回收，并且如果output1的内存尺寸大于等于output3的内存尺寸，则从output1回收的地址可以用于output3的内存分配，从而达到复用output1地址的目的。</p>
+<figure class="align-default" id="id9">
+<span id="combine-memory-reuse-and-no-reuse"></span><a class="reference internal image-reference" href="../_images/combine_memory_reuse_and_no_reuse.png"><img alt="../_images/combine_memory_reuse_and_no_reuse.png" src="../_images/combine_memory_reuse_and_no_reuse.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.4 </span><span class="caption-text">内存生命周期图</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>为了更好地描述内存复用问题，我们通过内存生命周期图来辅助理解。如图:numref:<cite>combine_memory_reuse_and_no_reuse</cite>所示，图中横坐标表示Tensor的生命周期，图中纵坐标表示内存大小。在生命周期内，某一个Tensor将一直占用某块Device内存，直至生命周期结束才会释放相应内存块。通过Tensor生命周期和内存大小可以构造出矩形块，而内存分配要求解的目标是在内存生命周期图中容纳更多的矩形块，问题的约束是矩形块之间无碰撞。图:numref:<cite>combine_memory_reuse_and_no_reuse</cite>左边是在未使用任何内存复用策略的情况下的内存生命周期图，此时内存同时只能容纳T0、T1、T2、T3四个Tensor。</p>
+<p>内存复用策略的求解是一个NP完全的问题。许多深度学习框架通常采用贪心的策略去分配内存，例如采用BestFit算法，每次直接从内存池中选取可以满足条件的最小内存块，然而这种贪心的策略往往会陷入局部最优解，而无法求得全局最优解。为了更好地逼近内存分配策略全局最优解，MindSpore框架提出了一种新的内存分配算法
+SOMAS(Safe Optimized Memory Allocation
+Solver)。SOMAS将计算图并行流与数据依赖进行聚合分析，得到算子间祖先关系，构建张量全局生命周期互斥约束，使用多种启发式算法求解最优的内存静态规划，实现逼近理论极限的内存复用，从而提升支持的内存大小。</p>
+<p>由图:numref:<cite>combine_memory_reuse_and_no_reuse</cite>右边可知，经过SOMAS求解之后，同样的内存大小，可支持的Tensor数量达到了7个。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">5.4.4. </span>常见的内存分配优化手段<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<section id="id5">
+<h3><span class="section-number">5.4.4.1. </span>内存融合<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>上述内存分配的方式，都是以单个Tensor的维度去分配的，每个Tensor分配到的Device地址往往是离散的。但是对于某些特殊的算子，如AllReduce通信算子，我们需要为它们分配连续的内存。通信算子的执行包含通信等待、数据搬移、计算等步骤，而在大规模分布式集群的场景下，通信的耗时往往是性能瓶颈。针对这种场景，我们可以将多个通信算子融合成一个，为通信算子的输入分配连续的内存，从而减少通信的次数。
+又比如分布式训练中的神经网络权重初始化，通常将一个训练进程中的权重初始化，然后将该权重广播到其他进程中。当一个网络有较多权重的时候，需要多次进行广播。通常可以为所有权重分配连续的内存地址，然后广播一次，节省大量通信的耗时。</p>
+<figure class="align-default" id="id10">
+<span id="memory-fusion"></span><a class="reference internal image-reference" href="../_images/memory_fusion.png"><img alt="../_images/memory_fusion.png" src="../_images/memory_fusion.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.5 </span><span class="caption-text">通信算子内存融合</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="in-place">
+<h3><span class="section-number">5.4.4.2. </span>In-Place算子<a class="headerlink" href="#in-place" title="Permalink to this headline">¶</a></h3>
+<p>在前面的内存分配流程中，我们会为每个算子的输入和输出都分配不同的内存。然而对很多算子而言，为其分配不同的输入和输出地址，会浪费内存并且影响计算性能。例如优化器算子，其计算的目的就是更新神经网络的权重;例如Python语法中的’+=‘和’*=‘操作符，将计算结果更新到符号左边的变量中;例如’a[0]=b’语法，将’a[0]’的值更新为’b’。诸如此类计算有一个特点，都是为了更新输入的值。下面以Tensor的’a[0]=b’操作为例介绍In-Place的优点。
+图:numref:<cite>inplace-op</cite>左边是非In-Place操作的实现，step1将Tensor
+a拷贝到Tensor a’，step2将Tensor b赋值给Tensor a’，step3将Tensor
+a’拷贝到Tensor
+a。图:numref:<cite>inplace-op</cite>右边是算子In-Place操作的实现，仅用一个步骤将Tensor
+b拷贝到Tensor
+a对于的位置上。对比两种实现，可以发现In-Place操作节省了两次拷贝的耗时，并且省去了Tensor
+a’内存的申请。</p>
+<figure class="align-default" id="id11">
+<span id="inplace-op"></span><a class="reference internal image-reference" href="../_images/inplace-op.png"><img alt="../_images/inplace-op.png" src="../_images/inplace-op.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.4.6 </span><span class="caption-text">In-Place算子内存分配</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>这节我们简单介绍了Device内存的概念，内存分配的流程，和一些优化内存分配的方法。内存分配是编译器后端的最重要部分之一，内存的合理分配，不仅关系到相同芯片上能否支持更大的网络模型，也关系到模型在硬件上的执行效率。</p>
+</section>
+</section>
+</section>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a><ul>
+<li><a class="reference internal" href="#device">5.4.1. Device内存概念</a></li>
+<li><a class="reference internal" href="#id2">5.4.2. 内存分配</a></li>
+<li><a class="reference internal" href="#id3">5.4.3. 内存复用</a></li>
+<li><a class="reference internal" href="#id4">5.4.4. 常见的内存分配优化手段</a><ul>
+<li><a class="reference internal" href="#id5">5.4.4.1. 内存融合</a></li>
+<li><a class="reference internal" href="#in-place">5.4.4.2. In-Place算子</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="kernel_selecter.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>5.3. 算子选择</div>
+         </div>
+     </a>
+     <a id="button-next" href="compute_schedule_and_execute.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>5.5. 计算调度与执行</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

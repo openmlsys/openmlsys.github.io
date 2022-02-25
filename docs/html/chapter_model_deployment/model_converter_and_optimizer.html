@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>8.2. 训练模型到推理模型的转换及优化 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8.3. 模型压缩" href="model_compression.html" />
+    <link rel="prev" title="8.1. 概述" href="model_deployment_introduction.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">8. </span>模型部署</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">8.2. </span>训练模型到推理模型的转换及优化</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_model_deployment/model_converter_and_optimizer.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">5. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_hardware_accelerator/index.html">6. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_introduction.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_programming.html">6.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/summary.html">6.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">8. 模型部署</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="model_deployment_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_compression.html">8.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_inference.html">8.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_security.html">8.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图的设计背景和作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">5. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配 {#sec:ch06/ch06-memory-pool}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_hardware_accelerator/index.html">6. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_introduction.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/accelerator_programming.html">6.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_hardware_accelerator/summary.html">6.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">8. 模型部署</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="model_deployment_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_compression.html">8.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_inference.html">8.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_security.html">8.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <section id="id1">
+<h1><span class="section-number">8.2. </span>训练模型到推理模型的转换及优化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<section id="id2">
+<h2><span class="section-number">8.2.1. </span>模型转换<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>前面我们提到过，不同的训练框架（Tensorflow、PyTorch、MindSpore、MXNet、CNTK等）都定义了自己的模型的数据结构，推理系统需要将它们转换到统一的一种数据结构上。Open
+Neural Network
+Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习运算符集合，并提供了不同训练框架的转换器，例如TensorFlow模型到ONNX模型的转换器、PyTorch模型到ONNX模型的转换器等。
+模型转换本质上是将模型这种结构化的数据，从一种数据结构转换为另一种数据结构的过程。进行模型转换首先要分析两种数据结构的异同点，然后针对结构相同的数据做搬运；对于结构相似的数据做一一映射；对于结构差异较大的数据则需要根据其语义做合理的数据转换；更进一步如果两种数据结构上存在不兼容，则模型转换无法进行。ONNX的一个优势就在于其强大的表达能力，从而大多数业界框架的模型都能够转换到ONNX的模型上来而不存在不兼容的情况.
+模型可以抽象为是一种图，从而模型的数据结构可以解构为以下两个要点： -
+模型拓扑表达：从图的角度来说，就是图的边；从模型的角度来说，就是模型中的数据流和控制流等，模型数据流和控制流的定义又可以引申出子图的表达形式、模型输入输出的表达形式、控制流结构的表达形式等。比如Tensorflow1.x中的控制流表达为一种有环图，通过Enter、Exit、Switch、LoopCond、NextIteration等算子来解决成环，而ONNX通过Loop，If等算子来表达控制流，从而避免引入了有环，所以在将Tensorflow1.x的控制流模型转化为ONNX模型时，需要将Tensorflow模型中的控制流图结构融合成ONNX的While或者If算子。
+-
+算子原型定义：从图的角度来说，就是图的顶点；从模型角度来说，就是模型中的数据处理节点或者控制流节点。算子原型包括但不限于算子类型、算子输入输出的定义、算子属性的定义等。比如Caffe的slice算子和ONNX的slice算子的语义其实是不一致的，Caffe的slice算子应该映射到ONNX的Split算子，所以在将Caffe模型转换成ONNX模型时，需要将Caffe的Slice算子映射到ONNX的Split算子。比如Tensorflow中的中的FusedBatchNorm算子在Caffe中找不到相同语义的算子，需要将Caffe的BatchNorm算子和Scale算子组合起来才能表达相同的语义。
+通常模型转换的过程也就是转换模型中的拓扑关系和映射模型中的算子原型。</p>
+<p>在完成模型转换之后，通常地，我们会将一些不依赖于输入的工作提前去完成。这些工作包括了如常量折叠、算子融合、算子替换、算子重排等一些优化手段。这些优化手段的概念在前面的章节其实已经提及到，比如在编译器前端阶段，通常也会做常量折叠；在编译器后端阶段，通常会根据后端的硬件支持程度，对算子进行融合和拆分。但是有些优化工作只有在部署阶段才能进行或者彻底进行。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">8.2.2. </span>算子融合<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">label</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">sec:ch09/ch09-fusion</span></code></p>
+</dd>
+</dl>
+<p>算子融合，就是将深度神经网络模型中的多个算子，按照一定的规则，合并成一个新的算子。通过算子融合，可以减少模型在线推理时的计算量、访存开销，从而降低推理时的时延和功耗。</p>
+<figure class="align-default" id="id6">
+<a class="reference internal image-reference" href="../_images/ch09-storage.png"><img alt="../_images/ch09-storage.png" src="../_images/ch09-storage.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图8.2.1 </span><span class="caption-text">计算机分层存储架构</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>:label:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-fusion-storage</span></code></p>
+<p>算子融合带来的性能上的收益主要来自两个方面，一是通过融合，充分利用寄存器和缓存，避免多个算子运算时，数据在CPU和内存之间的存储和读取的耗时。如图
+:numref:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-fusion-storage</span></code>，可以看到计算机的储存系统，从最靠近cpu的寄存器L1、L2等多级缓存，到内存、硬盘，其存储的容量越来越大，但读取数据的耗时也越来越大。融合后，前一次计算的结果可以先暂存在CPU的寄存器(Register)或者缓存（Cache）中，下一次计算直接从寄存器或者缓存中读取，减少了内存读写的IO次数。二是通过融合，可以将一些计算量提前完成，避免了前向推理时的冗余计算或者循环冗余计算。</p>
+<figure class="align-default" id="id7">
+<a class="reference internal image-reference" href="../_images/ch09-conv-bn-fusion.png"><img alt="../_images/ch09-conv-bn-fusion.png" src="../_images/ch09-conv-bn-fusion.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图8.2.2 </span><span class="caption-text">Convolution + Batchnorm算子融合</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>:label:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-conv-bn-fusion</span></code></p>
+<p>如图
+:numref:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-conv-bn-fusion</span></code>，我们以Convolution算子和Batchnorm算子的融合为例，阐述算子融合的基本原理，图中蓝色框表示算子，黄色框表示融合后新增或者改变的算子，白色框表示算子中的权重或者常数张量。其融合的过程是一个计算表达式简化的过程，Convolution算子的计算过程可以等效为一个矩阵乘，其公式可以表达为
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-conv-equation</span></code>。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-0">
+<span class="eqno">(8.2.1)<a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-0" title="Permalink to this equation">¶</a></span>\[\label{equ:ch09-conv-equation}
+\bm{Y_{conv}}=\bm{W_{conv}}*\bm{X_{conv}}+\bm{B_{conv}}\]</div>
+<p>这里我们不需要理解公式
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-conv-equation</span></code>中每个变量的含义，只需要注意到一点，该公式是<span class="math notranslate nohighlight">\(\bm{Y_{conv}}\)</span>关于<span class="math notranslate nohighlight">\(\bm{X_{conv}}\)</span>的，其他符号均表示常量。</p>
+<p>Batchnorm算子的计算过程如公式 :numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-bn-equation</span></code>所示。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-1">
+<span class="eqno">(8.2.2)<a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-1" title="Permalink to this equation">¶</a></span>\[\label{equ:ch09-bn-equation}
+\bm{Y_{bn}}=\gamma\frac{\bm{X_{bn}}-\mu_{\mathcal{B}}}{\sqrt{{\sigma_{\mathcal{B}}}^{2}+\epsilon}}+\beta\]</div>
+<p>同样，这里我们不需要理解batchnorm中的所有参数的含义，只需要了解公式
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-bn-equation</span></code>是<span class="math notranslate nohighlight">\(\bm{Y_{bn}}\)</span>关于<span class="math notranslate nohighlight">\(\bm{X_{bn}}\)</span>的，其他符号均表示常量。</p>
+<p>如图
+:numref:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-conv-bn-fusion</span></code>，当Convlution算子的输出作为Batchnorm输入时，最终Batchnorm算子的计算公式也就是要求<span class="math notranslate nohighlight">\(\bm{Y_{bn}}\)</span>关于<span class="math notranslate nohighlight">\(\bm{X_{conv}}\)</span>的计算公式，我们将<span class="math notranslate nohighlight">\(\bm{Y_{conv}}\)</span>代入到<span class="math notranslate nohighlight">\(\bm{X_{bn}}\)</span>，然后将常数项合并提取后，可以得到公式
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-conv-bn-equation-3</span></code>。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-2">
+<span class="eqno">(8.2.3)<a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-2" title="Permalink to this equation">¶</a></span>\[\label{equ:ch09-conv-bn-equation-3}
+\bm{Y_{bn}}=\bm{A}*\bm{X_{conv}}+\bm{B}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(\bm{A}\)</span>和<span class="math notranslate nohighlight">\(\bm{B}\)</span>为两个矩阵。可以看到,公式
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-conv-bn-equation-3</span></code>其实就是一个Convolution的计算公式。这个结果表明，在模型部署时，我们可以将Convolution和Batchnorm两个算子的计算等价为一个Convolution算子。我们将上述以计算公式的合并和简化为基础的算子融合称为计算公式融合。</p>
+<p>在Convolution算子和Batchnorm算子融合的前后，网络结构相当于减少了一个Batchnorm算子，相应的网络中的参数量和网络所需的计算量都减少了；同时由于算子数量的减少，访存次数也相应地减少了。综合来看，该融合Pattern优化了模型部署时的功耗、性能，同时对于模型的体积大小也有少许收益。</p>
+<p>在融合过程中，Convolution计算公式和Batchnorm计算公式中被认为是常量的符号在训练时均为参数，并不是常量。训练阶段如果进行该融合会导致模型参数的缺失。从该融合Pattern的结果来看，融合后网络中减少了一个Batchnorm算子，减少了一个Batchnorm算子的参数量，其实就是改变了深度神经网络的算法，会影响到网络的准确率，这是不可接受的。所以Convolution算子与Batchnorm算子的融合一般是在部署阶段特有的一种优化手段，其优化效果我们以MinsSpore
+Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络，分别以样例网络和mobilenet-v2网络为例，在华为Mate30手机上，以两线程运行模型推理，取3000轮推理的平均时耗作为模型推理性能的指标，对比融合前后该指标的变化。从表
+:numref:<code class="docutils literal notranslate"><span class="pre">tab:ch09/ch09-conv-bn-fusion</span></code>可以看到，对于sample网络和mobilenet-v2网络，融合后分别获得了8.5%和11.7%的推理性能提升，这个性能提升非常可观。并且这个性能提升没有带来任何的副作用，也没有对于硬件或算子库的提出额外要求。</p>
+<p>Convolution + Batchnorm融合前后推理性能（单位：ms）</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表8.2.1 </span><span class="caption-text">label: <code class="docutils literal notranslate"><span class="pre">tab:ch09/ch09-conv-bn-fusion</span></code></span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 19%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>sample</p></th>
+<th class="head"><p>mobilenet-v2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>before fusion</p></td>
+<td><p>0.035</p></td>
+<td><p>15.415</p></td>
+</tr>
+<tr class="row-odd"><td><p>after fusion</p></td>
+<td><p>0.031</p></td>
+<td><p>13.606</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h2><span class="section-number">8.2.3. </span>算子替换<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>算子替换，即将模型中某些算子替换计算逻辑一致但对于在线部署更友好的算子。算子替换的原理是通过合并同类项、提取公因式等数学方法，将算子的计算公式加以简化，并将简化后的计算公式映射到某类算子上。算子替换可以达到降低计算量、降低模型大小的效果。</p>
+<figure class="align-default" id="id9">
+<a class="reference internal image-reference" href="../_images/ch09-bn-replace.png"><img alt="../_images/ch09-bn-replace.png" src="../_images/ch09-bn-replace.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图8.2.3 </span><span class="caption-text">Batchnorm算子替换</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>:label:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-bn-replace</span></code></p>
+<p>如图
+:numref:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-bn-replace</span></code>，我们以Batchnorm算子替换成Scale算子为例，阐述算子替换的原理。我们直接将Batchnorm的计算公式
+:numref:<code class="docutils literal notranslate"><span class="pre">equ:ch09-replace-scale</span></code>进行分解，并将常量合并简化，Batchnorm的计算公式可以写成：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-3">
+<span class="eqno">(8.2.4)<a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-3" title="Permalink to this equation">¶</a></span>\[\label{equ:ch09-replace-scale}
+\bm{Y_{bn}}=scale*\bm{X_{bn}}+offset\]</div>
+<p>其中scale和offset为两个标量。可以看到，计算公式简化后，我们可以将其映射到一个Scale算子。</p>
+<p>在Batchnorm算子被替换为Scale算子的前后，网络中的参数量、计算量都减少了，该算子替换策略可以优化模型部署时的功耗和性能。同理，该算子替换优化策略只能在部署阶段才能进行，因为一方面在部署阶段Batchnorm计算公式中被认为是常量的符号，在训练时是参数并非常量。另一方面该优化策略会降低模型的参数量，改变模型的结构，降低模型的表达能力，影响训练收敛时模型的准确率。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">8.2.4. </span>算子重排<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>算子重排是指将模型中算子的拓扑序按照某些规则进行重新排布，在不降低模型的推理精度的前提下，降低模型推理的计算量。常用的算子重排技术有针对于Slice算子、StrideSlice算子、Crop算子等裁切类算子的前移、Reshape算子和Transpose算子的重排、BinaryOp算子的重排等。</p>
+<figure class="align-default" id="id10">
+<a class="reference internal image-reference" href="../_images/ch09-crop-reorder.png"><img alt="../_images/ch09-crop-reorder.png" src="../_images/ch09-crop-reorder.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图8.2.4 </span><span class="caption-text">Crop算子重排</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>:label:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-crop-reorder</span></code></p>
+<p>如图 :numref:<code class="docutils literal notranslate"><span class="pre">fig:ch09/ch09-crop-reorder</span></code>，Crop算子是从输入的feature
+map中裁取一部分作为输出，经过Crop算子后，feature
+map的size就降低了。如果我们将这个裁切的过程前移，提前对feature
+map进行裁切，那么后续算子的计算量也会相应地减少，从而提高模型部署时的推理性能。Crop算子前移带来的性能提升跟Crop算子的参数有关。但是Crop算子一般只能沿着的element
+wise类算子前移。</p>
+<p>通过前面的实验数据我们可以看到，通过推理前的模型优化，可以为推理的时延、功耗、内存占用带来极大的收益。</p>
+</section>
+</section>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">8.2. 训练模型到推理模型的转换及优化</a><ul>
+<li><a class="reference internal" href="#id2">8.2.1. 模型转换</a></li>
+<li><a class="reference internal" href="#id3">8.2.2. 算子融合</a></li>
+<li><a class="reference internal" href="#id4">8.2.3. 算子替换</a></li>
+<li><a class="reference internal" href="#id5">8.2.4. 算子重排</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="model_deployment_introduction.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>8.1. 概述</div>
+         </div>
+     </a>
+     <a id="button-next" href="model_compression.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>8.3. 模型压缩</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>
