@@ -162,17 +162,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">9. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">11.1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">11.2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">11.3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
 </ul>
@@ -271,17 +271,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">9. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">11.1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">11.2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">11.3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
 </ul>
@@ -308,8 +308,8 @@ ReLU，Element-Wise Sum等。
 在典型的深度学习模型中，一般计算密集型和访存密集型算子是相伴出现的，最简单的例子是”Conv
 +
 ReLU”。Conv卷积算子是计算密集型，ReLU算子是访存密集型算子，ReLU算子可以直接取Conv算子的计算结果进行计算，因此我们可以将二者融合成一个算子来进行计算，从而减少内存访问延时和带宽压力，提高执行效率。</p>
-<p>例如:“Conv + Conv + Sum +
-ReLU”的融合,从图:numref:<cite>conv_sum_relu</cite>中我们可以看到融合后的算子减少了两个内存的读和写的操作，优化了Conv的输出和Sum的输出的读和写的操作。</p>
+<p>例如:“Conv + Conv + Sum + ReLU”的融合,从图
+<a class="reference internal" href="#conv-sum-relu"><span class="std std-numref">图5.2.1</span></a>中我们可以看到融合后的算子减少了两个内存的读和写的操作，优化了Conv的输出和Sum的输出的读和写的操作。</p>
 <figure class="align-default" id="id4">
 <span id="conv-sum-relu"></span><a class="reference internal image-reference" href="../_images/conv_sum_relu.png"><img alt="../_images/conv_sum_relu.png" src="../_images/conv_sum_relu.png" style="width: 800px;" /></a>
 <figcaption>
@@ -325,7 +325,8 @@ MindSpore
 <p><span class="caption-number">图5.2.2 </span><span class="caption-text">图算融合</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>图:numref:<cite>graph_kernel</cite>中，算子拆解阶段（Expander）将计算图中一些复杂算子（composite
+<p>图
+<a class="reference internal" href="#graph-kernel"><span class="std std-numref">图5.2.2</span></a>中，算子拆解阶段（Expander）将计算图中一些复杂算子（composite
 op, 图中Op1、Op3、Op4）展开为计算等价的基本算子组合（
 图中虚线正方形框包围着的部分）；在算子聚合阶段（Aggregation），将计算图中将基本算子（basic
 op, 如图中Op2）、拆解后的算子(expanded
@@ -340,7 +341,8 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 <h2><span class="section-number">5.2.2. </span>特定硬件优化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>特定硬件优化是指该计算图的优化是在特定硬件上才能做的优化，常见的基于硬件的优化包括由于硬件指令的限制而做的优化，特定硬件存储格式导致的优化等。</p>
 <p>1、硬件指令限制</p>
-<p>在一些特定的硬件上，IR中计算节点没有直接对应的硬件算子,只能通过子图的变换来达到子图中所有算子在对应的硬件上的存在。例如在MindSpore中,昇腾芯片上的Concat算子,只支持有限的输入个数（63个）,因此当前端IR上的输入个数大于限制输入的时候,需要将该计算节点拆分成等价的多个Concat节点,如图:numref:<cite>concat</cite>所示:
+<p>在一些特定的硬件上，IR中计算节点没有直接对应的硬件算子,只能通过子图的变换来达到子图中所有算子在对应的硬件上的存在。例如在MindSpore中,昇腾芯片上的Concat算子,只支持有限的输入个数（63个）,因此当前端IR上的输入个数大于限制输入的时候,需要将该计算节点拆分成等价的多个Concat节点,如图
+<a class="reference internal" href="#concat"><span class="std std-numref">图5.2.3</span></a>所示:
 当Concat有100个输入时，单个算子只支持最多63个输入，此时会将该计算节点拆分成两个Concat节点，分别为63个输入和37个输入的两个算子。</p>
 <figure class="align-default" id="id6">
 <span id="concat"></span><a class="reference internal image-reference" href="../_images/concat.png"><img alt="../_images/concat.png" src="../_images/concat.png" style="width: 800px;" /></a>
@@ -349,7 +351,8 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 </figcaption>
 </figure>
 <p>2、数据排布格式的限制</p>
-<p>针对不同特点的计算平台和不同的算子，为了追求最好的性能，一般都需要选择不同的数据排布格式(Format)，而这些排布格式可能跟框架缺省的排布格式是不一样的。在这种情况下，一般的做法是算子在执行完成后对输出插入一个格式转换操作，把排布格式转换回框架的缺省排布格式，这就引入了额外的内存操作。以下图:numref:<cite>transdata</cite>为例，在昇腾平台上Conv算子在输入和输出的内存排布为5HD时是性能最优的，所以可以看到Conv算子输出结果的格式是5HD，然后通过一个转换操作转回了框架缺省的NCHW，紧接着，后面又是一个Conv算子，它需要5HD的输入，所以又做了一个NCHW到5HD的转换。我们很容易看出，虚线框内的两个转换操作互为逆操作，可以相互抵消。通过对计算图的模式匹配,可以将该类型的操作消除。</p>
+<p>针对不同特点的计算平台和不同的算子，为了追求最好的性能，一般都需要选择不同的数据排布格式(Format)，而这些排布格式可能跟框架缺省的排布格式是不一样的。在这种情况下，一般的做法是算子在执行完成后对输出插入一个格式转换操作，把排布格式转换回框架的缺省排布格式，这就引入了额外的内存操作。以下图
+<a class="reference internal" href="#transdata"><span class="std std-numref">图5.2.4</span></a>为例，在昇腾平台上Conv算子在输入和输出的内存排布为5HD时是性能最优的，所以可以看到Conv算子输出结果的格式是5HD，然后通过一个转换操作转回了框架缺省的NCHW，紧接着，后面又是一个Conv算子，它需要5HD的输入，所以又做了一个NCHW到5HD的转换。我们很容易看出，虚线框内的两个转换操作互为逆操作，可以相互抵消。通过对计算图的模式匹配,可以将该类型的操作消除。</p>
 <figure class="align-default" id="id7">
 <span id="transdata"></span><a class="reference internal image-reference" href="../_images/transdata.png"><img alt="../_images/transdata.png" src="../_images/transdata.png" style="width: 800px;" /></a>
 <figcaption>
