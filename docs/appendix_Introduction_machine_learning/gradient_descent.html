@@ -163,11 +163,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">9.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">9.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">9.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">9.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">9.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 附录：机器学习介绍</a><ul class="current">
@@ -272,11 +278,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">9.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">9.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">9.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">9.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">9.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 附录：机器学习介绍</a><ul class="current">
@@ -302,7 +314,7 @@ Show Source
 Function）来作为训练优化的一个方向。
 常见的损失函数有：1）用来衡量向量之间距离的均方误差(Mean Squared
 Error，MSE)
-<span class="math notranslate nohighlight">\(\mathcal{L} = \frac{1}{N}\|\bm{y}-\hat{\bm{y}}\|^{2}_{2} = \frac{1}{N}\sum_{i=1}^N(y_{i}-\hat{y}_{i})^{2}\)</span>
+<span class="math notranslate nohighlight">\(\mathcal{L} = \frac{1}{N}\|{y}-\hat{{y}}\|^{2}_{2} = \frac{1}{N}\sum_{i=1}^N(y_{i}-\hat{y}_{i})^{2}\)</span>
 和 平均绝对误差(Mean Absolute Error，MAE)
 <span class="math notranslate nohighlight">\(\mathcal{L} = \frac{1}{N}\sum_{i=1}^{N}|y_{i}-\hat{y}_{i}|\)</span>
 ，其中<span class="math notranslate nohighlight">\(N\)</span>代表数据样本的数量，用以求平均用，而<span class="math notranslate nohighlight">\(y\)</span>代表真实标签（Ground
@@ -311,67 +323,66 @@ Truth）、<span class="math notranslate nohighlight">\(\hat{y}\)</span>代表�
 <span class="math notranslate nohighlight">\(\mathcal{L} = - \frac{1}{N} \sum_{i=1}^N \bigg(y_{i}\log\hat{y}_{i} + (1 - y_{i})\log(1 - \hat{y}_{i})\bigg)\)</span>来作为损失数，当且仅当输出标签和预测标签一样的时候损失值才为零。</p>
 <p>有了损失值之后，我们就可以利用大量真实标签的数据和优化方法来更新模型参数了，其中最常用的方法是<strong>梯度下降</strong>（Gradient
 Descent）。如 <a class="reference internal" href="#gradient-descent2"><span class="std std-numref">图2.1</span></a>所示，
-开始的时候，模型的参数<span class="math notranslate nohighlight">\(\bm{w}\)</span>是随机选取的，然后求出损失值对参数的偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{w}}\)</span>，通过反复迭代
-<span class="math notranslate nohighlight">\(\bm{w}:=\bm{w}-\alpha\frac{\partial \mathcal{L}}{\partial \bm{w}}\)</span>完成优化。这个优化的过程其实就可以降低损失值以达到任务目标，其中<span class="math notranslate nohighlight">\(\alpha\)</span>是控制优化幅度的<strong>学习率</strong>（Learning
+开始的时候，模型的参数<span class="math notranslate nohighlight">\({w}\)</span>是随机选取的，然后求出损失值对参数的偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {w}}\)</span>，通过反复迭代
+<span class="math notranslate nohighlight">\({w}:={w}-\alpha\frac{\partial \mathcal{L}}{\partial {w}}\)</span>完成优化。这个优化的过程其实就可以降低损失值以达到任务目标，其中<span class="math notranslate nohighlight">\(\alpha\)</span>是控制优化幅度的<strong>学习率</strong>（Learning
 Rate）。
 在实践中，梯度下降最终得到的最小值很大可能是一个局部最小值，而不是全局最小值。不过由于深度神经网络能提供一个很强的数据表达能力，所以局部最小值可以很接近全局最小值，损失值可以足够小。</p>
 <figure class="align-default" id="id2">
 <span id="gradient-descent2"></span><a class="reference internal image-reference" href="../_images/gradient_descent2.png"><img alt="../_images/gradient_descent2.png" src="../_images/gradient_descent2.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">图2.1 </span><span class="caption-text">梯度下降介绍。（左图）只有一个可以训练的参数<span class="math notranslate nohighlight">\(w\)</span>；（右图）有两个可以训练的参数<span class="math notranslate nohighlight">\(\bm{w}=[w_1,w_2]\)</span>。在不断更新迭代参数后，损失值<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图2.1 </span><span class="caption-text">梯度下降介绍。（左图）只有一个可以训练的参数<span class="math notranslate nohighlight">\(w\)</span>；（右图）有两个可以训练的参数<span class="math notranslate nohighlight">\({w}=[w_1,w_2]\)</span>。在不断更新迭代参数后，损失值<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>那么接下来，在深度神经网络中如何实现梯度下降呢，这需要计算出网络中每层参数的偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{w}}\)</span>，我们可以用<strong>反向传播</strong>（Back-Propagation）[&#64;rumelhart1986learning;
+<p>那么接下来，在深度神经网络中如何实现梯度下降呢，这需要计算出网络中每层参数的偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {w}}\)</span>，我们可以用<strong>反向传播</strong>（Back-Propagation）[&#64;rumelhart1986learning;
 &#64;lecun2015deep]来实现。 接下来，
-我们引入一个中间量<span class="math notranslate nohighlight">\(\bm{\delta}=\frac{\partial \mathcal{L}}{\partial \bm{z}}\)</span>来表示损失函数<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>
-对于神经网络输出<span class="math notranslate nohighlight">\(\bm{z}\)</span>（未经过激活函数，不是<span class="math notranslate nohighlight">\(a\)</span>）的偏导数，
-并最终得到<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{w}}\)</span>。</p>
+我们引入一个中间量<span class="math notranslate nohighlight">\({\delta}=\frac{\partial \mathcal{L}}{\partial {z}}\)</span>来表示损失函数<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>
+对于神经网络输出<span class="math notranslate nohighlight">\({z}\)</span>（未经过激活函数，不是<span class="math notranslate nohighlight">\(a\)</span>）的偏导数，
+并最终得到<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {w}}\)</span>。</p>
 <p>我们下面用一个例子来介绍反向传播算法，
 我们设层序号为<span class="math notranslate nohighlight">\(l=1, 2, \ldots L\)</span>（输出层（最后一层）序号为<span class="math notranslate nohighlight">\(L\)</span>）。
-对于每个网络层，我们有输出<span class="math notranslate nohighlight">\(\bm{z}^l\)</span>，中间值<span class="math notranslate nohighlight">\(\bm{\delta}^l=\frac{\partial \mathcal{L}}{\partial \bm{z}^l}\)</span>和一个激活值输出<span class="math notranslate nohighlight">\(\bm{a}^l=f(\bm{z}^l)\)</span>
+对于每个网络层，我们有输出<span class="math notranslate nohighlight">\({z}^l\)</span>，中间值<span class="math notranslate nohighlight">\({\delta}^l=\frac{\partial \mathcal{L}}{\partial {z}^l}\)</span>和一个激活值输出<span class="math notranslate nohighlight">\({a}^l=f({z}^l)\)</span>
 （其中<span class="math notranslate nohighlight">\(f\)</span>为激活函数）。
 我们假设模型是使用Sigmoid激活函数的多层感知器，损失函数是均方误差（MSE）。也就是说，我们设定：</p>
 <ul class="simple">
-<li><p>网络结构<span class="math notranslate nohighlight">\(\bm{z}^{l}=\bm{W}^{l}\bm{a}^{l-1}+\bm{b}^{l}\)</span></p></li>
-<li><p>激活函数<span class="math notranslate nohighlight">\(\bm{a}^l=f(\bm{z}^l)=\frac{1}{1+{\rm e}^{-\bm{z}^l}}\)</span></p></li>
-<li><p>损失函数<span class="math notranslate nohighlight">\(\mathcal{L}=\frac{1}{2}\|\bm{y}-\bm{a}^{L}\|^2_2\)</span></p></li>
+<li><p>网络结构<span class="math notranslate nohighlight">\({z}^{l}={W}^{l}{a}^{l-1}+{b}^{l}\)</span></p></li>
+<li><p>激活函数<span class="math notranslate nohighlight">\({a}^l=f({z}^l)=\frac{1}{1+{\rm e}^{-{z}^l}}\)</span></p></li>
+<li><p>损失函数<span class="math notranslate nohighlight">\(\mathcal{L}=\frac{1}{2}\|{y}-{a}^{L}\|^2_2\)</span></p></li>
 </ul>
 <p>我们可以直接算出激活输出对于原输出的偏导数：</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\frac{\partial \bm{a}^l}{\partial \bm{z}^l}=f'(\bm{z}^l)=f(\bm{z}^l)(1-f(\bm{z}^l))=\bm{a}^l(1-\bm{a}^l)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial {a}^l}{\partial {z}^l}=f'({z}^l)=f({z}^l)(1-f({z}^l))={a}^l(1-{a}^l)\)</span></p></li>
 </ul>
 <p>和损失函数对于激活输出的偏导数：</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{a}^{L}}=(\bm{a}^{L}-\bm{y})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {a}^{L}}=({a}^{L}-{y})\)</span></p></li>
 </ul>
 <p>有了这些后，为了进一步得到损失函数对于每一个参数的偏导数，可以使用<strong>链式法则</strong>（Chain
 Rule），细节如下：</p>
 <p>首先，从输出层（<span class="math notranslate nohighlight">\(l=L\)</span>，最后一层）开始向后方传播误差，根据链式法则，我们先计算输出层的中间量：</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\bm{\delta}^{L} =\frac{\partial \mathcal{L}}{\partial \bm{z}^{L}} =\frac{\partial \mathcal{L}}{\partial \bm{a}^{L}}\frac{\partial \bm{a}^L}{\partial \bm{z}^{L}}=(\bm{a}^L-\bm{y})\odot(\bm{a}^L(1-\bm{a}^L))\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({\delta}^{L} =\frac{\partial \mathcal{L}}{\partial {z}^{L}} =\frac{\partial \mathcal{L}}{\partial {a}^{L}}\frac{\partial {a}^L}{\partial {z}^{L}}=({a}^L-{y})\odot({a}^L(1-{a}^L))\)</span></p></li>
 </ul>
-<p>除了输出层（<span class="math notranslate nohighlight">\(l=L\)</span>）的中间值<span class="math notranslate nohighlight">\(\bm{\delta}^{L}\)</span>，其他层（<span class="math notranslate nohighlight">\(l=1, 2, \ldots , L-1\)</span>）的中间值<span class="math notranslate nohighlight">\(\bm{\delta}^{l}\)</span>如何计算呢？</p>
+<p>除了输出层（<span class="math notranslate nohighlight">\(l=L\)</span>）的中间值<span class="math notranslate nohighlight">\({\delta}^{L}\)</span>，其他层（<span class="math notranslate nohighlight">\(l=1, 2, \ldots , L-1\)</span>）的中间值<span class="math notranslate nohighlight">\({\delta}^{l}\)</span>如何计算呢？</p>
 <ul class="simple">
-<li><p>已知模型结构<span class="math notranslate nohighlight">\(\bm{z}^{l+1}=\bm{W}^{l+1}\bm{a}^{l}+\bm{b}^{l+1}\)</span>，我们可以直接得到<span class="math notranslate nohighlight">\(\frac{\partial \bm{z}^{l+1}}{\partial \bm{a}^{l}}=\bm{W}^{l+1}\)</span>；而且我们已知<span class="math notranslate nohighlight">\(\frac{\partial \bm{a}^l}{\partial \bm{z}^l}=\bm{a}^l(1-\bm{a}^l)\)</span></p></li>
+<li><p>已知模型结构<span class="math notranslate nohighlight">\({z}^{l+1}={W}^{l+1}{a}^{l}+{b}^{l+1}\)</span>，我们可以直接得到<span class="math notranslate nohighlight">\(\frac{\partial {z}^{l+1}}{\partial {a}^{l}}={W}^{l+1}\)</span>；而且我们已知<span class="math notranslate nohighlight">\(\frac{\partial {a}^l}{\partial {z}^l}={a}^l(1-{a}^l)\)</span></p></li>
 <li><p>那么根据链式法则，我们可以得到
-<span class="math notranslate nohighlight">\(\bm{\delta}^{l} =\frac{\partial \mathcal{L}}{\partial \bm{z}^{l}} =\frac{\partial \mathcal{L}}{\partial \bm{z}^{l+1}}\frac{\partial \bm{z}^{l+1}}{\partial \bm{a}^{l}}\frac{\partial \bm{a}^{l}}{\partial \bm{z}^{l}} =(\bm{W}^{l+1})^\top\bm{\delta}^{l+1}\odot(\bm{a}^l(1-\bm{a}^l))\)</span></p></li>
+<span class="math notranslate nohighlight">\({\delta}^{l} =\frac{\partial \mathcal{L}}{\partial {z}^{l}} =\frac{\partial \mathcal{L}}{\partial {z}^{l+1}}\frac{\partial {z}^{l+1}}{\partial {a}^{l}}\frac{\partial {a}^{l}}{\partial {z}^{l}} =({W}^{l+1})^\top{\delta}^{l+1}\odot({a}^l(1-{a}^l))\)</span></p></li>
 </ul>
-<p>根据上面的计算有所有层的中间值<span class="math notranslate nohighlight">\(\bm{\delta}^l, l=1, 2, \ldots , L\)</span>后，我们就可以在此基础上求出损失函数对于每层参数的偏导数：<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{W}^l}\)</span>和<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{b}^l}\)</span>，以此来根据梯度下降的方法来更新每一层的参数。</p>
+<p>根据上面的计算有所有层的中间值<span class="math notranslate nohighlight">\({\delta}^l, l=1, 2, \ldots , L\)</span>后，我们就可以在此基础上求出损失函数对于每层参数的偏导数：<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {W}^l}\)</span>和<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {b}^l}\)</span>，以此来根据梯度下降的方法来更新每一层的参数。</p>
 <ul class="simple">
-<li><p>已知模型结构<span class="math notranslate nohighlight">\(\bm{z}^l=\bm{W}^l\bm{a}^{l-1}+\bm{b}^l\)</span>，我们可以求出
-<span class="math notranslate nohighlight">\(\frac{\partial \bm{z}^{l}}{\partial \bm{W}^l}=\bm{a}^{l-1}\)</span> 和
-<span class="math notranslate nohighlight">\(\frac{\partial \bm{z}^{l}}{\partial \bm{b}^l}=1\)</span></p></li>
-<li><p>那么根据链式法则，我们可以得到<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{W}^l}=\frac{\partial \mathcal{L}}{\partial \bm{z}^l}\frac{\partial \bm{z}^l}{\partial \bm{W}^l}=\bm{\delta}^l(\bm{a}^{l-1})^\top\)</span>
+<li><p>已知模型结构<span class="math notranslate nohighlight">\({z}^l={W}^l{a}^{l-1}+{b}^l\)</span>，我们可以求出
+<span class="math notranslate nohighlight">\(\frac{\partial {z}^{l}}{\partial {W}^l}={a}^{l-1}\)</span> 和
+<span class="math notranslate nohighlight">\(\frac{\partial {z}^{l}}{\partial {b}^l}=1\)</span></p></li>
+<li><p>那么根据链式法则，我们可以得到<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {W}^l}=\frac{\partial \mathcal{L}}{\partial {z}^l}\frac{\partial {z}^l}{\partial {W}^l}={\delta}^l({a}^{l-1})^\top\)</span>
 ,
-<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{b}^l}=\frac{\partial \mathcal{L}}{\partial \bm{z}^l}\frac{\partial \bm{z}^l}{\partial \bm{b}^l}=\bm{\delta}^l\)</span></p></li>
+<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {b}^l}=\frac{\partial \mathcal{L}}{\partial {z}^l}\frac{\partial {z}^l}{\partial {b}^l}={\delta}^l\)</span></p></li>
 </ul>
-<p>求得所有偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{W}^l}\)</span>
-和
-<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \bm{b}^l}\)</span>后，我们就可以用梯度下降更新所有参数<span class="math notranslate nohighlight">\(\bm{W}^l\)</span>
-和 <span class="math notranslate nohighlight">\(\bm{b}^l\)</span>：</p>
+<p>求得所有偏导数<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {W}^l}\)</span> 和
+<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial {b}^l}\)</span>后，我们就可以用梯度下降更新所有参数<span class="math notranslate nohighlight">\({W}^l\)</span>
+和 <span class="math notranslate nohighlight">\({b}^l\)</span>：</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\bm{W}^l:=\bm{W}^l-\alpha\frac{\partial \mathcal{L}}{\partial \bm{W}^l}\)</span>,
-<span class="math notranslate nohighlight">\(\bm{b}^l:=\bm{b}^l-\alpha\frac{\partial \mathcal{L}}{\partial \bm{b}^l}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({W}^l:={W}^l-\alpha\frac{\partial \mathcal{L}}{\partial {W}^l}\)</span>,
+<span class="math notranslate nohighlight">\({b}^l:={b}^l-\alpha\frac{\partial \mathcal{L}}{\partial {b}^l}\)</span></p></li>
 </ul>
 <p>但是还有一个问题需要解决，那就是梯度下降的时候每更新一次参数，都需要计算一次当前参数下的损失值。然而，当训练数据集很大时（<span class="math notranslate nohighlight">\(N\)</span>很大），若每次更新都用整个训练集来计算损失值的话，计算量会非常巨大。
 为了减少计算量，我们使用<strong>随机梯度下降</strong>（Stochastic Gradient
