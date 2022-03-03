@@ -17,39 +17,39 @@ Method)即可类似处理。
 
 如果训练数据是线性可分的，SVM的目标则是最大化\ **间隔**\ (Margin)。首先，我们先来定义最大化间隔的分类器，如下：
 
-.. math:: \min_{\bm{w},b} ~~~\frac{1}{2} ||\bm{w}||^2
+.. math:: \min_{{w},b} ~~~\frac{1}{2} ||{w}||^2
 
-.. math:: s.t. ~~~y_i (\bm{w}^T \bm{x_i} + b) \geq 1, ~~~\forall 1 \leq i \leq n
+.. math:: s.t. ~~~y_i ({w}^T {x_i} + b) \geq 1, ~~~\forall 1 \leq i \leq n
 
 其拉格朗日乘子为
 
-.. math:: L(\bm{w},b,\bm{\lambda}) = \frac{1}{2} ||\bm{w}||^2 + \sum_{i=1}^n \lambda_i (1-y_i(\bm{w}^T \bm{x_i} + b))
+.. math:: L({w},b,{\lambda}) = \frac{1}{2} ||{w}||^2 + \sum_{i=1}^n \lambda_i (1-y_i({w}^T {x_i} + b))
 
-由于\ :math:`\frac{1}{2} ||\bm{w}||^2`\ 是凸的，并且\ :math:`\lambda_i (1-y_i(\bm{w}^T \bm{x_i} + b))`\ 是线性的（也是凸的），所以优化问题的解为
+由于\ :math:`\frac{1}{2} ||{w}||^2`\ 是凸的，并且\ :math:`\lambda_i (1-y_i({w}^T {x_i} + b))`\ 是线性的（也是凸的），所以优化问题的解为
 
-.. math:: \max_{\lambda>0} \min_{\bm{w},b} L(\bm{w},b, \bm{\lambda})
+.. math:: \max_{\lambda>0} \min_{{w},b} L({w},b, {\lambda})
 
-求\ :math:`L`\ 关于\ :math:`\bm{w},b`\ 的导数有
+求\ :math:`L`\ 关于\ :math:`{w},b`\ 的导数有
 
-.. math:: \nabla_{\bm{w}} L= \bm{w} - \sum_{i=1}^n \lambda_i y_i \bm{x_i}
+.. math:: \nabla_{{w}} L= {w} - \sum_{i=1}^n \lambda_i y_i {x_i}
 
 .. math:: \nabla_b L = - \sum_{i=1}^n \lambda_i y_i
 
-令\ :math:`L`\ 关于\ :math:`\bm{w},b`\ 的导数均为0得到，\ :math:`\bm{w}^* = \sum_{i=1}^n \lambda_i y_i \bm{x_i}`\ 以及\ :math:`\sum_{i=1}^n \lambda_i y_i = 0`\ 。
+令\ :math:`L`\ 关于\ :math:`{w},b`\ 的导数均为0得到，\ :math:`{w}^* = \sum_{i=1}^n \lambda_i y_i {x_i}`\ 以及\ :math:`\sum_{i=1}^n \lambda_i y_i = 0`\ 。
 由于当\ :math:`\lambda`\ 固定的时候，\ :math:`b`\ 的值对目标函数无贡献，所以可以令\ :math:`b^* = 0`\ 。
 这时，由对偶性理论和KTT条件，我们得到：
 
-.. math:: y_i (\bm{w}^{*T} \bm{x_i} + b^*) > 1 \Rightarrow \lambda_i^* = 0
+.. math:: y_i ({w}^{*T} {x_i} + b^*) > 1 \Rightarrow \lambda_i^* = 0
 
-.. math:: \lambda_i^* > 0  \Rightarrow y_i (\bm{w}^{*T} \bm{x_i} + b^*) = 1
+.. math:: \lambda_i^* > 0  \Rightarrow y_i ({w}^{*T} {x_i} + b^*) = 1
 
-.. math:: \bm{w}^* = \sum_{i=1}^n \lambda_i^* y_i \bm{x_i}
+.. math:: {w}^* = \sum_{i=1}^n \lambda_i^* y_i {x_i}
 
-如果\ :math:`y_i (\bm{w}^{*T} \bm{x_i} + b^*) = 1`\ ，那么\ :math:`\bm{x_i}`\ 就是离超平面\ :math:`(\bm{w}^*,b^*)`\ 最近的点之一，否则就不是。因此，\ :math:`\bm{w}^*`\ 就是离超平面\ :math:`(\bm{w}^*,b^*)`\ 最近的点\ :math:`\bm{x_i}`\ 的线性组合。
+如果\ :math:`y_i ({w}^{*T} {x_i} + b^*) = 1`\ ，那么\ :math:`{x_i}`\ 就是离超平面\ :math:`({w}^*,b^*)`\ 最近的点之一，否则就不是。因此，\ :math:`{w}^*`\ 就是离超平面\ :math:`({w}^*,b^*)`\ 最近的点\ :math:`{x_i}`\ 的线性组合。
 
 如此，通过SVM算法，我们实现了数据的分类，并且能够最大化了决策边界到最近点的距离。
-我们定义满足\ :math:`y_i (\bm{w}^{*T} \bm{x_i} + b^*) = 1`\ 的\ :math:`\bm{x_i}`\ 为\ **支持向量**\ (Support
-Vectors)，同时把分类器\ :math:`\hat{y}=sgn(\bm{w}^{*T} \bm{x_i} + b^*)`\ 称为支持向量机。
+我们定义满足\ :math:`y_i ({w}^{*T} {x_i} + b^*) = 1`\ 的\ :math:`{x_i}`\ 为\ **支持向量**\ (Support
+Vectors)，同时把分类器\ :math:`\hat{y}=sgn({w}^{*T} {x_i} + b^*)`\ 称为支持向量机。
 
 K最近邻算法
 ~~~~~~~~~~~
@@ -68,19 +68,19 @@ K均值聚类算法
 ~~~~~~~~~~~~~
 
 **K均值聚类算法**\ (K-Means Clustering
-Algorithm)是机器学习中一种常见的无监督聚类算法。在这里，我们首先定义聚类问题：给定数据点\ :math:`\bm{x_1},\cdots, \bm{x_n} \in \mathbb{R}^d`\ 和\ :math:`K\in \mathbb{N}`\ ，需要划分为\ :math:`K`\ 个簇\ :math:`\bm{C_1}, \cdots, \bm{C_K} \in \mathbb{R}^d`\ 以及每个数据点所对应的分类中心点\ :math:`\bm{ C_{(1)}}, \cdots, \bm{C_{(n)}}`\ ，以最小化距离和\ :math:`\sum_i ||\bm{x_i} - \bm{C_{(i)}}||^2`\ 。
+Algorithm)是机器学习中一种常见的无监督聚类算法。在这里，我们首先定义聚类问题：给定数据点\ :math:`{x_1},\cdots, {x_n} \in \mathbb{R}^d`\ 和\ :math:`K\in \mathbb{N}`\ ，需要划分为\ :math:`K`\ 个簇\ :math:`{C_1}, \cdots, {C_K} \in \mathbb{R}^d`\ 以及每个数据点所对应的分类中心点\ :math:`{ C_{(1)}}, \cdots, {C_{(n)}}`\ ，以最小化距离和\ :math:`\sum_i ||{x_i} - {C_{(i)}}||^2`\ 。
 
 K均值聚类算法是一种解决聚类问题的算法，算法过程如下：
 
--  随机选择\ :math:`\bm{C_1}, \cdots, \bm{C_K}`
+-  随机选择\ :math:`{C_1}, \cdots, {C_K}`
 
--  把\ :math:`\bm{x_i}`\ 所对应的分类置为距离其最近的聚类中心点的分类
+-  把\ :math:`{x_i}`\ 所对应的分类置为距离其最近的聚类中心点的分类
 
--  计算并赋值\ :math:`\bm{C_K} = \frac{\sum_{\bm{C_{(i)}}=\bm{C_K}} \bm{x_i}}{\sum_{\bm{C_{(i)}}=\bm{C_K}} 1}`
+-  计算并赋值\ :math:`{C_K} = \frac{\sum_{{C_{(i)}}={C_K}} {x_i}}{\sum_{{C_{(i)}}={C_K}} 1}`
 
 -  重复以上步骤直到算法收敛
 
-可以证明，K均值聚类算法会使得距离和\ :math:`\sum_i ||\bm{x_i} - \bm{C_{(i)}}||^2`\ 不断地单调减小，并且最终能够收敛。不过，算法可能收敛到局部最小值。
+可以证明，K均值聚类算法会使得距离和\ :math:`\sum_i ||{x_i} - {C_{(i)}}||^2`\ 不断地单调减小，并且最终能够收敛。不过，算法可能收敛到局部最小值。
 
 本章结束语：
 
