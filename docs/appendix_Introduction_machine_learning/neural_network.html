@@ -163,11 +163,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">9.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">9.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">9.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">9.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">9.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 附录：机器学习介绍</a><ul class="current">
@@ -272,11 +278,17 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">9. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">9.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">9.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">9.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">9.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">9.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">10. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 附录：机器学习介绍</a><ul class="current">
@@ -309,10 +321,9 @@ Show Source
 <p><a class="reference internal" href="#single-neuron"><span class="std std-numref">图1.1.1</span></a>是一个神经元的例子，输入数据<span class="math notranslate nohighlight">\(x\)</span>根据连线上的权重<span class="math notranslate nohighlight">\(w\)</span>做加权求和得到输出<span class="math notranslate nohighlight">\(z\)</span>，我们把这样的模型叫作<strong>感知器</strong>（Perceptron）。
 因为输入和输出之间只有一层神经连接，这个模型也叫做单层感知器。
 <a class="reference internal" href="#single-neuron"><span class="std std-numref">图1.1.1</span></a>的模型计算可以写为：<span class="math notranslate nohighlight">\(z = w_{1}x_{1}+ w_{2}x_{2} + w_{3}x_{3}\)</span>。</p>
-<p>当输入数据用列向量<span class="math notranslate nohighlight">\(\bm{x}=[x_1,x_2,x_3]^T\)</span>表示，模型权重用行向量<span class="math notranslate nohighlight">\(\bm{w}=[w_1,w_2,w_3]\)</span>表示，那么输出的标量<span class="math notranslate nohighlight">\(z\)</span>可以写为：</p>
+<p>当输入数据用列向量<span class="math notranslate nohighlight">\({x}=[x_1,x_2,x_3]^T\)</span>表示，模型权重用行向量<span class="math notranslate nohighlight">\({w}=[w_1,w_2,w_3]\)</span>表示，那么输出的标量<span class="math notranslate nohighlight">\(z\)</span>可以写为：</p>
 <div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-0">
-<span class="eqno">(1.1.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-0" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
-z =
+<span class="eqno">(1.1.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-0" title="Permalink to this equation">¶</a></span>\[\begin{split}z =
 \begin{bmatrix}
 w_1,w_2,w_3\\
 \end{bmatrix}
@@ -321,18 +332,17 @@ x_1\\
 x_2\\
 x_3
 \end{bmatrix}
-=\bm{w}\bm{x}\end{aligned}\end{split}\]</div>
+={w}{x}\end{split}\]</div>
 <p>我们可以利用输出标量<span class="math notranslate nohighlight">\(z\)</span>为输入的加权组合来实现特定任务。
 比如，可以对”好苹果”和”坏苹果”进行分类，输入的<span class="math notranslate nohighlight">\(x_1,x_2,x_3\)</span>分别代表三种不同的特征：1）红色的程度，2）有没有洞，3）大小。如果苹果的大小对这个判断没有影响，那么对应的权重就为零。
 这个神经网络的训练，其实就是选择合适的权重，来实现我们的任务。比如我们可以选择合适的权重，使得当<span class="math notranslate nohighlight">\(z\)</span>小于等于<span class="math notranslate nohighlight">\(0\)</span>时代表”坏苹果”，而当<span class="math notranslate nohighlight">\(z\)</span>大于<span class="math notranslate nohighlight">\(0\)</span>时则是”好苹果”。
 则最终的分类输出标签<span class="math notranslate nohighlight">\(y\)</span>如下，为<span class="math notranslate nohighlight">\(1\)</span>时代表好，<span class="math notranslate nohighlight">\(0\)</span>代表坏。这个神经元的输入和输出之间只有一层，所以可以成为单层神经网络。</p>
 <div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-1">
-<span class="eqno">(1.1.2)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-1" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
-y =
+<span class="eqno">(1.1.2)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-1" title="Permalink to this equation">¶</a></span>\[\begin{split}y =
 \begin{cases}
 1 &amp;  z&gt;0 \\
 0 &amp; z \leq 0 \\
-\end{cases}\end{aligned}\end{split}\]</div>
+\end{cases}\end{split}\]</div>
 </section>
 <section id="vs">
 <h2><span class="section-number">1.2. </span>决策边界vs.偏置<a class="headerlink" href="#vs" title="Permalink to this headline">¶</a></h2>
@@ -341,12 +351,10 @@ y =
 <a class="reference internal" href="#single-neuron-decision-boundary2"><span class="std std-numref">图1.2.2</span></a>所示，以神经元输出<span class="math notranslate nohighlight">\(z=0\)</span>作为输出标签<span class="math notranslate nohighlight">\(y\)</span>的决策边界，没有偏置时决策边界必然经过坐标原点，如果数据样本点不以原点来分开，会导致分类错误。
 为了解决这个问题，可以在神经元上加入一个<strong>偏置</strong>（Bias）。
 <a class="reference internal" href="#single-neuron-bias2"><span class="std std-numref">图1.2.3</span></a>
-是一个有偏置<span class="math notranslate nohighlight">\(b\)</span>的神经元模型，可以用公式 <a class="reference external" href="#equ:singleneuron_bias">[equ:singleneuron_bias]</a>
-表达：</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-2">
-<span class="eqno">(1.2.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-2" title="Permalink to this equation">¶</a></span>\[\begin{aligned}
-\label{equ:singleneuron_bias}
-z = w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b\end{aligned}\]</div>
+是一个有偏置<span class="math notranslate nohighlight">\(b\)</span>的神经元模型，可以用
+<a class="reference internal" href="#equation-singleneuron-bias">(1.2.1)</a>表达：</p>
+<div class="math notranslate nohighlight" id="equation-singleneuron-bias">
+<span class="eqno">(1.2.1)<a class="headerlink" href="#equation-singleneuron-bias" title="Permalink to this equation">¶</a></span>\[z = w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b\]</div>
 <figure class="align-default" id="id9">
 <span id="single-neuron-decision-boundary2"></span><a class="reference internal image-reference" href="../_images/single_neuron_decision_boundary2.png"><img alt="../_images/single_neuron_decision_boundary2.png" src="../_images/single_neuron_decision_boundary2.png" style="width: 600px;" /></a>
 <figcaption>
@@ -371,13 +379,11 @@ z = w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b\end{aligned}\]</div>
 Function），最常见的激活函数有Sigmoid、Tanh、ReLU和Softmax等。
 比如，上述神经元以<span class="math notranslate nohighlight">\(z=0\)</span>为分界来做分类任务，那么我们可不可以让神经元输出一个概率呢？比如输出<span class="math notranslate nohighlight">\(0~1\)</span>，<span class="math notranslate nohighlight">\(1\)</span>代表输入数据<span class="math notranslate nohighlight">\(100\%\)</span>为某一类。
 为了让神经元输出<span class="math notranslate nohighlight">\(0~1\)</span>，可以在<span class="math notranslate nohighlight">\(z\)</span>上加一个逻辑函数<strong>Sigmoid</strong>，
-如公式 <a class="reference external" href="#equ:sigmoid">[equ:sigmoid]</a>
-所示，Sigmoid把数值限制在0和1之中，通过一个简单的临界值（如：0.5）来决定最终输出的标签是否属于某个类别。这个方法叫做<strong>逻辑回归</strong>（Logistic
+如
+<a class="reference internal" href="#equation-sigmoid">(1.3.1)</a>所示，Sigmoid把数值限制在0和1之中，通过一个简单的临界值（如：0.5）来决定最终输出的标签是否属于某个类别。这个方法叫做<strong>逻辑回归</strong>（Logistic
 Regression）。</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-3">
-<span class="eqno">(1.3.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-3" title="Permalink to this equation">¶</a></span>\[\begin{aligned}
-\label{equ:sigmoid}
-a = f(\bm{z}) = \frac{1}{1+{\rm e}^{-\bm{z}}}\end{aligned}\]</div>
+<div class="math notranslate nohighlight" id="equation-sigmoid">
+<span class="eqno">(1.3.1)<a class="headerlink" href="#equation-sigmoid" title="Permalink to this equation">¶</a></span>\[a = f({z}) = \frac{1}{1+{\rm e}^{-{z}}}\]</div>
 </section>
 <section id="id4">
 <h2><span class="section-number">1.4. </span>多个神经元<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -389,18 +395,14 @@ a = f(\bm{z}) = \frac{1}{1+{\rm e}^{-\bm{z}}}\end{aligned}\]</div>
 </figure>
 <p>上述网络只有一个输出，若多个神经元在一起就可以有多个输出。
 <a class="reference internal" href="#two-neurons2"><span class="std std-numref">图1.4.1</span></a>是有两个输出的网络，每个输出都和所有输入相连，所以也被称<strong>全连接层</strong>（Fully-Connected(FC)
-Layer），可由下述式子 <a class="reference external" href="#equ:foundation_DL/fullyconnected">[equ:foundation_DL/fullyconnected]</a>
-表示X。</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-4">
-<span class="eqno">(1.4.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-4" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
-\label{equ:foundation_DL/fullyconnected}
-z_{1} &amp;= w_{11}x_{1} + w_{12}x_{2} + w_{13}x_{3} + b_1 \notag \\
-z_{2} &amp;= w_{21}x_{1} + w_{22}x_{2} + w_{23}x_{3} + b_2\end{aligned}\end{split}\]</div>
+Layer）， 可由下述式子 <code class="xref eq docutils literal notranslate"><span class="pre">fullyconnected</span></code>表示X。</p>
+<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-2">
+<span class="eqno">(1.4.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-2" title="Permalink to this equation">¶</a></span>\[\begin{split}z_{1} &amp;= w_{11}x_{1} + w_{12}x_{2} + w_{13}x_{3} + b_1 \notag \\
+z_{2} &amp;= w_{21}x_{1} + w_{22}x_{2} + w_{23}x_{3} + b_2
+:label: fullyconnected\end{split}\]</div>
 <p>如下式子表示了矩阵方法的实现：</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-5">
-<span class="eqno">(1.4.2)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-5" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
-\label{equ:foundation_DL/fullyconnect/colvector/all}
-\bm{z} =
+<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-3">
+<span class="eqno">(1.4.2)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-3" title="Permalink to this equation">¶</a></span>\[\begin{split}{z} =
 \begin{bmatrix}
 z_1 \\
 z_2
@@ -419,13 +421,12 @@ x_3
 \begin{bmatrix}
 b_1 \\ b_2
 \end{bmatrix}
-= \bm{W}\bm{x} + \bm{b}\end{aligned}\end{split}\]</div>
-<p>多输出的网络可以实现多分类问题，比如有10个数值输出，每个数值分别代表一类物品的概率，每个输出在<span class="math notranslate nohighlight">\(0\)</span>到<span class="math notranslate nohighlight">\(1\)</span>之间，10个输出之和为<span class="math notranslate nohighlight">\(1\)</span>。可用公式 <a class="reference external" href="#equ:softmax">[equ:softmax]</a>的<strong>Softmax</strong>
+= {W}{x} + {b}\end{split}\]</div>
+<p>多输出的网络可以实现多分类问题，比如有10个数值输出，每个数值分别代表一类物品的概率，每个输出在<span class="math notranslate nohighlight">\(0\)</span>到<span class="math notranslate nohighlight">\(1\)</span>之间，10个输出之和为<span class="math notranslate nohighlight">\(1\)</span>。
+可用 <a class="reference internal" href="#equation-e-softmax">(1.4.3)</a>的<strong>Softmax</strong>
 函数来实现，<span class="math notranslate nohighlight">\(K\)</span>为输出的个数：</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-6">
-<span class="eqno">(1.4.3)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-6" title="Permalink to this equation">¶</a></span>\[\begin{aligned}
-\label{equ:softmax}
-f(\bm{z})_{i} = \frac{{\rm e}^{z_{i}}}{\sum_{k=1}^{K}{\rm e}^{z_{k}}}\end{aligned}\]</div>
+<div class="math notranslate nohighlight" id="equation-e-softmax">
+<span class="eqno">(1.4.3)<a class="headerlink" href="#equation-e-softmax" title="Permalink to this equation">¶</a></span>\[f({z})_{i} = \frac{{\rm e}^{z_{i}}}{\sum_{k=1}^{K}{\rm e}^{z_{k}}}\]</div>
 </section>
 <section id="id5">
 <h2><span class="section-number">1.5. </span>多层感知器<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
@@ -438,10 +439,8 @@ f(\bm{z})_{i} = \frac{{\rm e}^{z_{i}}}{\sum_{k=1}^{K}{\rm e}^{z_{k}}}\end{aligne
 <p><strong>多层感知器</strong>（Multi-Layer
 Perceptron，MLP）[&#64;rosenblatt1958perceptron]通过叠加多层全连接层来提升网络的表达能力。相比单层网络，多层感知器有很多中间层的输出并不暴露给最终输出，这些层被称为<strong>隐含层</strong>（Hidden
 Layers）。这个例子中的网络可以通过下方的串联式矩阵运算实现，其中<span class="math notranslate nohighlight">\(W^l\)</span>和<span class="math notranslate nohighlight">\(b^l\)</span>代表不同层的权重矩阵和偏置，<span class="math notranslate nohighlight">\(l\)</span>代表层号，<span class="math notranslate nohighlight">\(L\)</span>代表输出层。</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-7">
-<span class="eqno">(1.5.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-7" title="Permalink to this equation">¶</a></span>\[\begin{aligned}
-\label{equ:foundation_DL/xxxxx}
-\bm{z} = f(\bm{W^L}f(\bm{W^3}f(\bm{W^2}f(\bm{W^1}\bm{x} + \bm{b^1}) + \bm{b^2}) + \bm{b^3}) + \bm{b^L})\end{aligned}\]</div>
+<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-4">
+<span class="eqno">(1.5.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-4" title="Permalink to this equation">¶</a></span>\[{z} = f({W^L}f({W^3}f({W^2}f({W^1}{x} + {b^1}) + {b^2}) + {b^3}) + {b^L})\]</div>
 <p>在深度学习时代，网络模型基本都是多层的神经网络层连接起来的，输入数据经过多层的特征提取，可以学到不同抽象层级的<strong>特征向量</strong>（Feature
 Vector）。下面我们介绍一下其他常用的神经网络层。</p>
 </section>
@@ -487,16 +486,14 @@ Neural Networks，RNN）[&#64;rumelhart1986learning]
 是一种处理序列数据的深度学习模型结构。序列数据是一串连续的数据<span class="math notranslate nohighlight">\(\{x_1, x_2, \dots, x_n\}\)</span>，比如每个<span class="math notranslate nohighlight">\(x\)</span>代表一个句子中的单词。</p>
 <p>为了可以接收一连串的输入序列，如
 <a class="reference internal" href="#rnn-simple-cell2"><span class="std std-numref">图1.7.1</span></a>所示，朴素循环神经网络使用了循环单元（Cell）作为计算单元，用隐状态（Hidden
-State）来存储过去输入的信息。具体来说，对输入模型的每个数据<span class="math notranslate nohighlight">\(x\)</span>，根据公式 <a class="reference external" href="#eq1-25">[eq1-25]</a>，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
-<div class="math notranslate nohighlight" id="equation-appendix-introduction-machine-learning-neural-network-8">
-<span class="eqno">(1.7.1)<a class="headerlink" href="#equation-appendix-introduction-machine-learning-neural-network-8" title="Permalink to this equation">¶</a></span>\[\begin{aligned}
-\label{eq1-25}
-\bm{h}_t = \bm{W}[\bm{x}_t; \bm{h}_{t-1}] + \bm{b}\end{aligned}\]</div>
+State）来存储过去输入的信息。具体来说，对输入模型的每个数据<span class="math notranslate nohighlight">\(x\)</span>，根据公式 <a class="reference internal" href="#equation-aligned">(1.7.1)</a>，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
+<div class="math notranslate nohighlight" id="equation-aligned">
+<span class="eqno">(1.7.1)<a class="headerlink" href="#equation-aligned" title="Permalink to this equation">¶</a></span>\[{h}_t = {W}[{x}_t; {h}_{t-1}] + {b}\]</div>
 <figure class="align-default" id="id15">
 <span id="rnn-simple-cell2"></span><a class="reference internal image-reference" href="../_images/rnn_simple_cell2.png"><img alt="../_images/rnn_simple_cell2.png" src="../_images/rnn_simple_cell2.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">图1.7.1 </span><span class="caption-text">朴素循环神经网络。
-在每一步的计算中，循环单元通过过去时刻的隐状态<span class="math notranslate nohighlight">\(\bm{h}_{t-1}\)</span>和当前的输入<span class="math notranslate nohighlight">\(\bm{x}_t\)</span>，求得当前的隐状态<span class="math notranslate nohighlight">\(\bm{h}_t\)</span>。</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+在每一步的计算中，循环单元通过过去时刻的隐状态<span class="math notranslate nohighlight">\({h}_{t-1}\)</span>和当前的输入<span class="math notranslate nohighlight">\({x}_t\)</span>，求得当前的隐状态<span class="math notranslate nohighlight">\({h}_t\)</span>。</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>然而这种简单的朴素循环神经网络有严重的信息遗忘问题。比如说我们的输入是”我是中国人，<a href="#id16"><span class="problematic" id="id17">我的母语是__</span></a>_“，隐状态记住了”中国人”的信息，使得网络最后可以预测出”中文”一词；但是如果句子很长的时候，隐状态可能记不住太久之前的信息了，比如说”我是中国人，我去英国读书，后来在法国工作，<a href="#id16"><span class="problematic" id="id18">我的母语是__</span></a>_“，这时候在最后的隐状态中关于”中国人”的信息可能会被因为多次的更新而遗忘了。
