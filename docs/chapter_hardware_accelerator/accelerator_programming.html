@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>6.3. 加速器基本编程原理 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>7.3. 加速器基本编程原理 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -27,16 +27,16 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.4. 总结" href="summary.html" />
-    <link rel="prev" title="6.2. 加速器基本组成原理" href="accelerator_architecture.html" /> 
+    <link rel="next" title="7.4. 总结" href="summary.html" />
+    <link rel="prev" title="7.2. 加速器基本组成原理" href="accelerator_architecture.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">6. </span>硬件加速器</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">6.3. </span>加速器基本编程原理</a>
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">7. </span>硬件加速器</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">7.3. </span>加速器基本编程原理</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -119,61 +119,67 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">4. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">5. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">5.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">5.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">5.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">5. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">6.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. 硬件加速器</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">6.4. 总结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">7. 硬件加速器</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">7.4. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">8. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">8.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">8.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">8.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">8.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">8.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">8.7. 引用</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">8.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">8.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">8.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">8.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">10. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">10.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">10.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">10.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">10.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">10.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">10.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">9. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">11.1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">11.2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">11.3. 经典机器学习方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">12. 附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">12.1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">12.2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">12.3. 经典机器学习方法</a></li>
 </ul>
 </li>
 </ul>
@@ -228,61 +234,67 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">4. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">4.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">4.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">4.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">4.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">4.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">4.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">4. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/index.html">5. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/overview_of_frontend.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/intermediate_representation.html">5.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/ad.html">5.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_frontend_and_ir/summary.html">5.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">5. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">5.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">5.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">5.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">5.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">5.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">5.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/overview.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_compiler_backend_and_runtime/summary.html">6.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. 硬件加速器</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">6.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">6.4. 总结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">7. 硬件加速器</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">7.4. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">7. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">7.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">7.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">7.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">7.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">7.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">7.7. 引用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing_framework/index.html">8. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/requirements.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/program_model.html">8.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/performance.html">8.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/data_order.html">8.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/extension.html">8.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/summary.html">8.6. 章节总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing_framework/reference.html">8.7. 引用</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">8. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">8.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">8.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">8.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">8.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">8.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">分布式训练系统</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training_system/index.html">10. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/overview.html">10.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/methods.html">10.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/pipeline.html">10.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/collective.html">10.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/parameter_servers.html">10.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training_system/summary.html">10.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_transition_advanced/index.html">9. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">10. 框架拓展</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_framework_expansion/index.html">11. 框架拓展</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">11. 附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">11.1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">11.2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">11.3. 经典机器学习方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_Introduction_machine_learning/index.html">12. 附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/neural_network.html">12.1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/gradient_descent.html">12.2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_Introduction_machine_learning/classic_machine_learning.html">12.3. 经典机器学习方法</a></li>
 </ul>
 </li>
 </ul>
@@ -297,11 +309,11 @@ Show Source
         <div class="page-content" role="main">
         
   <section id="id1">
-<h1><span class="section-number">6.3. </span>加速器基本编程原理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.3. </span>加速器基本编程原理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本章前两节主要介绍了这些硬件加速器设计的意义、思路以及基本组成原理。软硬件协同优化作为构建高效AI系统的一个重要指导思想，需要软件算法/软件栈和硬件架构在神经网络应用中互相影响、紧密耦合。为了最大限度地发挥加速器的优势，要求能够基于硬件系统架构设计出一套较为匹配的指令或编程（操纵）方法。因此，本节将以<a class="reference external" href="#硬件加速器的计算单元">1.2.3</a>中介绍的Tensor
 Core为例，着重介绍加速器的可编程性，以及如何通过编程使能加速器，提升神经网络算子的计算效率。</p>
 <section id="id2">
-<h2><span class="section-number">6.3.1. </span>硬件加速器的可编程性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.3.1. </span>硬件加速器的可编程性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="#硬件加速器设计的思路">1.1.2</a>节中列出的硬件加速器均具有一定的可编程性，程序员可以通过软件编程，有效的使能上述加速器进行计算加速。但出于计算效率和易用性等方面考虑，将编程使能方式分为不同等级，一般包括：算子库层级，编程原语层级，以及指令层级。为了更具象的解释上述层级的区别，仍以Volta架构的Tensor
 Core加速器为例，由高层至底层对比介绍这三种不同编程方式：</p>
 <ul class="simple">
@@ -320,9 +332,9 @@ $D[i][j] \gets C[i][j]$
 </div>
 </section>
 <section id="id3">
-<h2><span class="section-number">6.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <section id="id4">
-<h3><span class="section-number">6.3.2.1. </span>算子库使能加速器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.2.1. </span>算子库使能加速器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>在上述三种层级的编程方式中，直接调用算子加速库使能加速器无疑是最快捷高效的方式。NVIDIA提供了cuBLAS/cuDNN两类算子计算库，cuBLAS提供了使能Tensor
 Core单元的接口，用以加速矩阵乘法(GEMM)运算，cuDNN提供了对应接口加速卷积(CONV)运算等。</p>
 <p>以<a class="reference external" href="#硬件加速器的可编程性">1.3.1</a>小节的GEMM运算为例，与常规CUDA调用cuBLAS算子库相似，通过cuBLAS加速库使能Tensor
@@ -370,7 +382,7 @@ Core加速器，通过NVIDIA官方数据可知，该方式对于不同矩阵乘�
 <p>该方式由于能够隐藏体系结构细节，易用性较好，且一般官方提供的算子库吞吐量较高。但与此同时，这种算子颗粒度的库也存在一些问题，如不足以应对复杂多变的网络模型导致的算子长尾问题（虽然常规形式算子占据绝大多数样本，但仍有源源不断的新增算子，因其出现机会较少，算子库未对其进行有效优化。），以及错失了较多神经网络框架优化（如算子融合）的机会。</p>
 </section>
 <section id="id5">
-<h3><span class="section-number">6.3.2.2. </span>编程原语使能加速器<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.2.2. </span>编程原语使能加速器<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>第二种加速器编程方式为编程原语使能加速器，如通过在Device端调用CUDA WMMA
 (Warp Matrix Multiply Accumulate)
 API接口。以线程束（即Warp，是调度的基本单位）为操纵对象，使能多个Tensor
@@ -387,14 +399,14 @@ Float）、排布方式（<span class="math notranslate nohighlight">\(row\_majo
 <p>使用时，我们需要将待执行乘法操作矩阵块的数据，作为Fragment，由寄存器加载至TensorCore，在将累加Fragment初始化/清零操作后，通过TensorCore单元执行乘累加运算，最后将运算结果的Fragment存回寄存器或其他内存区域。与上述操作对应的，NVIDIA提供了<span class="math notranslate nohighlight">\(wmma.load\_matrix\_sync(), wmma.store\_matrix\_sync()\)</span>接口用于将参与计算的子矩阵块写入/载出Fragment片段；<span class="math notranslate nohighlight">\(wmma.fill\_fragment()\)</span>接口用于初始化对应Fragment的数据；<span class="math notranslate nohighlight">\(wmma.mma\_sync()\)</span>接口用于对Fragment进行乘累加运算。</p>
 </section>
 <section id="id6">
-<h3><span class="section-number">6.3.2.3. </span>指令集编程使能加速器<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.2.3. </span>指令集编程使能加速器<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>在NVIDIA PTX ISA (Instruction Set
 Architecture)中提供了另一个编程接口，如Volta架构中的<span class="math notranslate nohighlight">\(mma.sync.m8n8k4\)</span>指令，它使用<span class="math notranslate nohighlight">\(M=8, N=8, K=4\)</span>的形状配置执行乘累加操作。具体地，它由线程组（黑色椭圆表示）或octet执行[&#64;2018Modeling]，如图
-<a class="reference internal" href="#ptx"><span class="std std-numref">图6.3.1</span></a>显示了线程和数据的映射关系。每个线程组由四个连续的线程组成，使用不同颜色的圆圈表示。图中还指出了一个octet里面的线程在线程束内的分布，Float16乘法器A或B的四个连续元素（使用具有相同颜色的块表示），以及Float32累加器C或D的八个分散元素（同样使用相同颜色的块表示）。彩色块上的数字代表对应的线程ID。</p>
+<a class="reference internal" href="#ptx"><span class="std std-numref">图7.3.1</span></a>显示了线程和数据的映射关系。每个线程组由四个连续的线程组成，使用不同颜色的圆圈表示。图中还指出了一个octet里面的线程在线程束内的分布，Float16乘法器A或B的四个连续元素（使用具有相同颜色的块表示），以及Float32累加器C或D的八个分散元素（同样使用相同颜色的块表示）。彩色块上的数字代表对应的线程ID。</p>
 <figure class="align-default" id="id9">
 <span id="ptx"></span><a class="reference internal image-reference" href="../_images/ptx.svg"><img alt="../_images/ptx.svg" src="../_images/ptx.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图6.3.1 </span><span class="caption-text">mma指令之线程与矩阵元素映射关系</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.1 </span><span class="caption-text">mma指令之线程与矩阵元素映射关系</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>作为一个更细粒度的指令，mma可以组成更加多样化形状的Warp范围的WMMA
@@ -402,7 +414,7 @@ API接口，可以控制线程束内线程与数据的映射关系，并允许AI
 API具有更好的灵活性。</p>
 </section>
 <section id="id7">
-<h3><span class="section-number">6.3.2.4. </span>算子编译器编程使能加速器<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.2.4. </span>算子编译器编程使能加速器<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>除了上述三种层级的编程方式，算子编译器也逐渐成为DSA加速器的关注热点。随着深度学习模型的迭代更新以及各类DSA加速器的层出不穷，手写算子或高性能算子库（如cuDNN/cuBLAS）等基于人工优化算子的方式给算子开发团队带来沉重的负担。因此，开发一种能够将High-level的算子表示编译成目标硬件可执行代码的算子编译器，成为了学术界、业界的共识。</p>
 <p>近年来涌现出许多算子编译器/编译框架，如TVM，为不同的硬件后端提供了编译优化支持。在昇腾芯片上，基于TVM开发了TBE(Tensor
 Boost
@@ -423,7 +435,7 @@ kernel generator)，提供算子的自动生成能力。</p>
 </section>
 </section>
 <section id="id8">
-<h2><span class="section-number">6.3.3. </span>硬件加速器高性能编程实例<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.3.3. </span>硬件加速器高性能编程实例<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>本节<a class="reference external" href="#加速器基本编程原理">1.3</a>前几个小节主要介绍了硬件加速器的不同层级的多样化编程方法。调用计算库的方式留给程序员的优化空间较少，合理利用硬件加速器不同层级的编程，可以实现更好的性能优化。
 为了更好的让读者理解硬件加速器的使用，本节会继续<a class="reference external" href="#硬件加速器的可编程性">1.3.1</a>节中的GEMM运算，仍以WMMA
 API使能Tensor
@@ -443,19 +455,19 @@ $Syncthreads()$  $wmma.store\_matrix\_sync(D, D_{Fragment})$
 <p>若要得到高性能CUDA程序，提高并行性、增大吞吐量、优化指令执行是至关重要的三个优化目标。针对该实例，具体地实现和优化方案列出如下，对应到具体实例伪代码如算法2所示：</p>
 <ol class="arabic simple">
 <li><p><strong>优化内存结构——增大吞吐量</strong>：将原始大规模矩阵根据不同阈值切分成不同层级的子矩阵块，使得子矩阵块能被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。设置切分参数为<span class="math notranslate nohighlight">\(BlockTile[Ms, Ns, Ks]\)</span>和<span class="math notranslate nohighlight">\(WarpTile[Mw, Nw, Kw]\)</span>，对应的将BlockTile下的矩阵由全局内存搬移至共享内存，以提高全局内存合并访问和数据局部性，如图
-<a class="reference internal" href="#gemm-blocktile"><span class="std std-numref">图6.3.2</span></a>所示；再将内层WarpTile下的矩阵由共享内存搬移至寄存器中，如图
-<a class="reference internal" href="#gemm-warptile"><span class="std std-numref">图6.3.3</span></a>所示，以备Tensor Core加速器数据存取。</p></li>
+<a class="reference internal" href="#gemm-blocktile"><span class="std std-numref">图7.3.2</span></a>所示；再将内层WarpTile下的矩阵由共享内存搬移至寄存器中，如图
+<a class="reference internal" href="#gemm-warptile"><span class="std std-numref">图7.3.3</span></a>所示，以备Tensor Core加速器数据存取。</p></li>
 </ol>
 <figure class="align-default" id="id10">
 <span id="gemm-blocktile"></span><a class="reference internal image-reference" href="../_images/G2S.svg"><img alt="../_images/G2S.svg" src="../_images/G2S.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图6.3.2 </span><span class="caption-text">全局内存与共享内存数据交互</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.2 </span><span class="caption-text">全局内存与共享内存数据交互</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id11">
 <span id="gemm-warptile"></span><a class="reference internal image-reference" href="../_images/S2R.svg"><img alt="../_images/S2R.svg" src="../_images/S2R.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图6.3.3 </span><span class="caption-text">共享内存与寄存器数据交互</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.3 </span><span class="caption-text">共享内存与寄存器数据交互</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple" start="2">
@@ -463,7 +475,7 @@ $Syncthreads()$  $wmma.store\_matrix\_sync(D, D_{Fragment})$
 API操纵的基本层级，因此对Warp层级进行数据映射比Thread层级映射更为合适）</p></li>
 <li><p><strong>Warp统一的Tensor
 Core数据交互——增大吞吐量</strong>：根据<a class="reference external" href="#硬件加速器的多样化编程方法">1.3.2</a>节中介绍的编程方法，除调用算子库外，均需要使用或将指令封装成WMMA接口形式统一进行Warp层级的数据存取和计算。如图
-<a class="reference internal" href="#gemm-tensorcore"><span class="std std-numref">图6.3.4</span></a>所示，Tensor
+<a class="reference internal" href="#gemm-tensorcore"><span class="std std-numref">图7.3.4</span></a>所示，Tensor
 Core加速器需要从局部内存/寄存器中读取数据，存于虚拟Fragment数据结构中，对应使用<span class="math notranslate nohighlight">\(wmma.load\_matrix\_sync()\)</span>接口，将累加Fragment
 <span class="math notranslate nohighlight">\(C\)</span>
 通过<span class="math notranslate nohighlight">\(wmma.fill\_fragment()\)</span>接口进行初始化后，使用<span class="math notranslate nohighlight">\(wmma.mma\_sync()\)</span>使能加速器进行乘累加运算，后将结果Fragment
@@ -472,7 +484,7 @@ Core加速器需要从局部内存/寄存器中读取数据，存于虚拟Fragme
 <figure class="align-default" id="id12">
 <span id="gemm-tensorcore"></span><a class="reference internal image-reference" href="../_images/R2TC.svg"><img alt="../_images/R2TC.svg" src="../_images/R2TC.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图6.3.4 </span><span class="caption-text">寄存器与硬件加速器交互</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.4 </span><span class="caption-text">寄存器与硬件加速器交互</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple" start="4">
@@ -493,16 +505,16 @@ Volta架构，最大向量化加载指令为ldg128，即128比特带宽，对于
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">6.3. 加速器基本编程原理</a><ul>
-<li><a class="reference internal" href="#id2">6.3.1. 硬件加速器的可编程性</a></li>
-<li><a class="reference internal" href="#id3">6.3.2. 硬件加速器的多样化编程方法</a><ul>
-<li><a class="reference internal" href="#id4">6.3.2.1. 算子库使能加速器</a></li>
-<li><a class="reference internal" href="#id5">6.3.2.2. 编程原语使能加速器</a></li>
-<li><a class="reference internal" href="#id6">6.3.2.3. 指令集编程使能加速器</a></li>
-<li><a class="reference internal" href="#id7">6.3.2.4. 算子编译器编程使能加速器</a></li>
+<li><a class="reference internal" href="#">7.3. 加速器基本编程原理</a><ul>
+<li><a class="reference internal" href="#id2">7.3.1. 硬件加速器的可编程性</a></li>
+<li><a class="reference internal" href="#id3">7.3.2. 硬件加速器的多样化编程方法</a><ul>
+<li><a class="reference internal" href="#id4">7.3.2.1. 算子库使能加速器</a></li>
+<li><a class="reference internal" href="#id5">7.3.2.2. 编程原语使能加速器</a></li>
+<li><a class="reference internal" href="#id6">7.3.2.3. 指令集编程使能加速器</a></li>
+<li><a class="reference internal" href="#id7">7.3.2.4. 算子编译器编程使能加速器</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">6.3.3. 硬件加速器高性能编程实例</a></li>
+<li><a class="reference internal" href="#id8">7.3.3. 硬件加速器高性能编程实例</a></li>
 </ul>
 </li>
 </ul>
@@ -517,14 +529,14 @@ Volta架构，最大向量化加载指令为ldg128，即128比特带宽，对于
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>6.2. 加速器基本组成原理</div>
+            <div>7.2. 加速器基本组成原理</div>
          </div>
      </a>
      <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>6.4. 总结</div>
+            <div>7.4. 总结</div>
         </div>
      </a>
   </div>
