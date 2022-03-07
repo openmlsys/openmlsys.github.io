@@ -956,12 +956,6 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
         <figure class="align-default" id="id7">
          <span id="ch08-tab-conv-bn-fusion">
          </span>
-         <span id="ch08-equ-conv-bn-equation-3">
-         </span>
-         <span id="ch08-equ-bn-equation">
-         </span>
-         <span id="ch08-equ-conv-equation">
-         </span>
          <span id="ch08-fig-conv-bn-fusion">
          </span>
          <a class="reference internal image-reference" href="../_images/conv-bn-fusion.png">
@@ -989,18 +983,15 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
           </span>
          </a>
          ，我们以Convolution算子和Batchnorm算子的融合为例，阐述算子融合的基本原理，图中蓝色框表示算子，黄色框表示融合后新增或者改变的算子，白色框表示算子中的权重或者常数张量。其融合的过程是一个计算表达式简化的过程，Convolution算子的计算过程可以等效为一个矩阵乘，其公式可以表达为
-:numref:
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           equ:conv-equation
-          </span>
-         </code>
+         <a class="reference internal" href="#equation-ch08-equ-conv-equation">
+          (9.2.1)
+         </a>
          。
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-0">
+        <div class="math notranslate nohighlight" id="equation-ch08-equ-conv-equation">
          <span class="eqno">
           (9.2.1)
-          <a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-0" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch08-equ-conv-equation" title="Permalink to this equation">
            ¶
           </a>
          </span>
@@ -1008,10 +999,8 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
         </div>
         <p>
          这里我们不需要理解公式
-         <a class="reference internal" href="#ch08-equ-conv-equation">
-          <span class="std std-numref">
-           图9.2.2
-          </span>
+         <a class="reference internal" href="#equation-ch08-equ-conv-equation">
+          (9.2.1)
          </a>
          中每个变量的含义，只需要注意到一点，该公式是
          <span class="math notranslate nohighlight">
@@ -1024,7 +1013,7 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          的，其他符号均表示常量。
         </p>
         <p>
-         Batchnorm算子的计算过程如公式 :numref:
+         Batchnorm算子的计算过程如公式 :eqref:
          <code class="docutils literal notranslate">
           <span class="pre">
            equ:bn-equation
@@ -1032,10 +1021,10 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          </code>
          所示。
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-1">
+        <div class="math notranslate nohighlight" id="equation-ch08-equ-bn-equation">
          <span class="eqno">
           (9.2.2)
-          <a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-1" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch08-equ-bn-equation" title="Permalink to this equation">
            ¶
           </a>
          </span>
@@ -1043,10 +1032,8 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
         </div>
         <p>
          同样，这里我们不需要理解batchnorm中的所有参数的含义，只需要了解公式
-         <a class="reference internal" href="#ch08-equ-bn-equation">
-          <span class="std std-numref">
-           图9.2.2
-          </span>
+         <a class="reference internal" href="#equation-ch08-equ-bn-equation">
+          (9.2.2)
          </a>
          是
          <span class="math notranslate nohighlight">
@@ -1082,7 +1069,7 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
           \(\pmb{X_{bn}}\)
          </span>
          ，然后将常数项合并提取后，可以得到公式
-:numref:
+:eqref:
          <code class="docutils literal notranslate">
           <span class="pre">
            equ:conv-bn-equation-3
@@ -1090,10 +1077,10 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          </code>
          。
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-2">
+        <div class="math notranslate nohighlight" id="equation-ch08-equ-conv-bn-equation-3">
          <span class="eqno">
           (9.2.3)
-          <a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-2" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch08-equ-conv-bn-equation-3" title="Permalink to this equation">
            ¶
           </a>
          </span>
@@ -1109,10 +1096,8 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
           \(\pmb{B}\)
          </span>
          为两个矩阵。可以看到,公式
-         <a class="reference internal" href="#ch08-equ-conv-bn-equation-3">
-          <span class="std std-numref">
-           图9.2.2
-          </span>
+         <a class="reference internal" href="#equation-ch08-equ-conv-bn-equation-3">
+          (9.2.3)
          </a>
          其实就是一个Convolution的计算公式。这个结果表明，在模型部署时，我们可以将Convolution和Batchnorm两个算子的计算等价为一个Convolution算子。我们将上述以计算公式的合并和简化为基础的算子融合称为计算公式融合。
         </p>
@@ -1219,8 +1204,6 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
          算子替换，即将模型中某些算子替换计算逻辑一致但对于在线部署更友好的算子。算子替换的原理是通过合并同类项、提取公因式等数学方法，将算子的计算公式加以简化，并将简化后的计算公式映射到某类算子上。算子替换可以达到降低计算量、降低模型大小的效果。
         </p>
         <figure class="align-default" id="id9">
-         <span id="ch08-equ-replace-scale">
-         </span>
          <span id="ch08-fig-bn-replace">
          </span>
          <a class="reference internal image-reference" href="../_images/bn-replace.png">
@@ -1248,17 +1231,15 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
           </span>
          </a>
          ，我们以Batchnorm算子替换成Scale算子为例，阐述算子替换的原理。我们直接将Batchnorm的计算公式
-         <a class="reference internal" href="#ch08-equ-replace-scale">
-          <span class="std std-numref">
-           图9.2.3
-          </span>
+         <a class="reference internal" href="#equation-ch08-equ-replace-scale">
+          (9.2.4)
          </a>
          进行分解，并将常量合并简化，Batchnorm的计算公式可以写成：
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-converter-and-optimizer-3">
+        <div class="math notranslate nohighlight" id="equation-ch08-equ-replace-scale">
          <span class="eqno">
           (9.2.4)
-          <a class="headerlink" href="#equation-chapter-model-deployment-model-converter-and-optimizer-3" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch08-equ-replace-scale" title="Permalink to this equation">
            ¶
           </a>
          </span>

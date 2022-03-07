@@ -411,18 +411,18 @@ Divergence)和JS散度(Jenson-Shannon Divergence)。</p></li>
 <p>除了直接去除冗余的神经元之外，基于字典学习的方法也可以用来去掉深度卷积神经网络中无用的权值([&#64;bagherinezhad2017lcnn])。通过学习一系列卷积核的基，可以把原始卷积核变换到系数域上并且它们稀疏。比如，Bagherinezhad等人([&#64;bagherinezhad2017lcnn])将原始卷积核分解成卷积核的基和稀疏系数的加权线性组合。</p>
 </section>
 </section>
-<section id="ch08-equ-c2fcn-distill">
-<span id="id9"></span><h2><span class="section-number">9.3.3. </span>知识蒸馏<a class="headerlink" href="#ch08-equ-c2fcn-distill" title="Permalink to this headline">¶</a></h2>
+<section id="id9">
+<h2><span class="section-number">9.3.3. </span>知识蒸馏<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>知识蒸馏，也被称为教师-学生神经网络学习算法，已经受到业界越来越多的关注。大型深度模型在实践中往往会获得良好的性能，因为当考虑新数据时，过度参数化会提高泛化性能。在知识蒸馏中，小模型（学生模型）通常是由一个大模型（教师模型）监督，算法的关键问题是如何从老师模型转换的知识传授给学生模型。通过把一个全新的更深的更窄结构的深度神经网络当作学生神经网络，然后把一个预先训练好的神经网络模型当作教师神经网络。利用这个教师神经网络模型来帮助学生神经网络模型的算法是当下的一个研究热点。</p>
 <p>Hinton等人([&#64;Distill])首先提出了教师神经网络-学生神经网络学习框架，通过最小化两个神经网络之间的差异来学习一个更窄更深的神经网络。记教师神经网络为<span class="math notranslate nohighlight">\(\mathcal{N}_{T}\)</span>，它的参数为<span class="math notranslate nohighlight">\(\theta_T\)</span>，同时记学生神经网络为<span class="math notranslate nohighlight">\(\mathcal{N}_{S}\)</span>，相应的参数为<span class="math notranslate nohighlight">\(\theta_S\)</span>。一般而言，学生神经网络相较于教师神经网络具有更少的参数。</p>
 <p>文献([&#64;Distill])提出的知识蒸馏（knowledge
 distillation，KD）方法，同时令学生神经网络的分类结果接近真实标签并且令学生神经网络的分类结果接近于教师神经网络的分类结果，即，</p>
-<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-compression-4">
-<span class="eqno">(9.3.5)<a class="headerlink" href="#equation-chapter-model-deployment-model-compression-4" title="Permalink to this equation">¶</a></span>\[\mathcal{L}_{KD}(\theta_S) = \mathcal{H}(o_S,\mathbf{y}) +\lambda\mathcal{H}(\tau(o_S),\tau(o_T))\]</div>
+<div class="math notranslate nohighlight" id="equation-ch08-equ-c2fcn-distill">
+<span class="eqno">(9.3.5)<a class="headerlink" href="#equation-ch08-equ-c2fcn-distill" title="Permalink to this equation">¶</a></span>\[\mathcal{L}_{KD}(\theta_S) = \mathcal{H}(o_S,\mathbf{y}) +\lambda\mathcal{H}(\tau(o_S),\tau(o_T))\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(\mathcal{H}(\cdot,\cdot)\)</span>是交叉熵函数，<span class="math notranslate nohighlight">\(o_S\)</span>和<span class="math notranslate nohighlight">\(o_T\)</span>分别是学生网络和教师网络的输出，<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>是标签。公式
-<a class="reference internal" href="#ch08-equ-c2fcn-distill"><span class="std std-numref">9.3.3节</span></a>中的第一项使得学生神经网络的分类结果接近预期的真实标签，而第二项的目的是提取教师神经网络中的有用信息并传递给学生神经网络，<span class="math notranslate nohighlight">\(\lambda\)</span>是一个权值参数用来平衡两个目标函数。<span class="math notranslate nohighlight">\(\tau(\cdot)\)</span>是一个软化（soften）函数，将网络输出变得更加平滑。</p>
+<a class="reference internal" href="#equation-ch08-equ-c2fcn-distill">(9.3.5)</a>中的第一项使得学生神经网络的分类结果接近预期的真实标签，而第二项的目的是提取教师神经网络中的有用信息并传递给学生神经网络，<span class="math notranslate nohighlight">\(\lambda\)</span>是一个权值参数用来平衡两个目标函数。<span class="math notranslate nohighlight">\(\tau(\cdot)\)</span>是一个软化（soften）函数，将网络输出变得更加平滑。</p>
 <p>公式
-<a class="reference internal" href="#ch08-equ-c2fcn-distill"><span class="std std-numref">9.3.3节</span></a>仅仅从教师神经网络分类器输出的数据中提取有价值的信息，并没有从其它中间层去将教师神经网络的信息进行挖掘。因此，Romero等人[&#64;FitNet]）进一步地开发了一种学习轻型学生神经网络的方法，该算法可以从教师神经网络中任意的一层来传递有用的信息给学生神经网络。此外，事实上，并不是所有的输入数据对卷积神经网络的计算和完成后续的任务都是有用的。例如，在一张包含一个动物的图像中，对分类和识别结果比较重要的是动物所在的区域，而不是那些无用的背景信息。所以，有选择性地从教师神经网络的特征图中提取信息是一个更高效的方式。于是，Zagoruyko和Komodakis（[&#64;attentionTS]）提出了一种基于感知（attention）损失函数的学习方法来提升学生神经网络的性能，如
+<a class="reference internal" href="#equation-ch08-equ-c2fcn-distill">(9.3.5)</a>仅仅从教师神经网络分类器输出的数据中提取有价值的信息，并没有从其它中间层去将教师神经网络的信息进行挖掘。因此，Romero等人[&#64;FitNet]）进一步地开发了一种学习轻型学生神经网络的方法，该算法可以从教师神经网络中任意的一层来传递有用的信息给学生神经网络。此外，事实上，并不是所有的输入数据对卷积神经网络的计算和完成后续的任务都是有用的。例如，在一张包含一个动物的图像中，对分类和识别结果比较重要的是动物所在的区域，而不是那些无用的背景信息。所以，有选择性地从教师神经网络的特征图中提取信息是一个更高效的方式。于是，Zagoruyko和Komodakis（[&#64;attentionTS]）提出了一种基于感知（attention）损失函数的学习方法来提升学生神经网络的性能，如
 <a class="reference internal" href="#ch08-fig-attentionts"><span class="std std-numref">图9.3.3</span></a>所示。该算法在学习学生神经网络的过程中，引入了Attention模块，选择性地将教师神经网络中的信息传递给学生神经网络，并帮助其进行训练。</p>
 <figure class="align-default" id="id12">
 <span id="ch08-fig-attentionts"></span><a class="reference internal image-reference" href="../_images/AttentionTS.png"><img alt="../_images/AttentionTS.png" src="../_images/AttentionTS.png" style="width: 800px;" /></a>
@@ -455,7 +455,7 @@ distillation，KD）方法，同时令学生神经网络的分类结果接近真
 <li><a class="reference internal" href="#id8">9.3.2.3. 稀疏策略</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ch08-equ-c2fcn-distill">9.3.3. 知识蒸馏</a></li>
+<li><a class="reference internal" href="#id9">9.3.3. 知识蒸馏</a></li>
 </ul>
 </li>
 </ul>

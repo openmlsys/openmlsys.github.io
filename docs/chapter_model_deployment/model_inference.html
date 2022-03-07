@@ -436,7 +436,7 @@ v0.4s, v1.4s, v2.4s，如
 <p>如
 <a class="reference internal" href="#ch08-fig-img2col-weight"><span class="std std-numref">图9.4.6</span></a>所示，对权重数据做重排。将1个卷积核展开为权重矩阵的一列，因此共有OC列，每个列向量上先排列第一个输入通道上KH*KW的数据，再依次排列后面的通道直到IC。通过重排，卷积的计算就可以转换为两个矩阵相乘的求解。在实际实现时，Img2col和GEMM的数据重排会同时进行，以节省运行时间。</p>
 <figure class="align-default" id="id14">
-<span id="ch08-equ-winograd-two-dimension-matrix"></span><span id="ch08-equ-winograd-matrix-at"></span><span id="ch08-equ-winograd-matrix-g"></span><span id="ch08-equ-winograd-matrix-bt"></span><span id="ch08-equ-winograd-matrix"></span><span id="ch08-equ-winograd-param"></span><span id="ch08-equ-conv-2-winograd"></span><span id="ch08-equ-conv-matmul-one-dimension"></span><span id="ch08-fig-img2col-weight"></span><a class="reference internal image-reference" href="../_images/img2col_weight.png"><img alt="../_images/img2col_weight.png" src="../_images/img2col_weight.png" style="width: 600px;" /></a>
+<span id="ch08-equ-winograd-matrix"></span><span id="ch08-fig-img2col-weight"></span><a class="reference internal image-reference" href="../_images/img2col_weight.png"><img alt="../_images/img2col_weight.png" src="../_images/img2col_weight.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">图9.4.6 </span><span class="caption-text">卷积核Img2col的矩阵</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </figcaption>
@@ -444,45 +444,51 @@ v0.4s, v1.4s, v2.4s，如
 <p>2.Winograd算法</p>
 <p>卷积计算归根到底是矩阵乘法，两个二维矩阵相乘的时间复杂度是<span class="math notranslate nohighlight">\(O(n^3)\)</span>。我们可以使用Winograd来降低矩阵乘法的复杂度。</p>
 <p>以一维卷积运算为例，记为F(m，r)，其中，m代表输出的个数，r为卷积核的个数。输入为<span class="math notranslate nohighlight">\(d=[d_0 \ d_0 \ d_2 \ d_3]\)</span>，卷积核为<span class="math notranslate nohighlight">\(g=[g_0 \ g_0 \ g_2]^T\)</span>，该卷积计算可以写成矩阵形式如公式
-<a class="reference internal" href="#ch08-equ-conv-matmul-one-dimension"><span class="std std-numref">图9.4.6</span></a>所示，需要6次乘法和4次加法。</p>
+<code class="xref eq docutils literal notranslate"><span class="pre">ch08-equ-conv_matmul_one_dimension</span></code>所示，需要6次乘法和4次加法。</p>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-0">
 <span class="eqno">(9.4.1)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-0" title="Permalink to this equation">¶</a></span>\[\begin{split}F(2, 3)=
 \left[ \begin{matrix} d_0 &amp; d_0 &amp; d_2 \\ d_1 &amp; d_2 &amp; d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=
-\left[ \begin{matrix} y_0 \\ y_1 \end{matrix} \right]\end{split}\]</div>
+\left[ \begin{matrix} y_0 \\ y_1 \end{matrix} \right]
+:label: ch08-equ-conv_matmul_one_dimension\end{split}\]</div>
 <p>可以观察到，卷积运算转换为矩阵乘法时输入矩阵中存在着重复元素<span class="math notranslate nohighlight">\(d_1\)</span>和<span class="math notranslate nohighlight">\(d_2\)</span>，因此，卷积转换的矩阵乘法相对一般的矩阵乘有了优化空间。可以通过计算中间变量<span class="math notranslate nohighlight">\(m_0-m_3\)</span>得到矩阵乘的结果，见公式
-<a class="reference internal" href="#ch08-equ-conv-2-winograd"><span class="std std-numref">图9.4.6</span></a>：</p>
+<code class="xref eq docutils literal notranslate"><span class="pre">ch08-equ-conv-2-winograd</span></code>：</p>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-1">
 <span class="eqno">(9.4.2)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-1" title="Permalink to this equation">¶</a></span>\[\begin{split}F(2, 3)=
 \left[ \begin{matrix} d_0 &amp; d_0 &amp; d_2 \\ d_1 &amp; d_2 &amp; d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=
-\left[ \begin{matrix} m_0+m_1+m_2 \\ m_1-m_2+m_3 \end{matrix} \right]\end{split}\]</div>
+\left[ \begin{matrix} m_0+m_1+m_2 \\ m_1-m_2+m_3 \end{matrix} \right]
+:label: ch08-equ-conv-2-winograd\end{split}\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(m_0-m_3\)</span>的分别见公式
-<a class="reference internal" href="#ch08-equ-winograd-param"><span class="std std-numref">图9.4.6</span></a>：</p>
+<code class="xref eq docutils literal notranslate"><span class="pre">ch08-equ-winograd-param</span></code>：</p>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-2">
 <span class="eqno">(9.4.3)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-2" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
 m_0=(d_0-d_2)*g_0 \\
 m_1=(d_1+d_2)*(\frac{g_0+g_1+g_2}{2}) \\
 m_2=(d_0-d_2)*(\frac{g_0-g_1+g_2}{2}) \\
 m_2=(d_1-d_3)*g_2
-\end{aligned}\end{split}\]</div>
+\end{aligned}
+:label: ch08-equ-winograd-param\end{split}\]</div>
 <p>通过<span class="math notranslate nohighlight">\(m_0-m_3\)</span>间接计算r1，r2，需要的运算次数包括：输入d的4次加法；输出m的4次乘法和4次加法。在推理阶段，权重的数值是常量，因此卷积核上的运算可以在图编译阶段计算，不计入在线的run时间。所以总的运算次数为4次乘法和8次加法，与直接运算的6次乘法和4次加法相比，乘法次数减少，加法次数增加。在计算机中，乘法一般比加法慢，通过减少乘法次数，增加少量加法，可以实现加速。</p>
 <p>计算过程写成矩阵形式如公式
-<a class="reference internal" href="#ch08-equ-winograd-matrix"><span class="std std-numref">图9.4.6</span></a>所示，其中，⊙为对应位置相乘，A、B、G都是常量矩阵。这里写成矩阵计算是为了表达清晰，实际使用时，按照公式
-<a class="reference internal" href="#ch08-equ-winograd-param"><span class="std std-numref">图9.4.6</span></a>手写展开的计算速度更快。</p>
+<code class="xref eq docutils literal notranslate"><span class="pre">ch08-equ-winograd-matrix</span></code>所示，其中，⊙为对应位置相乘，A、B、G都是常量矩阵。这里写成矩阵计算是为了表达清晰，实际使用时，按照公式
+<code class="xref eq docutils literal notranslate"><span class="pre">ch08-equ-winograd-param</span></code>手写展开的计算速度更快。</p>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-3">
 <span class="eqno">(9.4.4)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-3" title="Permalink to this equation">¶</a></span>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g)*(\mathbf{B^T}d)\]</div>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-4">
 <span class="eqno">(9.4.5)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-4" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{B^T}=
-\left[ \begin{matrix} 1 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \end{matrix} \right]\end{split}\]</div>
+\left[ \begin{matrix} 1 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \end{matrix} \right]
+:label: ch08-equ-winograd-matrix-bt\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-5">
 <span class="eqno">(9.4.6)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-5" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{G}=
-\left[ \begin{matrix} 1 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 \\ 0.5 &amp; -0.5 &amp; 0.5 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right]\end{split}\]</div>
+\left[ \begin{matrix} 1 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 \\ 0.5 &amp; -0.5 &amp; 0.5 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right]
+:label: ch08-equ-winograd-matrix-g\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-6">
 <span class="eqno">(9.4.7)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-6" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{A^T}=
-\left[ \begin{matrix} 1 &amp; 1 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; -1 &amp; -1  \end{matrix} \right] \\\end{split}\]</div>
+\left[ \begin{matrix} 1 &amp; 1 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; -1 &amp; -1  \end{matrix} \right] \\
+:label: ch08-equ-winograd-matrix-at\end{split}\]</div>
 <p>通常深度学习领域通常使用的都是2D卷积，将F(2，3)扩展到F(2x2，3x3)，可以写成矩阵形式，如公式
-<a class="reference internal" href="#ch08-equ-winograd-two-dimension-matrix"><span class="std std-numref">图9.4.6</span></a>所示。此时，Winograd算法的乘法次数为16，而直接卷积的乘法次数为36，降低了2.25倍的乘法计算复杂度。</p>
-<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-7">
-<span class="eqno">(9.4.8)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-7" title="Permalink to this equation">¶</a></span>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g\mathbf{G^T})*(\mathbf{B^T}d\mathbf{B})\mathbf{A}\]</div>
+<a class="reference internal" href="#equation-ch08-equ-winograd-two-dimension-matrix">(9.4.8)</a>所示。此时，Winograd算法的乘法次数为16，而直接卷积的乘法次数为36，降低了2.25倍的乘法计算复杂度。</p>
+<div class="math notranslate nohighlight" id="equation-ch08-equ-winograd-two-dimension-matrix">
+<span class="eqno">(9.4.8)<a class="headerlink" href="#equation-ch08-equ-winograd-two-dimension-matrix" title="Permalink to this equation">¶</a></span>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g\mathbf{G^T})*(\mathbf{B^T}d\mathbf{B})\mathbf{A}\]</div>
 <p>Winograd算法的整个计算过程在逻辑上可以分为4步，如
 <a class="reference internal" href="#ch08-fig-winograd"><span class="std std-numref">图9.4.7</span></a>所示：</p>
 <figure class="align-default" id="id15">
