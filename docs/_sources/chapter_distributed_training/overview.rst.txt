@@ -9,7 +9,7 @@
 
 .. _ch10-computation-increase:
 
-.. figure:: ../img/ch09/ch10-computation-increase.pdf
+.. figure:: ../img/ch09/ch10-computation-increase.svg
    :width: 800px
 
    对比机器学习模型参数量增长和计算硬件的算力增长
@@ -20,8 +20,8 @@
 ''''''''
 
 单处理器的算力不足是促使人们设计分布式训练系统的一个主要原因。一个处理器的算力可以用\ **每秒钟浮点数操作**\ （Floating
-Point Operations Per Second，FLOPS）来衡量。
-如:numref:`ch10-computation-increase`\ 所示，根据摩尔定律（Moore’s
+Point Operations Per Second，FLOPS）来衡量。 如
+:numref:`ch10-computation-increase`\ 所示，根据摩尔定律（Moore’s
 Law），中央处理器的算力每18个月增长2倍。虽然计算加速卡，如GPU和Tensor
 Processing
 Unit（TPU），针对机器学习计算（如矩阵相乘）提供了大量的算力。这些加速卡的发展最终也受限于摩尔定律，增长速度也停留在每18个月2倍。而与此同时，机器学习模型正在快速发展。短短数年，我们从仅能识别有限物体的AlexNet模型，一路发展到在复杂任务中打败人类的AlphaStar。这期间，模型对于算力需求每18个月增长了35倍。解决处理器性能和算力需求之间的鸿沟
@@ -42,7 +42,7 @@ A100）仅能提供最高80GB的内存。单卡内存空间的增长受到硬件
 
 .. _ch10-single-vs-multi:
 
-.. figure:: ../img/ch09/ch10-single-vs-multi.pdf
+.. figure:: ../img/ch09/ch10-single-vs-multi.svg
    :width: 800px
 
    单节点计算和多节点分布式计算

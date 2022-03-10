@@ -18,14 +18,15 @@ feature）构成。这些特征往往是大型向量（Vector）。现代推荐�
 
 .. _ch10-parameter-servers:
 
-.. figure:: ../img/ch09/ch10-parameter-servers.pdf
+.. figure:: ../img/ch09/ch10-parameter-servers.svg
    :width: 800px
 
    参数服务器
 
 
 
-为了解决上述问题，人们往往会在稀疏模型集群中混合部署：训练服务器和参数服务器，从而实现对于计算需求和内存需求分别满足。:numref:`ch10-parameter-servers`
+为了解决上述问题，人们往往会在稀疏模型集群中混合部署：训练服务器和参数服务器，从而实现对于计算需求和内存需求分别满足。
+:numref:`ch10-parameter-servers`
 描述了带有参数服务器的机器学习集群。这个集群中含有2个训练服务器和2个参数服务器，训练服务器一般是拥有加速卡的计算优化服务器（Compute-optimised
 server）。而参数服务器一般是内存优化服务器（Memory-optimised
 server），其的内存大小一般远远大于计算优化服务器。在一个稀疏模型中往往拥有神经网络参数和嵌入表参数。神经网络较小，其可以存储在训练服务器内存中。而嵌入表很大，因此需要存储在额外的参数服务器中。参数服务器一般会按照键-值对（Key-value

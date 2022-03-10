@@ -23,6 +23,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -151,7 +152,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -185,6 +185,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -270,7 +271,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -304,6 +304,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -325,25 +326,31 @@ Show Source
 <figure class="align-default" id="id5">
 <span id="gv100"></span><a class="reference internal image-reference" href="../_images/V100.svg"><img alt="../_images/V100.svg" src="../_images/V100.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.2.1 </span><span class="caption-text">Volta GV100 [&#64;2017NVIDIA] []</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.2.1 </span><span class="caption-text">Volta GV100</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
-<li><p>6个GPU处理集群（GPU Processing Cluster，GPC）, 每个GPC含有：</p></li>
+<li><p>6个GPU处理集群（GPU Processing Cluster，GPC）, 每个GPC含有：</p>
+<ul>
 <li><p>7个纹理处理集群（Texture Processing Cluster, TPC）
 (每个TPC含有两个流多处理器（Streaming Multiprocessor, SM）)</p></li>
 <li><p>14个SM</p></li>
-<li><p>84个SM, 每个流多处理器含有：</p></li>
+</ul>
+</li>
+<li><p>84个SM, 每个流多处理器含有：</p>
+<ul>
 <li><p>64个32位浮点运算单元</p></li>
 <li><p>64个32位整数运算单元</p></li>
 <li><p>32个64位浮点运算单元</p></li>
 <li><p>8个张量核</p></li>
 <li><p>4个纹理单元</p></li>
+</ul>
+</li>
 <li><p>8个512-bit内存控制器</p></li>
 </ul>
 <p>一个完整的GV100
 GPU含有84个SM，5376个32位浮点运算单元，5376个32位整型运算单元，2688个64位浮点运算单元，672个张量运算单元和336个纹理单元。一对内存控制器控制一个HBM2
-DRAM堆栈。图 <a class="reference internal" href="#gv100"><span class="std std-numref">图7.2.1</span></a>中展示的为带有84个SM的GV100
+DRAM堆栈。 <a class="reference internal" href="#gv100"><span class="std std-numref">图7.2.1</span></a>中展示的为带有84个SM的GV100
 GPU(不同的厂商可以使用不同的配置)，Tesla V100则含有80个SM。</p>
 </section>
 <section id="id3">
@@ -364,9 +371,9 @@ Memory）</strong>：纹理内存是全局内存的一个特殊形态。当全�
 </ul>
 <p>由于寄存器的高速读取特性，因此每次计算都离不开寄存器的参与。接着是一级缓存和共享内存，然后是常量内存、纹理内存、全局内存，最后则是主机端内存。根据不同存储器之间的存储速度的数量级的变化规律，选用适当类型的内存以及最大化地利用它们，从而发挥硬件的最大算力，减少计算时间。</p>
 </section>
-<section id="id4">
-<h2><span class="section-number">7.2.3. </span>硬件加速器的计算单元<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>为了支持不同的神经网络模型，加速器会提供以下几种计算单元，不同的网络层可以根据需要选择使用对应的计算单元。如图
+<section id="compute-unit-title">
+<span id="id4"></span><h2><span class="section-number">7.2.3. </span>硬件加速器的计算单元<a class="headerlink" href="#compute-unit-title" title="Permalink to this headline">¶</a></h2>
+<p>为了支持不同的神经网络模型，加速器会提供以下几种计算单元，不同的网络层可以根据需要选择使用对应的计算单元。如
 <a class="reference internal" href="#compute-unit"><span class="std std-numref">图7.2.2</span></a>所示</p>
 <ul class="simple">
 <li><p><strong>标量计算单元</strong>：与标准的精简指令运算集（Reduced Instruction Set
@@ -379,29 +386,30 @@ Performance Computing，HPC）和信号处理中。</p></li>
 <figure class="align-default" id="id6">
 <span id="compute-unit"></span><a class="reference internal image-reference" href="../_images/compute_unit.svg"><img alt="../_images/compute_unit.svg" src="../_images/compute_unit.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.2.2 </span><span class="caption-text">多种计算单元[]</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.2.2 </span><span class="caption-text">多种计算单元</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>GPU计算单元主要由标量计算单元和三维向量计算单元组成。如图
+<p>GPU计算单元主要由标量计算单元和三维向量计算单元组成。如
 <a class="reference internal" href="#sm"><span class="std std-numref">图7.2.3</span></a>所示,对于每个SM，其中64个32位浮点运算单元、64个32位整数运算单元、32个64位浮点运算单元均为标量计算单元。而8个张量核则是专为神经网络应用设计的三维向量计算单元。</p>
 <figure class="align-default" id="id7">
 <span id="sm"></span><a class="reference internal image-reference" href="../_images/SM.svg"><img alt="../_images/SM.svg" src="../_images/SM.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.2.3 </span><span class="caption-text">Volta GV100 流多处理器（SM） [&#64;2017NVIDIA] []</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.2.3 </span><span class="caption-text">Volta GV100 流多处理器（SM）</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>张量核（Tensor Core）每个时钟周期完成一次4x4的矩阵乘累加计算,如图
+<p>张量核（Tensor
+Core）每个时钟周期完成一次<span class="math notranslate nohighlight">\(4\times4\)</span>的矩阵乘累加计算,如
 <a class="reference internal" href="#tensorcore"><span class="std std-numref">图7.2.4</span></a>：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span> <span class="n">C</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">C</span><span class="w"></span>
 </pre></div>
 </div>
 <figure class="align-default" id="id8">
 <span id="tensorcore"></span><a class="reference internal image-reference" href="../_images/tensor_core.svg"><img alt="../_images/tensor_core.svg" src="../_images/tensor_core.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.2.4 </span><span class="caption-text">Tensor Core 4x4矩阵乘累加计算[]</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.2.4 </span><span class="caption-text">Tensor Core <span class="math notranslate nohighlight">\(4\times4\)</span>矩阵乘累加计算</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>其中A,B,C和D都是4x4的矩阵，矩阵乘累加的输入矩阵A和B是FP16的矩阵，累加矩阵C和D可以是FP16也可以是FP32。
+<p>其中A,B,C和D都是<span class="math notranslate nohighlight">\(4\times4\)</span>的矩阵，矩阵乘累加的输入矩阵A和B是FP16的矩阵，累加矩阵C和D可以是FP16也可以是FP32。
 V100的张量核是可编程的矩阵乘法和累加计算单元，可以提供多达125 Tensor
 TFLOPS(Tera Floating-point Operations Per
 Second)的训练和推理应用。相比于普通的FP32计算单元可以提速10倍以上。</p>
@@ -422,11 +430,11 @@ Vision Pre-Processing，DVPP）等。</p>
 </figure>
 <p>昇腾AI芯片的计算核心主要由AI
 Core构成，负责执行标量、向量和张量相关的计算密集型算子。AI
-Core采用了达芬奇架构，基本结构如图
+Core采用了达芬奇架构，基本结构如
 <a class="reference internal" href="#davinci-architecture"><span class="std std-numref">图7.2.5</span></a>所示，从控制上可以看成是一个相对简化的现代微处理器基本架构。它包括了三种基础计算单元：矩阵计算单元（Cube
 Unit）、向量计算单元（Vector Unit）和标量计算单元（Scalar
 Unit）。这三种计算单元分别对应了张量、向量和标量三种常见的计算模式，在实际的计算过程中各司其职，形成了三条独立的执行流水线，在系统软件的统一调度下互相配合达到优化计算效率的目的。
-同GPU类似，在矩阵乘加速设计上，在AICore中也提供了矩阵计算单元作为昇腾AI芯片的核心计算模块，意图高效解决矩阵计算的瓶颈问题。矩阵计算单元提供强大的并行乘加计算能力，可以用一条指令完成两个16*16矩阵的相乘运算，等同于在极短时间内进行了16*16*16=4096个乘加运算，并且可以实现FP16的运算精度。</p>
+同GPU类似，在矩阵乘加速设计上，在AICore中也提供了矩阵计算单元作为昇腾AI芯片的核心计算模块，意图高效解决矩阵计算的瓶颈问题。矩阵计算单元提供强大的并行乘加计算能力，可以用一条指令完成两个<span class="math notranslate nohighlight">\(16\times16\)</span>矩阵的相乘运算，等同于在极短时间内进行了<span class="math notranslate nohighlight">\(16\times16\times16=4096\)</span>个乘加运算，并且可以实现FP16的运算精度。</p>
 </section>
 </section>
 
@@ -442,7 +450,7 @@ Unit）。这三种计算单元分别对应了张量、向量和标量三种常�
 <li><a class="reference internal" href="#">7.2. 加速器基本组成原理</a><ul>
 <li><a class="reference internal" href="#id2">7.2.1. 硬件加速器的架构</a></li>
 <li><a class="reference internal" href="#id3">7.2.2. 硬件加速器的存储单元</a></li>
-<li><a class="reference internal" href="#id4">7.2.3. 硬件加速器的计算单元</a></li>
+<li><a class="reference internal" href="#compute-unit-title">7.2.3. 硬件加速器的计算单元</a></li>
 <li><a class="reference internal" href="#dsa">7.2.4. DSA芯片架构</a></li>
 </ul>
 </li>
