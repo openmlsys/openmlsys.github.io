@@ -151,7 +151,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -175,7 +174,10 @@ Show Source
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">12. 联邦学习系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">13. 强化学习系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">14.1. 可解释机器学习系统</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_online_machine_learning/index.html">15. 在线机器学习</a></li>
 </ul>
 <ul>
@@ -185,6 +187,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -270,7 +273,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -294,7 +296,10 @@ Show Source
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">12. 联邦学习系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">13. 强化学习系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">14.1. 可解释机器学习系统</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_online_machine_learning/index.html">15. 在线机器学习</a></li>
 </ul>
 <ul>
@@ -304,6 +309,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -352,17 +358,18 @@ FFT)，图像中的去噪等，使得部分操作可以被卸载到AI芯片上�
 <span class="n">ret</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>相比较Dvpp只支持图像的部分预处理操作，英伟达公司研发的DALI[8]是一个更加通用的基于GPU的数据预处理加速框架。DALI中包含如下三个核心概念：</p>
+<p>相比较Dvpp只支持图像的部分预处理操作，英伟达公司研发的DALI
+<a class="bibtex reference internal" href="../chapter_references/index.html#nvidia-dali" id="id3">[NVIDIA, 2018]</a>是一个更加通用的基于GPU的数据预处理加速框架。DALI中包含如下三个核心概念：</p>
 <ul class="simple">
 <li><p>DataNode:表示一组Tensor的集合</p></li>
 <li><p>Operator:对DataNode进行变换处理的算子，一个Operator的输入和输出均为DataNode。比较特殊的是，DALI中的算子可以被设置为包括cpu，gpu，mixed三种不同执行模式，其中cpu模式下算子的输入输出均为cpu上的DataNode，gpu模式下算子的输入输出均为gpu上的DataNode，而mixed模式下的算子的输入为cpu的DataNode而输出为gpu的DataNode。</p></li>
 <li><p>Pipeline:用户通过Operator描述DataNode的处理变换过程而构建的数据处理流水</p></li>
 </ul>
 <p>实际使用中用户通过设置算子的运行模式(mode)来配置算子的计算是用CPU还是GPU完成计算，同时DALI中有如下限制：当一个算子为mixed模式或者gpu模式时，其所有的下游算子强制要求必须为gpu模式执行。</p>
-<figure class="align-default" id="id4">
+<figure class="align-default" id="id6">
 <span id="dali-overview"></span><a class="reference internal image-reference" href="../_images/dali_overview.png"><img alt="../_images/dali_overview.png" src="../_images/dali_overview.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">图8.5.1 </span><span class="caption-text">NVIDIA DALI概览</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图8.5.1 </span><span class="caption-text">NVIDIA DALI概览</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>下面展示一段使用DALI构建数据处理流水线的示例代码，我们从文件中读取图片数据经过混合模式的解码再经过运算在GPU上的旋转和缩放算子处理后返回给用户处理
@@ -383,13 +390,13 @@ DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。<
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h2><span class="section-number">8.5.2. </span>基于分布式的数据预处理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<section id="id4">
+<h2><span class="section-number">8.5.2. </span>基于分布式的数据预处理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>分布式数据预处理是另一种解决CPU算力性能不足的可选方案。一种常见的做法是借助Spark、Dask等现有大数据计算框架进行数据预处理并将结果写入分布式文件系统，而训练的机器只需要读取预处理的结果数据并进行训练即可。</p>
-<figure class="align-default" id="id5">
+<figure class="align-default" id="id7">
 <span id="distributed-data-preprocess-based-on-3rd-party-software"></span><a class="reference internal image-reference" href="../_images/distribute.png"><img alt="../_images/distribute.png" src="../_images/distribute.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">图8.5.2 </span><span class="caption-text">基于第三方分布式计算框架的分布式数据预处理</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图8.5.2 </span><span class="caption-text">基于第三方分布式计算框架的分布式数据预处理</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>该方案虽然再业内被广泛使用，却面临着三个问题：</p>
@@ -399,8 +406,8 @@ DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。<
 <li><p>由于大数据计算框架并不是完全针对机器学习场景，使得某些分布式预处理操作如全局的数据混洗无法被高效的实现。</p></li>
 </ul>
 <p>为了更适配机器学习场景的数据预处理，分布式机器学习框架Ray借助其自身的任务调度能力实现了简单的分布式的数据预处理——
-Ray
-Dataset[10]，由于数据预处理和训练处在同一个框架内，在降低了用户的编程负担的同时也通过数据的零拷贝共享消除了序列化/反序列化带来的额外开销。Ray
+Ray Dataset
+<a class="bibtex reference internal" href="../chapter_references/index.html#moritz2018ray" id="id5">[Moritz et al., 2018]</a>，由于数据预处理和训练处在同一个框架内，在降低了用户的编程负担的同时也通过数据的零拷贝共享消除了序列化/反序列化带来的额外开销。Ray
 Dataset支持如map、batch、map、filter等简单并行数据集变换算子、以及如mean等一些基础的聚合操作算子。同时Ray
 Dataset也支持排序、随机打乱、GroupBy等全局混洗操作，该方案目前处在研究开发中，还未被广泛的采用，感兴趣的读者可以翻阅相关资料进一步的了解。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;foo.parquet&quot;</span><span class="p">)</span> \
@@ -424,7 +431,7 @@ Dataset也支持排序、随机打乱、GroupBy等全局混洗操作，该方案
     <ul>
 <li><a class="reference internal" href="#">8.5. 单机数据处理性能的扩展</a><ul>
 <li><a class="reference internal" href="#id2">8.5.1. 基于异构计算的数据预处理</a></li>
-<li><a class="reference internal" href="#id3">8.5.2. 基于分布式的数据预处理</a></li>
+<li><a class="reference internal" href="#id4">8.5.2. 基于分布式的数据预处理</a></li>
 </ul>
 </li>
 </ul>

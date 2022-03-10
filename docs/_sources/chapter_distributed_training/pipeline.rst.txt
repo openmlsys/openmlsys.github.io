@@ -9,7 +9,7 @@ Parallelism Bubble）。
 
 .. _ch10-pipeline-parallel:
 
-.. figure:: ../img/ch09/ch10-pipeline-parallel.pdf
+.. figure:: ../img/ch09/ch10-pipeline-parallel.svg
    :width: 800px
 
    流水线并行系统。注意！图的F和B任务的编号需要更新！

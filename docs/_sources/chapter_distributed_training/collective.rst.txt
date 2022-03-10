@@ -11,7 +11,7 @@ Centers），以及如何在数据中心中高效实现集合通讯，从而让�
 
 .. _ch10-datacentre:
 
-.. figure:: ../img/ch09/ch10-datacentre.pdf
+.. figure:: ../img/ch09/ch10-datacentre.svg
    :width: 800px
 
    数据中心
@@ -43,7 +43,7 @@ Allreduce算法。这个算法诞生的背景是：传统计算平均梯度的�
 
 .. _ch10-allreduce-state:
 
-.. figure:: ../img/ch09/ch10-allreduce-state.pdf
+.. figure:: ../img/ch09/ch10-allreduce-state.svg
    :width: 800px
 
    Allreduce初始状态和终止状态
@@ -59,7 +59,7 @@ Allreduce算法。这个算法诞生的背景是：传统计算平均梯度的�
 
 .. _ch10-allreduce-process:
 
-.. figure:: ../img/ch09/ch10-allreduce-process.pdf
+.. figure:: ../img/ch09/ch10-allreduce-process.svg
    :width: 800px
 
    Allreduce算法的过程

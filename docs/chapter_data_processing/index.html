@@ -150,7 +150,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extension.html">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -174,7 +173,10 @@ Show Source
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">12. 联邦学习系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">13. 强化学习系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">14.1. 可解释机器学习系统</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_online_machine_learning/index.html">15. 在线机器学习</a></li>
 </ul>
 <ul>
@@ -184,6 +186,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -269,7 +272,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extension.html">8.5. 单机数据处理性能的扩展</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html">8.7. 引用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
@@ -293,7 +295,10 @@ Show Source
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">12. 联邦学习系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">13. 强化学习系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">14. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">14.1. 可解释机器学习系统</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_online_machine_learning/index.html">15. 在线机器学习</a></li>
 </ul>
 <ul>
@@ -303,6 +308,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -337,22 +343,21 @@ Pipeline)，同时我们的数据系统要有足够高的执行性能，以确�
 </li>
 <li class="toctree-l1"><a class="reference internal" href="program_model.html">8.2. 易用性设计</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="program_model.html#id2">8.2.1. 编程抽象与接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="program_model.html#id3">8.2.2. 自定义算子支持</a></li>
+<li class="toctree-l2"><a class="reference internal" href="program_model.html#id8">8.2.2. 自定义算子支持</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">8.3. 高效性设计</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#id2">8.3.1. 数据读取的高效性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#id3">8.3.2. 数据计算的高效性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#id4">8.3.1. 数据读取的高效性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#id5">8.3.2. 数据计算的高效性</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="data_order.html">8.4. 保序性设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extension.html">8.5. 单机数据处理性能的扩展</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="extension.html#id2">8.5.1. 基于异构计算的数据预处理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extension.html#id3">8.5.2. 基于分布式的数据预处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension.html#id4">8.5.2. 基于分布式的数据预处理</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="summary.html">8.6. 章节总结</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">8.7. 引用</a></li>
 </ul>
 </div>
 </section>

@@ -345,11 +345,6 @@
            8.6. 章节总结
           </a>
          </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_data_processing/reference.html">
-           8.7. 引用
-          </a>
-         </li>
         </ul>
        </li>
        <li class="toctree-l1">
@@ -440,11 +435,45 @@
         <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
          13. 强化学习系统
         </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+           13.1. 强化学习介绍
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+           13.2. 单节点强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+           13.3. 多智能体强化学习
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+           13.4. 多智能体强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+           13.5. 小结
+          </a>
+         </li>
+        </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_explainable_AI/index.html">
          14. 可解释性AI系统
         </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
+           14.1. 可解释机器学习系统
+          </a>
+         </li>
+        </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_online_machine_learning/index.html">
@@ -474,6 +503,11 @@
           </a>
          </li>
         </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../chapter_references/index.html">
+         参考文献
+        </a>
        </li>
       </ul>
      </nav>
@@ -729,11 +763,6 @@
             8.6. 章节总结
            </a>
           </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_data_processing/reference.html">
-            8.7. 引用
-           </a>
-          </li>
          </ul>
         </li>
         <li class="toctree-l1">
@@ -824,11 +853,45 @@
          <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
           13. 强化学习系统
          </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+            13.1. 强化学习介绍
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+            13.2. 单节点强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+            13.3. 多智能体强化学习
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+            13.4. 多智能体强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+            13.5. 小结
+           </a>
+          </li>
+         </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_explainable_AI/index.html">
           14. 可解释性AI系统
          </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
+            14.1. 可解释机器学习系统
+           </a>
+          </li>
+         </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_online_machine_learning/index.html">
@@ -858,6 +921,11 @@
            </a>
           </li>
          </ul>
+        </li>
+        <li class="toctree-l1">
+         <a class="reference internal" href="../chapter_references/index.html">
+          参考文献
+         </a>
         </li>
        </ul>
       </nav>
@@ -891,8 +959,8 @@
         <figure class="align-default" id="id6">
          <span id="ch10-single-node">
          </span>
-         <a class="reference internal image-reference" href="../_images/ch10-single-node.pdf">
-          <img alt="../_images/ch10-single-node.pdf" src="../_images/ch10-single-node.pdf" style="width: 800px;"/>
+         <a class="reference internal image-reference" href="../_images/ch10-single-node.svg">
+          <img alt="../_images/ch10-single-node.svg" src="../_images/ch10-single-node.svg" width="800px"/>
          </a>
          <figcaption>
           <p>
@@ -913,10 +981,12 @@
          <strong>
           等价的
          </strong>
-         并行训练系统，从而在不影响模型精度的条件下完成训练过程的加速。一个单节点训练系统往往如:numref:
-         <cite>
-          ch10-single-node
-         </cite>
+         并行训练系统，从而在不影响模型精度的条件下完成训练过程的加速。一个单节点训练系统往往如
+         <a class="reference internal" href="#ch10-single-node">
+          <span class="std std-numref">
+           图10.2.1
+          </span>
+         </a>
          所示。一个训练过程会由多个数据小批次（mini-batch）完成。在图中，一个数据小批次被标示为
          <strong>
           数据
@@ -1070,8 +1140,8 @@ Parallelism）。
         <figure class="align-default" id="id8">
          <span id="ch10-data-parallel">
          </span>
-         <a class="reference internal image-reference" href="../_images/ch10-data-parallel.pdf">
-          <img alt="../_images/ch10-data-parallel.pdf" src="../_images/ch10-data-parallel.pdf" style="width: 800px;"/>
+         <a class="reference internal image-reference" href="../_images/ch10-data-parallel.svg">
+          <img alt="../_images/ch10-data-parallel.svg" src="../_images/ch10-data-parallel.svg" width="800px"/>
          </a>
          <figcaption>
           <p>
@@ -1148,8 +1218,8 @@ Communication）的Allreduce操作来完成。
         <figure class="align-default" id="id9">
          <span id="ch10-model-parallel-intra-op">
          </span>
-         <a class="reference internal image-reference" href="../_images/ch10-model-parallel-intra-op.pdf">
-          <img alt="../_images/ch10-model-parallel-intra-op.pdf" src="../_images/ch10-model-parallel-intra-op.pdf" style="width: 800px;"/>
+         <a class="reference internal image-reference" href="../_images/ch10-model-parallel-intra-op.svg">
+          <img alt="../_images/ch10-model-parallel-intra-op.svg" src="../_images/ch10-model-parallel-intra-op.svg" width="800px"/>
          </a>
          <figcaption>
           <p>
@@ -1230,8 +1300,8 @@ Parallelism）。
         <figure class="align-default" id="id10">
          <span id="ch10-model-parallel-inter-op">
          </span>
-         <a class="reference internal image-reference" href="../_images/ch10-model-parallel-inter-op.pdf">
-          <img alt="../_images/ch10-model-parallel-inter-op.pdf" src="../_images/ch10-model-parallel-inter-op.pdf" style="width: 800px;"/>
+         <a class="reference internal image-reference" href="../_images/ch10-model-parallel-inter-op.svg">
+          <img alt="../_images/ch10-model-parallel-inter-op.svg" src="../_images/ch10-model-parallel-inter-op.svg" width="800px"/>
          </a>
          <figcaption>
           <p>
@@ -1269,8 +1339,8 @@ Parallelism）。
         <figure class="align-default" id="id11">
          <span id="ch10-hybrid-parallel">
          </span>
-         <a class="reference internal image-reference" href="../_images/ch10-hybrid-parallel.pdf">
-          <img alt="../_images/ch10-hybrid-parallel.pdf" src="../_images/ch10-hybrid-parallel.pdf" style="width: 800px;"/>
+         <a class="reference internal image-reference" href="../_images/ch10-hybrid-parallel.svg">
+          <img alt="../_images/ch10-hybrid-parallel.svg" src="../_images/ch10-hybrid-parallel.svg" width="800px"/>
          </a>
          <figcaption>
           <p>
