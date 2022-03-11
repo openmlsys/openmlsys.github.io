@@ -435,15 +435,49 @@
         <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
          13. 强化学习系统
         </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+           13.1. 强化学习介绍
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+           13.2. 单节点强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+           13.3. 多智能体强化学习
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+           13.4. 多智能体强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+           13.5. 小结
+          </a>
+         </li>
+        </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_explainable_AI/index.html">
          14. 可解释性AI系统
         </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
+           14.1. 可解释机器学习系统
+          </a>
+         </li>
+        </ul>
        </li>
        <li class="toctree-l1">
-        <a class="reference internal" href="../chapter_online_machine_learning/index.html">
-         15. 在线机器学习
+        <a class="reference internal" href="../chapter_recommender_system/index.html">
+         15. 深度学习推荐系统
         </a>
        </li>
       </ul>
@@ -819,15 +853,49 @@
          <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
           13. 强化学习系统
          </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+            13.1. 强化学习介绍
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+            13.2. 单节点强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+            13.3. 多智能体强化学习
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+            13.4. 多智能体强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+            13.5. 小结
+           </a>
+          </li>
+         </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_explainable_AI/index.html">
           14. 可解释性AI系统
          </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
+            14.1. 可解释机器学习系统
+           </a>
+          </li>
+         </ul>
         </li>
         <li class="toctree-l1">
-         <a class="reference internal" href="../chapter_online_machine_learning/index.html">
-          15. 在线机器学习
+         <a class="reference internal" href="../chapter_recommender_system/index.html">
+          15. 深度学习推荐系统
          </a>
         </li>
        </ul>
@@ -876,7 +944,7 @@
         </a>
        </h1>
        <p>
-        计算框架执行深度学习模型训练时，会根据模型结构生成计算图，通过调度计算图完成模型计算。在计算框架中可以生成静态图和动态图两种计算图。静态图对应声明式编程范式，动态图对应命令式编程范式。静态生成可以根据前端语言描述的神经网络拓扑结构以及参数变量等信息构建一份固定的计算图，因此静态图在执行期间可以不依赖前端语言描述常用于神经网络模型的部署，比如移动端人脸识别场景中的应用等。动态图则需要在每一次执行神经网络模型依据前端语言描述动态生成一份临时的计算图，这意味着计算图的动态生成过程灵活可变，该特性有助于我们在神经网络结构调整阶段提高效率。主流计算框架TensorFlow、MindSpore、PyTorch均支持动态图和静态图模式。了解两种计算图生成方式的优缺点及构建执行特点，可以针对待解决的任务需求，选择合适的生成方式调用执行神经网络模型。
+        计算框架执行深度学习模型训练时，会根据模型结构生成计算图，通过调度计算图完成模型计算。在计算框架中可以生成静态图和动态图两种计算图。静态图对应声明式编程范式，动态图对应命令式编程范式。静态生成可以根据前端语言描述的神经网络拓扑结构以及参数变量等信息构建一份固定的计算图，因此静态图在执行期间可以不依赖前端语言描述常用于神经网络模型的部署，比如移动端人脸识别场景中的应用等。动态图则需要在每一次执行神经网络模型依据前端语言描述动态生成一份临时的计算图，这意味着计算图的动态生成过程灵活可变，该特性有助于我们在神经网络结构调整阶段提高效率。主流计算框架TensorFlow、MindSpore均支持动态图和静态图模式；PyTorch则可以通过工具将构建的动态图神经网络模型转化为静态结构，以获得高效的计算执行效率。了解两种计算图生成方式的优缺点及构建执行特点，可以针对待解决的任务需求，选择合适的生成方式调用执行神经网络模型。
        </p>
        <section id="id2">
         <h2>
