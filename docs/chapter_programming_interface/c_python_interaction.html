@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -374,17 +373,17 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <section id="c-c">
+  <div class="section" id="c-c">
 <h1><span class="section-number">2.4. </span>C/C++编程接口<a class="headerlink" href="#c-c" title="Permalink to this headline">¶</a></h1>
 <p>在上述小节中，我们讨论了开发者如何利用Python来定义机器学习的整个工作流，以及如何定义复杂的深度神经网络。然而，在很多时候，用户也需要添加自定义的算子来帮助实现新的模型，优化器，数据处理函数等。这些自定义算子需要通过C和C++实现，从而获得最优性能。但是为了帮助这些算子被用户使用，他们也需要暴露为Python函数，从而方便用户整合入已有的Python为核心编写的工作流和模型。在这一小节中，我们讨论这一过程是如何实现的。</p>
-<section id="pythonc-c">
+<div class="section" id="pythonc-c">
 <h2><span class="section-number">2.4.1. </span>在Python中调用C/C++函数的原理<a class="headerlink" href="#pythonc-c" title="Permalink to this headline">¶</a></h2>
 <p>由于Python的解释器是由C实现的，因此在Python中可以实现对于C和C++函数的调用。现代机器学习框架（包括TensorFlow，PyTorch和MindSpore）主要依赖Pybind11来将底层的大量C和C++函数自动生成对应的Python函数，这一过程一般被称为Python绑定（
 Binding）。在Pybind11出现以前，将C和C++函数进行Python绑定的手段主要包括：</p>
 <ul class="simple">
 <li><p>Python的C-API。这种方式要求在一个C++程序中包含Python.h，并使用Python的C-API对Python语言进行操作。使用这套API需要对Python的底层实现有一定了解，比如如何管理引用计数等，具有较高的使用门槛。</p></li>
 <li><p>简单包装界面产生器（Simplified Wrapper and Interface
-Generator，SWIG)。SWIG可以将C和C++代码暴露给Python。SWIG是TensorFlow早期使用的方式。这种方式需要用户便携一个复杂的SWIG接口声明文件，并使用SWIG自动生成使用Python
+Generator，SWIG)。SWIG可以将C和C++代码暴露给Python。SWIG是TensorFlow早期使用的方式。这种方式需要用户编写一个复杂的SWIG接口声明文件，并使用SWIG自动生成使用Python
 C-API的C代码。自动生成的代码可读性很低，因此具有很大代码维护开销。</p></li>
 <li><p>Python的ctypes模块，提供了C语言中的类型，以及直接调用动态链接库的能力。缺点是依赖于C的原生的类型，对自定义类型支持不好。</p></li>
 <li><p>Cython是结合了Python和C语言的一种语言，可以简单的认为就是给Python加上了静态类型后的语法，使用者可以维持大部分的Python语法。Cython编写的函数会被自动转译为C和C++代码，因此在Cython中可以插入对于C/C++函数的调用。</p></li>
@@ -393,8 +392,8 @@ C-API类似，但是使用方法更简单。然而，由于引入了Boost库，�
 </ul>
 <p>相对于上述的提供Python绑定的手段，Pybind11提供了类似于Boost::Python的简洁性和易用性，但是其通过专注支持C++
 11，并且去除Boost依赖，因此成为了轻量级的Python库，从而特别适合在一个复杂的C++项目（例如本书讨论的机器学习系统）中暴露大量的Python函数。</p>
-</section>
-<section id="c">
+</div>
+<div class="section" id="c">
 <h2><span class="section-number">2.4.2. </span>添加C++编写的自定义算子<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
 <p>算子是构建神经网络的基础，在前面也称为低级API；通过算子的封装可以实现各类神经网络层，当开发神经网络层遇到内置算子无法满足时，可以通过自定义算子来实现。以MindSpore为例，实现一个GPU算子需要如下步骤：</p>
 <ol class="arabic simple">
@@ -543,8 +542,8 @@ class模板类。如下代码中分别注册了支持float和int的TensorAdd算�
 </div>
 <p>完成上述三步工作后，需要把MindSpore重新编译，在源码的根目录执行bash
 build.sh -e gpu，最后使用算子进行验证。</p>
-</section>
-</section>
+</div>
+</div>
 
 
         </div>

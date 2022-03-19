@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -373,7 +372,7 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <section id="id1">
+  <div class="section" id="id1">
 <h1><span class="section-number">12.3. </span>现有解决方案及其存在的问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在线服务系统的两个主要诉求：</p>
 <ul class="simple">
@@ -383,7 +382,7 @@ Show Source
 <a class="bibtex reference internal" href="../chapter_references/index.html#id3" id="id2">[Chu et al., 2011]</a><a class="bibtex reference internal" href="../chapter_references/index.html#id6" id="id3">[He et al., 2014]</a><a class="bibtex reference internal" href="../chapter_references/index.html#id9" id="id4">[Tian et al., 2018]</a><a class="bibtex reference internal" href="../chapter_references/index.html#id11" id="id5">[Xie et al., 2020]</a>中都发现模型更新可以有效缓解概念漂移带来的危害，而且更新的频率越高，模型的性能越好。</p></li>
 </ul>
 <p>在线推荐系统对跨地域地部署的大模型进行快速更新的需求在现有的系统中很难得到满足。一种最直观的解决方案是周期性地将训练服务器上的模型参数发给所有副本。然而这种方式面临着非常大的资源瓶颈。我们以网络开销为例进行分析。假设负责训练的参数服务器存储有100GB的参数，每10分钟将所有参数（在训练集群内部，模型更新的速度极快，10分钟足够将所有参数更新多次）发给其余2个副本。这就需要至少2.6Gbps的网络带宽。然而我们的分析只是最基本的情况，没有考虑网络传输的额外开销以及可能出现的失败重传，也没有考虑需要水平扩展至更多副本、更大模型、更高的更新频率的情况。为了缓解网络瓶颈，人们不得不选择以更慢的速度更新更大的模型，或者限制模型大小以追求更快的更新速度。简单的广播模型参数除了会有很大的资源瓶颈，还无法保证多副本之间的一致性。然而如果采用先用的数据库系统来保证一致性，只能使得资源开销更加严重，进一步限制系统的规模和效率。</p>
-</section>
+</div>
 
 
         </div>

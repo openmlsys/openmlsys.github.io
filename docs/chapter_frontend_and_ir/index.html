@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -372,17 +371,15 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <section id="id1">
+  <div class="section" id="id1">
 <h1><span class="section-number">5. </span>编译器前端<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在上一章节中，我们详细讨论了计算图的生成和调度，在进阶部分的介绍中简单介绍了深度学习编译器的作用。定义深度学习模型、计算图使用系统为用户提供的高级编程API，我们将用户使用高级编程API编写的程序称为源程序，将与硬件相关的程序称为目标程序，深度学习编译器需要理解输入的源程序并将其映射到目标机。为了实现这两项任务，编译器的设计被分解为两个主要部分：前端和后端。传统编译器的前端专注于理解源程序，后端则专注于将功能映射到目标机。为了将前后端相连接，我们需要一种结构来表示转换后的源代码，这就是中间表示（Intermediate
 Representation, IR）。</p>
 <p><a class="reference internal" href="#compiler-frontend-structure"><span class="std std-numref">图5.1</span></a>展示了机器学习编译器的前端的流程。其中，对源程序的解析过程与传统编译器是大致相同的，本章节不对这部分进行更细致的讨论。机器学习框架的编译器前端的独特之处主要在于自动微分功能的支持。为了满足自动微分功能带来的新需求，机器学习框架需要在传统中间表示的基础上设计新的中间表示结构。因此，本章节的介绍重点会放在中间表示以及自动微分这两个部分。最后，我们会简要探讨类型系统，静态分析和前端优化等编译器基础概念。</p>
-<figure class="align-default" id="id2">
+<div class="figure align-default" id="id2">
 <span id="compiler-frontend-structure"></span><a class="reference internal image-reference" href="../_images/编译器前端基础架构.svg"><img alt="../_images/编译器前端基础架构.svg" src="../_images/编译器前端基础架构.svg" width="1000px" /></a>
-<figcaption>
-<p><span class="caption-number">图5.1 </span><span class="caption-text">编译器前端基础结构</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-number">图5.1 </span><span class="caption-text">编译器前端基础结构</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 <p>本章的学习目标包括：</p>
 <ul class="simple">
 <li><p>理解中间表示的基础概念，特点和实现方法</p></li>
@@ -424,7 +421,7 @@ Representation, IR）。</p>
 <li class="toctree-l1"><a class="reference internal" href="summary.html">5.6. 总结</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
         </div>

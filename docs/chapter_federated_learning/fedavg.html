@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -373,18 +372,16 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <section id="id1">
+  <div class="section" id="id1">
 <h1><span class="section-number">13.3. </span>联邦平均算法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>和传统分布式学习相比，联邦学习存在训练结点不稳定和通信代价大的难点。这些难点导致了联邦学习无法和传统分布式学习一样：在每次单步训练之后，同步不同训练结点上的权重。为了提高计算通信比并降低频繁通信带来的高能耗，谷歌公司提出了联邦平均算法（Federated
 Averaging，FedAvg）。
 展示了FedAvg的整体流程。在每轮联邦训练过程中，端侧进行多次单步训练。然后云侧聚合多个端侧权重，并取加权平均。</p>
-<figure class="align-default" id="id2">
+<div class="figure align-default" id="id2">
 <span id="ch10-federated-learning-fedavg"></span><img alt="../_images/ch10-federated-learning-fedavg.png" src="../_images/ch10-federated-learning-fedavg.png" />
-<figcaption>
-<p><span class="caption-number">图13.3.1 </span><span class="caption-text">联邦平均算法</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</section>
+<p class="caption"><span class="caption-number">图13.3.1 </span><span class="caption-text">联邦平均算法</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
 
 
         </div>

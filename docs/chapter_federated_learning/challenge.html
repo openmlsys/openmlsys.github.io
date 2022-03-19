@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -373,9 +372,9 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <section id="id1">
+  <div class="section" id="id1">
 <h1><span class="section-number">13.5. </span>实际部署时的挑战<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<section id="id2">
+<div class="section" id="id2">
 <h2><span class="section-number">13.5.1. </span>部署流程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>随着端上算力的提升和算法的快速发展，跨设备联邦学习在智能手机或智能设备中的应用越来越广泛。其主要流程如
 所示，可分为如下几步：</p>
@@ -386,22 +385,20 @@ Show Source
 <li><p>FL-Client模型更新：终端向FL-Server查询联邦聚合后的模型等数据。</p></li>
 <li><p>重复1-4步，完成联邦学习任务。</p></li>
 </ol>
-<figure class="align-default" id="id5">
+<div class="figure align-default" id="id5">
 <span id="ch10-federated-learning-flow"></span><img alt="../_images/ch10-federated-learning-flow.png" src="../_images/ch10-federated-learning-flow.png" />
-<figcaption>
-<p><span class="caption-number">图13.5.1 </span><span class="caption-text">跨设备联邦学习流程图</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</section>
-<section id="id3">
+<p class="caption"><span class="caption-number">图13.5.1 </span><span class="caption-text">跨设备联邦学习流程图</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="id3">
 <h2><span class="section-number">13.5.2. </span>部署挑战<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>然而，由于跨设备联邦学习的特殊性，其挑战主要包括：</p>
 <ol class="arabic simple">
 <li><p>跨设备联邦学习的FL-Client的网络连接常常是不稳定的，在任何时候都只有部分FL-Client可用。</p></li>
 <li><p>跨设备联邦学习往往是大规模并行的场景，通信时间会成为瓶颈。当千万级FL-Client同时进行联邦学习请求时，需要大量网络带宽的支持，并且单台FL-Server必然承接不住庞大的数据和参数。</p></li>
 </ol>
-</section>
-<section id="id4">
+</div>
+<div class="section" id="id4">
 <h2><span class="section-number">13.5.3. </span>解决方案<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>为了解决跨设备联邦学习带来的挑战，MindSpore Federated
 Learning给出两个解决方案：</p>
@@ -409,8 +406,8 @@ Learning给出两个解决方案：</p>
 <li><p>限时通信：在FL-Server和FL-Client建立连接后，启动全局的计时器和计数器。当预先设定的时间窗口内的FL-Server接收到FL-Client训练后的模型参数满足初始接入的所有FL-Client的一定比例后，就可以进行聚合。若时间窗内没有达到比例阈值，则进入下一轮迭代。保证即使有海量FL-Client接入的情况下，也不会由于个别FL-Client训练时间过长或掉线导致的整个联邦学习过程卡死。</p></li>
 <li><p>松耦合组网：使用FL-Server集群。每个FL-Server接收和下发权重给部分FL-Client，减少单个FL-Server的带宽压力。此外，支持FL-Client以松散的方式接入。任意FL-Client的中途退出都不会影响全局任务，并且FL-Client在任意时刻访问任意FL-Server都能获得训练所需的全量数据。</p></li>
 </ol>
-</section>
-</section>
+</div>
+</div>
 
 
         </div>

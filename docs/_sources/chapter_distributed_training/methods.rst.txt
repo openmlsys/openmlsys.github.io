@@ -75,7 +75,7 @@ Communication）的Allreduce操作来完成。
 
 .. _ch10-model-parallel-intra-op:
 
-.. figure:: ../img/ch09/ch10-model-parallel-intra-op.svg
+.. figure:: ../img/ch09/ch10-model-parallel-intra-op.png
    :width: 800px
 
    模型并行系统：算子内并行
