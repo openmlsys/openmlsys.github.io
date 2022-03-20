@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -373,16 +374,18 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">10.3. </span>流水线并行<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在数据并行和模型并行以外，流水线并行是另一种常用的并行加速方法。
 流水线并行往往被应用在大型模型并行系统中。这种系统通过算子内并行和算子间并行解决单设备内存不足的问题。
 然而，当这类系统的运行中，计算图中的下游设备需要长期持续处于空闲状态，等待上游设备的计算完成，才可以开始计算，这极大降低了设备的平均使用率。这种现象被称为模型并行空洞（Model
 Parallelism Bubble）。</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <span id="ch10-pipeline-parallel"></span><a class="reference internal image-reference" href="../_images/ch10-pipeline-parallel.svg"><img alt="../_images/ch10-pipeline-parallel.svg" src="../_images/ch10-pipeline-parallel.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图10.3.1 </span><span class="caption-text">流水线并行系统。注意！图的F和B任务的编号需要更新！</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图10.3.1 </span><span class="caption-text">流水线并行系统。注意！图的F和B任务的编号需要更新！</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>为了减少空洞，提升设备使用率，我们可以在模型并行系统中构建流水线。这种做法的核心想法是将一个数据小批量（Data
 Mini-batch）划分为多个微批量（Micro-batch）。假设一个数据小批量有<span class="math notranslate nohighlight">\(D\)</span>个训练数据，这个小批量可以被划分为<span class="math notranslate nohighlight">\(M\)</span>个微批量，那么微批量的大小就是<span class="math notranslate nohighlight">\(D/M\)</span>。每个微批量相应进入训练系统，完成前向传播（Forwards
 propagation）和反向传播（Backwards
@@ -392,7 +395,7 @@ propagation），计算出梯度。每个微批量对应的梯度将会缓存，
 <p>流水线并行的关键因素是流水线泡沫（Bubble）。当设备完成前向传播后，必须等到全部反向传播开发，在此期间设备会处于空闲状态。在
 <a class="reference internal" href="#ch10-pipeline-parallel"><span class="std std-numref">图10.3.1</span></a>
 中，我们可以看到设备1在完成2个前向传播任务后，要等很多时间才能开始2个传向传播任务。这其中的等待时间即被称为泡沫。为了减少设备的等待时间，一种常见的做法是尽可能的增加微批量的数量，从而让反向传播尽可能早的开始。然而，使用非常小的微批量大小，可能会造成加速器无法被充分利用。因此最优的微批量大小是多种因素的折中。其中最核心的因素是流水线泡沫的大小和加速器的计算能力。</p>
-</div>
+</section>
 
 
         </div>

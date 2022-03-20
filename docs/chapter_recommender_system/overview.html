@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -372,16 +373,18 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">12.1. </span>背景<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>为了方便本节的讨论，我们首先简单介绍一些推荐系统的基本概念，包括三部分：推荐模型的结构，推荐系统的架构，和评估推荐系统的关键指标。</p>
 <p>基于深度学习的推荐模型在过去几年受到了学术界和工业界的高度关注，得到了快速发展。目前主流的推荐模型
 <a class="bibtex reference internal" href="../chapter_references/index.html#id2" id="id2">[Cheng et al., 2016]</a><a class="bibtex reference internal" href="../chapter_references/index.html#id10" id="id3">[Wang et al., 2017]</a><a class="bibtex reference internal" href="../chapter_references/index.html#ijcai2017-239" id="id4">[Guo et al., 2017]</a><a class="bibtex reference internal" href="../chapter_references/index.html#naumov2019deep" id="id5">[Naumov et al., 2019]</a>的基本结构可以总结如图
 <a class="reference internal" href="#ch10-recommendation-models"><span class="std std-numref">图12.1.1</span></a>。</p>
-<div class="figure align-default" id="id10">
+<figure class="align-default" id="id10">
 <span id="ch10-recommendation-models"></span><a class="reference internal image-reference" href="../_images/ch10-recommendation-models.svg"><img alt="../_images/ch10-recommendation-models.svg" src="../_images/ch10-recommendation-models.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图12.1.1 </span><span class="caption-text">推荐模型的基本结构</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图12.1.1 </span><span class="caption-text">推荐模型的基本结构</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>推荐模型以用户和内容的交互历史、用户属性、内容属性等特征作为输入，对输入特征进行充分相互作用，再将交互结果交由稠密深度神经网络来预测用户点击候选内容的可能性。为了加深读者的对推荐模型的理解，此处我们以Wide
 &amp; Deep模型
 <a class="bibtex reference internal" href="../chapter_references/index.html#id2" id="id6">[Cheng et al., 2016]</a>作为例子，深入分析推荐模型的输入特征以及输入特征之间如何交互。由于推荐模型的设计不在本章的讨论范围内，所以下面的介绍中重点介绍模型的基本结构以方便理解推荐系统的设计，而不讨论Wide
@@ -401,13 +404,15 @@ perceptron）。Wide部分和Deep部分按照一定规则拼接然后得到最�
 <a class="bibtex reference internal" href="../chapter_references/index.html#mlsys2020-f7e6c855" id="id9">[Zhao et al., 2020]</a>也是非常常见的。</p>
 <p>在实际的生产环境中，除了推荐模型本身，推荐系统通常包括：数据收集、数据处理、数据存储、模型训练、模型存储、模型评估、推理服务等多个子系统。如图
 <a class="reference internal" href="#ch10-abstract-recommendation-systems"><span class="std std-numref">图12.1.2</span></a>所示，这些子系统之间分工协作、紧密配合，构成一个从用户反馈、到模型更新、再到新推荐结果生成的闭环。下一小节中将重点介绍模型训练、推理子系统的结构。</p>
-<div class="figure align-default" id="id11">
+<figure class="align-default" id="id11">
 <span id="ch10-abstract-recommendation-systems"></span><a class="reference internal image-reference" href="../_images/ch10-abstract-recommendation-systems.svg"><img alt="../_images/ch10-abstract-recommendation-systems.svg" src="../_images/ch10-abstract-recommendation-systems.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图12.1.2 </span><span class="caption-text">推荐系统的抽象架构</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图12.1.2 </span><span class="caption-text">推荐系统的抽象架构</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>深度学习模型给出的推荐结果的准确性是推荐系统需要关注的一个基本指标。然而不同于一般学术论文中使用的基准数据集，生产环境中推荐模型面对的是动态变化的数据分布。例如，每天的热点内容不同，每个用户的兴趣也会不断变化。为了保持模型的性能，推荐系统需要不断根据用户的反馈对已有模型进行更新。而这就需要系统能够将用户的行为转换为模型可以处理的数据。系统首先在提供服务的同时收集用户的行为，例如用户对内容的浏览、点击动作。收集到的数据还需要进一步加工处理，从而得到模型可以接受的格式化数据。</p>
 <p>除了推荐准确性，对于在线服务的提供者而言，可用性是一个非常关键的指标。当用户需要一个推荐结果时，相比于给用户一个不完全准确的推荐，“无响应”的结果对于用户的体验伤害更大。因此，在某种程度上可以说系统可用性是比推荐结果的准确性更加关键的一个指标。然而这并不意味着准确性不重要，在一定的资源限制下，在线推荐系统的设计者必须谨慎地在准确性和可用性之间进行平衡。例如，使用更宽、更深、更复杂的神经网络模型可能会给出更加准确的推荐结果，但如果其推断延迟高于给定的阈值，那么这样的模型不能直接运用于生产环境中。</p>
-</div>
+</section>
 
 
         </div>

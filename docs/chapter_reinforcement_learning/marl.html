@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          14.4.
@@ -1127,24 +1128,26 @@
         </a>
         (b)为多智能体顺序执行动作的情况，后续智能体可能观察到前序智能体的动作，他们的动作一同对环境产生影响，并接受到各自的奖励值或共同的奖励值。除此之外，还有许多其他可能的多智能体框架，如更复杂的智能体间观察机制、智能体间通讯机制、多智能体合作与竞争等等。同时，这里假设多个智能体对环境的观察量都为环境的状态，这是最简单的一种，也是现实中最不可能出现的一种，实际情况下的多智能体往往对环境有各自不同的观察量。
        </p>
-       <div class="figure align-default" id="id2">
+       <figure class="align-default" id="id2">
         <span id="ch12-ch12-marl">
         </span>
         <a class="reference internal image-reference" href="../_images/ch12-marl.png">
          <img alt="../_images/ch12-marl.png" src="../_images/ch12-marl.png" style="width: 800px;"/>
         </a>
-        <p class="caption">
-         <span class="caption-number">
-          图14.4.1
-         </span>
-         <span class="caption-text">
-          两种可能的多智能体强化学习框架：（a）同步式多智能体决策；（b）异步式多智能体决策。
-         </span>
-         <a class="headerlink" href="#id2" title="Permalink to this image">
-          ¶
-         </a>
-        </p>
-       </div>
+        <figcaption>
+         <p>
+          <span class="caption-number">
+           图14.4.1
+          </span>
+          <span class="caption-text">
+           两种可能的多智能体强化学习框架：（a）同步式多智能体决策；（b）异步式多智能体决策。
+          </span>
+          <a class="headerlink" href="#id2" title="Permalink to this image">
+           ¶
+          </a>
+         </p>
+        </figcaption>
+       </figure>
        <p>
         这里我们可以根据前面对单智能体强化学习过程的马尔可夫决策过程描述，给出多智能体强化学习的马尔可夫决策过程，它可以用一个数组
         <span class="math notranslate nohighlight">
@@ -1356,7 +1359,7 @@ al.）。由于篇幅限制，我们这里无法对多智能体问题做深入�
         我们在上面这个例子中采用的学习方法其实是多智能体强化学习中最基础的一种，叫自学习（Selfplay）。我们可以看到自学习在特定的任务设置下可能无法收敛到我们想要的最终目标。正是由于多智能体学习过程中有类似循环结构的出现，我们需要更复杂的训练方法，和专门针对多智能体的学习方式来达到我们想要的目标。一般来讲，多智能体强化学习是比单智能体强化学习更复杂的一类，对于自学习的方法而言，单智能体强化学习的过程可以看做一个多智能体强化学习的子任务。从前面这一小游戏的角度来理解，当玩家1策略固定时，玩家1加游戏环境构成玩家2的实际学习环境，由于这个环境是固定的，玩家2可以通过单智能体强化学习来达到自身奖励值最大化；这时再固定玩家2的策略，玩家1又可以进行单智能体强化学习……这样，单智能体强化学习是多智能体任务的子任务。其他算法如虚构自学习（Fictitious
 Self-play），需要在每个单智能体强化学习的步骤中，对对手历史策略的平均策略求得最优应对策略，而对手的训练也是如此，进行循环，能够在上面剪刀-石头-布一类的游戏中保证收敛到纳什均衡策略。
        </p>
-      </div>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

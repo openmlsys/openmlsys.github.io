@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          9.2.
@@ -1100,7 +1101,7 @@
          ¶
         </a>
        </h1>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           9.2.1.
@@ -1133,8 +1134,8 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
         <p>
          在完成模型转换之后，通常地，我们会将一些不依赖于输入的工作提前去完成。这些工作包括了如常量折叠、算子融合、算子替换、算子重排等一些优化手段。这些优化手段的概念在前面的章节其实已经提及到，比如在编译器前端阶段，通常也会做常量折叠；在编译器后端阶段，通常会根据后端的硬件支持程度，对算子进行融合和拆分。但是有些优化工作只有在部署阶段才能进行或者彻底进行。
         </p>
-       </div>
-       <div class="section" id="ch08-sec-fusion">
+       </section>
+       <section id="ch08-sec-fusion">
         <span id="id3">
         </span>
         <h2>
@@ -1149,24 +1150,26 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
         <p>
          算子融合，就是将深度神经网络模型中的多个算子，按照一定的规则，合并成一个新的算子。通过算子融合，可以减少模型在线推理时的计算量、访存开销，从而降低推理时的时延和功耗。
         </p>
-        <div class="figure align-default" id="id6">
+        <figure class="align-default" id="id6">
          <span id="ch08-fig-storage">
          </span>
          <a class="reference internal image-reference" href="../_images/storage.png">
           <img alt="../_images/storage.png" src="../_images/storage.png" style="width: 150px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图9.2.1
-          </span>
-          <span class="caption-text">
-           计算机分层存储架构
-          </span>
-          <a class="headerlink" href="#id6" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图9.2.1
+           </span>
+           <span class="caption-text">
+            计算机分层存储架构
+           </span>
+           <a class="headerlink" href="#id6" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          算子融合带来的性能上的收益主要来自两个方面，一是通过融合，充分利用寄存器和缓存，避免多个算子运算时，数据在CPU和内存之间的存储和读取的耗时。如
          <a class="reference internal" href="#ch08-fig-storage">
@@ -1176,7 +1179,7 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          </a>
          ，可以看到计算机的储存系统，从最靠近cpu的寄存器L1、L2等多级缓存，到内存、硬盘，其存储的容量越来越大，但读取数据的耗时也越来越大。融合后，前一次计算的结果可以先暂存在CPU的寄存器(Register)或者缓存（Cache）中，下一次计算直接从寄存器或者缓存中读取，减少了内存读写的IO次数。二是通过融合，可以将一些计算量提前完成，避免了前向推理时的冗余计算或者循环冗余计算。
         </p>
-        <div class="figure align-default" id="id7">
+        <figure class="align-default" id="id7">
          <span id="ch08-tab-conv-bn-fusion">
          </span>
          <span id="ch08-fig-conv-bn-fusion">
@@ -1184,18 +1187,20 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          <a class="reference internal image-reference" href="../_images/conv-bn-fusion.png">
           <img alt="../_images/conv-bn-fusion.png" src="../_images/conv-bn-fusion.png" style="width: 500px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图9.2.2
-          </span>
-          <span class="caption-text">
-           Convolution + Batchnorm算子融合
-          </span>
-          <a class="headerlink" href="#id7" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图9.2.2
+           </span>
+           <span class="caption-text">
+            Convolution + Batchnorm算子融合
+           </span>
+           <a class="headerlink" href="#id7" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如
          <a class="reference internal" href="#ch08-fig-conv-bn-fusion">
@@ -1410,8 +1415,8 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
           </tbody>
          </table>
         </div>
-       </div>
-       <div class="section" id="id4">
+       </section>
+       <section id="id4">
         <h2>
          <span class="section-number">
           9.2.3.
@@ -1424,24 +1429,26 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
         <p>
          算子替换，即将模型中某些算子替换计算逻辑一致但对于在线部署更友好的算子。算子替换的原理是通过合并同类项、提取公因式等数学方法，将算子的计算公式加以简化，并将简化后的计算公式映射到某类算子上。算子替换可以达到降低计算量、降低模型大小的效果。
         </p>
-        <div class="figure align-default" id="id9">
+        <figure class="align-default" id="id9">
          <span id="ch08-fig-bn-replace">
          </span>
          <a class="reference internal image-reference" href="../_images/bn-replace.png">
           <img alt="../_images/bn-replace.png" src="../_images/bn-replace.png" style="width: 500px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图9.2.3
-          </span>
-          <span class="caption-text">
-           Batchnorm算子替换
-          </span>
-          <a class="headerlink" href="#id9" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图9.2.3
+           </span>
+           <span class="caption-text">
+            Batchnorm算子替换
+           </span>
+           <a class="headerlink" href="#id9" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如
          <a class="reference internal" href="#ch08-fig-bn-replace">
@@ -1470,8 +1477,8 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
         <p>
          在Batchnorm算子被替换为Scale算子的前后，网络中的参数量、计算量都减少了，该算子替换策略可以优化模型部署时的功耗和性能。同理，该算子替换优化策略只能在部署阶段才能进行，因为一方面在部署阶段Batchnorm计算公式中被认为是常量的符号，在训练时是参数并非常量。另一方面该优化策略会降低模型的参数量，改变模型的结构，降低模型的表达能力，影响训练收敛时模型的准确率。
         </p>
-       </div>
-       <div class="section" id="id5">
+       </section>
+       <section id="id5">
         <h2>
          <span class="section-number">
           9.2.4.
@@ -1484,24 +1491,26 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
         <p>
          算子重排是指将模型中算子的拓扑序按照某些规则进行重新排布，在不降低模型的推理精度的前提下，降低模型推理的计算量。常用的算子重排技术有针对于Slice算子、StrideSlice算子、Crop算子等裁切类算子的前移、Reshape算子和Transpose算子的重排、BinaryOp算子的重排等。
         </p>
-        <div class="figure align-default" id="id10">
+        <figure class="align-default" id="id10">
          <span id="ch08-fig-crop-reorder">
          </span>
          <a class="reference internal image-reference" href="../_images/crop-reorder.png">
           <img alt="../_images/crop-reorder.png" src="../_images/crop-reorder.png" style="width: 500px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图9.2.4
-          </span>
-          <span class="caption-text">
-           Crop算子重排
-          </span>
-          <a class="headerlink" href="#id10" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图9.2.4
+           </span>
+           <span class="caption-text">
+            Crop算子重排
+           </span>
+           <a class="headerlink" href="#id10" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如
          <a class="reference internal" href="#ch08-fig-crop-reorder">
@@ -1518,8 +1527,8 @@ wise类算子前移。
         <p>
          通过前面的实验数据我们可以看到，通过推理前的模型优化，可以为推理的时延、功耗、内存占用带来极大的收益。
         </p>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1088,7 +1089,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          8.2.
@@ -1101,7 +1102,7 @@
        <p>
         本节我们主要介绍如何设计一个易用的机器学习系统数据模块。正如前文所言，易用性既要求数据模块提供好的编程抽象和接口使得用户可以方便的构建一个数据处理流水，同时还要支持用户灵活地在数据流水中注册使用自定义算子以满足丰富多变的特殊需求，接下来我们将从编程接口抽象和自定义算子注册机制两个方面来展开探讨。
        </p>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           8.2.1.
@@ -1119,24 +1120,26 @@
          </a>
          我们展示的是一个训练图片分类模型的经典数据预处理流水线。我们从存储设备中加载数据集后，对数据集中的图片数据进行解码、缩放、旋转、正规化、通道变换等一系列操作，对数据集的标签也进行特定的预处理操作，最终将处理好的数据发送到芯片上进行模型的计算。我们希望数据模块提供的编程抽象具备足够高的层次，以使得用户可以通过短短几行代码就能描述清楚数据处理的逻辑，不需要陷入过度的、重复的数据处理实现细节当中。同时又要确保这一套高层次的抽象具备足够通用性，以满足多样的数据预处理需求。在我们得到一个好的编程抽象后，我们将会以基于MindSpore的数据模块提供的编程接口实现下图所描述的数据预处理流水线的代码片段为例子来展示一个优秀的编程抽象对用户编程负担的减轻是有多么大的作用。
         </p>
-        <div class="figure align-default" id="id10">
+        <figure class="align-default" id="id10">
          <span id="image-process-pipeline">
          </span>
          <a class="reference internal image-reference" href="../_images/image_process_pipeline.png">
           <img alt="../_images/image_process_pipeline.png" src="../_images/image_process_pipeline.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.1
-          </span>
-          <span class="caption-text">
-           数据预处理示例
-          </span>
-          <a class="headerlink" href="#id10" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.1
+           </span>
+           <span class="caption-text">
+            数据预处理示例
+           </span>
+           <a class="headerlink" href="#id10" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          事实上，面向数据计算的编程抽象早已在通用数据并行计算系统领域中被广泛的研究并取得了相对统一的共识——那就是提供类LINQ式
          <a class="bibtex reference internal" href="../chapter_references/index.html#meijer2006linq" id="id3">
@@ -1179,24 +1182,26 @@ RDD)概念的编程模型。一个RDD是一个只读的分布式数据集合，�
          </a>
          的计算流程可视化中我们也可以清晰的看到用户在创建数据集后，只需要描述在数据集上的作用算子即可，至于算子的执行和实现则由系统的运行时负责。
         </p>
-        <div class="figure align-default" id="id11">
+        <figure class="align-default" id="id11">
          <span id="rdd-transformation-example">
          </span>
          <a class="reference internal image-reference" href="../_images/RDD.png">
           <img alt="../_images/RDD.png" src="../_images/RDD.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.2
-          </span>
-          <span class="caption-text">
-           Spark编程核心——RDD变换
-          </span>
-          <a class="headerlink" href="#id11" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.2
+           </span>
+           <span class="caption-text">
+            Spark编程核心——RDD变换
+           </span>
+           <a class="headerlink" href="#id11" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          主流机器学习系统中的数据模块同样也采用了类似的编程抽象，如TensorFlow的数据模块tf.data
          <a class="bibtex reference internal" href="../chapter_references/index.html#murray2021tf" id="id7">
@@ -1209,24 +1214,26 @@ RDD)概念的编程模型。一个RDD是一个只读的分布式数据集合，�
          MindData是机器学习系统MindSpore的数据模块，主要负责完成机器学习模型训练中的数据预处理任务，MindData的向用户提供的核心编程抽象为基于Dataset（数据集）的变换处理。这里的Dataset是一个数据帧的概念(Data
 Frame)，即一个Dataset为一个多行多列，且每一列都有列名的关系数据表。
         </p>
-        <div class="figure align-default" id="id12">
+        <figure class="align-default" id="id12">
          <span id="mindspore-dataset-example">
          </span>
          <a class="reference internal image-reference" href="../_images/dataset_table.png">
           <img alt="../_images/dataset_table.png" src="../_images/dataset_table.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.3
-          </span>
-          <span class="caption-text">
-           MindSpore Dataset示例
-          </span>
-          <a class="headerlink" href="#id12" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.3
+           </span>
+           <span class="caption-text">
+            MindSpore Dataset示例
+           </span>
+           <a class="headerlink" href="#id12" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          基于这样一个编程模型，结合我们在第一节中介绍的机器学习数据流程中的关键处理流程，MindData为用户提供了对数据集进行shuffle、map、batch等变换操作的数据集操作算子，这些算子接收一个Dataset作为输入，并以一个新处理生成的Dataset作为结果输出，我们列举典型的数据集变换接口如下：
         </p>
@@ -1407,20 +1414,22 @@ Frame)，即一个Dataset为一个多行多列，且每一列都有列名的关�
           </p>
          </li>
         </ul>
-        <div class="figure align-default" id="id14">
+        <figure class="align-default" id="id14">
          <img alt="../_images/dataset.png" src="../_images/dataset.png"/>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.4
-          </span>
-          <span class="caption-text">
-           MindSpore Dataset多种生成方式
-          </span>
-          <a class="headerlink" href="#id14" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.4
+           </span>
+           <span class="caption-text">
+            MindSpore Dataset多种生成方式
+           </span>
+           <a class="headerlink" href="#id14" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          最后我们以一个基于MindData实现我们本节开篇所描述的数据处理流水线为例子来展示以Dataset为核心概念的数据编程抽象是多么的用户友好。我们只需要短短10余行代码即可完成我们所期望的复杂数据处理，同时在整个过程中，我们只专注于逻辑的描述，而将算子的实现和算子执行流程交由数据模块负责，这极大的减轻了用户的编程负担。
         </p>
@@ -1448,8 +1457,8 @@ Frame)，即一个Dataset为一个多行多列，且每一列都有列名的关�
 </pre>
          </div>
         </div>
-       </div>
-       <div class="section" id="id8">
+       </section>
+       <section id="id8">
         <h2>
          <span class="section-number">
           8.2.2.
@@ -1465,24 +1474,26 @@ Frame)，即一个Dataset为一个多行多列，且每一列都有列名的关�
         <p>
          机器学习场景中，用户的开发编程语言以Python为主，所以我们可以认为用户的自定义算子更多情况下实际上是一个Python函数或者Python类。数据模块支持自定义算子的难度主要由数据模块对计算的调度实现方式有关系，比如Pytorch的dataloader的计算调度主要在Python层面实现，得益于Python语言的灵活性，在dataloader的数据流水中插入自定义的算子相对来说比较容易；而像TensorFlow的tf.data以及MindSpore的MindData的计算调度主要在C++层面实现，这使得数据模块想要灵活的在数据流中插入用户定义的Python算子变得较为有挑战性。接下来我们以MindData中的算子自定义算子注册使用实现为例子展开讨论这部分内容。
         </p>
-        <div class="figure align-default" id="id15">
+        <figure class="align-default" id="id15">
          <span id="mindspore-operator-example">
          </span>
          <a class="reference internal image-reference" href="../_images/operation.png">
           <img alt="../_images/operation.png" src="../_images/operation.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.5
-          </span>
-          <span class="caption-text">
-           MindData的C层算子和Python层算子
-          </span>
-          <a class="headerlink" href="#id15" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.5
+           </span>
+           <span class="caption-text">
+            MindData的C层算子和Python层算子
+           </span>
+           <a class="headerlink" href="#id15" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          MindData中的数据预处理算子可以分为C层算子以及Python层算子，C层算子能提供较高的执行性能而Python层算子可以很方便借助丰富的第三方Python包进行开发。为了灵活地覆盖更多场景，MindData支持用户使用Python开发自定义算子，如果用户追求更高的性能，MindData也支持用户将开发的C层算子编译后以插件的形式注册到MindSpore的数据处理中进行调用。
         </p>
@@ -1494,26 +1505,28 @@ Frame)，即一个Dataset为一个多行多列，且每一列都有列名的关�
          为MindData的算子插件仓，囊括了为特定领域（遥感，医疗，气象等）量身制作的算子，该仓承载MindData的插件能力扩展，为用户编写MindData的新算子提供了便捷易用的入口，用户通过编写算子、编译、安装插件步骤，然后就可以在MindData
 Pipeline的map操作中使用新开发的算子。
         </p>
-        <div class="figure align-default" id="id16">
+        <figure class="align-default" id="id16">
          <span id="mindspore-user-defined-operator">
          </span>
          <a class="reference internal image-reference" href="../_images/dataset-plugin.png">
           <img alt="../_images/dataset-plugin.png" src="../_images/dataset-plugin.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图8.2.6
-          </span>
-          <span class="caption-text">
-           MindSpore自定义算子注册
-          </span>
-          <a class="headerlink" href="#id16" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-       </div>
-      </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图8.2.6
+           </span>
+           <span class="caption-text">
+            MindSpore自定义算子注册
+           </span>
+           <a class="headerlink" href="#id16" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

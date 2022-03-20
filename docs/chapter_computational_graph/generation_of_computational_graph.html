@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          3.3.
@@ -1103,7 +1104,7 @@
        <p>
         计算框架执行深度学习模型训练时，会根据模型结构生成计算图，通过调度计算图完成模型计算。在计算框架中可以生成静态图和动态图两种计算图。静态图对应声明式编程范式，动态图对应命令式编程范式。静态生成可以根据前端语言描述的神经网络拓扑结构以及参数变量等信息构建一份固定的计算图，因此静态图在执行期间可以不依赖前端语言描述，常用于神经网络模型的部署，比如移动端人脸识别场景中的应用等。动态图则需要在每一次执行神经网络模型依据前端语言描述动态生成一份临时的计算图，这意味着计算图的动态生成过程灵活可变，该特性有助于我们在神经网络结构调整阶段提高效率。主流计算框架TensorFlow、MindSpore均支持动态图和静态图模式；PyTorch则可以通过工具将构建的动态图神经网络模型转化为静态结构，以获得高效的计算执行效率。了解两种计算图生成方式的优缺点及构建执行特点，可以针对待解决的任务需求，选择合适的生成方式调用执行神经网络模型。
        </p>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           3.3.1.
@@ -1122,24 +1123,26 @@
          </a>
          所示，采用先编译后执行的方式，该模式将计算图的定义和执行进行分离。在静态图模式下使用前端语言定义模型形成完整的程序表达后，并不使用前端语言解释器进行执行，而是将前端描述的完整模型交给计算框架。框架在执行模型计算之前会首先对神经网络模型进行分析，获取网络层之间的连接拓扑关系以及参数变量设置、损失函数等信息，接着用一种特殊的静态数据结构来描述拓扑结构及其他神经网络模型组件，这种特殊的静态数据结构通常被称为静态计算图。静态计算图可以通过优化策略转换成等价的更加高效的结构。当进行模型训练或者推理过程时，静态计算图接收数据并通过相应硬件调度执行图中的算子来完成任务。
         </p>
-        <div class="figure align-default" id="id6">
+        <figure class="align-default" id="id6">
          <span id="static">
          </span>
          <a class="reference internal image-reference" href="../_images/static.svg">
           <img alt="../_images/static.svg" src="../_images/static.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.3.1
-          </span>
-          <span class="caption-text">
-           静态图生成与执行
-          </span>
-          <a class="headerlink" href="#id6" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.3.1
+           </span>
+           <span class="caption-text">
+            静态图生成与执行
+           </span>
+           <a class="headerlink" href="#id6" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          以构建并执行下列伪代码，来详细讲解静态图的生成与执行，
          <em>
@@ -1165,7 +1168,7 @@
          </div>
         </div>
         <p>
-         完成前端语言的模型完整构建表达后，执行模型运算时不会直接接收输入数据进行计算，而是使用计算框架的编译器对模型进行编译。由于在进行静态生成编译时并不读取输入数据，此时需要一种特殊的张量来表示输入数据辅助构建完整的计算图，这种特殊张量就被称之为“数据占位符”。在上述的伪代码中输入数据
+         完成前端语言的模型完整构建表达后，执行模型运算时不会直接接收输入数据进行计算，而是使用计算框架的编译器对模型进行编译。由于在进行静态生成编译时并不读取输入数据，此时需要一种特殊的张量来表示输入数据辅助构建完整的计算图，这种特殊张量就被称之为”数据占位符”。在上述的伪代码中输入数据
          <strong>
           X
          </strong>
@@ -1174,24 +1177,26 @@
         <p>
          在后续的章节中我们会继续深入了解计算框架静态生成图结构的过程。静态生成的过程是采用计算框架编译器将代码编译为中间表示。计算框架编译器受传统编译器方案启发，设计体系结构包含两部分编译器前端和编译器后端。中间表示承上启下贯穿前端和后端，是前端源代码和目标硬件代码之间的中间数据格式。在计算框架编译器中中间表示以计算图形式存在，编译器会根据前端神经网络模型自动构建完整的前向计算图和反向计算图。
         </p>
-        <div class="figure align-default" id="id7">
+        <figure class="align-default" id="id7">
          <span id="staticgen">
          </span>
          <a class="reference internal image-reference" href="../_images/static-gen.svg">
           <img alt="../_images/static-gen.svg" src="../_images/static-gen.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.3.2
-          </span>
-          <span class="caption-text">
-           静态生成
-          </span>
-          <a class="headerlink" href="#id7" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.3.2
+           </span>
+           <span class="caption-text">
+            静态生成
+           </span>
+           <a class="headerlink" href="#id7" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          经过编译后获取完整的计算图，能够根据全局信息完成图优化策略，进行编译优化形成与模型完全等价的静态图。编译器前端负责完成计算图与硬件无关的转换和优化，比如算子融合将网络中的两个或多个细粒度的算子融合为一个粗粒度算子,比如
          <a class="reference internal" href="#staticgen">
@@ -1218,8 +1223,8 @@
         <p>
          尽管静态图具备强大的执行计算性能与直接部署能力，但是在部分计算框架中静态图模式下，使用前端语言编写神经网络模型以及定义模型训练过程代码较为繁琐，尤其掌握图内控制流方法具备一定的学习难度，因此熟练掌握并使用静态图模式对于初学者并不友好。其次，静态生成采用先编译后执行的方式，编译阶段和执行阶段分离，前端语言构建的神经网络模型经过编译后，计算图结构便固定执行阶段不再改变，并且经过优化用于执行的计算图结构与原始代码有较大的差距，导致代码中的错误难以定位到准确位置，增加了代码调试难度。此外在神经网络模型开发迭代环节，不能即时打印中间结果。若在源码中添加输出中间结果的代码，则需要将源码重新编译后，再调用执行器才能获取相关信息，降低了代码调试效率。而动态图模式则拥有更加灵活的特性，接下来讲解动态生成机制。
         </p>
-       </div>
-       <div class="section" id="id3">
+       </section>
+       <section id="id3">
         <h2>
          <span class="section-number">
           3.3.2.
@@ -1238,24 +1243,26 @@
          </a>
          所示，采用解析式的执行方式，其核心特点是编译与执行同时发生。动态图采用前端语言自身的解释器对代码进行解析，利用计算框架本身的算子分发功能，算子会即刻执行并输出结果。动态图模式采用用户友好的命令式编程范式，使用前端语言构建神经网络模型更加简洁。
         </p>
-        <div class="figure align-default" id="id8">
+        <figure class="align-default" id="id8">
          <span id="dynamic">
          </span>
          <a class="reference internal image-reference" href="../_images/dynamic.svg">
           <img alt="../_images/dynamic.svg" src="../_images/dynamic.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.3.3
-          </span>
-          <span class="caption-text">
-           动态图原理
-          </span>
-          <a class="headerlink" href="#id8" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.3.3
+           </span>
+           <span class="caption-text">
+            动态图原理
+           </span>
+           <a class="headerlink" href="#id8" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          由于动态图模式的编程友好性，动态图被广大深度学习研究者青睐使用。接下来使用上一小节的伪代码来讲解动态生成和静态生成的区别。
         </p>
@@ -1263,24 +1270,26 @@
          尽管静态图和动态图在前端语言表达上略有差异，但本质的区别在于静态生成和动态生成的编译执行过程不同。使用前端语言构建完成模型表达后，动态生成并不采用计算框架编译器生成完整的静态计算图，而是采用前端语言的解释器Python
 API调用计算框架，框架利用自身的算子分发功能，将Python调用的算子在相应的硬件如CPU、GPU、NPU等上进行加速计算，然后再将计算结果返回给前端。该过程并不产生静态的计算图，而是按照前端语言描述模型结构，按照计算依赖关系进行调度执行，动态生成临时的图拓扑结构。
         </p>
-        <div class="figure align-default" id="id9">
+        <figure class="align-default" id="id9">
          <span id="dynamicgen">
          </span>
          <a class="reference internal image-reference" href="../_images/dynamic-gen.svg">
           <img alt="../_images/dynamic-gen.svg" src="../_images/dynamic-gen.svg" width="700px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.3.4
-          </span>
-          <span class="caption-text">
-           动态生成
-          </span>
-          <a class="headerlink" href="#id9" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.3.4
+           </span>
+           <span class="caption-text">
+            动态生成
+           </span>
+           <a class="headerlink" href="#id9" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如
          <a class="reference internal" href="#dynamicgen">
@@ -1356,8 +1365,8 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
         <p>
          此外得益于动态图模式灵活的执行计算特性，动态生成可以使用前端语言的原生控制流，充分发挥前端语言的编程友好性特性。解决了静态图中代码难调试、代码编写繁琐以及控制流复杂等问题，对于初学者更加友好，提高了算法开发迭代效率和神经网络模型改进速率。
         </p>
-       </div>
-       <div class="section" id="id4">
+       </section>
+       <section id="id4">
         <h2>
          <span class="section-number">
           3.3.3.
@@ -1571,8 +1580,8 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
         <p>
          针对两种模式的特性，结合任务需求选择合适的模式可以事半功倍，学术科研以及模型开发调试阶段，为了快速验证思想和迭代更新模型结构可以选择动态图模式进行构建算法；网络模型确定，为了加速训练过程或者为硬件部署模型，可以选择静态图模式。
         </p>
-       </div>
-       <div class="section" id="id5">
+       </section>
+       <section id="id5">
         <h2>
          <span class="section-number">
           3.3.4.
@@ -1627,24 +1636,26 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
          </a>
          中所示，基于源码转换的流程经历两个阶段。第一个阶段，对动态图模式下的代码扫描进行词法分析，通过词法分析器分析源代码中的所有字符，对代码进行分割并移除空白符、注释等，将所有的单词或字符都转化成符合规范的语法单元列表。接着进行语法分析即解析器，将得到的语法单元列表转换成树形式，并对语法进行检查避免错误。第二阶段，动态图转静态图的核心部分就是对抽象语法树进行转写，计算框架中对每一个需要转换的语法都预设有转换器，每一个转换器对语法树进行扫描改写，将动态图代码语法映射为静态图代码语法。其中最为重要的前端语言控制流，会在这一阶段分析转换为静态图接口进行实现。转写完毕之后，将新的语法树再还原回静态图代码，就可以使用静态生成执行。使用该方式可以避免基于追踪转换中控制流表达缺失的情况。
         </p>
-        <div class="figure align-default" id="id11">
+        <figure class="align-default" id="id11">
          <span id="ast">
          </span>
          <a class="reference internal image-reference" href="../_images/ast.svg">
           <img alt="../_images/ast.svg" src="../_images/ast.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.3.5
-          </span>
-          <span class="caption-text">
-           基于源码转换流程
-          </span>
-          <a class="headerlink" href="#id11" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.3.5
+           </span>
+           <span class="caption-text">
+            基于源码转换流程
+           </span>
+           <a class="headerlink" href="#id11" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          在使用上述功能的过程中，可以将整体模型动态图代码全部转换为静态图代码，提高计算效率并用于硬件部署。同时也可以将整体模型中的部分函数转化为局部静态子图，静态子图会被计算框架视为一个完整的算子并嵌入动态图中。执行整体动态图时，当计算到对应的函数会自动调用静态子图。使用该方式在一定程度上既保留代码调试改进的灵活性，又提高了计算效率。
         </p>
@@ -1782,8 +1793,8 @@ le.jit.TracedLayer.trace()支持基于追踪转换
           </tr>
          </tbody>
         </table>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">
