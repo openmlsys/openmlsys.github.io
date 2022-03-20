@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -373,7 +374,7 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">9.4. </span>模型推理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>训练模型经过前面的转换、压缩等流程后，需要部署在计算硬件上进行推理。执行推理主要包含以下步骤：</p>
 <ul class="simple">
@@ -381,9 +382,9 @@ Show Source
 <li><p>执行推理：将离线转换得到的模型部署到设备上执行推理流程，根据输入数据计算得到输出数据。</p></li>
 <li><p>后处理：模型的输出结果做进一步的加工处理，如筛选阈值。</p></li>
 </ul>
-<div class="section" id="id2">
+<section id="id2">
 <h2><span class="section-number">9.4.1. </span>前处理与后处理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
+<section id="id3">
 <h3><span class="section-number">9.4.1.1. </span>前处理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>前处理主要完成数据预处理，在现实问题中，我们得到的原始数据往往非常混乱，机器学习模型无法识别并从中提取信息。数据预处理的目的是将原始数据例如图片、语音、文本等，处理成适合网络输入的tensor数据，并消除其中无关的信息，恢复有用的真实信息，增强有关信息的可检测性，最大限度地简化数据，从而改进模型的特征抽取、图像分割、匹配和识别等可靠性。</p>
 <p>常见的数据预处理手段有：</p>
@@ -393,9 +394,9 @@ Show Source
 <li><p>处理离群值:
 离群值是与数据中的其他值保持一定距离的数据点，适当地排除离群值可以提升模型的准确性。</p></li>
 </ul>
-<p>针对特定的原始数据，往往存在特定的数据处理手段。在前述8.2“机器学习数据基本类型及常见数据变换方式”章节中，分别详细介绍了图像、音频、文本等数据的预处理方法。</p>
-</div>
-<div class="section" id="id4">
+<p>针对特定的原始数据，往往存在特定的数据处理手段。在前述8.2”机器学习数据基本类型及常见数据变换方式”章节中，分别详细介绍了图像、音频、文本等数据的预处理方法。</p>
+</section>
+<section id="id4">
 <h3><span class="section-number">9.4.1.2. </span>后处理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>通常，模型推理结束后，需要把推理的输出数据传递给用户完成后处理，常见的数据后处理手段有：</p>
 <ul class="simple">
@@ -403,15 +404,17 @@ Show Source
 <li><p>数据可视化：将数据图形化、表格化，便于找到数据之间的关系，来决定下一步的分析策略；</p></li>
 <li><p>手动拉宽预测范围：回归模型往往预测不出很大或很小的值，结果都集中在中部区域。例如医院的化验数据，通常是要根据异常值诊断疾病。手动拉宽预测范围，将偏离正常范围的值乘一个系数，可以放大两侧的数据，得到更准确的预测结果。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="ch08-sec-parallel-inference">
+</section>
+</section>
+<section id="ch08-sec-parallel-inference">
 <span id="id5"></span><h2><span class="section-number">9.4.2. </span>并行计算<a class="headerlink" href="#ch08-sec-parallel-inference" title="Permalink to this headline">¶</a></h2>
 <p>为提升推理的性能，需要重复利用多核的能力，所以一般推理框架会引入多线程机制。主要的思路是将算子的输入数据进行切分，通过多线程去执行不同数据切片，实现算子并行计算，从而成倍提升算子计算性能。</p>
-<div class="figure align-default" id="id9">
+<figure class="align-default" id="id9">
 <span id="ch08-fig-parallel"></span><a class="reference internal image-reference" href="../_images/parallel.png"><img alt="../_images/parallel.png" src="../_images/parallel.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.1 </span><span class="caption-text">矩阵乘数据切分</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.1 </span><span class="caption-text">矩阵乘数据切分</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>如图所示，对于矩阵乘可以按左矩阵的行进行切分，可以利用三个线程分别计算A1*B，A2*B，A3*B，实现矩阵乘多线程并行计算。</p>
 <p>为方便算子并行计算，同时避免频繁创建销毁线程的开销，推理框架一般会使用线程池机制。业界有两种较为通用的做法：</p>
 <ul class="simple">
@@ -420,11 +423,11 @@ Multi-Processing）是一套支持跨平台共享内存方式的多线程并发�
 for”，实现for循环体的代码被多线程并行执行。</p></li>
 <li><p>推理框架实现针对算子并行计算的线程池，相对OpenMp提供的接口会更有针对性，性能会更高，且更轻量。</p></li>
 </ul>
-</div>
-<div class="section" id="ch08-sec-kernel-optimization">
+</section>
+<section id="ch08-sec-kernel-optimization">
 <span id="id6"></span><h2><span class="section-number">9.4.3. </span>算子优化<a class="headerlink" href="#ch08-sec-kernel-optimization" title="Permalink to this headline">¶</a></h2>
 <p>在部署AI模型时，我们期望模型执行训练或推理的时间尽可能地短，以获得更优越的性能。对于一个固定的深度学习网络，框架调度的时间占比往往很小，性能的瓶颈就在算子的执行。下面从硬件指令和算法角度介绍一些算子优化的方法。</p>
-<div class="section" id="id7">
+<section id="id7">
 <h3><span class="section-number">9.4.3.1. </span>硬件指令优化<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>绝大多数的设备上都有CPU，因此算子在CPU上的时间尤为重要，下面介绍一下在ARM
 CPU硬件指令优化的方法。</p>
@@ -439,18 +442,22 @@ CPU硬件指令优化的方法。</p>
 </ol>
 <p>ARMv8系列的CPU上有32个NEON寄存器v0-v31，如
 <a class="reference internal" href="#ch08-fig-register"><span class="std std-numref">图9.4.2</span></a>所示，NEON寄存器v0可存放128bit的数据，即4个float32，8个float16，16个int8等。</p>
-<div class="figure align-default" id="id10">
+<figure class="align-default" id="id10">
 <span id="ch08-fig-register"></span><a class="reference internal image-reference" href="../_images/register.png"><img alt="../_images/register.png" src="../_images/register.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.2 </span><span class="caption-text">ARMv8处理器NEON寄存器v0的结构</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.2 </span><span class="caption-text">ARMv8处理器NEON寄存器v0的结构</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>针对该处理器，可以采用SIMD(Single Instruction，Multiple
 Data，单指令、多数据)提升数据存取计算的速度。相比于单数据操作指令，NEON指令可以一次性操作NEON寄存器的多个数据。例如：对于浮点数的fmla指令，用法为fmla
 v0.4s, v1.4s, v2.4s，如
 <a class="reference internal" href="#ch08-fig-fmla"><span class="std std-numref">图9.4.3</span></a>所示，用于将v1和v2两个寄存器中相对应的float值相乘累加到v0的值上。</p>
-<div class="figure align-default" id="id11">
+<figure class="align-default" id="id11">
 <span id="ch08-fig-fmla"></span><a class="reference internal image-reference" href="../_images/fmla.png"><img alt="../_images/fmla.png" src="../_images/fmla.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.3 </span><span class="caption-text">fmla指令计算功能</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.3 </span><span class="caption-text">fmla指令计算功能</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <ol class="arabic simple" start="3">
 <li><p>汇编语言优化</p></li>
 </ol>
@@ -462,30 +469,36 @@ v0.4s, v1.4s, v2.4s，如
 <p>（3）寄存器分块：合理分块NEON寄存器，减少寄存器空闲，增加寄存器复用；</p>
 <p>（4）计算数据重排：尽量保证读写指令内存连续，提高缓存命中率；</p>
 <p>（5）使用预取指令：将要使用到的数据从主存提前载入缓存，减少访问延迟。</p>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h3><span class="section-number">9.4.3.2. </span>算法优化<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>多数AI模型的推理时间主要耗费在卷积、矩阵乘算子的计算上，占到了整网百分之九十甚至更多的时间。本小节主要介绍卷积算子算法方面的优化手段，可以应用到各种硬件设备上。
 卷积的计算可以转换为两个矩阵相乘，在前述5.3.3小节中，已经详细介绍了矩阵乘GEMM运算的优化。对于不同的硬件，确定合适的矩阵分块，优化数据访存与指令并行，可以最大限度的发挥硬件的算力，提升推理性能。</p>
 <p>1.Img2col</p>
 <p>将卷积的计算转换为矩阵乘，一般采用Img2col的方法实现。在常见的神经网络中，卷积的输入通常都是4维的，默认采用的数据排布方式为NHWC，如
 <a class="reference internal" href="#ch08-fig-conv-nhwc"><span class="std std-numref">图9.4.4</span></a>所示，是一个卷积示意图。输入维度为（1,IH,IW,IC），卷积核维度为（OC,KH,KW,IC），输出维度为（1,OH,OW,OC）。</p>
-<div class="figure align-default" id="id12">
+<figure class="align-default" id="id12">
 <span id="ch08-fig-conv-nhwc"></span><a class="reference internal image-reference" href="../_images/conv_nhwc.png"><img alt="../_images/conv_nhwc.png" src="../_images/conv_nhwc.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.4 </span><span class="caption-text">通用卷积示意图</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.4 </span><span class="caption-text">通用卷积示意图</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>对卷积的Img2col规则如下。如
 <a class="reference internal" href="#ch08-fig-img2col-input"><span class="std std-numref">图9.4.5</span></a>所示，对该输入做重排，得到的矩阵见右侧，行数对应输出的OH*OW的个数；每个行向量里，先排列计算一个输出点所需要输入上第一个通道的KH*KW个数据，再按次序排列之后的通道，直到通道IC。</p>
-<div class="figure align-default" id="id13">
+<figure class="align-default" id="id13">
 <span id="ch08-fig-img2col-input"></span><a class="reference internal image-reference" href="../_images/img2col_input.png"><img alt="../_images/img2col_input.png" src="../_images/img2col_input.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.5 </span><span class="caption-text">输入Img2col的矩阵</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.5 </span><span class="caption-text">输入Img2col的矩阵</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>如
 <a class="reference internal" href="#ch08-fig-img2col-weight"><span class="std std-numref">图9.4.6</span></a>所示，对权重数据做重排。将1个卷积核展开为权重矩阵的一列，因此共有OC列，每个列向量上先排列第一个输入通道上KH*KW的数据，再依次排列后面的通道直到IC。通过重排，卷积的计算就可以转换为两个矩阵相乘的求解。在实际实现时，Img2col和GEMM的数据重排会同时进行，以节省运行时间。</p>
-<div class="figure align-default" id="id14">
+<figure class="align-default" id="id14">
 <span id="ch08-equ-winograd-matrix"></span><span id="ch08-fig-img2col-weight"></span><a class="reference internal image-reference" href="../_images/img2col_weight.png"><img alt="../_images/img2col_weight.png" src="../_images/img2col_weight.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.6 </span><span class="caption-text">卷积核Img2col的矩阵</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.6 </span><span class="caption-text">卷积核Img2col的矩阵</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>2.Winograd算法</p>
 <p>卷积计算归根到底是矩阵乘法，两个二维矩阵相乘的时间复杂度是<span class="math notranslate nohighlight">\(O(n^3)\)</span>。我们可以使用Winograd来降低矩阵乘法的复杂度。</p>
 <p>以一维卷积运算为例，记为F(m，r)，其中，m代表输出的个数，r为卷积核的个数。输入为<span class="math notranslate nohighlight">\(d=[d_0 \ d_0 \ d_2 \ d_3]\)</span>，卷积核为<span class="math notranslate nohighlight">\(g=[g_0 \ g_0 \ g_2]^T\)</span>，该卷积计算可以写成矩阵形式如公式
@@ -536,15 +549,17 @@ m_2=(d_1-d_3)*g_2
 <span class="eqno">(9.4.8)<a class="headerlink" href="#equation-ch08-equ-winograd-two-dimension-matrix" title="Permalink to this equation">¶</a></span>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g\mathbf{G^T})*(\mathbf{B^T}d\mathbf{B})\mathbf{A}\]</div>
 <p>Winograd算法的整个计算过程在逻辑上可以分为4步，如
 <a class="reference internal" href="#ch08-fig-winograd"><span class="std std-numref">图9.4.7</span></a>所示：</p>
-<div class="figure align-default" id="id15">
+<figure class="align-default" id="id15">
 <span id="ch08-fig-winograd"></span><a class="reference internal image-reference" href="../_images/winograd.png"><img alt="../_images/winograd.png" src="../_images/winograd.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">图9.4.7 </span><span class="caption-text">winograd步骤示意图</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图9.4.7 </span><span class="caption-text">winograd步骤示意图</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>针对任意的输出大小，要使用F(2x2，3x3)的Winograd算法，需要将输出切分成2x2的块，找到对应的输入，按照上述的四个步骤，就可以求出对应的输出值。当然，Winograd算法并不局限于求解F(2x2，3x3)，针对任意的F(m*m，r*r)，都可以找到适当的常量矩阵A、B、G，通过间接计算的方式减少乘法次数。但是随着m、r的增大，输入、输出涉及的加法以及常量权重的乘法次数都在增加，那么乘法次数带来的计算量下降会被加法和常量乘法所抵消。因此，在实际使用场景中，还需要根据Winograd的实际收益来选择。</p>
 <p>本小节主要介绍了模型推理时的数据处理和性能优化手段。选择合适的数据处理方法，可以更好地提取输入特征，处理输出结果。并行计算以及算子级别的硬件指令与算法优化可以最大限度的发挥硬件的算力。除此之后，内存的占用及访问速率也是影响推理性能的重要因素，因此推理时需要设计合理的内存复用策略，关于内存复用的策略我们在编译器后端章节已经做了阐述。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
         </div>

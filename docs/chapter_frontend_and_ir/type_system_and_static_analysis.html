@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -372,10 +373,10 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">5.4. </span>类型系统和静态分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>上一章节介绍了自动微分的基本概念和实现方法，自动微分是机器学习框架中不可或缺的核心功能。在编译器前端的设计中，为了提高编译器的抽象能力和程序运行的正确性，有效减少程序在运行时可能出现的错误，编译器引入了类型系统和静态分析系统，接下来将对它们的基本概念、主要功能、常见系统进行介绍。</p>
-<div class="section" id="id2">
+<section id="id2">
 <h2><span class="section-number">5.4.1. </span>类型系统概述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>程序设计语言中，类型是指数值、表达式、函数等属性内容。类型系统是指类型的集合以及使用类型来规定程序行为的规则。类型系统用于定义不同的类型，指定类型的操作和类型之间的相互作用，广泛应用于编译器、解释器和静态检查工具中。类型系统提供的主要功能有：</p>
 <p>1）正确性。编译器的类型系统引入了类型检查技术，用于检测和避免运行时错误，确保程序运行时的安全性。通过类型推导与检查，编译器能够捕获大多数类型相关的异常报错，避免执行病态程序导致运行时错误，保证内存安全，避免类型间的无效计算和语义上的逻辑错误。</p>
@@ -387,8 +388,8 @@ Roger Hindley 提出 <a class="bibtex reference internal" href="../chapter_refer
 <a class="bibtex reference internal" href="../chapter_references/index.html#a" id="id4">[Milner, 1978]</a> 。后来，路易斯·达马斯（Luis
 Damas）对HM类型推导方法进行了详尽的分析和证明
 <span class="bibtex" id="id5">[1982Principal]</span>，并将其扩展到支持具有多态引用的系统。Hindley–Milner类型系统的目标是在没有给定类型注解的情况下，自动推导出任意表达式的类型。其算法具有抽象性和通用性，采用简洁的符号表示，能够根据表达式形式推导出明确直观的定义，常用于类型推导和类型检查。因此，Hindley–Milner类型系统广泛应用于编程语言设计中，比如Haskell和Ocaml。</p>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h2><span class="section-number">5.4.2. </span>静态分析概述<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>在编译器前端中，除了类型系统的设计，还需要对程序代码进行检查分析，经常用到静态分析技术。静态分析，是指在不实际运行程序的情况下，通过词法分析、语法分析、控制流、数据流分析等技术对代码进行分析验证的技术。</p>
 <p>词法分析：将字符流变换为输入语言的单流，每个单词都必须归类到某个语法范畴中。常用的词法分析器包括表驱动词法分析器、直接编码词法分析器和手工编码的词法分析器。</p>
@@ -397,12 +398,14 @@ Damas）对HM类型推导方法进行了详尽的分析和证明
 <p>数据流分析：数据流分析用于确定可进行优化的机会，并证明变换的安全性。</p>
 <p>通过以上几种分析，静态分析对程序代码进行扫描，验证代码是否满足规范性、安全性、可靠性、可维护性等指标。</p>
 <p>接下来以MindSpore框架为例，简要介绍一下静态分析模块的具体实现。MindSpore采用抽象释义的方法，对抽象值做不确定的抽象语义的解释执行，函数图中每个节点的抽象值是所期望得到的程序静态信息。基本的抽象释义方法流程可以理解为，从MindIR的顶层函数图入口开始解释执行，将函数图中所有节点进行拓扑排序，根据节点的语义递归推导各节点的抽象值。当遇到函数子图时，递归进入函数子图进行解释执行，最后返回顶层函数输出节点的抽象值。根据抽象释义方法流程，MindSpore的静态分析模块主要分为抽象域模块、缓存模块、语义推导模块和控制流处理模块。</p>
-<div class="figure align-default" id="id7">
+<figure class="align-default" id="id7">
 <span id="static-analysis-module"></span><a class="reference internal image-reference" href="../_images/静态分析-静态分析模块.png"><img alt="../_images/静态分析-静态分析模块.png" src="../_images/静态分析-静态分析模块.png" style="width: 850px;" /></a>
-<p class="caption"><span class="caption-number">图5.4.1 </span><span class="caption-text">静态分析模块</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-number">图5.4.1 </span><span class="caption-text">静态分析模块</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 
 
         </div>

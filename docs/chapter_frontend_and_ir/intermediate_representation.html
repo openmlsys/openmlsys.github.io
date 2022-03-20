@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          5.2.
@@ -1104,7 +1105,7 @@
         中间表示作为编译器的核心数据结构之一，无论是在传统编译器中，还是在机器学习框架中，
 都有着极其重要的地位。本章节我们会先介绍中间表示的基本概念以及传统编译器的中间表示类型。在此基础上，我们会探讨针对机器学习框架，中间表示的设计所面临的新的需求和挑战。最后，我们会介绍现有机器学习框架的中间表示的种类及其实现。
        </p>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           5.2.1.
@@ -1126,29 +1127,31 @@
          </a>
          所示。在此基础上，编译流程就可以在前后端直接增加更多的优化流程，这些优化流程以现有IR为输入，又以新生成的IR为输出，被称为优化器。优化器负责分析并改进中间表示，极大程度的提高了编译流程的可拓展性，也降低了优化流程对前端和后端的破坏。
         </p>
-        <div class="figure align-default" id="id12">
+        <figure class="align-default" id="id12">
          <span id="intermediate-representation">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-中间表示结构.svg">
           <img alt="../_images/中间表示-中间表示结构.svg" src="../_images/中间表示-中间表示结构.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.1
-          </span>
-          <span class="caption-text">
-           中间表示
-          </span>
-          <a class="headerlink" href="#id12" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.1
+           </span>
+           <span class="caption-text">
+            中间表示
+           </span>
+           <a class="headerlink" href="#id12" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          随着编译器技术的不断演进，中间表示主要经历了三个发展阶段。在早期阶段，中间表示是封闭在编译器内部的，供编译器编写者使用。在中期阶段，随着编译器的开源，中间表示逐步开源公开，主要供编译器设计者、分析工具设计者使用。现阶段，中间表示朝着软件生态构建的方向发展，旨在构建统一的中间表示。
         </p>
-       </div>
-       <div class="section" id="id3">
+       </section>
+       <section id="id3">
         <h2>
          <span class="section-number">
           5.2.2.
@@ -1180,22 +1183,25 @@
           </caption>
           <colgroup>
            <col style="width: 19%"/>
-           <col style="width: 42%"/>
-           <col style="width: 39%"/>
+           <col style="width: 31%"/>
+           <col style="width: 50%"/>
           </colgroup>
           <thead>
            <tr class="row-odd">
             <th class="head">
              <p>
-              组织结构 特点
+              组织结构
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              特点
              </p>
             </th>
             <th class="head">
              <p>
               举例
              </p>
-            </th>
-            <th class="head">
             </th>
            </tr>
           </thead>
@@ -1208,12 +1214,12 @@
             </td>
             <td>
              <p>
-              基于线性代码 堆栈机代码、
+              基于线性代码
              </p>
             </td>
             <td>
              <p>
-              三地址代码
+              堆栈机代码、三地址代码
              </p>
             </td>
            </tr>
@@ -1225,12 +1231,12 @@
             </td>
             <td>
              <p>
-              基于图 抽象语
+              基于图
              </p>
             </td>
             <td>
              <p>
-              法树、有向无环图、控制流图
+              抽象语法树、有向无环图、控制流图
              </p>
             </td>
            </tr>
@@ -1242,10 +1248,13 @@
             </td>
             <td>
              <p>
-              基于图与线性代码混合 LLVM IR
+              基于图与线性代码混合
              </p>
             </td>
             <td>
+             <p>
+              LLVM IR
+             </p>
             </td>
            </tr>
           </tbody>
@@ -1275,24 +1284,26 @@ Address Code)
          </a>
          所示。
         </p>
-        <div class="figure align-default" id="id14">
+        <figure class="align-default" id="id14">
          <span id="linear-ir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-线性中间表示.svg">
           <img alt="../_images/中间表示-线性中间表示.svg" src="../_images/中间表示-线性中间表示.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.2
-          </span>
-          <span class="caption-text">
-           堆栈机代码和三地址代码
-          </span>
-          <a class="headerlink" href="#id14" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.2
+           </span>
+           <span class="caption-text">
+            堆栈机代码和三地址代码
+           </span>
+           <a class="headerlink" href="#id14" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          2、图中间表示
         </p>
@@ -1322,24 +1333,26 @@ Graph，DAG)、控制流图(Control-Flow Graph，CFG)等。
          </span>
          的值没有改变，则DAG可以重用子树，降低求值过程的代价。
         </p>
-        <div class="figure align-default" id="id15">
+        <figure class="align-default" id="id15">
          <span id="ast-dag">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-ASTDAG.svg">
           <img alt="../_images/中间表示-ASTDAG.svg" src="../_images/中间表示-ASTDAG.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.3
-          </span>
-          <span class="caption-text">
-           AST图和DAG图
-          </span>
-          <a class="headerlink" href="#id15" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.3
+           </span>
+           <span class="caption-text">
+            AST图和DAG图
+           </span>
+           <a class="headerlink" href="#id15" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          3、混合中间表示
         </p>
@@ -1363,26 +1376,28 @@ Assignment， SSA)
          </a>
          形式呈现，这些指令构成一个指令线性列表。SSA形式要求每个变量只赋值一次，并且每个变量在使用之前定义。控制流图中，每个节点为一个基本块，基本块之间通过边实现控制转移。
         </p>
-        <div class="figure align-default" id="id16">
+        <figure class="align-default" id="id16">
          <span id="llvm-ir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-LLVMIR.svg">
           <img alt="../_images/中间表示-LLVMIR.svg" src="../_images/中间表示-LLVMIR.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.4
-          </span>
-          <span class="caption-text">
-           LLVM IR
-          </span>
-          <a class="headerlink" href="#id16" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-       </div>
-       <div class="section" id="id8">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.4
+           </span>
+           <span class="caption-text">
+            LLVM IR
+           </span>
+           <a class="headerlink" href="#id16" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+       </section>
+       <section id="id8">
         <h2>
          <span class="section-number">
           5.2.3.
@@ -1448,24 +1463,26 @@ IR。如
          给出了Python示例代码及其TorchScript
 IR。
         </p>
-        <div class="figure align-default" id="id17">
+        <figure class="align-default" id="id17">
          <span id="torchscript-ir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-torchscript.png">
           <img alt="../_images/中间表示-torchscript.png" src="../_images/中间表示-torchscript.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.5
-          </span>
-          <span class="caption-text">
-           Python代码及输出的TorchScript IR
-          </span>
-          <a class="headerlink" href="#id17" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.5
+           </span>
+           <span class="caption-text">
+            Python代码及输出的TorchScript IR
+           </span>
+           <a class="headerlink" href="#id17" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          TorchScript是PyTorch的JIT实现，支持使用Python训练模型，然后通过JIT转换为语言无关的模块，从而提升模型部署能力，提高编译性能。同时，TorchScript
 IR显著改善了Pytorch框架的模型可视化效果。
@@ -1478,24 +1495,26 @@ IR显著改善了Pytorch框架的模型可视化效果。
 Representation) IR。Jaxpr
 IR是一种强类型、纯函数的中间表示，其输入、输出都带有类型信息，函数输出只依赖输入，不依赖全局变量。
         </p>
-        <div class="figure align-default" id="id18">
+        <figure class="align-default" id="id18">
          <span id="jaxpr">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-Jaxpr.png">
           <img alt="../_images/中间表示-Jaxpr.png" src="../_images/中间表示-Jaxpr.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.6
-          </span>
-          <span class="caption-text">
-           ANF文法与Jaxpr IR
-          </span>
-          <a class="headerlink" href="#id18" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.6
+           </span>
+           <span class="caption-text">
+            ANF文法与Jaxpr IR
+           </span>
+           <a class="headerlink" href="#id18" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          Jaxpr IR的表达采用ANF(A-norm Form)函数式表达形式，如
          <a class="reference internal" href="#jaxpr">
@@ -1525,24 +1544,26 @@ IR，支持循环、分支、递归、闭包函数求导以及三阶求导，并
          所示。蓝色部分是基于图的中间表示，绿色部分是基于SSA的中间表示。在中间表示的转换过程中，各个层级的中间表示各自为政，无法互相有效地沟通信息，也不清楚其他层级的中间表示做了哪些优化，因此每个中间表示只能尽力将当前的优化做到最好，造成了很多优化在每个层级的中间表示中重复进行,
 从而导致优化效率的低下。尤其是从图中间表示到SSA中间表示的变化过大，转换开销极大。此外，各个层级的相同优化的代码无法复用，也降低了开发效率。
         </p>
-        <div class="figure align-default" id="id19">
+        <figure class="align-default" id="id19">
          <span id="tfir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MLIR.svg">
           <img alt="../_images/中间表示-MLIR.svg" src="../_images/中间表示-MLIR.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.7
-          </span>
-          <span class="caption-text">
-           TensorFlow
-          </span>
-          <a class="headerlink" href="#id19" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.7
+           </span>
+           <span class="caption-text">
+            TensorFlow
+           </span>
+           <a class="headerlink" href="#id19" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          4、MLIR
         </p>
@@ -1637,7 +1658,7 @@ IR。MindIR没有采用多层中间表示的结构，而是通过统一的中间
         </p>
         <p>
          （1）基于图的（Graph
-based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是“一等公民”。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
+based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是”一等公民”。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
         </p>
         <p>
          （2）纯函数的（Purely functional）。
@@ -1669,24 +1690,26 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
          </a>
          所示。
         </p>
-        <div class="figure align-default" id="id20">
+        <figure class="align-default" id="id20">
          <span id="mindir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MindIR.svg">
           <img alt="../_images/中间表示-MindIR.svg" src="../_images/中间表示-MindIR.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.8
-          </span>
-          <span class="caption-text">
-           MindIR文法。MindIR中的ANode对应于ANF的原子表达式，ValueNode用于表示常数值，ParameterNode用于表示函数的形参，CNode则对应于ANF的复合表达式，表示函数调用
-          </span>
-          <a class="headerlink" href="#id20" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.8
+           </span>
+           <span class="caption-text">
+            MindIR文法。MindIR中的ANode对应于ANF的原子表达式，ValueNode用于表示常数值，ParameterNode用于表示函数的形参，CNode则对应于ANF的复合表达式，表示函数调用
+           </span>
+           <a class="headerlink" href="#id20" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          接下来我们通过
          <a class="reference internal" href="#mindir-example">
@@ -1696,24 +1719,26 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
          </a>
          中的一段程序作为示例，来进一步分析MindIR。
         </p>
-        <div class="figure align-default" id="id21">
+        <figure class="align-default" id="id21">
          <span id="mindir-example">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MindIR示例.png">
           <img alt="../_images/中间表示-MindIR示例.png" src="../_images/中间表示-MindIR示例.png" style="width: 600px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.9
-          </span>
-          <span class="caption-text">
-           MindIR的ANF表达
-          </span>
-          <a class="headerlink" href="#id21" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.9
+           </span>
+           <span class="caption-text">
+            MindIR的ANF表达
+           </span>
+           <a class="headerlink" href="#id21" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          在ANF中，每个表达式都用let表达式绑定为一个变量，通过对变量的引用来表示对表达式输出的依赖，而在MindIR中，每个表达式都绑定为一个节点，通过节点与节点之间的有向边表示依赖关系。其函数图表示如
          <a class="reference internal" href="#mindir-graph">
@@ -1723,32 +1748,34 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
          </a>
          所示。
         </p>
-        <div class="figure align-default" id="id22">
+        <figure class="align-default" id="id22">
          <span id="mindir-graph">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MindIR图.png">
           <img alt="../_images/中间表示-MindIR图.png" src="../_images/中间表示-MindIR图.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图5.2.10
-          </span>
-          <span class="caption-text">
-           MindIR的函数图表示
-          </span>
-          <a class="headerlink" href="#id22" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图5.2.10
+           </span>
+           <span class="caption-text">
+            MindIR的函数图表示
+           </span>
+           <a class="headerlink" href="#id22" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          MindIR同时支持静态计算图和动态计算图的构建方式，更好地兼顾了灵活性与高性能。相比传统计算图，MindIR不仅可以表达算子之间的数据依赖，还可以表达丰富的函数式语义，具备更自然的自动微分实现方式。MindIR原生支持闭包，并且支持高阶函数的表达。在处理控制流时，MindIR将控制流转换为高阶函数的数据流，不仅支持数据流的自动微分，还支持条件跳转、循环和递归等控制流的自动微分，从而提升MindSpore的自动微分能力。
         </p>
         <p>
          在JIT即时编译方面，MindIR采用了基于图表示的形式，将控制流和数据流合一，支持更高效的JIT优化。在编译优化方面，MindIR引入优化器对计算图进行优化，采用前端-优化器-后端的三段式表达形式，支持硬件无关的优化(如类型推导、表达式化简等)、硬件相关的优化（如自动并行、内存优化、图算融合、流水线执行等）以及部署推理相关的优化（如量化、剪枝等），显著提升了MindSpore的编译执行能力。
         </p>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

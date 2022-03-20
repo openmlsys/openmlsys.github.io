@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1088,7 +1089,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          6.5.
@@ -1101,7 +1102,7 @@
        <p>
         经过算子选择与内存分配之后，计算任务可以通过运行时完成计算的调度与在硬件上的执行。根据是否将算子编译为计算图，计算的调度可以分为单算子调度与计算图调度两种方式，例如在MindSpore中分别提供了PyNative模式和Graph模式。而根据硬件提供的能力差异，计算图的执行方式又可以分为逐算子下发执行的交互式执行以及将整个计算图或者部分子图一次性下发到硬件的下沉式执行两种模式。
        </p>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           6.5.1.
@@ -1149,29 +1150,31 @@
          </a>
          所示，算子在Python侧被触发执行后，会经过AI框架初始化，其中需要确定包括算子的精度，输入与输出的类型和大小以及对应的硬件设备等信息，接着框架会为该算子分配计算所需的内存，最后交给具体的硬件计算设备完成计算的执行。
         </p>
-        <div class="figure align-default" id="id6">
+        <figure class="align-default" id="id6">
          <span id="single-op-exec">
          </span>
          <a class="reference internal image-reference" href="../_images/single_op_exec.PNG">
           <img alt="../_images/single_op_exec.PNG" src="../_images/single_op_exec.PNG" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.1
-          </span>
-          <span class="caption-text">
-           单算子执行
-          </span>
-          <a class="headerlink" href="#id6" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.1
+           </span>
+           <span class="caption-text">
+            单算子执行
+           </span>
+           <a class="headerlink" href="#id6" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          单算子调度方式的好处在于其灵活性，由于算子直接通过Python运行时调度，一方面可以表达任意复杂的计算逻辑，尤其是在需要复杂控制流以及需要Python原生数据结构支持来实现复杂算法的场景；另一方面单算子调度对于程序正确性的调试非常便利，开发人员可以在代码执行过程中打印任意需要调试的变量；最后一点是通过Python运行时驱动算子的方式，可以在计算中与Python庞大而丰富的生态库协同完成计算任务。
         </p>
-       </div>
-       <div class="section" id="id3">
+       </section>
+       <section id="id3">
         <h2>
          <span class="section-number">
           6.5.2.
@@ -1190,24 +1193,26 @@
          </a>
          所示。由该计算图可以看出，其中乘法和减法之间并没有依赖关系，因此这两个计算可以并行执行，而这样的并行执行信息只有将计算表达为计算图后才能完成分析，这也是计算图调度相对于单算子调度的优势之一。
         </p>
-        <div class="figure align-default" id="id7">
+        <figure class="align-default" id="id7">
          <span id="graph-exec">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec.png">
           <img alt="../_images/graph_exec.png" src="../_images/graph_exec.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.2
-          </span>
-          <span class="caption-text">
-           计算图
-          </span>
-          <a class="headerlink" href="#id7" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.2
+           </span>
+           <span class="caption-text">
+            计算图
+           </span>
+           <a class="headerlink" href="#id7" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          下面我们开始介绍计算图的调度方式，在一个典型的异构计算环境中，主要存在CPU、GPU以及NPU等多种计算设备，因此一张计算图可以由运行在不同设备上的算子组成为异构计算图。图
          <a class="reference internal" href="#computation-graph">
@@ -1217,24 +1222,26 @@
          </a>
          展示了一个典型的由异构硬件共同参与的计算图。
         </p>
-        <div class="figure align-default" id="id8">
+        <figure class="align-default" id="id8">
          <span id="computation-graph">
          </span>
          <a class="reference internal image-reference" href="../_images/computation_graph.png">
           <img alt="../_images/computation_graph.png" src="../_images/computation_graph.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.3
-          </span>
-          <span class="caption-text">
-           异构硬件计算图
-          </span>
-          <a class="headerlink" href="#id8" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.3
+           </span>
+           <span class="caption-text">
+            异构硬件计算图
+           </span>
+           <a class="headerlink" href="#id8" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          所述计算图由如下几类异构硬件对应的算子组成：
         </p>
@@ -1364,24 +1371,26 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <p>
          这段简单的计算逻辑翻译到计算图上可以表示为：
         </p>
-        <div class="figure align-default" id="id9">
+        <figure class="align-default" id="id9">
          <span id="side-effect-1">
          </span>
          <a class="reference internal image-reference" href="../_images/side_effect_1.png">
           <img alt="../_images/side_effect_1.png" src="../_images/side_effect_1.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.4
-          </span>
-          <span class="caption-text">
-           并发算子执行
-          </span>
-          <a class="headerlink" href="#id9" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.4
+           </span>
+           <span class="caption-text">
+            并发算子执行
+           </span>
+           <a class="headerlink" href="#id9" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          代码中所示三行计算之间并没有依赖关系，因此这三个算子在计算图的逻辑上可以被并发执行，并发关系如图
          <a class="reference internal" href="#side-effect-1">
@@ -1397,29 +1406,31 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          所示：
         </p>
-        <div class="figure align-default" id="id10">
+        <figure class="align-default" id="id10">
          <span id="side-effect-2">
          </span>
          <a class="reference internal image-reference" href="../_images/side_effect_2.png">
           <img alt="../_images/side_effect_2.png" src="../_images/side_effect_2.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.5
-          </span>
-          <span class="caption-text">
-           消除副作用
-          </span>
-          <a class="headerlink" href="#id10" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.5
+           </span>
+           <span class="caption-text">
+            消除副作用
+           </span>
+           <a class="headerlink" href="#id10" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          图中虚线箭头表达了算子之间的依赖关系，添加依赖关系后，算子会按照Assign_1，Assign_2，Sub_1的顺序串行执行，与代码原本的语义保持一致。
         </p>
-       </div>
-       <div class="section" id="id4">
+       </section>
+       <section id="id4">
         <h2>
          <span class="section-number">
           6.5.3.
@@ -1435,24 +1446,26 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <p>
          1、非异构计算图的执行方式
         </p>
-        <div class="figure align-default" id="id11">
+        <figure class="align-default" id="id11">
          <span id="graph-exec-1">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_1.png">
           <img alt="../_images/graph_exec_1.png" src="../_images/graph_exec_1.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.6
-          </span>
-          <span class="caption-text">
-           非异构计算图
-          </span>
-          <a class="headerlink" href="#id11" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.6
+           </span>
+           <span class="caption-text">
+            非异构计算图
+           </span>
+           <a class="headerlink" href="#id11" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如图
          <a class="reference internal" href="#graph-exec-1">
@@ -1462,42 +1475,46 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          是一张非异构计算图，计算图上全部Kernel均为GPU算子，执行方式一般分为串行执行和并行执行：
         </p>
-        <div class="figure align-default" id="id12">
+        <figure class="align-default" id="id12">
          <span id="graph-exec-2">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_2.png">
           <img alt="../_images/graph_exec_2.png" src="../_images/graph_exec_2.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.7
-          </span>
-          <span class="caption-text">
-           串行执行
-          </span>
-          <a class="headerlink" href="#id12" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-        <div class="figure align-default" id="id13">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.7
+           </span>
+           <span class="caption-text">
+            串行执行
+           </span>
+           <a class="headerlink" href="#id12" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+        <figure class="align-default" id="id13">
          <span id="graph-exec-3">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_3.png">
           <img alt="../_images/graph_exec_3.png" src="../_images/graph_exec_3.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.8
-          </span>
-          <span class="caption-text">
-           并行执行
-          </span>
-          <a class="headerlink" href="#id13" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.8
+           </span>
+           <span class="caption-text">
+            并行执行
+           </span>
+           <a class="headerlink" href="#id13" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <ul class="simple">
          <li>
           <p>
@@ -1613,24 +1630,26 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <p>
          2、异构计算图的执行方式
         </p>
-        <div class="figure align-default" id="id14">
+        <figure class="align-default" id="id14">
          <span id="graph-exec-4">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_4.png">
           <img alt="../_images/graph_exec_4.png" src="../_images/graph_exec_4.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.9
-          </span>
-          <span class="caption-text">
-           异构计算图
-          </span>
-          <a class="headerlink" href="#id14" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.9
+           </span>
+           <span class="caption-text">
+            异构计算图
+           </span>
+           <a class="headerlink" href="#id14" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如图
          <a class="reference internal" href="#graph-exec-4">
@@ -1647,24 +1666,26 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          所示，最后产生5张子图：Graph_1_CPU、Graph_2_GPU、Graph_3_CPU、Graph_4_Ascend、Graph_5_CPU。
         </p>
-        <div class="figure align-default" id="id15">
+        <figure class="align-default" id="id15">
          <span id="graph-exec-5">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_5.png">
           <img alt="../_images/graph_exec_5.png" src="../_images/graph_exec_5.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.10
-          </span>
-          <span class="caption-text">
-           异构计算图切分
-          </span>
-          <a class="headerlink" href="#id15" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.10
+           </span>
+           <span class="caption-text">
+            异构计算图切分
+           </span>
+           <a class="headerlink" href="#id15" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          将一张异构计算图切分为多个子计算图后，执行方式一般分为子图拆分执行和子图合并执行：
         </p>
@@ -1698,42 +1719,46 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
           </p>
          </li>
         </ul>
-        <div class="figure align-default" id="id16">
+        <figure class="align-default" id="id16">
          <span id="graph-exec-6">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_6.png">
           <img alt="../_images/graph_exec_6.png" src="../_images/graph_exec_6.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.11
-          </span>
-          <span class="caption-text">
-           子图拆分
-          </span>
-          <a class="headerlink" href="#id16" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-        <div class="figure align-default" id="id17">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.11
+           </span>
+           <span class="caption-text">
+            子图拆分
+           </span>
+           <a class="headerlink" href="#id16" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+        <figure class="align-default" id="id17">
          <span id="graph-exec-7">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_7.png">
           <img alt="../_images/graph_exec_7.png" src="../_images/graph_exec_7.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.12
-          </span>
-          <span class="caption-text">
-           子图合并
-          </span>
-          <a class="headerlink" href="#id17" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.12
+           </span>
+           <span class="caption-text">
+            子图合并
+           </span>
+           <a class="headerlink" href="#id17" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          由于子图合并执行能够减少子图之间的切换执行开销，因此一般来说子图合并执行性能较高，总结对比见表5.2。
         </p>
@@ -1828,26 +1853,28 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          所示，首先是作为一张整图来执行可以避免子图切换的执行开销，然后在整图内并行执行，可以最大粒度的发挥并发执行优势，达到最优的执行性能。
         </p>
-        <div class="figure align-default" id="id18">
+        <figure class="align-default" id="id18">
          <span id="graph-exec-8">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_8.png">
           <img alt="../_images/graph_exec_8.png" src="../_images/graph_exec_8.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图6.5.13
-          </span>
-          <span class="caption-text">
-           异构硬件加速
-          </span>
-          <a class="headerlink" href="#id18" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-       </div>
-       <div class="section" id="id5">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图6.5.13
+           </span>
+           <span class="caption-text">
+            异构硬件加速
+           </span>
+           <a class="headerlink" href="#id18" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+       </section>
+       <section id="id5">
         <h2>
          <span class="section-number">
           6.5.4.
@@ -1869,8 +1896,8 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <p>
          下沉式执行由于避免了在计算过程中主机侧和设备侧的交互，因此可以获得更好的整体计算性能。然而下沉式执行也存在一些局限，例如在动态shape算子，复杂控制流等场景下会面临较大的技术挑战。
         </p>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

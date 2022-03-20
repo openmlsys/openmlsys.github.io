@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -372,10 +373,10 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><span class="section-number">10.5. </span>参数服务器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>接下来，我们介绍另一种常见的分布式训练系统实现：参数服务器。TensorFlow原生提供了参数服务器的实现。而其他框架，例如PyTorch和MindSpore，则需要用户使用第三方的参数服务器实现，例如PS-Lite。</p>
-<div class="section" id="id2">
+<section id="id2">
 <h2><span class="section-number">10.5.1. </span>计算和存储分离<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>利用参数服务器的其中一个核心需求是实现：计算和存储的分离。在训练模型中，计算可以被理解为计算更新模型参数所需要的计算（例如说，计算本地梯度和计算平均梯度），而存储可以被理解为将模型参数存储在内存设备中（例如说，主机内存，加速卡内存和SSD设备）。传统的神经网络训练中，计算往往是核心瓶颈，因此我们只需要配置有合适数量的带有加速卡的服务器，常被称为训练服务器（Training
 servers）。</p>
@@ -384,10 +385,12 @@ table）。例如说，一个大型深度学习推荐系统中，它们往往使
 Perception），训练这种神经网络只需要几个GPU即可。而另一方面，推荐系统中往往需要存储PB级别的嵌入表。嵌入表往往由推荐系统的用户特征（User
 feature）和产品特征（Item
 feature）构成。这些特征往往是大型向量（Vector）。现代推荐系统需要服务数亿的用户，推荐数以千万的商品。假设用户的特征是1MB，而系统需要服务10亿的用户，那么用户的嵌入表就会有1PB的大小。而这个大小远远超过了一个深度学习服务器所具有的内存。假如我们部署大量的昂贵的深度学习服务器来存储海量嵌入表，那么这些服务器上的加速卡的使用率将会极低，无法实现对于硬件的高效利用。</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <span id="ch10-parameter-servers"></span><a class="reference internal image-reference" href="../_images/ch10-parameter-servers.svg"><img alt="../_images/ch10-parameter-servers.svg" src="../_images/ch10-parameter-servers.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图10.5.1 </span><span class="caption-text">参数服务器</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图10.5.1 </span><span class="caption-text">参数服务器</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>为了解决上述问题，人们往往会在稀疏模型集群中混合部署：训练服务器和参数服务器，从而实现对于计算需求和内存需求分别满足。
 <a class="reference internal" href="#ch10-parameter-servers"><span class="std std-numref">图10.5.1</span></a>
 描述了带有参数服务器的机器学习集群。这个集群中含有2个训练服务器和2个参数服务器，训练服务器一般是拥有加速卡的计算优化服务器（Compute-optimised
@@ -403,8 +406,8 @@ request）将平均梯度发送到参数服务器，参数服务器更新本地�
 <p>在以上的参数服务器架构中，机器学习集群拥有者可以灵活的根据梯度计算所需要算力配置合理数量的训练服务器。他们也可以根据参数的数量配置大部分的稀疏参数（Sparse
 parameters）在参数服务器中，仅留下小部分的密集参数（Dense
 parameters）在训练服务器中。密集参数和稀疏参数的核心区别是：稀疏参数在每一步训练不一定都会被用到，他们需要根据当前训练小批量来决定。而密集参数每一步训练都需要用到。因此为了频繁从参数服务器中拉取，密集参数往往会存储在训练服务器中。</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><span class="section-number">10.5.2. </span>数据副本<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在参数服务器的实际部署中，人们往往需要解决数据热点问题。互联网数据往往符合幂律概率（Power-law
 distribution），这会导致部分稀疏参数在训练过程中被访问的次数会显著高于其他参数。例如说，热门商品的特征向量被训练服务器拉取的次数就会远远高于非热门商品。因此，存储了热门数据的参数服务器所承受的数据拉取和推送请求会远远高于其他参数服务器，因此形成数据热点，伤害了系统的可扩展性。</p>
@@ -412,8 +415,8 @@ distribution），这会导致部分稀疏参数在训练过程中被访问的�
 <p>解决参数服务器故障和数据热点问题的常用技术是构建模型主从副本。（Master-slave
 replication）。一份参数在多个机器上拥有副本，并指定其中一个副本作为主副本。训练服务器的所有更新操作都向主副本写入并同步至从副本上。如何取得共识确定哪一个副本是主副本是分布式系统领域一个经典问题，已经有了相当多的成熟的算法，例如Paxos和Raft。此外，主副本上的更新如何复制到从副本上也同样是分布式系统领域的经典共识问题。通常系统设计者需要在可用性（Availability）和一致性（Consistency）之间做出取舍。如果参数服务器副本间采用强一致性的复制协议（例如，链式副本(Chain
 replication))）则可能导致训练服务器的推送请求失败，即参数服务器不可用。反之，如果参数服务器采用弱一致性的复制协议，则可能导致副本间存储的参数不一致。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><span class="section-number">10.5.3. </span>掉队者问题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>参数服务器的另一大核心作用是可以让用户方便解决掉队者问题。在之前的讨论中，在每一步训练结束后，训练服务器都需要计算平均梯度来对每一个模型副本进行更新，从而保证下一步训练开始前，全部模型副本的参数的一致性，这种对于参数一致性的确保一般被称为同步训练（Synchronous
 training）。同步训练一般会有助于训练系统达到更好的模型精度，但是当系统规模变大，我们往往会在系统中引入掉队者（Straggler）。掉队者出现的原因很多。常见的原因包括：掉队者设备可能和其他设备不在同一个机柜中，因此掉队者的通讯带宽显著小于其他设备。另外，掉队者设备也可能和其他进程共享本地的服务器计算和通讯资源，形成资源竞争，从而降低了性能。</p>
@@ -421,8 +424,8 @@ training）。同步训练一般会有助于训练系统达到更好的模型精
 0
 解决掉队者的另外一种常见做法是利用参数服务器实现<strong>异步训练</strong>(Asynchronous
 training)。在一个异步训练系统中，每个训练服务器在训练开始时，有相同的模型参数副本。在训练中，他们计算出本地梯度后会马上将本地梯度推送到参数服务器，参数服务器将推送的梯度立刻用于更新参数，并把更新好的参数马上推送回对应的训练服务器。在这个过程中，不同的训练服务器很可能会使用不同版本的模型参数进行本地梯度的计算，这种做法有可能会伤害模型的精度，但它同时让不同训练服务器可以按照各自的运算速度来推送和拉取参数，而无需等待同伴，因此避免了掉队者对于整个集群性能的影响。</p>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>

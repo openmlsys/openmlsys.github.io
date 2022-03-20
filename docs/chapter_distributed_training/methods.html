@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          10.2.
@@ -1103,7 +1104,7 @@
        <p>
         我们会讨论分布式训练系统实现的常用并行方法。我们首先给出并行方法的设计目标以及分类。然后，我们会详细描述各个并行方法。
        </p>
-       <div class="section" id="id2">
+       <section id="id2">
         <h2>
          <span class="section-number">
           10.2.1.
@@ -1113,24 +1114,26 @@
           ¶
          </a>
         </h2>
-        <div class="figure align-default" id="id6">
+        <figure class="align-default" id="id6">
          <span id="ch10-single-node">
          </span>
          <a class="reference internal image-reference" href="../_images/ch10-single-node.svg">
           <img alt="../_images/ch10-single-node.svg" src="../_images/ch10-single-node.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图10.2.1
-          </span>
-          <span class="caption-text">
-           单节点训练系统
-          </span>
-          <a class="headerlink" href="#id6" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图10.2.1
+           </span>
+           <span class="caption-text">
+            单节点训练系统
+           </span>
+           <a class="headerlink" href="#id6" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          分布式训练系统的设计目标是：将单节点训练系统转化成
          <strong>
@@ -1281,8 +1284,8 @@ Parallelism）。
         <p>
          接下来，我们详细讲解各种并行方法的执行过程。
         </p>
-       </div>
-       <div class="section" id="id3">
+       </section>
+       <section id="id3">
         <h2>
          <span class="section-number">
           10.2.2.
@@ -1292,24 +1295,26 @@ Parallelism）。
           ¶
          </a>
         </h2>
-        <div class="figure align-default" id="id8">
+        <figure class="align-default" id="id8">
          <span id="ch10-data-parallel">
          </span>
          <a class="reference internal image-reference" href="../_images/ch10-data-parallel.svg">
           <img alt="../_images/ch10-data-parallel.svg" src="../_images/ch10-data-parallel.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图10.2.2
-          </span>
-          <span class="caption-text">
-           数据并行训练系统
-          </span>
-          <a class="headerlink" href="#id8" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图10.2.2
+           </span>
+           <span class="caption-text">
+            数据并行训练系统
+           </span>
+           <a class="headerlink" href="#id8" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          数据并行往往可以解决单节点的算力不足。这种并行方式在人工智能框架中最为常见，具体实现包括：TensorFlow
 DistributedStrategy，PyTorch Distributed，Horovod
@@ -1357,8 +1362,8 @@ DistributedOptimizer等。在一个数据并行系统中，假设用户给定一
 Size）是64，那么每个设备会分配到32个训练样本，并且具有相同的神经网络参数（程序副本）。本地的训练样本会依次通过这个程序副本中的算子，完成前向传播和反向传播。在反向传播的过程中，程序副本会生成局部梯度。不同设备上对应的局部梯度（如设备1和设备2上各自的梯度1）会进行聚合，从而计算平均梯度。这个聚合的过程往往由集合通讯库（Collective
 Communication）的Allreduce操作来完成。
         </p>
-       </div>
-       <div class="section" id="id4">
+       </section>
+       <section id="id4">
         <h2>
          <span class="section-number">
           10.2.3.
@@ -1368,24 +1373,26 @@ Communication）的Allreduce操作来完成。
           ¶
          </a>
         </h2>
-        <div class="figure align-default" id="id9">
+        <figure class="align-default" id="id9">
          <span id="ch10-model-parallel-intra-op">
          </span>
          <a class="reference internal image-reference" href="../_images/ch10-model-parallel-intra-op.png">
           <img alt="../_images/ch10-model-parallel-intra-op.png" src="../_images/ch10-model-parallel-intra-op.png" style="width: 800px;"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图10.2.3
-          </span>
-          <span class="caption-text">
-           模型并行系统：算子内并行
-          </span>
-          <a class="headerlink" href="#id9" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图10.2.3
+           </span>
+           <span class="caption-text">
+            模型并行系统：算子内并行
+           </span>
+           <a class="headerlink" href="#id9" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          模型并行往往用于解决单节点的内存不足问题。一个常见的内存不足场景是模型中含有大型算子，例如说深度神经网络中需要计算大量分类的全连接层（Fully
 Connected
@@ -1448,24 +1455,26 @@ Parallelism）。
          （Inter-operator
 Parallelism）。
         </p>
-        <div class="figure align-default" id="id10">
+        <figure class="align-default" id="id10">
          <span id="ch10-model-parallel-inter-op">
          </span>
          <a class="reference internal image-reference" href="../_images/ch10-model-parallel-inter-op.svg">
           <img alt="../_images/ch10-model-parallel-inter-op.svg" src="../_images/ch10-model-parallel-inter-op.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图10.2.4
-          </span>
-          <span class="caption-text">
-           模型并行系统：算子间并行
-          </span>
-          <a class="headerlink" href="#id10" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图10.2.4
+           </span>
+           <span class="caption-text">
+            模型并行系统：算子间并行
+           </span>
+           <a class="headerlink" href="#id10" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          <a class="reference internal" href="#ch10-model-parallel-inter-op">
           <span class="std std-numref">
@@ -1474,8 +1483,8 @@ Parallelism）。
          </a>
          给出了一个由2个设备实现的算子间并行的例子。在这个例子中，假设一个神经网络具有2个算子，算子1和算子2各自需要10G的内存完成计算，则模型总共需要20G的内存。而每个设备仅能提供10G内存。在这个例子中，用户可以把算子1放置在设备1上，算子2放置在设备2上。在前向传播中，算子1的输出会被发送（Send）给下游的设备2。设备2接收（Receive）来自上游的数据，完成算子2的前向计算。在反向传播中，设备2将算子2的反向计算结果发送给设备1。设备1完成算子1的反向计算，完成本次训练。
         </p>
-       </div>
-       <div class="section" id="id5">
+       </section>
+       <section id="id5">
         <h2>
          <span class="section-number">
           10.2.4.
@@ -1485,24 +1494,26 @@ Parallelism）。
           ¶
          </a>
         </h2>
-        <div class="figure align-default" id="id11">
+        <figure class="align-default" id="id11">
          <span id="ch10-hybrid-parallel">
          </span>
          <a class="reference internal image-reference" href="../_images/ch10-hybrid-parallel.svg">
           <img alt="../_images/ch10-hybrid-parallel.svg" src="../_images/ch10-hybrid-parallel.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图10.2.5
-          </span>
-          <span class="caption-text">
-           混合并行系统
-          </span>
-          <a class="headerlink" href="#id11" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图10.2.5
+           </span>
+           <span class="caption-text">
+            混合并行系统
+           </span>
+           <a class="headerlink" href="#id11" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          在训练大型人工智能模型中，我们往往会同时面对算力不足和内存不足。因此，我们需要混合使用数据并行和模型并行，这种方法被称为混合并行。
          <a class="reference internal" href="#ch10-hybrid-parallel">
@@ -1512,8 +1523,8 @@ Parallelism）。
          </a>
          提供了一个由4个设备实现的混合并行的例子。在这个例子中，我们首先实现算子间并行来解决训练程序内存开销过大的问题：该训练程序的算子1和算子2被分摊到了设备1和设备2上。进一步，我们通过数据并行来添加3和设备4，提升系统算力。为了达到这一点，我们对训练数据进行分区（数据分区1和数据分区2），并将模型（算子1和算子2）分配复制到设备3和设备4上生成可以并行执行的程序副本。在前向计算的过程中，设备1和设备3上的算子1副本同时开始，计算结果分别发送（Send）给设备2和设备4完成算子2副本的计算。在反向计算中，设备2和设备4同时开始计算梯度，本地梯度通过Allreduce进行平均。反向计算传递到设备1和设备3上的算子1副本结束。
         </p>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">

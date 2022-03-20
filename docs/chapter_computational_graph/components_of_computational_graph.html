@@ -3,6 +3,7 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
@@ -1090,7 +1091,7 @@
     </header>
     <div class="document">
      <div class="page-content" role="main">
-      <div class="section" id="id1">
+      <section id="id1">
        <h1>
         <span class="section-number">
          3.2.
@@ -1113,25 +1114,27 @@
         </span>
         转化为计算图表示，数据流将根据图中流向与算子进行前向计算和反向梯度计算来更新图中张量状态，以此达到训练模型的目的。
        </p>
-       <div class="figure align-default" id="id6">
+       <figure class="align-default" id="id6">
         <span id="simpledag">
         </span>
         <a class="reference internal image-reference" href="../_images/simpledag.svg">
          <img alt="../_images/simpledag.svg" src="../_images/simpledag.svg" width="300px"/>
         </a>
-        <p class="caption">
-         <span class="caption-number">
-          图3.2.1
-         </span>
-         <span class="caption-text">
-          简单计算图
-         </span>
-         <a class="headerlink" href="#id6" title="Permalink to this image">
-          ¶
-         </a>
-        </p>
-       </div>
-       <div class="section" id="id2">
+        <figcaption>
+         <p>
+          <span class="caption-number">
+           图3.2.1
+          </span>
+          <span class="caption-text">
+           简单计算图
+          </span>
+          <a class="headerlink" href="#id6" title="Permalink to this image">
+           ¶
+          </a>
+         </p>
+        </figcaption>
+       </figure>
+       <section id="id2">
         <h2>
          <span class="section-number">
           3.2.1.
@@ -1252,26 +1255,28 @@
          </a>
          ，标量就是一个零阶张量，包含单个数值但没有轴信息。向量即为一阶张量，具有一个轴。二阶张量具有两个轴即秩为二。
         </p>
-        <div class="figure align-default" id="id8">
+        <figure class="align-default" id="id8">
          <span id="tensor">
          </span>
          <a class="reference internal image-reference" href="../_images/tensor.svg">
           <img alt="../_images/tensor.svg" src="../_images/tensor.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.2
-          </span>
-          <span class="caption-text">
-           张量
-          </span>
-          <a class="headerlink" href="#id8" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.2
+           </span>
+           <span class="caption-text">
+            张量
+           </span>
+           <a class="headerlink" href="#id8" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
-         通常我们使用的张量是“整齐”的，每个轴上的具有相同的元素个数，就像一个“矩形”或者“立方体”。在特定的环境中，也会使用特殊类型的张量，比如不规则张量和稀疏张量，如
+         通常我们使用的张量是”整齐”的，每个轴上的具有相同的元素个数，就像一个”矩形”或者”立方体”。在特定的环境中，也会使用特殊类型的张量，比如不规则张量和稀疏张量，如
          <a class="reference internal" href="#tensorclass">
           <span class="std std-numref">
            图3.2.3
@@ -1280,24 +1285,26 @@
          中所示。不规则张量在某个轴上可能具有不同的元素个数，它们支持存储和处理包含非均匀形状的数据，在自然语言处理领域，不规则张量可以存储不同长度文本的信息。稀疏张量则通常应用于图数据与图神经网络中，采用特殊的存储格式如坐标表格式（Coordinate
 List， COO），可以高效存储稀疏数据，节省存储空间。
         </p>
-        <div class="figure align-default" id="id9">
+        <figure class="align-default" id="id9">
          <span id="tensorclass">
          </span>
          <a class="reference internal image-reference" href="../_images/tensorclass.svg">
           <img alt="../_images/tensorclass.svg" src="../_images/tensorclass.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.3
-          </span>
-          <span class="caption-text">
-           张量分类
-          </span>
-          <a class="headerlink" href="#id9" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.3
+           </span>
+           <span class="caption-text">
+            张量分类
+           </span>
+           <a class="headerlink" href="#id9" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          算子是构成神经网络的基本计算单元。算子按照功能可以分为张量操作、神经网络操作、数据流操作和控制流操作等。
         </p>
@@ -1340,8 +1347,8 @@ Estimation,Adam)等。
           </p>
          </li>
         </ul>
-       </div>
-       <div class="section" id="id3">
+       </section>
+       <section id="id3">
         <h2>
          <span class="section-number">
           3.2.2.
@@ -1354,24 +1361,26 @@ Estimation,Adam)等。
         <p>
          在计算图中，算子之间存在依赖关系，而这种依赖关系影响了算子的执行顺序与并行情况。此外在深度学习算法模型中，计算图是一个有向无环图，也即在计算图中造成循环依赖的数据流向是不被允许的。为了理解计算依赖关系并且分析计算图中循环与循环依赖之间的区别，下面将对计算图中的计算节点依赖关系进行讲解。
         </p>
-        <div class="figure align-default" id="id10">
+        <figure class="align-default" id="id10">
          <span id="dependence">
          </span>
          <a class="reference internal image-reference" href="../_images/dependence.svg">
           <img alt="../_images/dependence.svg" src="../_images/dependence.svg" width="400px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.4
-          </span>
-          <span class="caption-text">
-           计算依赖
-          </span>
-          <a class="headerlink" href="#id10" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.4
+           </span>
+           <span class="caption-text">
+            计算依赖
+           </span>
+           <a class="headerlink" href="#id10" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          如
          <a class="reference internal" href="#dependence">
@@ -1484,24 +1493,26 @@ Estimation,Adam)等。
          </span>
          ，此时两个节点互相等待对方计算完成输出数据，将无法执行计算任务。若我们手动同时给两个节点赋予输入，计算将持续不间断进行，模型训练将无法停止造成死循环。循环依赖产生正反馈数据流，被传递的数值可能在正方向上无限放大，导致数值上溢，或者负方向上放大导致数值下溢，也可能导致数值无限逼近于0，这些情况都会致使模型训练无法得到预期结果。在构建深度学习模型时，应避免算子间产生循环依赖。
         </p>
-        <div class="figure align-default" id="id11">
+        <figure class="align-default" id="id11">
          <span id="recurrent">
          </span>
          <a class="reference internal image-reference" href="../_images/recurrent.svg">
           <img alt="../_images/recurrent.svg" src="../_images/recurrent.svg" width="300px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.5
-          </span>
-          <span class="caption-text">
-           循环依赖
-          </span>
-          <a class="headerlink" href="#id11" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.5
+           </span>
+           <span class="caption-text">
+            循环依赖
+           </span>
+           <a class="headerlink" href="#id11" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          在深度学习计算框架中，表示循环关系通常是以
          <strong>
@@ -1515,26 +1526,28 @@ Estimation,Adam)等。
          </a>
          。在计算图中，每一个张量和运算符都具有独特的标识符，即使是相同的操作运算，在参与不同计算任务时都具有不同的标识符。区分循环关系和循环依赖的关键在于，是否两个独特标识符之间的运算互相具有直接依赖和相互依赖。循环关系在展开复制计算子图的时候会给复制的所有张量和运算符赋予新的标识符，区分被复制的原始子图，以避免形成循环依赖。
         </p>
-        <div class="figure align-default" id="id12">
+        <figure class="align-default" id="id12">
          <span id="unroll">
          </span>
          <a class="reference internal image-reference" href="../_images/unroll.svg">
           <img alt="../_images/unroll.svg" src="../_images/unroll.svg" width="800px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.6
-          </span>
-          <span class="caption-text">
-           循环展开
-          </span>
-          <a class="headerlink" href="#id12" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-       </div>
-       <div class="section" id="id4">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.6
+           </span>
+           <span class="caption-text">
+            循环展开
+           </span>
+           <a class="headerlink" href="#id12" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+       </section>
+       <section id="id4">
         <h2>
          <span class="section-number">
           3.2.3.
@@ -1609,24 +1622,26 @@ approach）。计算框架PyTorch、MindSpore中就直接使用python的控制�
 </pre>
          </div>
         </div>
-        <div class="figure align-default" id="id13">
+        <figure class="align-default" id="id13">
          <span id="if">
          </span>
          <a class="reference internal image-reference" href="../_images/if.svg">
           <img alt="../_images/if.svg" src="../_images/if.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.7
-          </span>
-          <span class="caption-text">
-           条件控制计算图
-          </span>
-          <a class="headerlink" href="#id13" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.7
+           </span>
+           <span class="caption-text">
+            条件控制计算图
+           </span>
+           <a class="headerlink" href="#id13" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          <a class="reference internal" href="#if">
           <span class="std std-numref">
@@ -1678,26 +1693,28 @@ approach）。计算框架PyTorch、MindSpore中就直接使用python的控制�
          </a>
          描述了上述代码的前向计算图和反向计算图，循环控制的梯度同样也是一个循环，它与前向循环相迭代次数相同，执行循环体的梯度计算。循环体输出的梯度值作为下一次梯度计算的初始值，直至循环结束。
         </p>
-        <div class="figure align-default" id="id14">
+        <figure class="align-default" id="id14">
          <span id="while">
          </span>
          <a class="reference internal image-reference" href="../_images/while.svg">
           <img alt="../_images/while.svg" src="../_images/while.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.8
-          </span>
-          <span class="caption-text">
-           循环控制计算图
-          </span>
-          <a class="headerlink" href="#id14" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
-       </div>
-       <div class="section" id="id5">
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.8
+           </span>
+           <span class="caption-text">
+            循环控制计算图
+           </span>
+           <a class="headerlink" href="#id14" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
+       </section>
+       <section id="id5">
         <h2>
          <span class="section-number">
           3.2.4.
@@ -1920,29 +1937,31 @@ propagation）。在神经网络模型中，反向传播通常使用损失函数
          </a>
          我们可以看出，在反向传播过程中使用到前向传播的中间变量。因此保存网络中间层输出状态和中间变量，尽管占用了部分内存但能够复用计算结果，达到了提高反向传播计算效率的目的。
         </p>
-        <div class="figure align-default" id="id15">
+        <figure class="align-default" id="id15">
          <span id="chain">
          </span>
          <a class="reference internal image-reference" href="../_images/chain.svg">
           <img alt="../_images/chain.svg" src="../_images/chain.svg" width="600px"/>
          </a>
-         <p class="caption">
-          <span class="caption-number">
-           图3.2.9
-          </span>
-          <span class="caption-text">
-           反向传播局部计算图
-          </span>
-          <a class="headerlink" href="#id15" title="Permalink to this image">
-           ¶
-          </a>
-         </p>
-        </div>
+         <figcaption>
+          <p>
+           <span class="caption-number">
+            图3.2.9
+           </span>
+           <span class="caption-text">
+            反向传播局部计算图
+           </span>
+           <a class="headerlink" href="#id15" title="Permalink to this image">
+            ¶
+           </a>
+          </p>
+         </figcaption>
+        </figure>
         <p>
          在深度学习计算框架中，控制流可以进行嵌套，比如多重循环和循环条件控制，计算图会对复杂控制流进行准确的描述，以便于执行正确的计算调度与执行任务。
         </p>
-       </div>
-      </div>
+       </section>
+      </section>
      </div>
      <div class="side-doc-outline">
       <div class="side-doc-outline--content">
