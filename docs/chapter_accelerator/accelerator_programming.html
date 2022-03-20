@@ -408,7 +408,7 @@ Tree
 <li><p><strong>TVM/Ansor</strong></p></li>
 </ul>
 <figure class="align-default" id="id19">
-<span id="tbe"></span><span id="tvm"></span><a class="reference internal image-reference" href="../_images/TVM.svg"><img alt="../_images/TVM.svg" src="../_images/TVM.svg" width="800px" /></a>
+<span id="tvm"></span><a class="reference internal image-reference" href="../_images/TVM.svg"><img alt="../_images/TVM.svg" src="../_images/TVM.svg" width="800px" /></a>
 <figcaption>
 <p><span class="caption-number">图7.3.1 </span><span class="caption-text">TVM</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </figcaption>
@@ -422,24 +422,23 @@ Tree
 Engine）是华为的Ascend芯片及其CANN软件栈基于TVM
 开发的一套算子编译优化工具，用于对Ascend芯片进行调度优化、指令映射、及后端pass优化等。不仅提供了一个优化过的神经网络标准算子库，同时还提供了算子开发能力及融合能力。通过TBE提供的API和自定义算子编程开发界面可以完成相应神经网络算子的开发，帮助用户较容易的去使能硬件加速器上的AI_CORE
 相关指令，以实现高性能的神经网络计算。为了简化算子开发流程，TBE还实现了一个Auto
-Schedule工具，开放了自定义算子编程DSL，用于自动完成复杂算子的调度生成。此外，TBE还实现了端到端的动态shape算子编译能力。
-<img alt="TBE" src="../_images/tbe.png" /></p>
-<dl class="field-list simple">
-<dt class="field-odd">width</dt>
-<dd class="field-odd"><p>800px</p>
-</dd>
-</dl>
-</li>
+Schedule工具，开放了自定义算子编程DSL，用于自动完成复杂算子的调度生成。此外，TBE还实现了端到端的动态shape算子编译能力。</p></li>
 </ul>
+<figure class="align-default" id="id20">
+<span id="tbe"></span><a class="reference internal image-reference" href="../_images/tbe.png"><img alt="../_images/tbe.png" src="../_images/tbe.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图7.3.2 </span><span class="caption-text">TBE</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>AKG则是MindSpore社区的开源算子编译工具。与上述介绍的算子编译器不同，AKG基于Polyhedral多面体编译技术
 <a class="bibtex reference internal" href="../chapter_references/index.html#bastoul2004code" id="id12">[Bastoul, 2004]</a>，支持在CPU/GPU/Ascend多硬件上自动生成满足并行性与数据局部性的调度。Polyhedral编译技术的核心思想是将程序中循环的迭代空间映射为高维空间多面体，通过分析语句读写依赖关系，将循环调度优化问题转换为整数规划求解问题。
 AKG的编译流程如下图所示，主要包含程序规范化、自动调度优化、指令生成、后端优化几个模块。AKG同样基于TVM实现，支持TVM
 compute/Hybrid
 DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合子图。通过IR规范化，将DSL/子图IR转换为polyhedral编译的调度树。在polyhedral模块中，利用其提供的调度算法，实现循环的自动融合、自动重排等变换，为融合算子自动生成满足并行性、数据局部性的初始调度。为了能够快速适配不同的硬件后端，我们在poly模块内将优化pass识别为硬件无关的通用优化与硬件相关的特定优化，编译时按照硬件特征拼接组合，实现异构硬件后端的快速适配。</p>
-<figure class="align-default" id="id20">
+<figure class="align-default" id="id21">
 <span id="akg"></span><a class="reference internal image-reference" href="../_images/akg.png"><img alt="../_images/akg.png" src="../_images/akg.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.2 </span><span class="caption-text">AKG</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.3 </span><span class="caption-text">AKG</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>在polyhedral模块中，实现了算子的自动调度生成、自动切分以及自动数据搬移。为了进一步提升算子的性能，我们针对不同硬件后端开发了相应的优化pass，如Ascend后端中实现数据对齐、指令映射，GPU后端中实现向量化存取，插入同步指令等，最终生成相应平台代码。</p>
@@ -448,10 +447,10 @@ DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合�
 <section id="diversified-programming-title">
 <span id="id13"></span><h2><span class="section-number">7.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#diversified-programming-title" title="Permalink to this headline">¶</a></h2>
 <p>矩阵乘法运算作为深度学习网络中占比最大的计算，对其进行优化是十分必要的。因此本节将统一以矩阵乘法<span class="math notranslate nohighlight">\(D[M, N] = C[M, N] + A[M, K] \times B[K, N]\)</span>为实例，对比介绍如何通过不同编程方式使能加速器。</p>
-<figure class="align-default" id="id21">
+<figure class="align-default" id="id22">
 <span id="id14"></span><span id="gemm-algorith"></span><a class="reference internal image-reference" href="../_images/gemm.svg"><img alt="../_images/gemm.svg" src="../_images/gemm.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.3 </span><span class="caption-text">矩阵乘法GEMM运算</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.4 </span><span class="caption-text">矩阵乘法GEMM运算</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <section id="id15">
@@ -529,11 +528,11 @@ Float）、排布方式（<span class="math notranslate nohighlight">\(row\_majo
 <p>在NVIDIA PTX ISA (Instruction Set
 Architecture)中提供了另一个编程接口，如Volta架构中的<span class="math notranslate nohighlight">\(mma.sync.m8n8k4\)</span>指令，它使用<span class="math notranslate nohighlight">\(M=8, N=8, K=4\)</span>的形状配置执行乘累加操作。具体地，它由线程组（黑色椭圆表示）或octet执行
 <a class="bibtex reference internal" href="../chapter_references/index.html#modeling" id="id16">[Raihan et al., 2018]</a>，如
-<a class="reference internal" href="#ptx"><span class="std std-numref">图7.3.4</span></a>显示了线程和数据的映射关系。每个线程组由四个连续的线程组成，使用不同颜色的圆圈表示。图中还指出了一个octet里面的线程在线程束内的分布，Float16乘法器A或B的四个连续元素（使用具有相同颜色的块表示），以及Float32累加器C或D的八个分散元素（同样使用相同颜色的块表示）。彩色块上的数字代表对应的线程ID。</p>
-<figure class="align-default" id="id22">
+<a class="reference internal" href="#ptx"><span class="std std-numref">图7.3.5</span></a>显示了线程和数据的映射关系。每个线程组由四个连续的线程组成，使用不同颜色的圆圈表示。图中还指出了一个octet里面的线程在线程束内的分布，Float16乘法器A或B的四个连续元素（使用具有相同颜色的块表示），以及Float32累加器C或D的八个分散元素（同样使用相同颜色的块表示）。彩色块上的数字代表对应的线程ID。</p>
+<figure class="align-default" id="id23">
 <span id="ptx"></span><a class="reference internal image-reference" href="../_images/ptx.svg"><img alt="../_images/ptx.svg" src="../_images/ptx.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.4 </span><span class="caption-text">mma指令之线程与矩阵元素映射关系</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.5 </span><span class="caption-text">mma指令之线程与矩阵元素映射关系</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>作为一个更细粒度的指令，mma可以组成更加多样化形状的Warp范围的WMMA
@@ -564,48 +563,48 @@ API具有更好的灵活性。</p>
 <a class="reference internal" href="#accelerator-programable-title"><span class="std std-numref">7.3.1节</span></a>节中的GEMM运算，仍以WMMA
 API使能Tensor
 Core加速单元为例，介绍如何通过矩阵分块、资源映射等方式更高效的利用硬件加速器。</p>
-<figure class="align-default" id="id23">
+<figure class="align-default" id="id24">
 <span id="gemm-tensor-core-algorith"></span><a class="reference internal image-reference" href="../_images/gemm_tensor_core.svg"><img alt="../_images/gemm_tensor_core.svg" src="../_images/gemm_tensor_core.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.5 </span><span class="caption-text">TensorCore矩阵乘法GEMM运算</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.6 </span><span class="caption-text">TensorCore矩阵乘法GEMM运算</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>若要得到高性能CUDA程序，提高并行性、增大吞吐量、优化指令执行是至关重要的三个优化目标。针对该实例，具体地实现和优化方案列出如下，对应到具体实例伪代码如
-<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.5</span></a>所示：</p>
+<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.6</span></a>所示：</p>
 <ol class="arabic simple">
 <li><p><strong>优化内存结构——增大吞吐量</strong>：将原始大规模矩阵根据不同阈值切分成不同层级的子矩阵块，使得子矩阵块能被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。设置切分参数为<span class="math notranslate nohighlight">\(BlockTile[Ms, Ns, Ks]\)</span>和<span class="math notranslate nohighlight">\(WarpTile[Mw, Nw, Kw]\)</span>，对应的将BlockTile下的矩阵由全局内存搬移至共享内存，以提高全局内存合并访问和数据局部性，如
-<a class="reference internal" href="#gemm-blocktile"><span class="std std-numref">图7.3.6</span></a>所示；再将内层WarpTile下的矩阵由共享内存搬移至寄存器中，如
-<a class="reference internal" href="#gemm-warptile"><span class="std std-numref">图7.3.7</span></a>所示，以备Tensor Core加速器数据存取。</p></li>
+<a class="reference internal" href="#gemm-blocktile"><span class="std std-numref">图7.3.7</span></a>所示；再将内层WarpTile下的矩阵由共享内存搬移至寄存器中，如
+<a class="reference internal" href="#gemm-warptile"><span class="std std-numref">图7.3.8</span></a>所示，以备Tensor Core加速器数据存取。</p></li>
 </ol>
-<figure class="align-default" id="id24">
+<figure class="align-default" id="id25">
 <span id="gemm-blocktile"></span><a class="reference internal image-reference" href="../_images/G2S.svg"><img alt="../_images/G2S.svg" src="../_images/G2S.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.6 </span><span class="caption-text">全局内存与共享内存数据交互</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.7 </span><span class="caption-text">全局内存与共享内存数据交互</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<figure class="align-default" id="id25">
+<figure class="align-default" id="id26">
 <span id="gemm-warptile"></span><a class="reference internal image-reference" href="../_images/S2R.svg"><img alt="../_images/S2R.svg" src="../_images/S2R.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.7 </span><span class="caption-text">共享内存与寄存器数据交互</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.8 </span><span class="caption-text">共享内存与寄存器数据交互</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple" start="2">
 <li><p><strong>并行资源映射——提高并行性</strong>：将多层级的并行资源（Block、Warp、Thread）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于GEMM实例，M/N轴即为可并行轴，将数据搬移操作中的循环指令映射分配到Block层级（即
-<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.5</span></a>中的2-4行<span class="math notranslate nohighlight">\(For\)</span>循环），将内层循环指令映射分配到Warp层级（即
-<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.5</span></a>中的8-9行<span class="math notranslate nohighlight">\(For\)</span>循环）。（前文介绍，线程束Warp作为调度的基本单位，且是WMMA
+<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.6</span></a>中的2-4行<span class="math notranslate nohighlight">\(For\)</span>循环），将内层循环指令映射分配到Warp层级（即
+<a class="reference internal" href="#gemm-tensor-core-algorith"><span class="std std-numref">图7.3.6</span></a>中的8-9行<span class="math notranslate nohighlight">\(For\)</span>循环）。（前文介绍，线程束Warp作为调度的基本单位，且是WMMA
 API操纵的基本层级，因此对Warp层级进行数据映射比Thread层级映射更为合适）</p></li>
 <li><p><strong>Warp统一的Tensor Core数据交互——增大吞吐量</strong>：根据
 <a class="reference internal" href="#diversified-programming-title"><span class="std std-numref">7.3.2节</span></a>节中介绍的编程方法，除调用算子库外，均需要使用或将指令封装成WMMA接口形式统一进行Warp层级的数据存取和计算。如
-<a class="reference internal" href="#gemm-tensorcore"><span class="std std-numref">图7.3.8</span></a>所示，Tensor
+<a class="reference internal" href="#gemm-tensorcore"><span class="std std-numref">图7.3.9</span></a>所示，Tensor
 Core加速器需要从局部内存/寄存器中读取数据，存于虚拟Fragment数据结构中，对应使用<span class="math notranslate nohighlight">\(wmma.load\_matrix\_sync()\)</span>接口，将累加Fragment
 <span class="math notranslate nohighlight">\(C\)</span>
 通过<span class="math notranslate nohighlight">\(wmma.fill\_fragment()\)</span>接口进行初始化后，使用<span class="math notranslate nohighlight">\(wmma.mma\_sync()\)</span>使能加速器进行乘累加运算，后将结果Fragment
 <span class="math notranslate nohighlight">\(D\)</span>通过调用<span class="math notranslate nohighlight">\(wmma.store\_matrix\_sync()\)</span>接口拷贝至目标内存地址。</p></li>
 </ol>
-<figure class="align-default" id="id26">
+<figure class="align-default" id="id27">
 <span id="gemm-tensorcore"></span><a class="reference internal image-reference" href="../_images/R2TC.svg"><img alt="../_images/R2TC.svg" src="../_images/R2TC.svg" width="800px" /></a>
 <figcaption>
-<p><span class="caption-number">图7.3.8 </span><span class="caption-text">寄存器与硬件加速器交互</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图7.3.9 </span><span class="caption-text">寄存器与硬件加速器交互</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple" start="4">
