@@ -487,8 +487,13 @@
           </a>
          </li>
          <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+           13.6. 纵向联邦学习
+          </a>
+         </li>
+         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/summary.html">
-           13.6. 小结
+           13.7. 小结
           </a>
          </li>
         </ul>
@@ -984,8 +989,13 @@
            </a>
           </li>
           <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+            13.6. 纵向联邦学习
+           </a>
+          </li>
+          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/summary.html">
-            13.6. 小结
+            13.7. 小结
            </a>
           </li>
          </ul>
@@ -1118,23 +1128,23 @@
         <div class="highlight-python notranslate">
          <div class="highlight">
           <pre><span></span><span class="kn">import</span> <span class="nn">mindspore.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-    <span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">context</span>
-    <span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">ms_function</span>
+<span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">context</span>
+<span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">ms_function</span>
 
-    <span class="c1"># 以单算子方式执行后续计算中的算子。</span>
-    <span class="n">context</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">PYNATIVE_MODE</span><span class="p">)</span>
+<span class="c1"># 以单算子方式执行后续计算中的算子。</span>
+<span class="n">context</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">PYNATIVE_MODE</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">Computation</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Cell</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-            <span class="n">m</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
-            <span class="n">n</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-            <span class="n">z</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span>
-            <span class="k">return</span> <span class="n">z</span>
+<span class="k">class</span> <span class="nc">Computation</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Cell</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+     <span class="n">m</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+     <span class="n">n</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
+     <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+     <span class="n">z</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span>
+     <span class="k">return</span> <span class="n">z</span>
 
-    <span class="n">compute</span> <span class="o">=</span> <span class="n">Computation</span><span class="p">()</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="n">compute</span> <span class="o">=</span> <span class="n">Computation</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre>
          </div>
         </div>
@@ -1295,27 +1305,27 @@ Kernel。主流框架均提供了指定算子所在运行设备的能力，以Mi
         <div class="highlight-python notranslate">
          <div class="highlight">
           <pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">Tensor</span>
-    <span class="kn">import</span> <span class="nn">mindspore.ops.operations</span> <span class="k">as</span> <span class="nn">ops</span>
-    <span class="kn">from</span> <span class="nn">mindspore.common.api</span> <span class="kn">import</span> <span class="n">ms_function</span>
+<span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">import</span> <span class="nn">mindspore.ops.operations</span> <span class="k">as</span> <span class="nn">ops</span>
+<span class="kn">from</span> <span class="nn">mindspore.common.api</span> <span class="kn">import</span> <span class="n">ms_function</span>
 
-    <span class="c1"># 创建算子并指定执行算子的硬件设备</span>
-    <span class="n">add</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Add</span><span class="p">()</span><span class="o">.</span><span class="n">add_prim_attr</span><span class="p">(</span><span class="s1">'primitive_target'</span><span class="p">,</span> <span class="s1">'CPU'</span><span class="p">)</span>
-    <span class="n">sub</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Sub</span><span class="p">()</span><span class="o">.</span><span class="n">add_prim_attr</span><span class="p">(</span><span class="s1">'primitive_target'</span><span class="p">,</span> <span class="s1">'GPU'</span><span class="p">)</span>
+<span class="c1"># 创建算子并指定执行算子的硬件设备</span>
+<span class="n">add</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Add</span><span class="p">()</span><span class="o">.</span><span class="n">add_prim_attr</span><span class="p">(</span><span class="s1">'primitive_target'</span><span class="p">,</span> <span class="s1">'CPU'</span><span class="p">)</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Sub</span><span class="p">()</span><span class="o">.</span><span class="n">add_prim_attr</span><span class="p">(</span><span class="s1">'primitive_target'</span><span class="p">,</span> <span class="s1">'GPU'</span><span class="p">)</span>
 
-    <span class="c1"># 指定按照静态计算图模式执行函数</span>
-    <span class="nd">@ms_function</span>
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sub</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="c1"># 指定按照静态计算图模式执行函数</span>
+<span class="nd">@ms_function</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sub</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 
-    <span class="c1"># 创建实参</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="c1"># 创建实参</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 
-    <span class="c1"># 执行计算</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="c1"># 执行计算</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 </pre>
          </div>
         </div>
@@ -1336,24 +1346,24 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <div class="highlight-python notranslate">
          <div class="highlight">
           <pre><span></span><span class="kn">import</span> <span class="nn">mindspore</span> <span class="k">as</span> <span class="nn">ms</span>
-    <span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Tensor</span>
-    <span class="kn">import</span> <span class="nn">mindspore.ops.operations</span> <span class="k">as</span> <span class="nn">ops</span>
-    <span class="kn">from</span> <span class="nn">mindspore.common.api</span> <span class="kn">import</span> <span class="n">ms_function</span>
+<span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Tensor</span>
+<span class="kn">import</span> <span class="nn">mindspore.ops.operations</span> <span class="k">as</span> <span class="nn">ops</span>
+<span class="kn">from</span> <span class="nn">mindspore.common.api</span> <span class="kn">import</span> <span class="n">ms_function</span>
 
-    <span class="c1"># 定义全局变量</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">([</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">([</span><span class="mf">0.3</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="c1"># 定义全局变量</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">([</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">([</span><span class="mf">0.3</span><span class="p">],</span> <span class="n">ms</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-    <span class="c1"># 指定按照静态计算图模式执行函数</span>
-    <span class="nd">@ms_function</span>
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
-        <span class="n">ops</span><span class="o">.</span><span class="n">Assign</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="n">ops</span><span class="o">.</span><span class="n">Assign</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Sub</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">r</span>
+<span class="c1"># 指定按照静态计算图模式执行函数</span>
+<span class="nd">@ms_function</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">ops</span><span class="o">.</span><span class="n">Assign</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ops</span><span class="o">.</span><span class="n">Assign</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">Sub</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span>
 
-    <span class="n">compute</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="n">compute</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 </pre>
          </div>
         </div>
