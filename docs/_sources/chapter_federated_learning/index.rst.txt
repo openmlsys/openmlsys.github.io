@@ -18,5 +18,6 @@
    fedavg
    privacy_encryption_algorithm
    challenge
+   horizontal_fl
    vertical_fl
    summary
