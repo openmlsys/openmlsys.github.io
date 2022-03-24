@@ -489,8 +489,13 @@
           </a>
          </li>
          <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+           13.6. 纵向联邦学习
+          </a>
+         </li>
+         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/summary.html">
-           13.6. 小结
+           13.7. 小结
           </a>
          </li>
         </ul>
@@ -986,8 +991,13 @@
            </a>
           </li>
           <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+            13.6. 纵向联邦学习
+           </a>
+          </li>
+          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/summary.html">
-            13.6. 小结
+            13.7. 小结
            </a>
           </li>
          </ul>
@@ -1899,7 +1909,7 @@ propagation）。在神经网络模型中，反向传播通常使用损失函数
 \nabla\boldsymbol{W_2} &amp;= \boldsymbol{X_2}^\top\nabla\boldsymbol{Y}   \\
 \nabla\boldsymbol{X_1} &amp;= \nabla\boldsymbol{X_2}\boldsymbol{W_1}^\top = (\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top   \\
 \nabla\boldsymbol{W_1} &amp;= \boldsymbol{X_1}^\top\nabla\boldsymbol{X_2} = \boldsymbol{X_1}^\top(\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)  \\
-\nabla\boldsymbol{Y} &amp;= \nabla\boldsymbol{X_1}\boldsymbol{W}^\top = ((\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top)\boldsymbol{W}^\top   \\
+\nabla\boldsymbol{X} &amp;= \nabla\boldsymbol{X_1}\boldsymbol{W}^\top = ((\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top)\boldsymbol{W}^\top   \\
 \nabla\boldsymbol{W} &amp;= \boldsymbol{X}^\top\nabla\boldsymbol{X_1} = \boldsymbol{X}^\top((\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top)
 \end{aligned}\end{split}\]
         </div>
@@ -1919,12 +1929,12 @@ propagation）。在神经网络模型中，反向传播通常使用损失函数
         </p>
         <div class="highlight-python notranslate">
          <div class="highlight">
-          <pre><span></span><span class="n">grad_Y2</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_Y3</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W2</span><span class="p">))</span>
-<span class="n">grad_W2</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">Y2</span><span class="p">),</span> <span class="n">grad_Y3</span><span class="p">)</span>
-<span class="n">grad_Y1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_Y2</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W1</span><span class="p">))</span>
-<span class="n">grad_W1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">Y1</span><span class="p">),</span> <span class="n">grad_Y2</span><span class="p">)</span>
-<span class="n">grad_Y</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_Y1</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
-<span class="n">grad_W</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">grad_Y1</span><span class="p">)</span>
+          <pre><span></span><span class="n">grad_X2</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_Y</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W2</span><span class="p">))</span>
+<span class="n">grad_W2</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">X2</span><span class="p">),</span> <span class="n">grad_Y</span><span class="p">)</span>
+<span class="n">grad_X1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_X2</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W1</span><span class="p">))</span>
+<span class="n">grad_W1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">X1</span><span class="p">),</span> <span class="n">grad_X2</span><span class="p">)</span>
+<span class="n">grad_X</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">grad_X1</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
+<span class="n">grad_W</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">grad_X1</span><span class="p">)</span>
 </pre>
          </div>
         </div>

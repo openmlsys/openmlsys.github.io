@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>13.8. 小结 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>13.6. 横向联邦学习 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -26,8 +26,8 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14. 强化学习系统" href="../chapter_reinforcement_learning/index.html" />
-    <link rel="prev" title="13.7. 纵向联邦学习" href="vertical_fl.html" /> 
+    <link rel="next" title="13.7. 纵向联邦学习" href="vertical_fl.html" />
+    <link rel="prev" title="13.5. 实际部署时的挑战" href="challenge.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
@@ -35,7 +35,7 @@
         
         <nav class="mdl-navigation breadcrumb">
             <a class="mdl-navigation__link" href="index.html"><span class="section-number">13. </span>联邦学习系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">13.8. </span>小结</a>
+            <a class="mdl-navigation__link is-active"><span class="section-number">13.6. </span>横向联邦学习</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -58,7 +58,7 @@
         
 <a id="button-show-source"
     class="mdl-button mdl-js-button mdl-button--icon"
-    href="../_sources/chapter_federated_learning/summary.rst.txt" rel="nofollow">
+    href="../_sources/chapter_federated_learning/horizontal_fl.rst.txt" rel="nofollow">
   <i class="material-icons">code</i>
 </a>
 <div class="mdl-tooltip" data-mdl-for="button-show-source">
@@ -186,9 +186,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="fedavg.html">13.3. 联邦平均算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="challenge.html">13.5. 实际部署时的挑战</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.6. 横向联邦学习</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.6. 横向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.7. 纵向联邦学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.8. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">13.8. 小结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
@@ -336,9 +336,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="fedavg.html">13.3. 联邦平均算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="challenge.html">13.5. 实际部署时的挑战</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.6. 横向联邦学习</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.6. 横向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.7. 纵向联邦学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.8. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">13.8. 小结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
@@ -378,31 +378,92 @@ Show Source
         <div class="page-content" role="main">
         
   <section id="id1">
-<h1><span class="section-number">13.8. </span>小结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>在这一章，我们简单介绍了联邦学习的背景、系统架构、联邦平均算法、隐私加密算法以及实际部署时的挑战。联邦学习是一个新起步的人工智能算法，可以在“数据保护”与“数据孤岛”这两大约束条件下，建立有效的机器学习模型。此外，由于联邦学习场景的特殊性（端侧数据不上传、安全隐私要求高和数据非独立同分布等特点），使得系统和算法的开发难度更高：如何平衡计算和通讯的开销？如何保证模型不会泄露隐私？算法如何在非独立同分布场景下收敛？等等，都需要开发人员对实际的联邦学习场景有更深刻的认识。</p>
+<h1><span class="section-number">13.6. </span>横向联邦学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<section id="id2">
+<h2><span class="section-number">13.6.1. </span>云云场景中的横向联邦<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在横向联邦学习系统中，具有相同数据结构的多个参与者通过参数或云服务器协同学习机器学习模型。一个典型的假设是参与者是诚实的，而服务器是诚实但好奇的，因此不允许任何参与者向服务器泄漏信息。这种系统的训练过程通常包括以下四个步骤：</p>
+<p>①：参与者在本地计算训练梯度，使用加密、差异隐私或秘密共享技术掩饰所选梯度，并将掩码后的结果发送到服务器；</p>
+<p>②：服务器执行安全聚合，不了解任何参与者的信息；</p>
+<p>③：服务器将汇总后的结果发送给参与者；</p>
+<p>④：参与者用解密的梯度更新他们各自的模型。</p>
+<p>和传统分布式学习相比，联邦学习存在训练结点不稳定和通信代价大的难点。这些难点导致了联邦学习无法和传统分布式学习一样：在每次单步训练之后，同步不同训练结点上的权重。为了提高计算通信比并降低频繁通信带来的高能耗，谷歌公司提出了联邦平均算法（Federated
+Averaging，FedAvg）。
+展示了FedAvg的整体流程。在每轮联邦训练过程中，端侧进行多次单步训练。然后云侧聚合多个端侧权重，并取加权平均。</p>
+<figure class="align-default" id="id4">
+<span id="ch10-federated-learning-fedavg"></span><img alt="../_images/ch10-federated-learning-fedavg.png" src="../_images/ch10-federated-learning-fedavg.png" />
+<figcaption>
+<p><span class="caption-number">图13.6.1 </span><span class="caption-text">联邦平均算法</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id3">
+<h2><span class="section-number">13.6.2. </span>端云场景中的横向联邦<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>端云联邦的总体流程和云云联邦一样，但端云联邦学习面临的难点还包括以下三个方面：</p>
+<p>1.高昂的通信代价。在联邦学习问题中，原始数据保存在远程客户端设备本地，必须与中央服务器不断交互才能完成全局模型的构建。通常的通信网络可能是WLAN或移动数据，网络通信速度可能比本地计算慢许多个数量级，这就造成高昂的通信代价成为了联邦学习的关键瓶颈。</p>
+<p>2.系统异质性。由于客户端设备硬件条件（CPU、内存）、网络连接（3G、4G、5G、WIFI）和电源（电池电量）的变化，联邦学习网络中每个设备的存储、计算和通信能力都有可能不同。网络和设备本身的限制可能导致某一时间仅有一部分设备处于活动状态。此外，设备还会出现没电、网络无法接入等突发状况，导致瞬时无法连通。这种异质性的系统架构影响了联邦学习整体策略的制定。</p>
+<p>3.隐私问题。联邦学习共享客户端设备中的模型参数更新（例如梯度信息）而不是原始数据，因此在数据隐私保护方面优于其他的分布式学习方法。然而，在训练过程中传递模型的更新信息仍然存在向第三方或中央服务器暴露敏感信息的风险。隐私保护成为联邦学习需要重点考虑的问题。</p>
+<p>为了解决端云联邦学习带来的挑战，MindSpore Federated
+Learning设计了分布式FL-Server架构。系统由调度器模块、服务器模块和客户端模块三个部分组成，其系统架构如
+<a class="reference internal" href="#ch10-federated-learning-architecture"><span class="std std-numref">图13.6.2</span></a>所示。其中：</p>
+<ul>
+<li><p>联邦学习调度器：</p>
+<p>联邦学习调度器（FL-Scheduler）协助集群组网，并负责管理面任务的下发。</p>
+</li>
+<li><p>联邦学习服务器：</p>
+<p>联邦学习服务器（FL-Server）提供客户端选择、限时通信、分布式联邦聚合功能。FL-Server需要具备支持端云千万台设备的能力以及边缘服务器的接入和安全处理的逻辑。</p>
+</li>
+<li><p>联邦学习客户端：</p>
+<p>联邦学习客户端（FL-Client）负责本地数据训练，并在和FL-Server进行通信时，对上传权重进行安全加密。</p>
+</li>
+</ul>
+<figure class="align-default" id="id5">
+<span id="ch10-federated-learning-architecture"></span><img alt="../_images/ch10-federated-learning-architecture.png" src="../_images/ch10-federated-learning-architecture.png" />
+<figcaption>
+<p><span class="caption-number">图13.6.2 </span><span class="caption-text">联邦学习系统架构图</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>此外，MindSpore Federated针对端云联邦学习设计了出三大特性：</p>
+<p>1.限时通信：在FL-Server和FL-Client建立连接后，启动全局的计时器和计数器。当预先设定的时间窗口内的FL-Server接收到FL-Client训练后的模型参数满足初始接入的所有FL-Client的一定比例后，就可以进行聚合。若时间窗内没有达到比例阈值，则进入下一轮迭代。保证即使有海量FL-Client接入的情况下，也不会由于个别FL-Client训练时间过长或掉线导致的整个联邦学习过程卡死。</p>
+<p>2.松耦合组网：使用FL-Server集群。每个FL-Server接收和下发权重给部分FL-Client，减少单个FL-Server的带宽压力。此外，支持FL-Client以松散的方式接入。任意FL-Client的中途退出都不会影响全局任务，并且FL-Client在任意时刻访问任意FL-Server都能获得训练所需的全量数据。</p>
+<p>3.加密模块：MindSpore
+Federated为了防止模型梯度的泄露，部署了多种加密算法：本地差分隐私（LDP）、基于多方安全计算（MPC）的安全聚合算法和华为自研的基于符号的维度选择差分隐私算法（SignDS）。</p>
+</section>
 </section>
 
 
         </div>
         <div class="side-doc-outline">
             <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">13.6. 横向联邦学习</a><ul>
+<li><a class="reference internal" href="#id2">13.6.1. 云云场景中的横向联邦</a></li>
+<li><a class="reference internal" href="#id3">13.6.2. 端云场景中的横向联邦</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
             </div>
         </div>
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="vertical_fl.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="challenge.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>13.7. 纵向联邦学习</div>
+            <div>13.5. 实际部署时的挑战</div>
          </div>
      </a>
-     <a id="button-next" href="../chapter_reinforcement_learning/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+     <a id="button-next" href="vertical_fl.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>14. 强化学习系统</div>
+            <div>13.7. 纵向联邦学习</div>
         </div>
      </a>
   </div>
