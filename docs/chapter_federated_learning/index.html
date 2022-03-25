@@ -181,13 +181,11 @@ Show Source
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="challenge.html">13.5. 实际部署时的挑战</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.6. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.7. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">13.8. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlook.html">13.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">13.6. 小结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
@@ -331,13 +329,11 @@ Show Source
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="challenge.html">13.5. 实际部署时的挑战</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">13.6. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">13.7. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">13.8. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlook.html">13.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">13.6. 小结</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
@@ -380,11 +376,11 @@ Show Source
 <h1><span class="section-number">13. </span>联邦学习系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在本章中，我们介绍深度学习的一个重要分支——联邦学习及其在系统方面的知识。本章的学习目标包括：</p>
 <ul class="simple">
-<li><p>掌握联邦学习基本知识。</p></li>
-<li><p>掌握联邦系统架构组成部分。</p></li>
-<li><p>掌握联邦平均和隐私加密算法。</p></li>
-<li><p>了解联邦学习实际部署时的挑战。</p></li>
+<li><p>掌握联邦学习基本定义，并了解现有主流联邦开源框架。</p></li>
+<li><p>了解横向联邦学习算法。</p></li>
 <li><p>了解纵向联邦学习算法。</p></li>
+<li><p>了解联邦学习加密算法。</p></li>
+<li><p>了解联邦学习前沿算法和未来研究方向。</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <ul>
@@ -395,31 +391,24 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="overview.html#id5">13.1.4. 联邦学习框架</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="horizontal_fl.html">13.2. 横向联邦学习</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html#id2">13.2.1. 云云场景中的横向联邦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html#id3">13.2.2. 端云场景中的横向联邦</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vertical_fl.html">13.3. 纵向联邦学习</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id2">13.3.1. 纵向联邦架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id3">13.3.2. 样本对齐</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id4">13.3.3. 联合训练</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="privacy_encryption_algorithm.html">13.4. 隐私加密算法</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html#ldp">13.4.1. 基于LDP的安全聚合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="privacy_encryption_algorithm.html#mpc">13.4.2. 基于MPC的安全聚合</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="challenge.html">13.5. 实际部署时的挑战</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="challenge.html#id2">13.5.1. 部署流程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="challenge.html#id3">13.5.2. 部署挑战</a></li>
-<li class="toctree-l2"><a class="reference internal" href="challenge.html#id4">13.5.3. 解决方案</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="horizontal_fl.html">13.6. 横向联邦学习</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html#id2">13.6.1. 云云场景中的横向联邦</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html#id3">13.6.2. 端云场景中的横向联邦</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="vertical_fl.html">13.7. 纵向联邦学习</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id2">13.7.1. 纵向联邦架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id3">13.7.2. 样本对齐</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html#id4">13.7.3. 联合训练</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="summary.html">13.8. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outlook.html">13.5. 展望</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">13.6. 小结</a></li>
 </ul>
 </div>
 </section>
