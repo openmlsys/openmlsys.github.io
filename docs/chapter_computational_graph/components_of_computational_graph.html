@@ -469,13 +469,13 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-           13.2. 系统架构
+          <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+           13.2. 横向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-           13.3. 联邦平均算法
+          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+           13.3. 纵向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
@@ -484,18 +484,13 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-           13.5. 实际部署时的挑战
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-           13.6. 纵向联邦学习
+          <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+           13.5. 展望
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/summary.html">
-           13.7. 小结
+           13.6. 小结
           </a>
          </li>
         </ul>
@@ -971,13 +966,13 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-            13.2. 系统架构
+           <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+            13.2. 横向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-            13.3. 联邦平均算法
+           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+            13.3. 纵向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
@@ -986,18 +981,13 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-            13.5. 实际部署时的挑战
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-            13.6. 纵向联邦学习
+           <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+            13.5. 展望
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/summary.html">
-            13.7. 小结
+            13.6. 小结
            </a>
           </li>
          </ul>
@@ -1671,7 +1661,7 @@ approach）。计算框架PyTorch、MindSpore中就直接使用Python的控制�
         <p>
          当模型中有循环控制时，循环中的操作可以执行零次或者多次。此时采用展开机制，对每一次操作都赋予独特的运算标识符，以此来区分相同运算操作的多次调用。每一次循环都直接依赖于前一次循环的计算结果，所以在循环控制中需要维护一个张量列表，将循环迭代的中间结果缓存起来，这些中间结果将参与前向计算和梯度计算。下面这段代码描述了简单的循环控制，将其展开得到等价代码后，可以清楚的理解需要维护张量
          <span class="math notranslate nohighlight">
-          \(\boldsymbol{Y_i}\)
+          \(\boldsymbol{X_i}\)
          </span>
          和
          <span class="math notranslate nohighlight">
@@ -1681,13 +1671,13 @@ approach）。计算框架PyTorch、MindSpore中就直接使用Python的控制�
         </p>
         <div class="highlight-python notranslate">
          <div class="highlight">
-          <pre><span></span><span class="k">def</span> <span class="nf">recurrent_control</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">cur_num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+          <pre><span></span><span class="k">def</span> <span class="nf">recurrent_control</span><span class="p">(</span><span class="n">X</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">W</span> <span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">cur_num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cur_num</span><span class="p">):</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Y</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">X</span>
 <span class="c1">#利用展开机制将上述代码展开，可得到等价表示</span>
-<span class="k">def</span> <span class="nf">recurrent_control</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">cur_num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
-    <span class="n">X1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">recurrent_control</span><span class="p">(</span><span class="n">X</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">W</span> <span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
+    <span class="n">X1</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>   <span class="c1">#为便于表示与后续说明，此处W = W[0], W1 = W[1], W2 = W[2]</span>
     <span class="n">X2</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">W1</span><span class="p">)</span>
     <span class="n">Y</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">W2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Y</span>

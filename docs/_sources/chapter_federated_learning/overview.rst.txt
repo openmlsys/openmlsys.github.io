@@ -29,9 +29,9 @@ Learning，FL）应运而生。联邦学习的概念最早在2016年被提了出
 
 .. _ch10-federated-learning-different-connection:
 
-.. figure:: ..\img\ch10\ch10-federated-learning-different-connection.png
+.. figure:: ../img/ch10/ch10-federated-learning-different-connection.png
 
-   1647486083496
+   数据中心分布式训练、跨组织和跨设备联邦学习的区别和联系
 
 
 联邦学习框架

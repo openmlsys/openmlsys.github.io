@@ -183,10 +183,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -331,10 +331,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -432,9 +432,9 @@ Map）。</p>
 <a class="reference internal" href="#nn-network"><span class="std std-numref">图2.3.6</span></a>展示了一个卷积神经网络的模型结构。
 给定输入<span class="math notranslate nohighlight">\(3 \times 64 \times 64\)</span>的彩色图片，使用16个<span class="math notranslate nohighlight">\(3 \times 3\)</span>大小的卷积核做卷积，得到大小为<span class="math notranslate nohighlight">\(16 \times 64 \times 64\)</span>；
 再进行池化操作降维，得到大小为<span class="math notranslate nohighlight">\(16 \times 32 \times 32\)</span>的特征图；
-对特征图再卷积得到大小为<span class="math notranslate nohighlight">\(32 \times 32 \times 32\)</span>特征图，再进行池化操作得到<span class="math notranslate nohighlight">\(3 \times 16 \times 16\)</span>大小的特征图；
-我们需要对特征图做全连接，此时需要把特征图平铺成一维向量这部操作称为Flatten，压平后输入特征大小为<span class="math notranslate nohighlight">\(3\times 16 \times 16 = 768\)</span>；
-之后做一次全连接对大小为768特征变换到大小为128的特征，再依次做两次全连接分别得到64，10。
+对特征图再卷积得到大小为<span class="math notranslate nohighlight">\(32 \times 32 \times 32\)</span>特征图，再进行池化操作得到<span class="math notranslate nohighlight">\(32 \times 16 \times 16\)</span>大小的特征图；
+我们需要对特征图做全连接，此时需要把特征图平铺成一维向量这步操作称为Flatten，压平后输入特征大小为<span class="math notranslate nohighlight">\(32\times 16 \times 16 = 8192\)</span>；
+之后做一次全连接对大小为8192特征变换到大小为128的特征，再依次做两次全连接分别得到64，10。
 这里最后的输出结果是依据自己的实际问题而定，假设我们的输入是包含<span class="math notranslate nohighlight">\(0 \sim 9\)</span>的数字图片，做分类那输出对应是10个概率值，分别对应<span class="math notranslate nohighlight">\(0 \sim 9\)</span>的概率大小。</p>
 <figure class="align-default" id="id11">
 <span id="nn-network"></span><a class="reference internal image-reference" href="../_images/nn_network.svg"><img alt="../_images/nn_network.svg" src="../_images/nn_network.svg" width="800px" /></a>
@@ -454,17 +454,17 @@ input:(3,64,64)大小的图片
 # 创建卷积模型的训练变量,使用随机数初始化变量值
 conv1_filters = variable(random(size=(3, 3, 3, 16)))
 conv2_filters = variable(random(size=(3, 3, 16, 32)))
-fc1_weights = variable(random(size=(768, 128)))
+fc1_weights = variable(random(size=(8192, 128)))
 fc2_weights = variable(random(size=(128, 64)))
 fc3_weights = variable(random(size=(64, 10)))
 # 将所有需要训练的参数收集起来
 all_weights = [conv1_filters, conv2_filters, fc1_weights, fc2_weights, fc3_weights]
 
 # 构建卷积模型的连接过程
-output = convolution(input, conv1_filters, stride=1, padding=0)
-output = pooling(output, kernel_size=3, stride=1, padding=0, mode=&#39;max&#39;)
-output = convolution(output, conv2_filters, stride=1, padding=0)
-output = pooling(output, kernel_size=3, stride=1, padding=0, mode=&#39;max&#39;)
+output = convolution(input, conv1_filters, stride=1, padding=&#39;same&#39;)
+output = pooling(output, kernel_size=3, stride=2, padding=&#39;same&#39;, mode=&#39;max&#39;)
+output = convolution(output, conv2_filters, stride=1, padding=&#39;same&#39;)
+output = pooling(output, kernel_size=3, stride=2, padding=&#39;same&#39;, mode=&#39;max&#39;)
 output=flatten(output)
 output = fully_connected(output, fc1_weights)
 output = fully_connected(output, fc2_weights)

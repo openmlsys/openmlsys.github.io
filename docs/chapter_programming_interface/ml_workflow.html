@@ -183,10 +183,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -331,10 +331,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -381,15 +381,15 @@ Show Source
 <ul class="simple">
 <li><p><strong>数据处理：</strong>
 首先，用户需要数据处理API来支持将数据集从磁盘读入。进一步，用户需要对读取数据进行数据预处理，从而可以将数据输入后续的机器学习模型中。</p></li>
-<li><p><strong>模型定义：</strong>
+<li><p><strong>模型结构：</strong>
 完成数据的读取后，用户需要模型定义API来定义机器学习模型。这些模型带有模型参数，可以对给定的数据进行推理。</p></li>
 <li><p><strong>损失函数和优化算法：</strong>
 模型的输出需要和用户的标记进行对比，这个对比差异一般通过损失函数（Loss
 function）来进行评估。因此，优化器定义API允许用户定义自己的损失函数，并且根据损失来引入（Import）和定义各种优化算法（Optimisation
 algorithms）来计算梯度（Gradient），完成对模型参数的更新。</p></li>
 <li><p><strong>训练过程：</strong>
-给定一个数据集，模型，损失函数和优化器，用户需要训练API来定一个循环（Loop）从而将数据集中的数据按照小批量（mini-batch）的方式读取出来，反复计算梯度来更新模型。这个反复的过程称为训练。</p></li>
-<li><p><strong>测试和调优：</strong>
+给定一个数据集，模型，损失函数和优化器，用户需要训练API来定义一个循环（Loop）从而将数据集中的数据按照小批量（mini-batch）的方式读取出来，反复计算梯度来更新模型。这个反复的过程称为训练。</p></li>
+<li><p><strong>测试和调试：</strong>
 训练过程中，用户需要测试API来对当前模型的精度进行评估。当精度达到目标后，训练结束。这一过程中，用户往往需要调试API来完成对模型的性能和正确性进行验证。</p></li>
 </ul>
 <figure class="align-default" id="id8">
@@ -400,8 +400,9 @@ algorithms）来计算梯度（Gradient），完成对模型参数的更新。</
 </figure>
 <section id="id2">
 <h2><span class="section-number">2.2.1. </span>环境配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>在构建机器学习工作流程前，MindSpore需要通过context.set_context来配置运行需要的信息，如运行模式、后端信息、硬件等信息。
-导入context模块，配置运行需要的信息。以下代码运行环境为Ubuntu16.04，CUDA10.1，MindSpore1.5.2。</p>
+<p>下面以MindSpore框架实现多层感知机为例，了解完整的机器学习工作流。代码运行环境为MindSpore1.5.2，Ubuntu16.04，CUDA10.1。
+在构建机器学习工作流程前，MindSpore需要通过context.set_context来配置运行需要的信息，如运行模式、后端信息、硬件等信息。
+以下代码导入context模块，配置运行需要的信息。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">from</span> <span class="nn">mindspore</span> <span class="kn">import</span> <span class="n">context</span>
@@ -462,7 +463,8 @@ mindspore.dataset，用于存储样本和标签。在加载数据集前，通常
 <section id="id4">
 <h2><span class="section-number">2.2.3. </span>模型定义<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>使用MindSpore定义神经网络需要继承mindspore.nn.Cell，神经网络的各层需要预先在__init__方法中定义，然后重载__construct__方法实现神经网络的前向传播过程。
-因为输入大小被处理成<span class="math notranslate nohighlight">\(32 \times 32\)</span>的图片，需要用Flatten将数据压平为一维向量后给全连接层，全连接层输入大小为<span class="math notranslate nohighlight">\(32 \times 32\)</span>，预测<span class="math notranslate nohighlight">\(0 \sim 9\)</span>中的哪个数字所以最后输出大小为10，下面定义了一个三层的全连接层。</p>
+因为输入大小被处理成<span class="math notranslate nohighlight">\(32 \times 32\)</span>的图片，所以需要用Flatten将数据压平为一维向量后给全连接层。
+全连接层的输入大小为<span class="math notranslate nohighlight">\(32 \times 32\)</span>，输出是预测属于<span class="math notranslate nohighlight">\(0 \sim 9\)</span>中的哪个数字，因此输出大小为10，下面定义了一个三层的全连接层。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入需要用到的模块</span>
 <span class="kn">import</span> <span class="nn">mindspore.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="c1"># 定义线性模型</span>

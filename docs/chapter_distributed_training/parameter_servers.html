@@ -182,10 +182,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -330,10 +330,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -375,7 +375,7 @@ Show Source
         
   <section id="id1">
 <h1><span class="section-number">10.5. </span>参数服务器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>接下来，我们介绍另一种常见的分布式训练系统实现：参数服务器。TensorFlow原生提供了参数服务器的实现。而其他框架，例如PyTorch和MindSpore，则需要用户使用第三方的参数服务器实现，例如PS-Lite。</p>
+<p>接下来，我们介绍另一种常见的分布式训练系统实现：参数服务器。常见的深度学习框架以不同方式提供了参数服务器。TensorFlow和MindSpore原生提供了参数服务器的实现；PyTorch需要用户使用框架提供的Rpc接口自行实现；还有一些框架则需要用户使用第三方的参数服务器实现，例如PS-Lite。</p>
 <section id="id2">
 <h2><span class="section-number">10.5.1. </span>计算和存储分离<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>利用参数服务器的其中一个核心需求是实现：计算和存储的分离。在训练模型中，计算可以被理解为计算更新模型参数所需要的计算（例如说，计算本地梯度和计算平均梯度），而存储可以被理解为将模型参数存储在内存设备中（例如说，主机内存，加速卡内存和SSD设备）。传统的神经网络训练中，计算往往是核心瓶颈，因此我们只需要配置有合适数量的带有加速卡的服务器，常被称为训练服务器（Training
@@ -412,17 +412,16 @@ parameters）在训练服务器中。密集参数和稀疏参数的核心区别�
 <p>在参数服务器的实际部署中，人们往往需要解决数据热点问题。互联网数据往往符合幂律概率（Power-law
 distribution），这会导致部分稀疏参数在训练过程中被访问的次数会显著高于其他参数。例如说，热门商品的特征向量被训练服务器拉取的次数就会远远高于非热门商品。因此，存储了热门数据的参数服务器所承受的数据拉取和推送请求会远远高于其他参数服务器，因此形成数据热点，伤害了系统的可扩展性。</p>
 <p>解决数据热点问题的关键是利用在没有副本的情况下，通用的做法是每隔一段时间将所有参数在外存中保存一份检查点（checkpoint）。当出现机器故障时，首先所有的训练必须停止，等待故障的机器恢复上线，然后从外存中重新加载检查点。这就会导致从上一次保存检查点到故障发生时的数据全部丢失。保存一次检查点的开销随模型大小而增加，训练大模型时通常每隔1-2小时保存一次。因此无副本的参数服务器如果发生故障，会丢失最多1-2小时的数据。</p>
-<p>解决参数服务器故障和数据热点问题的常用技术是构建模型主从副本。（Master-slave
+<p>解决参数服务器故障和数据热点问题的常用技术是构建模型主从副本（Master-slave
 replication）。一份参数在多个机器上拥有副本，并指定其中一个副本作为主副本。训练服务器的所有更新操作都向主副本写入并同步至从副本上。如何取得共识确定哪一个副本是主副本是分布式系统领域一个经典问题，已经有了相当多的成熟的算法，例如Paxos和Raft。此外，主副本上的更新如何复制到从副本上也同样是分布式系统领域的经典共识问题。通常系统设计者需要在可用性（Availability）和一致性（Consistency）之间做出取舍。如果参数服务器副本间采用强一致性的复制协议（例如，链式副本(Chain
-replication))）则可能导致训练服务器的推送请求失败，即参数服务器不可用。反之，如果参数服务器采用弱一致性的复制协议，则可能导致副本间存储的参数不一致。</p>
+replication)）则可能导致训练服务器的推送请求失败，即参数服务器不可用。反之，如果参数服务器采用弱一致性的复制协议，则可能导致副本间存储的参数不一致。</p>
 </section>
 <section id="id4">
 <h2><span class="section-number">10.5.3. </span>掉队者问题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>参数服务器的另一大核心作用是可以让用户方便解决掉队者问题。在之前的讨论中，在每一步训练结束后，训练服务器都需要计算平均梯度来对每一个模型副本进行更新，从而保证下一步训练开始前，全部模型副本的参数的一致性，这种对于参数一致性的确保一般被称为同步训练（Synchronous
 training）。同步训练一般会有助于训练系统达到更好的模型精度，但是当系统规模变大，我们往往会在系统中引入掉队者（Straggler）。掉队者出现的原因很多。常见的原因包括：掉队者设备可能和其他设备不在同一个机柜中，因此掉队者的通讯带宽显著小于其他设备。另外，掉队者设备也可能和其他进程共享本地的服务器计算和通讯资源，形成资源竞争，从而降低了性能。</p>
-<p>掉队者对于基于Allreduce的同步训练系统的性能有显著影响，这是因为Allreduce让全部节点参与到平均梯度的计算和通讯中，而每个节点负责等量的数据。因此任何一个掉队者的出现，都会让整个Allreduce操作延迟完成。为了解决这个问题，人们也会使用参数服务器来计算平均梯度。一种常见的设计是：训练服务器训练出本地梯度后，会把本地梯度全部推送到参数服务器。参数服务器在等到一定数据训练服务器（例如说90%的训练服务器）的本地梯度后，就开始计算平均梯度。这样可以确保平均梯度的计算不会被落后者的出现延误。计算好的平均梯度马上推送给全部训练服务器，开始下一轮训练。
-0
-解决掉队者的另外一种常见做法是利用参数服务器实现<strong>异步训练</strong>(Asynchronous
+<p>掉队者对于基于Allreduce的同步训练系统的性能有显著影响，这是因为Allreduce让全部节点参与到平均梯度的计算和通讯中，而每个节点负责等量的数据。因此任何一个掉队者的出现，都会让整个Allreduce操作延迟完成。为了解决这个问题，人们也会使用参数服务器来计算平均梯度。一种常见的设计是：训练服务器训练出本地梯度后，会把本地梯度全部推送到参数服务器。参数服务器在等到一定数据训练服务器（例如说90%的训练服务器）的本地梯度后，就开始计算平均梯度。这样可以确保平均梯度的计算不会被落后者的出现延误。计算好的平均梯度马上推送给全部训练服务器，开始下一轮训练。</p>
+<p>解决掉队者的另外一种常见做法是利用参数服务器实现<strong>异步训练</strong>(Asynchronous
 training)。在一个异步训练系统中，每个训练服务器在训练开始时，有相同的模型参数副本。在训练中，他们计算出本地梯度后会马上将本地梯度推送到参数服务器，参数服务器将推送的梯度立刻用于更新参数，并把更新好的参数马上推送回对应的训练服务器。在这个过程中，不同的训练服务器很可能会使用不同版本的模型参数进行本地梯度的计算，这种做法有可能会伤害模型的精度，但它同时让不同训练服务器可以按照各自的运算速度来推送和拉取参数，而无需等待同伴，因此避免了掉队者对于整个集群性能的影响。</p>
 </section>
 </section>
