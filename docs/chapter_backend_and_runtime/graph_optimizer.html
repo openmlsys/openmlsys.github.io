@@ -182,10 +182,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -330,10 +330,10 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/system_architecture.html">13.2. 系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/fedavg.html">13.3. 联邦平均算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/challenge.html">13.5. 实际部署时的挑战</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
 </ul>
 </li>
@@ -382,11 +382,11 @@ Show Source
 <p>以优化内存IO为例。深度学习算子按其对资源的需求可以分为两类：
 计算密集型算子，这些算子的时间绝大部分花在计算上，如卷积、全连接等；
 访存密集型算子，这些算子的时间绝大部分花在访存上，他们大部分是Element-Wise算子，例如
-ReLU，Element-Wise Sum等。
+ReLU、Element-Wise Sum等。
 在典型的深度学习模型中，一般计算密集型和访存密集型算子是相伴出现的，最简单的例子是”Conv
 +
 ReLU”。Conv卷积算子是计算密集型，ReLU算子是访存密集型算子，ReLU算子可以直接取Conv算子的计算结果进行计算，因此我们可以将二者融合成一个算子来进行计算，从而减少内存访问延时和带宽压力，提高执行效率。</p>
-<p>例如:“Conv + Conv + Sum + ReLU”的融合,从图
+<p>例如：“Conv + Conv + Sum + ReLU”的融合，从
 <a class="reference internal" href="#conv-sum-relu"><span class="std std-numref">图6.2.1</span></a>中我们可以看到融合后的算子减少了两个内存的读和写的操作，优化了Conv的输出和Sum的输出的读和写的操作。</p>
 <figure class="align-default" id="id4">
 <span id="conv-sum-relu"></span><a class="reference internal image-reference" href="../_images/conv_sum_relu.png"><img alt="../_images/conv_sum_relu.png" src="../_images/conv_sum_relu.png" style="width: 800px;" /></a>
@@ -403,13 +403,12 @@ MindSpore
 <p><span class="caption-number">图6.2.2 </span><span class="caption-text">图算融合</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>图
-<a class="reference internal" href="#graph-kernel"><span class="std std-numref">图6.2.2</span></a>中，算子拆解阶段（Expander）将计算图中一些复杂算子（composite
-op, 图中Op1、Op3、Op4）展开为计算等价的基本算子组合（
+<p><a class="reference internal" href="#graph-kernel"><span class="std std-numref">图6.2.2</span></a>中，算子拆解阶段（Expander）将计算图中一些复杂算子（composite
+op，图中Op1、Op3、Op4）展开为计算等价的基本算子组合（
 图中虚线正方形框包围着的部分）；在算子聚合阶段（Aggregation），将计算图中将基本算子（basic
-op, 如图中Op2）、拆解后的算子(expanded
-op)组合融合，形成一个更大范围的算子组合；在算子重建阶段（Reconstruction）中，按照输入tensor到输出tensor的仿射关系将基本算子进行分类：elemwise,
-broadcast, reduce, transform等，并在这基础上归纳出不同的通用计算规则（如
+op，如图中Op2）、拆解后的算子（expanded
+op）组合融合，形成一个更大范围的算子组合；在算子重建阶段（Reconstruction）中，按照输入tensor到输出tensor的仿射关系将基本算子进行分类：elemwise、
+broadcast、reduce、transform等，并在这基础上归纳出不同的通用计算规则（如
 elemwise + reduce 规则：elemwise +
 reduce在满足一定条件后可以高效执行），根据这些计算规则不断地从这个大的算子组合上进行分析、筛选，最终重新构建成新的算子（如图中虚线正方形包围的两个算子
 New Op1 和 New
@@ -419,8 +418,8 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 <h2><span class="section-number">6.2.2. </span>特定硬件优化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>特定硬件优化是指该计算图的优化是在特定硬件上才能做的优化，常见的基于硬件的优化包括由于硬件指令的限制而做的优化，特定硬件存储格式导致的优化等。</p>
 <p>1、硬件指令限制</p>
-<p>在一些特定的硬件上，IR中计算节点没有直接对应的硬件算子,只能通过子图的变换来达到子图中所有算子在对应的硬件上的存在。例如在MindSpore中,昇腾芯片上的Concat算子,只支持有限的输入个数（63个）,因此当前端IR上的输入个数大于限制输入的时候,需要将该计算节点拆分成等价的多个Concat节点,如图
-<a class="reference internal" href="#concat"><span class="std std-numref">图6.2.3</span></a>所示:
+<p>在一些特定的硬件上，IR中计算节点没有直接对应的硬件算子，只能通过子图的变换来达到子图中所有算子在对应的硬件上的存在。例如在MindSpore中，昇腾芯片上的Concat算子，只支持有限的输入个数（63个），因此当前端IR上的输入个数大于限制输入的时候，需要将该计算节点拆分成等价的多个Concat节点，如
+<a class="reference internal" href="#concat"><span class="std std-numref">图6.2.3</span></a>所示：
 当Concat有100个输入时，单个算子只支持最多63个输入，此时会将该计算节点拆分成两个Concat节点，分别为63个输入和37个输入的两个算子。</p>
 <figure class="align-default" id="id6">
 <span id="concat"></span><a class="reference internal image-reference" href="../_images/concat.png"><img alt="../_images/concat.png" src="../_images/concat.png" style="width: 800px;" /></a>
@@ -429,8 +428,8 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 </figcaption>
 </figure>
 <p>2、数据排布格式的限制</p>
-<p>针对不同特点的计算平台和不同的算子，为了追求最好的性能，一般都需要选择不同的数据排布格式(Format)，而这些排布格式可能跟框架缺省的排布格式是不一样的。在这种情况下，一般的做法是算子在执行完成后对输出插入一个格式转换操作，把排布格式转换回框架的缺省排布格式，这就引入了额外的内存操作。以下图
-<a class="reference internal" href="#transdata"><span class="std std-numref">图6.2.4</span></a>为例，在昇腾平台上Conv算子在输入和输出的内存排布为5HD时是性能最优的，所以可以看到Conv算子输出结果的格式是5HD，然后通过一个转换操作转回了框架缺省的NCHW，紧接着，后面又是一个Conv算子，它需要5HD的输入，所以又做了一个NCHW到5HD的转换。我们很容易看出，虚线框内的两个转换操作互为逆操作，可以相互抵消。通过对计算图的模式匹配,可以将该类型的操作消除。</p>
+<p>针对不同特点的计算平台和不同的算子，为了追求最好的性能，一般都需要选择不同的数据排布格式（Format），而这些排布格式可能跟框架缺省的排布格式是不一样的。在这种情况下，一般的做法是算子在执行完成后对输出插入一个格式转换操作，把排布格式转换回框架的缺省排布格式，这就引入了额外的内存操作。以
+<a class="reference internal" href="#transdata"><span class="std std-numref">图6.2.4</span></a>为例，在昇腾平台上Conv算子在输入和输出的内存排布为5HD时是性能最优的，所以可以看到Conv算子输出结果的格式是5HD，然后通过一个转换操作转回了框架缺省的NCHW，紧接着，后面又是一个Conv算子，它需要5HD的输入，所以又做了一个NCHW到5HD的转换。我们很容易看出，虚线框内的两个转换操作互为逆操作，可以相互抵消。通过对计算图的模式匹配，可以将该类型的操作消除。</p>
 <figure class="align-default" id="id7">
 <span id="transdata"></span><a class="reference internal image-reference" href="../_images/transdata.png"><img alt="../_images/transdata.png" src="../_images/transdata.png" style="width: 800px;" /></a>
 <figcaption>

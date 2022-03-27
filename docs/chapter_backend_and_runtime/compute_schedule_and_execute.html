@@ -467,13 +467,13 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-           13.2. 系统架构
+          <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+           13.2. 横向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-           13.3. 联邦平均算法
+          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+           13.3. 纵向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
@@ -482,18 +482,13 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-           13.5. 实际部署时的挑战
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-           13.6. 纵向联邦学习
+          <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+           13.5. 展望
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/summary.html">
-           13.7. 小结
+           13.6. 小结
           </a>
          </li>
         </ul>
@@ -969,13 +964,13 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-            13.2. 系统架构
+           <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+            13.2. 横向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-            13.3. 联邦平均算法
+           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+            13.3. 纵向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
@@ -984,18 +979,13 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-            13.5. 实际部署时的挑战
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-            13.6. 纵向联邦学习
+           <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+            13.5. 展望
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/summary.html">
-            13.7. 小结
+            13.6. 小结
            </a>
           </li>
          </ul>
@@ -1152,7 +1142,7 @@
          上述脚本将所有的计算逻辑定义在Computation类的construct方法中，由于在脚本开头的context中预先设置了单算子执行模式，construct中的计算将被Python的运行时逐行调用执行，同时可以在代码中的任意位置添加print命令以便打印中间的计算结果。
         </p>
         <p>
-         单算子执行的调用链路如图
+         单算子执行的调用链路如
          <a class="reference internal" href="#single-op-exec">
           <span class="std std-numref">
            图6.5.1
@@ -1195,7 +1185,7 @@
          </a>
         </h2>
         <p>
-         虽然单算子调度具有如上所述的优点，其缺点也很明显。一方面是难于进行计算性能的优化，原因是由于缺乏计算图的全局信息，单算子执行时无法根据上下文完成算子融合，代数化简等优化；另一方面由于缺乏计算的拓扑关系，整个计算只能串行调度执行，即无法通过运行时完成并行计算。例如上述示例代码的计算逻辑可以表达为图
+         虽然单算子调度具有如上所述的优点，其缺点也很明显。一方面是难于进行计算性能的优化，原因是由于缺乏计算图的全局信息，单算子执行时无法根据上下文完成算子融合，代数化简等优化；另一方面由于缺乏计算的拓扑关系，整个计算只能串行调度执行，即无法通过运行时完成并行计算。例如上述示例代码的计算逻辑可以表达为
          <a class="reference internal" href="#graph-exec">
           <span class="std std-numref">
            图6.5.2
@@ -1224,7 +1214,7 @@
          </figcaption>
         </figure>
         <p>
-         下面我们开始介绍计算图的调度方式，在一个典型的异构计算环境中，主要存在CPU、GPU以及NPU等多种计算设备，因此一张计算图可以由运行在不同设备上的算子组成为异构计算图。图
+         下面我们开始介绍计算图的调度方式，在一个典型的异构计算环境中，主要存在CPU、GPU以及NPU等多种计算设备，因此一张计算图可以由运行在不同设备上的算子组成为异构计算图。
          <a class="reference internal" href="#computation-graph">
           <span class="std std-numref">
            图6.5.3
@@ -1278,7 +1268,7 @@ Kernel逐个下发到GPU设备上，由GPU芯片执行算子的计算逻辑，�
            <strong>
             NPU算子
            </strong>
-           ：以华为Ascend芯片为例,
+           ：以华为Ascend芯片为例，
 Ascend是一个高度集成的SoC芯片，NPU的优势是支持将部分或整个计算图下沉到芯片中完成计算，计算过程中不与Host发生交互，因此具备较高的计算性能。
           </p>
          </li>
@@ -1338,7 +1328,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          完成计算图中算子对应设备的标记以后，计算图已经准备好被调度与执行，根据硬件能力的差异，可以将异构计算图的执行分为三种模式，分别是逐算子交互式执行，整图下沉执行与子图下沉执行。交互式执行主要针对CPU和GPU的场景，计算图中的算子按照输入和输出的依赖关系被逐个调度与执行；而整图下沉执行模式主要是针对NPU芯片而言，这类芯片主要的优势是能够将整个神经网络的计算图一次性下发到设备上，无需借助主机的CPU能力而独立完成计算图中所有算子的调度与执行，减少了主机和芯片的交互次数，借助NPU的Tensor加速能力，提高了计算效率和性能；子图下沉执行模式是前面两种执行模式的结合，由于计算图自身表达的灵活性，对于复杂场景的计算图在NPU芯片上进行整图下沉执行的效率不一定能达到最优，因此可以将对于NPU芯片执行效率低下的部分分离出来，交给CPU或者GPU等执行效率更高的设备处理，而将部分更适合NPU计算的子图下沉到NPU进行计算，这样可以兼顾性能和灵活性两方面。
         </p>
         <p>
-         上述异构计算图可以实现两个目的，一个是异构硬件加速，将特定的计算放置到合适的硬件上执行；第二个是实现算子间的并发执行，从计算图上可以看出，kernel_1和kernel_2之间没有依赖关系，kernel_3和kernel_4之间也没有依赖关系，因此这两组CPU和GPU算子在逻辑上可以被框架并发调用，而kernel_5依赖kernel_3和kernel_4的输出作为输入，因此kernel_5需要等待kernel_3和kernel_4执行完成后再被触发执行。
+         上述异构计算图可以实现两个目的，一个是异构硬件加速，将特定的计算放置到合适的硬件上执行；第二个是实现算子间的并发执行，从计算图上可以看出，Kernel_1和Kernel_2之间没有依赖关系，Kernel_3和Kernel_4之间也没有依赖关系，因此这两组CPU和GPU算子在逻辑上可以被框架并发调用，而Kernel_5依赖Kernel_3和Kernel_4的输出作为输入，因此Kernel_5需要等待Kernel_3和Kernel_4执行完成后再被触发执行。
         </p>
         <p>
          虽然在计算图上可以充分表达算子间的并发关系，在实际代码中会产生由于并发而引起的一些不预期的副作用场景，例如如下代码所示：
@@ -1402,13 +1392,13 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </figcaption>
         </figure>
         <p>
-         代码中所示三行计算之间并没有依赖关系，因此这三个算子在计算图的逻辑上可以被并发执行，并发关系如图
+         代码中所示三行计算之间并没有依赖关系，因此这三个算子在计算图的逻辑上可以被并发执行，并发关系如
          <a class="reference internal" href="#side-effect-1">
           <span class="std std-numref">
            图6.5.4
           </span>
          </a>
-         所示，然而根据代码的语义，显而易见是需要确保程序能够被顺序执行，这里引入的问题被称为副作用，副作用是指函数修改了在函数外部定义的状态变量的行为。由于副作用的引入而导致了错误并发关系的发生，一种解决方案是在计算图编译阶段通过添加算子间的依赖，将并发执行逻辑转换为顺序执行逻辑，转换后的计算图如图
+         所示，然而根据代码的语义，显而易见是需要确保程序能够被顺序执行，这里引入的问题被称为副作用，副作用是指函数修改了在函数外部定义的状态变量的行为。由于副作用的引入而导致了错误并发关系的发生，一种解决方案是在计算图编译阶段通过添加算子间的依赖，将并发执行逻辑转换为顺序执行逻辑，转换后的计算图如
          <a class="reference internal" href="#side-effect-2">
           <span class="std std-numref">
            图6.5.5
@@ -1437,7 +1427,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </figcaption>
         </figure>
         <p>
-         图中虚线箭头表达了算子之间的依赖关系，添加依赖关系后，算子会按照Assign_1，Assign_2，Sub_1的顺序串行执行，与代码原本的语义保持一致。
+         图中虚线箭头表达了算子之间的依赖关系，添加依赖关系后，算子会按照Assign_1、Assign_2、Sub_1的顺序串行执行，与代码原本的语义保持一致。
         </p>
        </section>
        <section id="id4">
@@ -1477,7 +1467,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </figcaption>
         </figure>
         <p>
-         如图
+         如
          <a class="reference internal" href="#graph-exec-1">
           <span class="std std-numref">
            图6.5.6
@@ -1531,7 +1521,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <strong>
             串行执行
            </strong>
-           ：将计算图展开为执行序列，按照执行序逐个串行执行，如图
+           ：将计算图展开为执行序列，按照执行序逐个串行执行，如
            <a class="reference internal" href="#graph-exec-2">
             <span class="std std-numref">
              图6.5.7
@@ -1545,7 +1535,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <strong>
             并行执行
            </strong>
-           ：将计算图按照算子之间的依赖关系展开，有依赖关系的算子通过输入依赖保证执行顺序，没有依赖关系的算子则可以并行执行，如图
+           ：将计算图按照算子之间的依赖关系展开，有依赖关系的算子通过输入依赖保证执行顺序，没有依赖关系的算子则可以并行执行，如
            <a class="reference internal" href="#graph-exec-3">
             <span class="std std-numref">
              图6.5.8
@@ -1556,9 +1546,28 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </li>
         </ul>
         <p>
-         串行执行和并行执行各有优点和缺点，总结对比见表5.1。
+         串行执行和并行执行各有优点和缺点，总结对比见
+         <a class="reference internal" href="#serial-vs-parallel">
+          <span class="std std-numref">
+           表6.5.1
+          </span>
+         </a>
+         。
         </p>
-        <table class="docutils align-default" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
+        <span id="serial-vs-parallel">
+        </span>
+        <table class="docutils align-default" id="id14" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
+         <caption>
+          <span class="caption-number">
+           表6.5.1
+          </span>
+          <span class="caption-text">
+           串行执行和并行执行之对比
+          </span>
+          <a class="headerlink" href="#id14" title="Permalink to this table">
+           ¶
+          </a>
+         </caption>
          <colgroup>
           <col style="width: 43%"/>
           <col style="width: 29%"/>
@@ -1640,7 +1649,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <p>
          2、异构计算图的执行方式
         </p>
-        <figure class="align-default" id="id14">
+        <figure class="align-default" id="id15">
          <span id="graph-exec-4">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_4.png">
@@ -1654,21 +1663,21 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <span class="caption-text">
             异构计算图
            </span>
-           <a class="headerlink" href="#id14" title="Permalink to this image">
+           <a class="headerlink" href="#id15" title="Permalink to this image">
             ¶
            </a>
           </p>
          </figcaption>
         </figure>
         <p>
-         如图
+         如
          <a class="reference internal" href="#graph-exec-4">
           <span class="std std-numref">
            图6.5.9
           </span>
          </a>
          是一张异构计算图，其中Kernel_1、Kernel_2、Kernel_5、Kernel_9为CPU算子，Kernel_6为python算子（执行也是在CPU上），Kernel_3和Kernel_4为GPU算子，Kernel_7和Kernel_8为GPU算子。
-一般来说计算图的优化都是基于非异构计算图来实现的，要求计算图中的算子为同一设备上的，方便算子间的融合替换等优化操作，因此需要将一张异构计算图切分为多个非异构计算图，这里切分就比较灵活了，可以定义各种切分规则，一般按照产生尽量少的子图的切分规则来切分，尽量将多的同一设备上的算子放在一张子图中，如图
+一般来说计算图的优化都是基于非异构计算图来实现的，要求计算图中的算子为同一设备上的，方便算子间的融合替换等优化操作，因此需要将一张异构计算图切分为多个非异构计算图，这里切分就比较灵活了，可以定义各种切分规则，一般按照产生尽量少的子图的切分规则来切分，尽量将多的同一设备上的算子放在一张子图中，如
          <a class="reference internal" href="#graph-exec-5">
           <span class="std std-numref">
            图6.5.10
@@ -1676,7 +1685,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          所示，最后产生5张子图：Graph_1_CPU、Graph_2_GPU、Graph_3_CPU、Graph_4_Ascend、Graph_5_CPU。
         </p>
-        <figure class="align-default" id="id15">
+        <figure class="align-default" id="id16">
          <span id="graph-exec-5">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_5.png">
@@ -1690,7 +1699,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <span class="caption-text">
             异构计算图切分
            </span>
-           <a class="headerlink" href="#id15" title="Permalink to this image">
+           <a class="headerlink" href="#id16" title="Permalink to this image">
             ¶
            </a>
           </p>
@@ -1705,7 +1714,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <strong>
             子图拆分执行
            </strong>
-           ：将切分后的多个子图分开执行，即一个子图执行完再执行另一个子图，如图
+           ：将切分后的多个子图分开执行，即一个子图执行完再执行另一个子图，如
            <a class="reference internal" href="#graph-exec-6">
             <span class="std std-numref">
              图6.5.11
@@ -1719,7 +1728,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <strong>
             子图合并执行
            </strong>
-           ：将切分后的多个子图进行合并，合并为一个整体大的DAG执行，如图
+           ：将切分后的多个子图进行合并，合并为一个整体大的DAG执行，如
            <a class="reference internal" href="#graph-exec-7">
             <span class="std std-numref">
              图6.5.12
@@ -1729,7 +1738,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
           </p>
          </li>
         </ul>
-        <figure class="align-default" id="id16">
+        <figure class="align-default" id="id17">
          <span id="graph-exec-6">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_6.png">
@@ -1743,13 +1752,13 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <span class="caption-text">
             子图拆分
            </span>
-           <a class="headerlink" href="#id16" title="Permalink to this image">
+           <a class="headerlink" href="#id17" title="Permalink to this image">
             ¶
            </a>
           </p>
          </figcaption>
         </figure>
-        <figure class="align-default" id="id17">
+        <figure class="align-default" id="id18">
          <span id="graph-exec-7">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_7.png">
@@ -1763,16 +1772,35 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <span class="caption-text">
             子图合并
            </span>
-           <a class="headerlink" href="#id17" title="Permalink to this image">
+           <a class="headerlink" href="#id18" title="Permalink to this image">
             ¶
            </a>
           </p>
          </figcaption>
         </figure>
         <p>
-         由于子图合并执行能够减少子图之间的切换执行开销，因此一般来说子图合并执行性能较高，总结对比见表5.2。
+         由于子图合并执行能够减少子图之间的切换执行开销，因此一般来说子图合并执行性能较高，总结对比见
+         <a class="reference internal" href="#partitioning-vs-merging">
+          <span class="std std-numref">
+           表6.5.2
+          </span>
+         </a>
+         。
         </p>
-        <table class="docutils align-default" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
+        <span id="partitioning-vs-merging">
+        </span>
+        <table class="docutils align-default" id="id19" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
+         <caption>
+          <span class="caption-number">
+           表6.5.2
+          </span>
+          <span class="caption-text">
+           子图拆分和子图合并之对比
+          </span>
+          <a class="headerlink" href="#id19" title="Permalink to this table">
+           ¶
+          </a>
+         </caption>
          <colgroup>
           <col style="width: 30%"/>
           <col style="width: 40%"/>
@@ -1855,7 +1883,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          3、异构计算图的执行加速
         </p>
         <p>
-         前面讲述了非异构计算图的两种执行方式和异构计算图的两种执行方式，其中异构计算图又是在非异构计算图的基础之上，因此异构计算图按照两两组合共有四种执行方式，以MindSpore为例，采用的是子图合并并行执行，示例图如图
+         前面讲述了非异构计算图的两种执行方式和异构计算图的两种执行方式，其中异构计算图又是在非异构计算图的基础之上，因此异构计算图按照两两组合共有四种执行方式，以MindSpore为例，采用的是子图合并并行执行，示例图如
          <a class="reference internal" href="#graph-exec-5">
           <span class="std std-numref">
            图6.5.10
@@ -1863,7 +1891,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          所示，首先是作为一张整图来执行可以避免子图切换的执行开销，然后在整图内并行执行，可以最大粒度的发挥并发执行优势，达到最优的执行性能。
         </p>
-        <figure class="align-default" id="id18">
+        <figure class="align-default" id="id20">
          <span id="graph-exec-8">
          </span>
          <a class="reference internal image-reference" href="../_images/graph_exec_8.png">
@@ -1877,7 +1905,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <span class="caption-text">
             异构硬件加速
            </span>
-           <a class="headerlink" href="#id18" title="Permalink to this image">
+           <a class="headerlink" href="#id20" title="Permalink to this image">
             ¶
            </a>
           </p>
@@ -1895,7 +1923,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
         </h2>
         <p>
-         下沉式执行是通过专用芯片的SoC架构，将整个或部分计算图一次性调度到芯片上以完成全量数据的计算。例如对于Ascend芯片，多个Ascend算子组成的计算图可以在执行前被编译成为一个Task，通过Ascend驱动程序提供的接口，将包含多个算子的Task一次性下发到硬件上调度执行。因此上例中可以将Ascend的算子Kernel_7和Kernel_8优化为一个子图Graph_4_Ascend，再将该子图编译成为一个Task，并下沉到Ascend上执行，如图
+         下沉式执行是通过专用芯片的SoC架构，将整个或部分计算图一次性调度到芯片上以完成全量数据的计算。例如对于Ascend芯片，多个Ascend算子组成的计算图可以在执行前被编译成为一个Task，通过Ascend驱动程序提供的接口，将包含多个算子的Task一次性下发到硬件上调度执行。因此上例中可以将Ascend的算子Kernel_7和Kernel_8优化为一个子图Graph_4_Ascend，再将该子图编译成为一个Task，并下沉到Ascend上执行，如
          <a class="reference internal" href="#graph-exec-8">
           <span class="std std-numref">
            图6.5.13
