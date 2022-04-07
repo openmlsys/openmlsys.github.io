@@ -117,6 +117,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -170,6 +171,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -265,6 +267,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -318,6 +321,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -409,7 +413,7 @@ Show Source
 <div class="math notranslate nohighlight" id="equation-chapter-backend-and-runtime-kernel-selecter-0">
 <span class="eqno">(6.3.1)<a class="headerlink" href="#equation-chapter-backend-and-runtime-kernel-selecter-0" title="Permalink to this equation">¶</a></span>\[offsetnchw(n,c,h,w) = n*CHW + c*HW + h*W +w\]</div>
 <p>如
-<a class="reference internal" href="#nchw"><span class="std std-numref">图6.3.3</span></a>所示，这种格式中，是按照最低维度W轴方向进行展开，W轴相邻的元素在内存排布中同样是相邻的。如果需要取下一个图片上的相同位置的元素，就必须跳过整个图像的尺寸（<span class="math notranslate nohighlight">\(C*H*W\)</span>）。比如我有8张32*32的RGB图像，此时<span class="math notranslate nohighlight">\(N=8,C=3,H=32,W=32\)</span>。在内存中存储们需要先按照W轴方向进行展开，然后按照H轴排列，这样之后便完成了一个通道的处理，之后按照同样的方式处理下一个通道。处理完全部通道后，处理下一张图片。PyTorch和MindSpore框架默认使用NCHW格式。</p>
+<a class="reference internal" href="#nchw"><span class="std std-numref">图6.3.3</span></a>所示，这种格式中，是按照最低维度W轴方向进行展开，W轴相邻的元素在内存排布中同样是相邻的。如果需要取下一个图片上的相同位置的元素，就必须跳过整个图像的尺寸（<span class="math notranslate nohighlight">\(C*H*W\)</span>）。比如我有8张32*32的RGB图像，此时<span class="math notranslate nohighlight">\(N=8,C=3,H=32,W=32\)</span>。在内存中存储它们需要先按照W轴方向进行展开，然后按照H轴排列，这样之后便完成了一个通道的处理，之后按照同样的方式处理下一个通道。处理完全部通道后，处理下一张图片。PyTorch和MindSpore框架默认使用NCHW格式。</p>
 <figure class="align-default" id="id6">
 <span id="nchw"></span><a class="reference internal image-reference" href="../_images/nchw.png"><img alt="../_images/nchw.png" src="../_images/nchw.png" style="width: 800px;" /></a>
 <figcaption>
@@ -418,12 +422,12 @@ Show Source
 </figure>
 <p>类似的NHWC数据格式是先取C方向数据，再取W方向，然后是H方向，最后取N方向。NHWC是Tensorflow默认的数据格式。这种格式在PyTorch中称为Chanel-Last。</p>
 <div class="math notranslate nohighlight" id="equation-chapter-backend-and-runtime-kernel-selecter-1">
-<span class="eqno">(6.3.2)<a class="headerlink" href="#equation-chapter-backend-and-runtime-kernel-selecter-1" title="Permalink to this equation">¶</a></span>\[offsetnchw(n,c,h,w) = n*HWC + h*HW + w*C +c\]</div>
+<span class="eqno">(6.3.2)<a class="headerlink" href="#equation-chapter-backend-and-runtime-kernel-selecter-1" title="Permalink to this equation">¶</a></span>\[offsetnhwc(n,h,w,c) = n*HWC + h*WC + w*C +c\]</div>
 <p><a class="reference internal" href="#nchwandnhwc"><span class="std std-numref">图6.3.4</span></a>展示了不同数据格式下逻辑排布到内存物理侧数据排布的映射。[x:1]代表从最内侧维度到最下一维度的索引变换。比如[a:1]表示当前行W轴结束后，下一个H轴排布。[b:1]表示最内侧C轴排布完成后进行按照W轴进行排列。</p>
 <figure class="align-default" id="id7">
 <span id="nchwandnhwc"></span><a class="reference internal image-reference" href="../_images/nchwandnhwc.png"><img alt="../_images/nchwandnhwc.png" src="../_images/nchwandnhwc.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">图6.3.4 </span><span class="caption-text">NHWC与NHWC数据存储格式</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">图6.3.4 </span><span class="caption-text">NCHW与NHWC数据存储格式</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>上述的数据存储格式具有很大的灵活性，很多框架都采用上述的两种格式作为默认的数据排布格式。但是在硬件上对数据操作时，此时的数据排布可能还不是最优的。在机器学习系统中，用户输入的数据往往会远远大于计算部件一次性计算所能容纳的最大范围，所以此时必须将输入的数据进行切片分批送到运算部件中进行运算。为了加速运算很多框架又引入了一些块布局格式来进行进一步的优化，这种优化可以使用一些硬件的加速指令，对数据进行搬移和运算。比如oneDNN上的nChw16c
@@ -439,7 +443,7 @@ Precision）浮点表示。这种数据类型占用32位内存。还有一种精
 </figcaption>
 </figure>
 <p>如
-<a class="reference internal" href="#floatdtype"><span class="std std-numref">图6.3.5</span></a>其中sign代表符号位，占1位，表示了机器数的正负，exponent表示指数位，Mantissa为尾数位。其数据计算采用二进制的科学计数法转换为十进制的计算方式如下：</p>
+<a class="reference internal" href="#floatdtype"><span class="std std-numref">图6.3.5</span></a>其中sign代表符号位，占1位，表示了机器数的正负，exponent表示指数位，Mantissa为尾数位。其中float16类型的数据采用二进制的科学计数法转换为十进制的计算方式如下：</p>
 <div class="math notranslate nohighlight" id="equation-chapter-backend-and-runtime-kernel-selecter-2">
 <span class="eqno">(6.3.3)<a class="headerlink" href="#equation-chapter-backend-and-runtime-kernel-selecter-2" title="Permalink to this equation">¶</a></span>\[(-1)^{sign}\times 2^{exponent-15}\times (\frac{mantissa}{1024}+1)\]</div>
 <p>其中如果指数位全为0时，且尾数位全为0时表示数字0。

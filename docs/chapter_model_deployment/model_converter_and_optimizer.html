@@ -202,6 +202,11 @@
            3.5. 总结
           </a>
          </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+           3.6. 扩展阅读
+          </a>
+         </li>
         </ul>
        </li>
        <li class="toctree-l1">
@@ -419,6 +424,11 @@
            10.6. 总结
           </a>
          </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+           10.7. 扩展阅读
+          </a>
+         </li>
         </ul>
        </li>
        <li class="toctree-l1">
@@ -469,13 +479,13 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-           13.2. 系统架构
+          <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+           13.2. 横向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-           13.3. 联邦平均算法
+          <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+           13.3. 纵向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
@@ -484,8 +494,8 @@
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-           13.5. 实际部署时的挑战
+          <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+           13.5. 展望
           </a>
          </li>
          <li class="toctree-l2">
@@ -697,6 +707,11 @@
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_computational_graph/summary.html">
             3.5. 总结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+            3.6. 扩展阅读
            </a>
           </li>
          </ul>
@@ -916,6 +931,11 @@
             10.6. 总结
            </a>
           </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+            10.7. 扩展阅读
+           </a>
+          </li>
          </ul>
         </li>
         <li class="toctree-l1">
@@ -966,13 +986,13 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/system_architecture.html">
-            13.2. 系统架构
+           <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
+            13.2. 横向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/fedavg.html">
-            13.3. 联邦平均算法
+           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
+            13.3. 纵向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
@@ -981,8 +1001,8 @@
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_federated_learning/challenge.html">
-            13.5. 实际部署时的挑战
+           <a class="reference internal" href="../chapter_federated_learning/outlook.html">
+            13.5. 展望
            </a>
           </li>
           <li class="toctree-l2">
@@ -1116,7 +1136,7 @@
 Neural Network
 Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习运算符集合，并提供了不同训练框架的转换器，例如TensorFlow模型到ONNX模型的转换器、PyTorch模型到ONNX模型的转换器等。
 模型转换本质上是将模型这种结构化的数据，从一种数据结构转换为另一种数据结构的过程。进行模型转换首先要分析两种数据结构的异同点，然后针对结构相同的数据做搬运；对于结构相似的数据做一一映射；对于结构差异较大的数据则需要根据其语义做合理的数据转换；更进一步如果两种数据结构上存在不兼容，则模型转换无法进行。ONNX的一个优势就在于其强大的表达能力，从而大多数业界框架的模型都能够转换到ONNX的模型上来而不存在不兼容的情况.
-模型可以抽象为是一种图，从而模型的数据结构可以解构为以下两个要点：
+模型可以抽象为一种图，从而模型的数据结构可以解构为以下两个要点：
         </p>
         <ul class="simple">
          <li>
@@ -1239,12 +1259,10 @@ Exchange(ONNX）正是为此目的而设计的。ONNX支持广泛的机器学习
          的，其他符号均表示常量。
         </p>
         <p>
-         Batchnorm算子的计算过程如公式 :eqref:
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           equ:bn-equation
-          </span>
-         </code>
+         Batchnorm算子的计算过程如公式
+         <a class="reference internal" href="#equation-ch08-equ-bn-equation">
+          (9.2.2)
+         </a>
          所示。
         </p>
         <div class="math notranslate nohighlight" id="equation-ch08-equ-bn-equation">
@@ -1457,8 +1475,8 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
           </span>
          </a>
          ，我们以Batchnorm算子替换成Scale算子为例，阐述算子替换的原理。我们直接将Batchnorm的计算公式
-         <a class="reference internal" href="#equation-ch08-equ-replace-scale">
-          (9.2.4)
+         <a class="reference internal" href="#equation-ch08-equ-bn-equation">
+          (9.2.2)
          </a>
          进行分解，并将常量合并简化，Batchnorm的计算公式可以写成：
         </p>
@@ -1521,7 +1539,7 @@ Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络�
          ，Crop算子是从输入的feature
 map中裁取一部分作为输出，经过Crop算子后，feature
 map的size就降低了。如果我们将这个裁切的过程前移，提前对feature
-map进行裁切，那么后续算子的计算量也会相应地减少，从而提高模型部署时的推理性能。Crop算子前移带来的性能提升跟Crop算子的参数有关。但是Crop算子一般只能沿着的element
+map进行裁切，那么后续算子的计算量也会相应地减少，从而提高模型部署时的推理性能。Crop算子前移带来的性能提升跟Crop算子的参数有关。但是Crop算子一般只能沿着element
 wise类算子前移。
         </p>
         <p>

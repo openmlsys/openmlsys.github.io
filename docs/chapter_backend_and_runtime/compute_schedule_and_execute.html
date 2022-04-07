@@ -200,6 +200,11 @@
            3.5. 总结
           </a>
          </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+           3.6. 扩展阅读
+          </a>
+         </li>
         </ul>
        </li>
        <li class="toctree-l1">
@@ -415,6 +420,11 @@
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/summary.html">
            10.6. 总结
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+           10.7. 扩展阅读
           </a>
          </li>
         </ul>
@@ -697,6 +707,11 @@
             3.5. 总结
            </a>
           </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+            3.6. 扩展阅读
+           </a>
+          </li>
          </ul>
         </li>
         <li class="toctree-l1">
@@ -912,6 +927,11 @@
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/summary.html">
             10.6. 总结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+            10.7. 扩展阅读
            </a>
           </li>
          </ul>
@@ -1541,7 +1561,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
              图6.5.8
             </span>
            </a>
-           所示，Kernel_1和Kernel_2没有依赖可以并行执行，Kernel_3和Kernel_4没有依赖可以并行执行。其特点为执行顺序不固定，每轮执行的算子顺序大概率不一样，多线程执行，对系统资源要求相关较高。
+           所示，Kernel_1和Kernel_2没有依赖可以并行执行，Kernel_3和Kernel_4没有依赖可以并行执行。其特点为执行顺序不固定，每轮执行的算子顺序大概率不一样，多线程执行，对系统资源要求相对较高。
           </p>
          </li>
         </ul>
@@ -1720,7 +1740,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
              图6.5.11
             </span>
            </a>
-           所示，上一个子图的输出数据会传输给下一个子图的输入数据，并且下一个子图需要对输入数据拷贝为本图的device数据，如Graph_2_GPU需要将Graph_1_CPU的输出数据从CPU拷贝到GPU，反过来Graph_3_CPU需要将Graph2GPU的输出数据从GPU拷贝到CPU，子图之间互相切换执行有一定的开销。
+           所示，上一个子图的输出数据会传输给下一个子图的输入数据，并且下一个子图需要将输入数据拷贝为本图的device数据，如Graph_2_GPU需要将Graph_1_CPU的输出数据从CPU拷贝到GPU，反过来Graph_3_CPU需要将Graph2GPU的输出数据从GPU拷贝到CPU，子图之间互相切换执行有一定的开销。
           </p>
          </li>
          <li>
@@ -1728,7 +1748,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            <strong>
             子图合并执行
            </strong>
-           ：将切分后的多个子图进行合并，合并为一个整体大的DAG执行，如
+           ：将切分后的多个子图进行合并，合并为一个整体的DAG执行，如
            <a class="reference internal" href="#graph-exec-7">
             <span class="std std-numref">
              图6.5.12

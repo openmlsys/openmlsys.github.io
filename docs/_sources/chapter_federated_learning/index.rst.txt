@@ -17,5 +17,5 @@
    horizontal_fl
    vertical_fl
    privacy_encryption_algorithm
-   outlook
+   prospect
    summary

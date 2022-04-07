@@ -116,6 +116,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -169,6 +170,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -264,6 +266,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -317,6 +320,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -405,7 +409,7 @@ request）。参数服务器响应，并返回对应的值（Value）。训练�
 request）将平均梯度发送到参数服务器，参数服务器更新本地存储的参数。</p>
 <p>在以上的参数服务器架构中，机器学习集群拥有者可以灵活的根据梯度计算所需要算力配置合理数量的训练服务器。他们也可以根据参数的数量配置大部分的稀疏参数（Sparse
 parameters）在参数服务器中，仅留下小部分的密集参数（Dense
-parameters）在训练服务器中。密集参数和稀疏参数的核心区别是：稀疏参数在每一步训练不一定都会被用到，他们需要根据当前训练小批量来决定。而密集参数每一步训练都需要用到。因此为了频繁从参数服务器中拉取，密集参数往往会存储在训练服务器中。</p>
+parameters）在训练服务器中。密集参数和稀疏参数的核心区别是：稀疏参数在每一步训练不一定都会被用到，他们需要根据当前训练小批量来决定。而密集参数每一步训练都需要用到。因此为了避免频繁从参数服务器中拉取，密集参数往往会存储在训练服务器中。</p>
 </section>
 <section id="id3">
 <h2><span class="section-number">10.5.2. </span>数据副本<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
