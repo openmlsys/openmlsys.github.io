@@ -117,7 +117,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -171,7 +170,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -267,7 +265,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -321,7 +318,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
@@ -480,7 +476,7 @@ Neural Network，RNN）；
 循环神经网络很好的解决了序列数据的问题，但是随着序列的增加，长序列又导致了训练过程中梯度消失和梯度爆炸的问题，因此有了长短期记忆（Long
 Short-term Memory，LSTM）；
 在语言任务中还有Seq2Seq它将RNN当成编解码（Encoder-Decoder）结构的编码器（Encoder）和解码器（Decode）；
-在解码器中又常常使用注意力机制（Attention）；基于编解码器和注意力机制又有Transformer；
+在解码器中又常常使用注意力机制（Attention）;基于编解码器和注意力机制又有Transformer；
 Transformer又是BERT模型架构的重要组成。随着深度神经网络的发展，未来也会诞生各类模型架构，架构的创新可以通过各类神经网络基本组件的组合来实现。</p>
 </section>
 <section id="id3">
@@ -510,7 +506,7 @@ Cell和Module是模型抽象方法也是所有网络的基类。 现有模型抽
 <p><span class="caption-number">图2.3.8 </span><span class="caption-text">神经网络基类抽象方法</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>神经网络接口层基类实现，仅做了简化的描述，在实际实现时，执行计算的__call__方法并不会让用户直接重载，它往往在__call__之外定义一个执行操作的方法（对于神经网络模型该方法是实现网络结构的连接，对于神经网络层则是实现计算过程）后再__call__调用；如MindSpore的Cell因为动态图和静态图的执行是不一样的，因此在__call__里定义动态图和计算图的计算执行，在construct方法里定义层或者模型的操作过程。</p>
+<p>神经网络接口层基类实现，仅做了简化的描述，在实际实现时，执行计算的__call__方法并不会让用户直接重载，它往往在__call__之外定义一个执行操作的方法（对于神经网络模型该方法是实现网络结构的连接，对于神经网络层则是实现计算过程）后然后在__call__调用；如MindSpore的Cell因为动态图和静态图的执行是不一样的，因此在__call__里定义动态图和计算图的计算执行，在construct方法里定义层或者模型的操作过程。</p>
 </section>
 <section id="id4">
 <h2><span class="section-number">2.3.3. </span>自定义神经网络层<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -535,8 +531,7 @@ class Conv2D(Cell):
 </pre></div>
 </div>
 <p>有了上述定义在使用卷积层时，就不需要创建训练变量了。
-如我们需要对<span class="math notranslate nohighlight">\(30 \times 30\)</span>大小10个通道的输入使用<span class="math notranslate nohighlight">\(3 \times 3\)</span>的卷积核做卷积，卷积后输出通道为20。
-调用方式如下：</p>
+如我们需要对<span class="math notranslate nohighlight">\(30 \times 30\)</span>大小10个通道的输入使用<span class="math notranslate nohighlight">\(3 \times 3\)</span>的卷积核做卷积，卷积后输出通道为20调用方式如下：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">in_channel</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_channel</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">filter_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 </pre></div>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>5.3. 自动微分 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. 类型系统和静态分析" href="type_system_and_static_analysis.html" />
+    <link rel="prev" title="5.2. 中间表示" href="intermediate_representation.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">5. </span>编译器前端</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">5.3. </span>自动微分</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_frontend_and_ir/ad.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. 编译器前端</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview_of_frontend.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">5.2. 中间表示</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">6.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">7. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">7.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">7.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">8. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">8.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">8.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">10. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">10.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">10.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">10.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">12. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">12.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">12.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">12.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">12.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">12.5. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">14.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">14.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">14.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">14.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">14.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">15. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">15.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">15.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">15.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">15.4. 未来可解释AI</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  机器学习系统：设计和实现
+              </span>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. 编译器前端</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview_of_frontend.html">5.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">5.2. 中间表示</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">5.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">6.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">7. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">7.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">7.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">8. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">8.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">8.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">10. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">10.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">10.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">10.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">12. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">12.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">12.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">12.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">12.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">12.5. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">14.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">14.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">14.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">14.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">14.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">15. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">15.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">15.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">15.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">15.4. 未来可解释AI</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <section id="id1">
+<h1><span class="section-number">5.3. </span>自动微分<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>上一节，我们介绍了机器学习框架的中间表示，设计这些中间表示的最核心的目的之一便是服务于自动微分变换。那么什么是自动微分？我们在这一节来详细介绍。</p>
+<section id="id2">
+<h2><span class="section-number">5.3.1. </span>自动微分的基本概念<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>自动微分（Automatic
+Differentiation，AD）是一种对计算机程序进行高效且准确求导的技术，在上个世纪六七十年代就已经被广泛应用于流体力学、天文学、数学金融等领域
+<a class="bibtex reference internal" href="../chapter_references/index.html#id6" id="id3">[Griewank &amp; Walther, 2008]</a>。时至今日，自动微分的实现及其理论仍然是一个活跃的研究领域。随着近些年深度学习在越来越多的机器学习任务上取得领先成果，自动微分被广泛的应用于机器学习领域。许多机器学习模型使用的优化算法都需要获取模型的导数，因此自动微分技术成为了一些热门的机器学习框架（例如TensorFlow和PyTorch）的核心特性。</p>
+<p>常见的计算机程序求导的方法可以归纳为以下四种
+<a class="bibtex reference internal" href="../chapter_references/index.html#automatic" id="id4">[Pearlmutter, 2015]</a>：手工微分（Manual
+Differentiation）、数值微分（Numerical
+Differentiation）、符号微分（Symbolic
+Differentiation）和自动微分（Automatic Differentiation）。</p>
+<p>（1）手工微分：需手工求解函数导数的表达式，并在程序运行时根据输入的数值直接计算结果。手工微分需根据函数的变化重新推导表达式，工作量大且容易出错。</p>
+<p>（2）数值微分
+<a class="bibtex reference internal" href="../chapter_references/index.html#numerical" id="id5">[Burden &amp; Faires, 2015]</a>：数值微分通过差分近似方法完成，其本质是根据导数的定义推导而来。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-0">
+<span class="eqno">(5.3.1)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-0" title="Permalink to this equation">¶</a></span>\[f^{'}(x)=\lim_{h \to 0}\frac{f(x+h)-f(x)}{h}\]</div>
+<p>当<span class="math notranslate nohighlight">\(h\)</span>充分小时，可以用差分<span class="math notranslate nohighlight">\(\frac{f(x+h)-f(x)}{h}\)</span>来近似导数结果。而近似的一部分误差，称为截断误差（Truncation
+error）。理论上，数值微分中的截断误差与步长<span class="math notranslate nohighlight">\(h\)</span>有关，<span class="math notranslate nohighlight">\(h\)</span>越小则截断误差越小，近似程度越高。但实际情况下数值微分的精确度并不会随着<span class="math notranslate nohighlight">\(h\)</span>的减小而一直减小。这是因为计算机系统对于浮点数运算的精度有限导致另外一种误差的存在，这种误差称为舍入误差（Round-off
+Error）。舍入误差会随着<span class="math notranslate nohighlight">\(h\)</span>变小而逐渐增大。当h较大时，截断误差占主导。而当h较小时，舍入误差占主导。
+在截断误差和舍入误差的共同作用下，数值微分的精度将会在某一个<span class="math notranslate nohighlight">\(h\)</span>值处达到最小值，并不会无限的减小。因此，虽然数值微分容易实现，但是存在精度误差问题。</p>
+<p>（3）符号微分
+<a class="bibtex reference internal" href="../chapter_references/index.html#computer" id="id6">[Grabmeier et al., 2003]</a>：利用计算机程序自动地通过如下的数学规则对函数表达式进行递归变换来完成求导。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-1">
+<span class="eqno">(5.3.2)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-1" title="Permalink to this equation">¶</a></span>\[\frac{d}{dx}(f(x)+g(x))\rightsquigarrow\frac{d}{dx}f(x)+\frac{d}{dx}g(x)\]</div>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-2">
+<span class="eqno">(5.3.3)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-2" title="Permalink to this equation">¶</a></span>\[\frac{d}{dx}(f(x)g(x))\rightsquigarrow(\frac{d}{dx}f(x))g(x)+f(x)(\frac{d}{dx}g(x))\]</div>
+<p>符号微分常被应用于现代代数系统工具中，例如Mathematica、Maxima和Maple，以及机器学习框架，如Theano。符号微分虽然消除了手工微分硬编码的缺陷。但因为对表达式进行严格的递归变换和展开，不复用产生的变换结果，很容易产生表达式膨胀（expression
+swell <a class="bibtex reference internal" href="../chapter_references/index.html#id4" id="id7">[Corliss, 1988]</a> ）问题。如
+<a class="reference internal" href="#symbolic-differentiation"><span class="std std-numref">图5.3.1</span></a>
+所示，用符号微分计算递归表达式<span class="math notranslate nohighlight">\(l_{n+1}=4l_n(1-l_n)\)</span>，<span class="math notranslate nohighlight">\(l_1=x\)</span>的导数表达式，其结果随着迭代次数增加快速膨胀。</p>
+<figure class="align-default" id="id15">
+<span id="symbolic-differentiation"></span><a class="reference internal image-reference" href="../_images/符号微分的表达式膨胀问题.png"><img alt="../_images/符号微分的表达式膨胀问题.png" src="../_images/符号微分的表达式膨胀问题.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.3.1 </span><span class="caption-text">符号微分的表达式膨胀问题</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>并且符号微分需要表达式被定义成闭合式的（closed-form），不能带有或者严格限制控制流的语句表达，使用符号微分会很大程度上地限制了机器学习框架网络的设计与表达。</p>
+<p>（4）自动微分
+<a class="bibtex reference internal" href="../chapter_references/index.html#an" id="id8">[Verma, 2000]</a>：自动微分的思想是将计算机程序中的运算操作分解为一个有限的基本操作集合，且集合中基本操作的求导规则均为已知，在完成每一个基本操作的求导后，使用链式法则将结果组合得到整体程序的求导结果。自动微分是一种介于数值微分和符号微分之间的求导方法，结合了数值微分和符号微分的思想。相比于数值微分，自动微分可以精确地计算函数的导数；相比符号微分，自动微分将程序分解为基本表达式的组合，仅对基本表达式应用符号微分规则，并复用每一个基本表达式的求导结果，从而避免了符号微分中的表达式膨胀问题。而且自动微分可以处理分支、循环和递归等控制流语句。目前的深度学习框架基本都采用自动微分机制进行求导运算，下面我们将重点介绍自动微分机制以及自动微分的实现。</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">5.3.2. </span>前向与反向自动微分<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>自动微分根据链式法则的不同组合顺序，可以分为前向模式（Forward
+Mode）和反向模式（Reverse
+Mode）。对于一个复合函数<span class="math notranslate nohighlight">\(y=a(b(c(x)))\)</span>,其梯度值<span class="math notranslate nohighlight">\(\frac{dy}{dx}\)</span>的计算公式为：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-3">
+<span class="eqno">(5.3.4)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-3" title="Permalink to this equation">¶</a></span>\[\frac{dy}{dx}=\frac{dy}{da}\frac{da}{db}\frac{db}{dc}\frac{dc}{dx}\]</div>
+<p>前向模式的自动微分是从输入方向开始计算梯度值的，其计算公式为：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-4">
+<span class="eqno">(5.3.5)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-4" title="Permalink to this equation">¶</a></span>\[\frac{dy}{dx}=(\frac{dy}{da}(\frac{da}{db}(\frac{db}{dc}\frac{dc}{dx})))\]</div>
+<p>反向模式的自动微分是从输出方向开始计算梯度值的，其计算公式为：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-5">
+<span class="eqno">(5.3.6)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-5" title="Permalink to this equation">¶</a></span>\[\frac{dy}{dx}=(((\frac{dy}{da}\frac{da}{db})\frac{db}{dc})\frac{dc}{dx})\]</div>
+<p>我们以下面的函数为例介绍两种模式的计算方式，我们希望计算函数在<span class="math notranslate nohighlight">\((x_1, x_2)=(2,5)\)</span>处的导数<span class="math notranslate nohighlight">\(\frac{\partial y}{\partial x_1}\)</span>：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-6">
+<span class="eqno">(5.3.7)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-6" title="Permalink to this equation">¶</a></span>\[y=f(x_1,x_2)=ln(x_1)+{x_1}{x_2}-sin(x_2)\]</div>
+<p>该函数对应的计算图如 <a class="reference internal" href="#example-compute-graph"><span class="std std-numref">图5.3.2</span></a>：</p>
+<figure class="align-default" id="id16">
+<span id="example-compute-graph"></span><a class="reference internal image-reference" href="../_images/自动微分-示例计算图.svg"><img alt="../_images/自动微分-示例计算图.svg" src="../_images/自动微分-示例计算图.svg" width="800px" /></a>
+<figcaption>
+<p><span class="caption-number">图5.3.2 </span><span class="caption-text">示例计算图</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>（1）前向模式</p>
+<figure class="align-default" id="id17">
+<span id="forward-ad"></span><a class="reference internal image-reference" href="../_images/自动微分-前向模式自动微分示例.png"><img alt="../_images/自动微分-前向模式自动微分示例.png" src="../_images/自动微分-前向模式自动微分示例.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.3.3 </span><span class="caption-text">前向模式自动微分示例</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>前向模式的计算过程如
+<a class="reference internal" href="#forward-ad"><span class="std std-numref">图5.3.3</span></a>所示，左侧是源程序分解后得到的基本操作集合，右侧展示了运用链式法则和已知的求导规则，从上至下计算每一个中间变量<span class="math notranslate nohighlight">\({\dot{v}_i}=\frac{\partial v_i}{\partial x_1}\)</span>，从而计算出最后的变量<span class="math notranslate nohighlight">\({\dot{v}_5}=\frac{\partial y}{\partial x_1}\)</span>。</p>
+<p>当我们想要对一个函数求导时，我们想要得到的是该函数的任意一个输出对任意一个输入的偏微分的集合。对于一个带有<span class="math notranslate nohighlight">\(n\)</span>个独立输入<span class="math notranslate nohighlight">\(x_i\)</span>和<span class="math notranslate nohighlight">\(m\)</span>个独立输出<span class="math notranslate nohighlight">\(y_i\)</span>的函数<span class="math notranslate nohighlight">\(f:{\mathbf{R}^n}\to \mathbf{R}^m\)</span>，该函数的求导结果可以构成如下的雅克比矩阵（Jacobian
+Matrix）：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-7">
+<span class="eqno">(5.3.8)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-7" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{J}_{f}=
+\begin{bmatrix}
+    \frac{\partial y_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_1}{\partial x_n} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \frac{\partial y_m}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{bmatrix}\end{split}\]</div>
+<p>前向模式中每次计算函数<span class="math notranslate nohighlight">\(f\)</span>的所有输出对某一个输入的偏微分，也就是雅克比矩阵的某一列，如下面的向量所示。因此，通过n次前向模式的自动微分就可以得到整个雅克比矩阵。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-8">
+<span class="eqno">(5.3.9)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-8" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{bmatrix}
+    \frac{\partial y_1}{\partial x_i} \\
+    \vdots \\
+    \frac{\partial y_m}{\partial x_i}
+\end{bmatrix}\end{split}\]</div>
+<p>前向模式通过计算雅克比向量积（Jacobian-vector
+products）的方式来计算这一列的结果。我们初始化<span class="math notranslate nohighlight">\(\dot{\mathbf{x}}=\mathbf{r}\)</span>。基本操作的求导规则是已经定义好的，代表着基本操作的雅可比矩阵是已知量。在此基础上，我们应用链式法则从<span class="math notranslate nohighlight">\(f\)</span>的输入到输出传播求导结果，从而得到输入网络的雅克比矩阵中的一列。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-9">
+<span class="eqno">(5.3.10)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-9" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{J}_{f}\mathbf{r}=
+\begin{bmatrix}
+    \frac{\partial y_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_1}{\partial x_n} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \frac{\partial y_m}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+\begin{bmatrix}
+    r_1 \\
+    \vdots \\
+    r_n
+\end{bmatrix}\end{split}\]</div>
+<p>（2）反向模式</p>
+<figure class="align-default" id="id18">
+<span id="backward-ad"></span><a class="reference internal image-reference" href="../_images/自动微分-反向模式自动微分示例.png"><img alt="../_images/自动微分-反向模式自动微分示例.png" src="../_images/自动微分-反向模式自动微分示例.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">图5.3.4 </span><span class="caption-text">反向模式自动微分示例</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>反向模式的计算过程如上
+<a class="reference internal" href="#backward-ad"><span class="std std-numref">图5.3.4</span></a>所示，左侧是源程序分解后得到的基本操作集合，右侧展示了运用链式法则和已知的求导规则，从<span class="math notranslate nohighlight">\(\bar{v}_5=\bar{y}=\frac{\partial y}{\partial y}=1\)</span>开始，
+由下至上地计算每一个中间变量<span class="math notranslate nohighlight">\({\bar{v}_i}=\frac{\partial y_j}{\partial v_i}\)</span>，从而计算出最后的变量<span class="math notranslate nohighlight">\({\bar{x}_1}=\frac{\partial y}{\partial x_1}\)</span>和<span class="math notranslate nohighlight">\({\bar{x}_2}=\frac{\partial y}{\partial x_2}\)</span>。</p>
+<p>反向模式每次计算的是函数<span class="math notranslate nohighlight">\(f\)</span>的某一个输出对任一输入的偏微分，也就是雅克比矩阵的某一行，如下面的向量所示。因此通过运行m次反向模式自动微分，我们就可以得到整个雅克比矩阵。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-10">
+<span class="eqno">(5.3.11)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-10" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+    \frac{\partial y_j}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_j}{\partial x_n}
+\end{bmatrix}\]</div>
+<p>类似地，我们可以通过计算向量雅克比积（Vector-jacobian
+products）的方式来计算雅克比矩阵的一行。我们初始化<span class="math notranslate nohighlight">\(\bar{\mathbf{y}}=\mathbf{r}\)</span>，在已知基本操作的求导规则的前提下，应用链式法则从<span class="math notranslate nohighlight">\(f\)</span>的输出到输入传播求导结果，从而最后得到雅克比矩阵中的一行。</p>
+<div class="math notranslate nohighlight" id="equation-chapter-frontend-and-ir-ad-11">
+<span class="eqno">(5.3.12)<a class="headerlink" href="#equation-chapter-frontend-and-ir-ad-11" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{r}^{T}\mathbf{J}_{f}=
+\begin{bmatrix}
+    r_1 &amp; \cdots &amp; r_m
+\end{bmatrix}
+\begin{bmatrix}
+    \frac{\partial y_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_1}{\partial x_n} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \frac{\partial y_m}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{bmatrix}\end{split}\]</div>
+<p>在求解函数<span class="math notranslate nohighlight">\(f\)</span>的雅克比矩阵时，前向模式的迭代次数与雅克比矩阵的列数相关，而反向模式的迭代次数则与雅克比矩阵的行数相关。因此，在函数输出个数远远大于输入个数时<span class="math notranslate nohighlight">\((f:{\mathbf{R}^n}\to \mathbf{R}^m, n &lt;&lt; m)\)</span>，前向模式效率更高；反之，在函数输入个数远远大于输出个数时<span class="math notranslate nohighlight">\((f:{\mathbf{R}^n}\to \mathbf{R}^m, n &gt;&gt; m)\)</span>，反向模式效率更高。在极端情况下的函数<span class="math notranslate nohighlight">\(f:{\mathbf{R}^n}\to \mathbf{R}\)</span>，只需要应用一次反向模式就已经能够把所有输出对输入的导数<span class="math notranslate nohighlight">\((\frac{\partial y}{\partial x_1},\cdots,\frac{\partial y}{\partial x_n})\)</span>都计算出来，而前向模式则需要执行n次。这种计算一个标量值的输出关于大量参数输入的梯度的场景恰好是机器学习实践中最常见的一种计算场景，这使得反向模式的自动微分成为反向传播算法使用的核心技术之一。</p>
+<p>但是反向模式也存在一定的缺陷。在源程序分解为一系列基本操作后，前向模式由于求导顺序与基本操作的执行顺序一致，输入值可以在执行基本操作的过程中同步获得。而在反向模式中，由于求导顺序与源程序的执行顺序是相反的，计算过程需要分为两个阶段，第一个阶段先执行源程序，且将源程序的中间结果保存起来，在第二阶段才把中间结果取出来去计算导数。因此反向模式会有额外的内存消耗。业界也一直在研究反向模式的内存占用优化方法，例如检查点策略（checkpointing
+strategies）和数据流分析（data-flow analysis）
+<a class="bibtex reference internal" href="../chapter_references/index.html#the" id="id10">[Dauvergne &amp; Hascoet, 2006]</a><a class="bibtex reference internal" href="../chapter_references/index.html#divide" id="id11">[Siskind &amp; Pearlmutter, 2017]</a> 。</p>
+</section>
+<section id="id12">
+<h2><span class="section-number">5.3.3. </span>自动微分的实现<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>上一节我们介绍了自动微分的基本概念，可以总结为将程序分解为一系列微分规则已知的基本操作，然后运用链式法则将它们的微分结果组合起来得到程序的微分结果。而在机器学习的应用中，因为输入的数量远远大于输出的数量，所以反向模式的自动微分更受青睐。虽然自动微分的基本思想是明确的，但是具体的实现方法也分为几类
+<a class="bibtex reference internal" href="../chapter_references/index.html#automatic" id="id13">[Pearlmutter, 2015]</a> ，大体可以划分为基本表达式法（Elemental
+Libraries）、操作符重载法（Operator
+Overloading，OO）和代码变换法（Source Code Transformation，ST）。</p>
+<p>（1）基本表达式法：封装大多数的基本表达式及对应的微分表达式，通过库函数的方式提供给用户，用户在写代码时，需要手工分解程序为一系列的基本表达式，然后使用这些库函数去替换这些基本表达式。以程序<span class="math notranslate nohighlight">\(a=(x+y)/z\)</span>为例，用户需要手工地把这个程序分解为：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="n">z</span>
+</pre></div>
+</div>
+<p>然后使用自动微分的库函数去替换分解出来的基本表达式：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">参数为变量x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t和对应的导数变量dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dt</span>
+<span class="n">call</span> <span class="n">ADAdd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<span class="o">//</span> <span class="n">参数为变量t</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">a和对应的导数变量dt</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">da</span>
+<span class="n">call</span> <span class="n">ADDiv</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">da</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>库函数ADAdd和ADDiv运用链式法则，分别定义了Add和Div的微分表达式。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ADAdd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dx</span>
+
+<span class="k">def</span> <span class="nf">ADDiv</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">))</span> <span class="o">*</span> <span class="n">dy</span>
+</pre></div>
+</div>
+<p>基本表达式法的优缺点显而易见，优点是实现简单直接，可为任意语言快速实现微分的库函数；而缺点是增加了用户的工作量，用户必须先手工分解程序为一些基本表达式，才能使用这些库函数进行编程，无法方便地使用语言原生的表达式。</p>
+<p>（2）操作符重载法（Operator Overloading,
+OO）：依赖于现代编程语言的多态特性，使用操作符重载对编程语言中的基本操作语义进行重定义，封装其微分规则。每个基本操作类型及其输入关系，在程序运行时会被记录在一个所谓的”tape”的数据结构里面，最后，这些”tape”会形成一个跟踪轨迹(trace)，我们就可以使用链式法则沿着轨迹正向或者反向地将基本操作组成起来进行微分。以自动微分库AutoDiff为例，对编程语言的基本运算操作符进行了重载：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">AutoDiff</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="k">class</span> <span class="nc">Term</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 重载操作符 `+`，`*` 和 `/`，调用这些操作符时，会通过其中的</span>
+<span class="w">    </span><span class="c1">// TermBuilder 将操作的类型、输入输出信息等记录至 tape 中</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Power</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Tape 数据结构中的基本元素，主要包含：</span>
+<span class="w">    </span><span class="c1">// 1) 操作的运算结果</span>
+<span class="w">    </span><span class="c1">// 2) 操作的运算结果对应的导数结果</span>
+<span class="w">    </span><span class="c1">// 3) 操作的输入</span>
+<span class="w">    </span><span class="c1">// 除此外还通过函数 Eval 和 Diff 定义了该运算操作的计算规则和微分规则</span>
+<span class="w">    </span><span class="n">internal</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="k">class</span> <span class="nc">TapeElement</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Adjoint</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">InputEdges</span><span class="w"> </span><span class="n">Inputs</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Eval</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Diff</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>OO对程序的运行跟踪经过了函数调用和控制流，因此实现起来也是简单直接。而缺点是需要在程序运行时进行跟踪，特别在反向模式上还需要沿着轨迹反向地执行微分，所以会造成性能上的损耗，尤其对于本来运行就很快的基本操作。并且因为其运行时跟踪程序的特性，该方法不允许在运行前做编译时刻的图优化，控制流也需要根据运行时的信息来展开。Pytorch的自动微分框架使用了该方法。</p>
+<p>（3）代码变换法（Source
+Transformation，ST）：提供对编程语言的扩展，分析程序的源码或抽象语法树（AST），将程序自动地分解为一系列可微分的基本操作，而这些基本操作的微分规则已预定义好，最后使用链式法则对基本操作的微分表达式进行组合生成新的程序表达来完成微分。TensorFlow，MindSpore等机器学习框架都采用了该方式。</p>
+<p>不同于OO在编程语言内部操作，ST需要语法分析器（parser）和操作中间表示的工具。除此以外，ST需要定义对函数调用和控制流语句（如循环和条件等）的转换规则。其优势在于对每一个程序，自动微分的转换只做一次，因此不会造成运行时的额外性能损耗。而且，因为整个微分程序在编译时就能获得，编译器可以对微分程序进行进一步的编译优化。但ST实现起来更加复杂，需要扩展语言的预处理器、编译器或解释器，且需要支持更多的数据类型和操作，需要更强的类型检查系统。另外，虽然ST不需要在运行时做自动微分的转换，但是对于反向模式，在反向部分执行时，仍然需要确保前向执行的一部分中间变量可以被获取到，有两种方式可以解决该问题
+<span class="bibtex" id="id14">[van2018Automatic]</span> ：</p>
+<p>（1）基于Tape的方式。该方式使用一个全局的”tape”去确保中间变量可以被获取到。原始函数被扩展为在前向部分执行时把中间变量写入到tape中的函数，在程序执行反向部分时会从tape中读取这些中间变量。除了存储中间变量外，OO中的tape还会存储执行的操作类型。然而因为tape是一个在运行时构造的数据结构，所以需要添加一些定制化的编译器优化方法。且为了支持高阶微分，对于tape的读写都需要是可微分的。而大多数基于tape的工具都没有实现对tape的读写操作的微分，因此它们都不支持多次嵌套执行反向模式的自动微分（reverse-over-reverse）。机器学习框架Tangent采用了该方式。</p>
+<p>（2）基于闭包（closure）的方式。基于闭包的方式可以解决基于tape方式的缺陷。在函数式编程里，闭包可以捕获到语句的执行环境并识别到中间变量的非局部使用。因为这些它们是闭包里的自由变量，所以不需要再去定制化编译器优化方法。</p>
+<p>MindSpore是使用基于闭包的代码变换法来实现的自动微分的。这需要一个定制的中间表示。MindIR的具体设计，在上一节中已经介绍过，这里不再赘述。</p>
+<p>MindSpore的自动微分，使用基于闭包的代码变换法实现，转换程序根据正向部分的计算，构造了一个闭包的调用链。这些闭包包含了计算导数的代码以及从正向部分拿到的中间变量。程序中的每个函数调用，都会得到转换并且额外返回一个叫做”bprop”的函数，<span class="math notranslate nohighlight">\(bprop\)</span>根据给定的关于输出的导数，计算出关于输入的导数。由于每个基本操作的<span class="math notranslate nohighlight">\(bprop\)</span>是已知的，我们可以容易地反向构造出用户定义的整个函数的<span class="math notranslate nohighlight">\(bprop\)</span>。为了支持reverse-over-reverse调用去计算高阶导数，我们需要确保可以在已转换好的程序中再进行转换，这需要有处理函数自由变量（函数外定义的变量）的能力。为了达到这个目的，每个<span class="math notranslate nohighlight">\(bprop\)</span>除了关于原始函数输入的偏导数以外，还会返回一系列关于自由变量的偏导数，闭包里面的<span class="math notranslate nohighlight">\(bprop\)</span>负责把每个偏导数解开，将其分别累加贡献到各自的自由变量上。且闭包也是一种函数，可以作为其他闭包的输入。因此，MindSpore自动微分的算法设计可以总结为：</p>
+<p>（1）应用链式求导法则，对每个函数（算子或子图）定义一个反向传播函数<span class="math notranslate nohighlight">\(bprop: dout-&gt;(df, dinputs)\)</span>，这里<span class="math notranslate nohighlight">\(df\)</span>表示函数对自由变量的导数，<span class="math notranslate nohighlight">\(dinputs\)</span>表示函数对输入的导数。</p>
+<p>（2）应用全微分法则，将(<span class="math notranslate nohighlight">\(df\)</span>, <span class="math notranslate nohighlight">\(dinputs\)</span>)累加到对应的变量上。</p>
+<p>涉及控制流语句时，因为MindIR实现了分支、循环和闭包等操作的函数式表达，我们对这些操作应用上述法则进行组合，即可完成微分。定义运算符K求解导数，MindSpore的自动微分算法可以简单表达如下：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// func和inputs分别表示函数及其输入，dout为关于输出的梯度</span>
+<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">)</span><span class="w"></span>
+<span class="n">F</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">bprop</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dinputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bprop</span><span class="p">(</span><span class="n">dout</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">df</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">df</span><span class="w"></span>
+<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">dinputs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dinputs</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>MindSpore解析器模块首先根据Python的AST生成MindIR，再经过特化模块使得中间表示中的算子可识别，然后调用自动微分模块。自动微分模块的入口函数如下所示：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="w"> </span><span class="n">Grad</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Init</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">MapObject</span><span class="p">();</span><span class="w">  </span><span class="c1">// 实现Parameter/Primitive/FuncGraph/FreeVariable对象的映射</span>
+<span class="w">    </span><span class="n">MapMorphism</span><span class="p">();</span><span class="w">  </span><span class="c1">// 实现CNode的映射</span>
+<span class="w">    </span><span class="n">Finish</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">Return</span><span class="w"> </span><span class="nf">GetKGraph</span><span class="p">();</span><span class="w">  </span><span class="c1">// 获取梯度函数计算图</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Grad函数先通过MapObject实现图上自由变量、Parameter和ValueNode（Primitive或FuncGraph）等节点到<span class="math notranslate nohighlight">\(fprop\)</span>的映射。<span class="math notranslate nohighlight">\(fprop\)</span>是<span class="math notranslate nohighlight">\((forward\_result, bprop)\)</span>形式的梯度函数对象。<span class="math notranslate nohighlight">\(forward\_result\)</span>是前向计算图的输出节点，<span class="math notranslate nohighlight">\(bprop\)</span>是以<span class="math notranslate nohighlight">\(fprop\)</span>的闭包对象形式生成的梯度函数，它只有<span class="math notranslate nohighlight">\(dout\)</span>一个入参，其余的输入则是引用的<span class="math notranslate nohighlight">\(fprop\)</span>的输入和输出。其中对于ValueNode&lt;Primitive&gt;类型的<span class="math notranslate nohighlight">\(bprop\)</span>，通过解析Python层预先注册的<span class="math notranslate nohighlight">\(get\_bprop\)</span>函数的得到，如下所示。对于ValueNode&lt;FuncGraph&gt;类型的节点，则递归求出它的梯度函数对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@bprop_getters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">ReLU</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_bprop_relu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Grad definition for `ReLU` operation.&quot;&quot;&quot;</span>
+    <span class="n">input_grad</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">ReluGrad</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">bprop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dout</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">input_grad</span><span class="p">(</span><span class="n">dout</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">dx</span><span class="p">,)</span>
+
+    <span class="k">return</span> <span class="n">bprop</span>
+</pre></div>
+</div>
+<p>随后，MapMorphism函数从原函数的输出节点开始实现对CNode的映射，并建立起节点间的反向传播连接，实现梯度累加，最后返回原函数的梯度函数计算图。</p>
+</section>
+</section>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">5.3. 自动微分</a><ul>
+<li><a class="reference internal" href="#id2">5.3.1. 自动微分的基本概念</a></li>
+<li><a class="reference internal" href="#id9">5.3.2. 前向与反向自动微分</a></li>
+<li><a class="reference internal" href="#id12">5.3.3. 自动微分的实现</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="intermediate_representation.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>5.2. 中间表示</div>
+         </div>
+     </a>
+     <a id="button-next" href="type_system_and_static_analysis.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>5.4. 类型系统和静态分析</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>
