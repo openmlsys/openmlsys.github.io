@@ -117,6 +117,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -266,6 +267,7 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
@@ -410,8 +412,8 @@ Kernel及必要信息注册给框架，由框架完成对GPU Kernel的调用。<
 <ul class="simple">
 <li><p>算子名：TensorAdd</p></li>
 <li><p>算子属性：构造函数__init__中初始化属性，因加法没有属性，因此__init__不需要额外输入。</p></li>
-<li><p>算子输入输出及合法性校验：infer_shape方法中约束两个输入维度必须相同，输出的维度和输入维度相同。infer_dtype方法中约束两个输入数据必须是float32类型，输出的数据类型和输入数据类型相同。
-算子输出</p></li>
+<li><p>算子输入输出及合法性校验：infer_shape方法中约束两个输入维度必须相同，输出的维度和输入维度相同。infer_dtype方法中约束两个输入数据必须是float32类型，输出的数据类型和输入数据类型相同。</p></li>
+<li><p>算子输出</p></li>
 </ul>
 <p>MindSpore中实现注册TensorAdd代码如下：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mindspore/ops/operations/math_ops.py</span>
