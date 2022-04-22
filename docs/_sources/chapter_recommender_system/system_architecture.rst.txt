@@ -27,7 +27,7 @@ Merlin是英伟达公司开发的一个开源推荐系统框架，帮助使用�
 
 .. _ch10-recommendation-systems:
 
-.. figure:: ../img/ch10/ch10-recommendation-systems.svg
+.. figure:: ../img/ch10/ch10-recommendation-systems.png
    :width: 800px
 
    推荐系统的分布式架构

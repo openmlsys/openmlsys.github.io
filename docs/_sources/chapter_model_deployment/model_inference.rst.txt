@@ -180,34 +180,19 @@ v0.4s, v1.4s, v2.4s，如
 以一维卷积运算为例，记为F(m，r)，其中，m代表输出的个数，r为卷积核的个数。输入为\ :math:`d=[d_0 \ d_1 \ d_2 \ d_3]`\ ，卷积核为\ :math:`g=[g_0 \ g_1 \ g_2]^T`\ ，该卷积计算可以写成矩阵形式如公式
 :eq:`ch08-equ-conv_matmul_one_dimension`\ 所示，需要6次乘法和4次加法。
 
-.. math::
-
-   F(2, 3)=
-   \left[ \begin{matrix} d_0 & d_1 & d_2 \\ d_1 & d_2 & d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=
-   \left[ \begin{matrix} y_0 \\ y_1 \end{matrix} \right]
+.. math:: F(2, 3)=\left[ \begin{matrix} d_0 & d_1 & d_2 \\ d_1 & d_2 & d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=\left[ \begin{matrix} y_0 \\ y_1 \end{matrix} \right]
    :label: ch08-equ-conv_matmul_one_dimension
 
 可以观察到，卷积运算转换为矩阵乘法时输入矩阵中存在着重复元素\ :math:`d_1`\ 和\ :math:`d_2`\ ，因此，卷积转换的矩阵乘法相对一般的矩阵乘有了优化空间。可以通过计算中间变量\ :math:`m_0-m_3`\ 得到矩阵乘的结果，见公式
 :eq:`ch08-equ-conv-2-winograd`\ ：
 
-.. math::
-
-   F(2, 3)=
-   \left[ \begin{matrix} d_0 & d_1 & d_2 \\ d_1 & d_2 & d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=
-   \left[ \begin{matrix} m_0+m_1+m_2 \\ m_1-m_2+m_3 \end{matrix} \right]
+.. math:: F(2, 3)=\left[ \begin{matrix} d_0 & d_1 & d_2 \\ d_1 & d_2 & d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=\left[ \begin{matrix} m_0+m_1+m_2 \\ m_1-m_2+m_3 \end{matrix} \right]
    :label: ch08-equ-conv-2-winograd
 
 其中，\ :math:`m_0-m_3`\ 的分别见公式
 :eq:`ch08-equ-winograd-param`\ ：
 
-.. math::
-
-   \begin{aligned}
-   m_0=(d_0-d_2)*g_0 \\
-   m_1=(d_1+d_2)*(\frac{g_0+g_1+g_2}{2}) \\
-   m_2=(d_0-d_2)*(\frac{g_0-g_1+g_2}{2}) \\
-   m_2=(d_1-d_3)*g_2
-   \end{aligned}
+.. math:: \begin{aligned}m_0=(d_0-d_2)*g_0 \\m_1=(d_1+d_2)*(\frac{g_0+g_1+g_2}{2}) \\m_2=(d_0-d_2)*(\frac{g_0-g_1+g_2}{2}) \\m_2=(d_1-d_3)*g_2\end{aligned}
    :label: ch08-equ-winograd-param
 
 通过\ :math:`m_0-m_3`\ 间接计算r1，r2，需要的运算次数包括：输入d的4次加法；输出m的4次乘法和4次加法。在推理阶段，权重的数值是常量，因此卷积核上的运算可以在图编译阶段计算，不计入在线的run时间。所以总的运算次数为4次乘法和8次加法，与直接运算的6次乘法和4次加法相比，乘法次数减少，加法次数增加。在计算机中，乘法一般比加法慢，通过减少乘法次数，增加少量加法，可以实现加速。
@@ -219,22 +204,13 @@ v0.4s, v1.4s, v2.4s，如
 .. math:: \mathbf{Y}=\mathbf{A^T}(\mathbf{G}g)*(\mathbf{B^T}d)
    :label: ch08-equ-winograd-matrix
 
-.. math::
-
-   \mathbf{B^T}=
-   \left[ \begin{matrix} 1 & 0 & -1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 1 & 0 & -1 \end{matrix} \right]
+.. math:: \mathbf{B^T}=\left[ \begin{matrix} 1 & 0 & -1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 1 & 0 & -1 \end{matrix} \right]
    :label: ch08-equ-winograd-matrix-bt
 
-.. math::
-
-   \mathbf{G}=
-   \left[ \begin{matrix} 1 & 0 & 0 \\ 0.5 & 0.5 & 0.5 \\ 0.5 & -0.5 & 0.5 \\ 0 & 0 & 1 \end{matrix} \right]
+.. math:: \mathbf{G}=\left[ \begin{matrix} 1 & 0 & 0 \\ 0.5 & 0.5 & 0.5 \\ 0.5 & -0.5 & 0.5 \\ 0 & 0 & 1 \end{matrix} \right]
    :label: ch08-equ-winograd-matrix-g
 
-.. math::
-
-   \mathbf{A^T}= 
-   \left[ \begin{matrix} 1 & 1 & -1 & 0 \\ 0 & 1 & -1 & -1  \end{matrix} \right] \\
+.. math:: \mathbf{A^T}=\left[ \begin{matrix} 1 & 1 & -1 & 0 \\ 0 & 1 & -1 & -1  \end{matrix} \right] \\
    :label: ch08-equ-winograd-matrix-at
 
 通常深度学习领域通常使用的都是2D卷积，将F(2，3)扩展到F(2x2，3x3)，可以写成矩阵形式，如公式

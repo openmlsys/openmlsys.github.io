@@ -159,7 +159,7 @@ Mechanism， EM
 .. math::
 
 
-       \nu_{th}^{\*} = \underset{\nu_{th}\in\[1, h\]}{\operatorname{argmax}} \mathbb{E}\[\nu|\nu_{th}\]
+   \nu_{th}^{\*} = \underset{\nu_{th}\in\[1, h\]}{\operatorname{argmax}} \mathbb{E}\[\nu|\nu_{th}\]
    :label: threshold
 
 最后，我们在

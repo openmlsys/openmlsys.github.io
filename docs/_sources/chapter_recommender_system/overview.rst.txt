@@ -13,7 +13,7 @@
 
 .. _ch10-recommendation-models:
 
-.. figure:: ../img/ch10/ch10-recommendation-models.svg
+.. figure:: ../img/ch10/ch10-recommendation-models.png
    :width: 800px
 
    推荐模型的基本结构
@@ -46,7 +46,7 @@ perceptron）。Wide部分和Deep部分按照一定规则拼接然后得到最�
 
 .. _ch10-abstract-recommendation-systems:
 
-.. figure:: ../img/ch10/ch10-abstract-recommendation-systems.svg
+.. figure:: ../img/ch10/ch10-abstract-recommendation-systems.png
    :width: 800px
 
    推荐系统的基本组件

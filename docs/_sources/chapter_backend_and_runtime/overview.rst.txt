@@ -9,7 +9,7 @@
 
 .. _compiler-backend-architecture:
 
-.. figure:: ../img/ch05/compiler-backend-architecture.jpeg
+.. figure:: ../img/ch05/compiler-backend-architecture.png
    :width: 800px
 
    编译器后端总体架构简图
