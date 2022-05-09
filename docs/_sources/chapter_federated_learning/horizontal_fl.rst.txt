@@ -63,7 +63,7 @@ Learning设计了分布式FL-Server架构。系统由调度器模块、服务器
 
 .. _ch10-federated-learning-architecture:
 
-.. figure:: ../img/ch10/ch10-federated-learning-architecture.png
+.. figure:: ../img/ch10/ch10-federated-learning-architecture.svg
 
    联邦学习系统架构图
 

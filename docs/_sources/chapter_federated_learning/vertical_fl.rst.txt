@@ -12,7 +12,7 @@ Learning）。纵向联邦学习的参与方拥有相同样本空间、不同特
 
 .. _federated-learning-vfl-arch:
 
-.. figure:: ../img/ch10/ch10-federated-learning-vfl-arch.png
+.. figure:: ../img/ch10/ch10-federated-learning-vfl-arch.svg
    :width: 800px
 
    纵向联邦两方架构
@@ -77,7 +77,7 @@ Intersection，PSI）技术是纵向联邦学习中数据样本对齐的常用�
 
 .. _federated-learning-vfl-train:
 
-.. figure:: ../img/ch10/ch10-federated-learning-vfl-train.png
+.. figure:: ../img/ch10/ch10-federated-learning-vfl-train.svg
    :width: 800px
 
    纵向联邦联合建模

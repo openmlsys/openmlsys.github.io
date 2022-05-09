@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>16.4. 规划系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>17.4. 规划系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -25,16 +25,16 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16.5. 控制系统" href="control.html" />
-    <link rel="prev" title="16.3. 感知系统" href="perception.html" /> 
+    <link rel="next" title="17.5. 控制系统" href="control.html" />
+    <link rel="prev" title="17.3. 感知系统" href="perception.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">16. </span>机器人学习系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">16.4. </span>规划系统</a>
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.4. </span>规划系统</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -92,129 +92,132 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">2.6. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">5. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">5.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">5.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">5.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">5.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">5.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">6.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">7. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">7.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">7.4. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">7.5. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.4. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.5. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">8. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">8.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">8.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">9.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">10. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">10.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">10.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">10.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">12. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">12.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">12.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">12.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">12.4. 未来可以探索的方向</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">12.5. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">14.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">14.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">14.3. 分布式强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">14.4. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">14.5. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">14.6. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">15. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">15.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">15.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">15.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">15.4. 未来可解释AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">16.4. 未来可解释AI</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">16. 机器人学习系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">16.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros.html">16.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">16.3. 感知系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">16.4. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">16.5. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">16.6. 小结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.3. 感知系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.5. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.6. 小结</a></li>
 </ul>
 </li>
 </ul>
@@ -253,129 +256,132 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">1. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">1.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">1.2. 机器学习系统的需求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">1.3. 机器学习系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">1.4. 适用读者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">2. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">2.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">2.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">2.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">2.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">2.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">2.6. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">3. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">3.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">3.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">3.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">3.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">3.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">3.6. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">4. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">5. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">5.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">5.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">5.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">5.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">5.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">5.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">5.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">6. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">6.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">6.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">6.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">6.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">6.6. 总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">7. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">7.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">7.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">7.4. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">7.5. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.4. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.5. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">8. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">8.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">8.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">8.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">8.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">8.6. 章节总结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">9. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">9.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">9.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">9.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">9.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">9.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">10. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">10.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">10.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">10.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">10.4. 集合通讯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">10.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">10.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通讯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">11. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">12. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">12.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">12.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">12.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">12.4. 未来可以探索的方向</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">12.5. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">13. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">13.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">13.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">13.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">13.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">13.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">13.6. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">14. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">14.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">14.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">14.3. 分布式强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">14.4. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">14.5. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">14.6. 小结</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">15. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">15.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">15.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">15.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">15.4. 未来可解释AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">16.4. 未来可解释AI</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">16. 机器人学习系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">16.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros.html">16.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">16.3. 感知系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">16.4. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">16.5. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">16.6. 小结</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.3. 感知系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.5. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.6. 小结</a></li>
 </ul>
 </li>
 </ul>
@@ -399,16 +405,424 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">16.4. </span>规划系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>规划不仅包含运动路径规划，还包含高级任务规划。其中，运动规划是机器人技术的核心问题之一，应用范围从导航到复杂环境中的操作。它具有悠久的研究历史，方法需要有概率完整性和最优性的保证。然而，当经典运动规划在处理现实世界的机器人问题（在高维空间中）时，挑战仍然存在。研究人员在继续开发新算法来克服与这些方法相关的限制，包括优化计算和内存负载、更好的规划表示和处理维度灾难等。</p>
-<p>相比之下，机器学习的最新进展为机器人专家研究运动规划问题开辟了新视角：经典运动规划器的瓶颈可以以数据驱动的方式解决；基于深度学习的规划器可以避免几何输入的局限性，例如使用视觉或语义输入进行规划等。最近的工作有：基于深度神经网络的四足机器人快速运动规划框架，通过贝叶斯学习进行运动规划，通过运动规划器指导的视觉运动策略学习。ML4KP是一个用于有效运动动力学运动规划的C++库，该库可以轻松地将机器学习方法集成到规划过程中。
-自动驾驶领域和行人和车辆轨迹预测方面也涌现出使用机器学习解决运动规划的工作，比如斯坦福大学提出Trajectron++。强化学习在规划系统上也有重要应用，最近有一些关于多智能体强化学习，多智能体车流模拟、驾驶行为分析，考虑安全性因素的强化学习，以及拓展到由真人专家在旁边监督，出现危险的时候接管的专家参与的强化学习工作（Online
+<h1><span class="section-number">17.4. </span>规划系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>规划不仅包含运动路径规划，还包含高级任务规划
+<a class="bibtex reference internal" href="ros.html#id23" id="id2">[Sun et al., 2022]</a>。其中，运动规划是机器人技术的核心问题之一，应用范围从导航到复杂环境中的操作。它具有悠久的研究历史，方法需要有概率完整性和最优性的保证。然而，当经典运动规划在处理现实世界的机器人问题（在高维空间中）时，挑战仍然存在。研究人员在继续开发新算法来克服与这些方法相关的限制，包括优化计算和内存负载、更好的规划表示和处理维度灾难等。</p>
+<p>相比之下，机器学习的最新进展为机器人专家研究运动规划问题开辟了新视角：经典运动规划器的瓶颈可以以数据驱动的方式解决；基于深度学习的规划器可以避免几何输入的局限性，例如使用视觉或语义输入进行规划等。最近的工作有：基于深度神经网络的四足机器人快速运动规划框架，通过贝叶斯学习进行运动规划
+<a class="bibtex reference internal" href="ros.html#quintero2021motion" id="id3">[Quintero-Pena et al., 2021]</a>，通过运动规划器指导的视觉运动策略学习。ML4KP
+<a class="bibtex reference internal" href="ros.html#ml4kp" id="id4">[Granados et al., 2021--2021]</a>是一个用于有效运动动力学运动规划的C++库，该库可以轻松地将机器学习方法集成到规划过程中。
+自动驾驶领域和行人和车辆轨迹预测
+<a class="bibtex reference internal" href="ros.html#qiu2021egocentric" id="id5">[Qiu et al., 2021]</a>方面也涌现出使用机器学习解决运动规划的工作，比如斯坦福大学提出Trajectron++
+<a class="bibtex reference internal" href="ros.html#salzmann2020trajectron" id="id6">[Salzmann et al., 2020]</a>。强化学习在规划系统上也有重要应用
+<a class="bibtex reference internal" href="ros.html#aradi2020survey" id="id7">[Aradi, 2020]</a><a class="bibtex reference internal" href="ros.html#sun2021adversarial" id="id8">[Sun et al., 2021]</a>，比如基于MetaDrive模拟器
+<a class="bibtex reference internal" href="ros.html#li2021metadrive" id="id9">[Li et al., 2021]</a>，最近有一些关于多智能体强化学习，多智能体车流模拟、驾驶行为分析
+<a class="bibtex reference internal" href="ros.html#peng2021learning" id="id10">[Peng et al., 2021a]</a>，考虑安全性因素的强化学习
+<a class="bibtex reference internal" href="ros.html#peng2021safe" id="id11">[Peng et al., 2021b]</a>，以及拓展到由真人专家在旁边监督，出现危险的时候接管的专家参与的强化学习工作（Online
 Imitation Learning、Offline
-RL），样本效率极高，是单纯强化学习算法的50倍。为了更好地说明强化学习是如何应用在自动驾驶中的，图 <a class="reference internal" href="#rl-ad"><span class="std std-numref">图16.4.1</span></a>展示了一个基于深度强化学习的自动驾驶POMDP模型。</p>
-<div class="figure align-default" id="id2">
+RL）:cite:<cite>li2021efficient</cite>，样本效率极高，是单纯强化学习算法的50倍。为了更好地说明强化学习是如何应用在自动驾驶中的， <a class="reference internal" href="#rl-ad"><span class="std std-numref">图17.4.1</span></a>展示了一个基于深度强化学习的自动驾驶POMDP模型。</p>
+<div class="figure align-default" id="id26">
 <span id="rl-ad"></span><a class="reference internal image-reference" href="../_images/rl_ad.png"><img alt="../_images/rl_ad.png" src="../_images/rl_ad.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图16.4.1 </span><span class="caption-text">基于深度强化学习的自动驾驶POMDP模型</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图17.4.1 </span><span class="caption-text">基于深度强化学习的自动驾驶POMDP模型 <a class="bibtex reference internal" href="ros.html#aradi2020survey" id="id12">[Aradi, 2020]</a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </div>
+<p id="bibtex-bibliography-chapter_rl_sys/planning-0"><dl class="citation">
+<dt class="bibtex label" id="compilers"><span class="brackets">Aho et al., 2007</span></dt>
+<dd><p>Aho, A. V., Lam, M. S., Ullman, J. D., &amp; Sethi, R. (2007). <em>Compilers: Principles, Techniques, and Tools (Rental), 2nd Edition</em>.</p>
+</dd>
+<dt class="bibtex label" id="aradi2020survey"><span class="brackets">Aradi, 2020</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Aradi, S. (2020). Survey of deep reinforcement learning for motion planning of autonomous vehicles. <em>IEEE Transactions on Intelligent Transportation Systems</em>.</p>
+</dd>
+<dt class="bibtex label" id="pmlr-v100-bansal20a"><span class="brackets">Bansal et al., 2020</span></dt>
+<dd><p>Bansal, S., Tolani, V., Gupta, S., Malik, J., &amp; Tomlin, C. (2020 , 30 Oct–01 Nov). Kaelbling, L. P., Kragic, D., &amp; Sugiura, K. (Eds.). Combining optimal control and learning for visual navigation in novel environments. <em>Proceedings of the Conference on Robot Learning</em> (pp. 420–429). PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v100/bansal20a.html">https://proceedings.mlr.press/v100/bansal20a.html</a></p>
+</dd>
+<dt class="bibtex label" id="bastoul2004code"><span class="brackets">Bastoul, 2004</span></dt>
+<dd><p>Bastoul, C. (2004). Code generation in the polyhedral model is easier than you think. <em>Proceedings. 13th International Conference on Parallel Architecture and Compilation Techniques, 2004. PACT 2004.</em> (pp. 7–16).</p>
+</dd>
+<dt class="bibtex label" id="berner2019dota"><span class="brackets">Berner et al., 2019</span></dt>
+<dd><p>Berner, C., Brockman, G., Chan, B., Cheung, V., Dębiak, P., Dennison, C., … others. (2019). Dota 2 with large scale deep reinforcement learning. <em>arXiv preprint arXiv:1912.06680</em>.</p>
+</dd>
+<dt class="bibtex label" id="brunke2021safe"><span class="brackets">Brunke et al., 2021</span></dt>
+<dd><p>Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., &amp; Schoellig, A. P. (2021). Safe learning in robotics: from learning-based control to safe reinforcement learning. <em>Annual Review of Control, Robotics, and Autonomous Systems</em>, <em>5</em>.</p>
+</dd>
+<dt class="bibtex label" id="numerical"><span class="brackets">Burden &amp; Faires, 2015</span></dt>
+<dd><p>Burden, R. L., &amp; Faires, J. (2015). Numerical analysis. <em>Journal of the Royal Statistical Society</em>, <em>71</em>(1), 48-50.</p>
+</dd>
+<dt class="bibtex label" id="campos2021orb"><span class="brackets">Campos et al., 2021</span></dt>
+<dd><p>Campos, C., Elvira, R., Rodríguez, J. J. G., Montiel, J. M., &amp; Tardós, J. D. (2021). Orb-slam3: an accurate open-source library for visual, visual–inertial, and multimap slam. <em>IEEE Transactions on Robotics</em>, <em>37</em>(6), 1874–1890.</p>
+</dd>
+<dt class="bibtex label" id="cassirer2021reverb"><span class="brackets">Cassirer et al., 2021</span></dt>
+<dd><p>Cassirer, A., Barth-Maron, G., Brevdo, E., Ramos, S., Boyd, T., Sottiaux, T., &amp; Kroiss, M. (2021). Reverb: a framework for experience replay. <em>arXiv preprint arXiv:2102.04736</em>.</p>
+</dd>
+<dt class="bibtex label" id="chaplot2020learning"><span class="brackets">Chaplot et al., 2020</span></dt>
+<dd><p>Chaplot, D. S., Gandhi, D., Gupta, S., Gupta, A., &amp; Salakhutdinov, R. (2020). Learning to explore using active neural slam. <em>arXiv preprint arXiv:2004.05155</em>.</p>
+</dd>
+<dt class="bibtex label" id="fedbe"><span class="brackets">Chen &amp; Chao, 2021</span></dt>
+<dd><p>Chen, Hong-You, &amp; Chao, Wei-Lun. (2021). Fedbe: making bayesian model ensemble applicable to federated learning. <em>9th International Conference on Learning Representations, ICLR 2021, Virtual Event, Austria, May 3-7, 2021</em>.</p>
+</dd>
+<dt class="bibtex label" id="chen2018tvm"><span class="brackets">Chen et al., 2018</span></dt>
+<dd><p>Chen, T., Moreau, T., Jiang, Z., Shen, H., Yan, E. Q., Wang, L., … Krishnamurthy, A. (2018). Tvm: end-to-end optimization stack for deep learning. <em>arXiv preprint arXiv:1802.04799</em>, <em>11</em>, 20.</p>
+</dd>
+<dt class="bibtex label" id="id13"><span class="brackets">Cheng et al., 2016</span></dt>
+<dd><p>Cheng, H.-T., Koc, L., Harmsen, J., Shaked, T., Chandra, T., Aradhye, H., … Shah, H. (2016). Wide &amp;amp; deep learning for recommender systems. <em>Proceedings of the 1st Workshop on Deep Learning for Recommender Systems</em> (pp. 7–10). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/2988450.2988454">https://doi.org/10.1145/2988450.2988454</a>, <a class="reference external" href="https://doi.org/10.1145/2988450.2988454">doi:10.1145/2988450.2988454</a></p>
+</dd>
+<dt class="bibtex label" id="id14"><span class="brackets">Chu et al., 2011</span></dt>
+<dd><p>Chu, W., Zinkevich, M., Li, L., Thomas, A., &amp; Tseng, B. (2011). Unbiased online active learning in data streams. <em>Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em> (pp. 195–203). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/2020408.2020444">https://doi.org/10.1145/2020408.2020444</a>, <a class="reference external" href="https://doi.org/10.1145/2020408.2020444">doi:10.1145/2020408.2020444</a></p>
+</dd>
+<dt class="bibtex label" id="id15"><span class="brackets">Corliss, 1988</span></dt>
+<dd><p>Corliss, G. F. (1988). Applications of differentiation arithmetic. <em>Reliability in Computing: The Role of Interval Methods in Scientific Computing</em> (pp. 127–148). USA: Academic Press Professional, Inc.</p>
+</dd>
+<dt class="bibtex label" id="the"><span class="brackets">Dauvergne &amp; Hascoet, 2006</span></dt>
+<dd><p>Dauvergne, B., &amp; Hascoët, L. (2006). The data-flow equations of checkpointing in reverse automatic differentiation. <em>Computational Science-iccs, International Conference, Reading, Uk, May</em>.</p>
+</dd>
+<dt class="bibtex label" id="ding2019camnet"><span class="brackets">Ding et al., 2019</span></dt>
+<dd><p>Ding, M., Wang, Z., Sun, J., Shi, J., &amp; Luo, P. (2019). Camnet: coarse-to-fine retrieval for camera re-localization. <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em> (pp. 2871–2880).</p>
+</dd>
+<dt class="bibtex label" id="ding2020efficient"><span class="brackets">Ding et al., 2020</span></dt>
+<dd><p>Ding, Z., Yu, T., Huang, Y., Zhang, H., Li, G., Guo, Q., … Dong, H. (2020). Efficient reinforcement learning development with rlzoo. <em>arXiv preprint arXiv:2009.08644</em>.</p>
+</dd>
+<dt class="bibtex label" id="duchi2011adagrad"><span class="brackets">Duchi et al., 2011</span></dt>
+<dd><p>Duchi, J., Hazan, E., &amp; Singer, Y. (2011). Adaptive subgradient methods for online learning and stochastic optimization. <em>Journal of Machine Learning Research (JMLR)</em>, <em>12</em>(Jul), 2121–2159.</p>
+</dd>
+<dt class="bibtex label" id="dwork2014algorithmic"><span class="brackets">Dwork &amp; Roth, 2014</span></dt>
+<dd><p>Dwork, C., &amp; Roth, A. (2014). The algorithmic foundations of differential privacy. <em>Foundations and Trends in Theoretical Computer Science</em>, <em>9</em>(3–4), 211–407.</p>
+</dd>
+<dt class="bibtex label" id="erhan2009visualizing"><span class="brackets">Erhan et al., 2009</span></dt>
+<dd><p>Erhan, D., Bengio, Y., Courville, A., &amp; Vincent, P. (2009). Visualizing higher-layer features of a deep network. <em>University of Montreal</em>, <em>1341</em>(3), 1.</p>
+</dd>
+<dt class="bibtex label" id="espeholt2019seed"><span class="brackets">Espeholt et al., 2019</span></dt>
+<dd><p>Espeholt, L., Marinier, R., Stanczyk, P., Wang, K., &amp; Michalski, M. (2019). Seed rl: scalable and efficient deep-rl with accelerated central inference. <em>arXiv preprint arXiv:1910.06591</em>.</p>
+</dd>
+<dt class="bibtex label" id="espeholt2018impala"><span class="brackets">Espeholt et al., 2018</span></dt>
+<dd><p>Espeholt, L., Soyer, H., Munos, R., Simonyan, K., Mnih, V., Ward, T., … others. (2018). Impala: scalable distributed deep-rl with importance weighted actor-learner architectures. <em>arXiv preprint arXiv:1802.01561</em>.</p>
+</dd>
+<dt class="bibtex label" id="id16"><span class="brackets">Fang et al., 2021</span></dt>
+<dd><p>Fang, J., Yu, Y., Zhao, C., &amp; Zhou, J. (2021). Turbotransformers: an efficient gpu serving system for transformer models. <em>Proceedings of the 26th ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming</em> (pp. 389–402). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3437801.3441578">https://doi.org/10.1145/3437801.3441578</a>, <a class="reference external" href="https://doi.org/10.1145/3437801.3441578">doi:10.1145/3437801.3441578</a></p>
+</dd>
+<dt class="bibtex label" id="fetterly2009dryadlinq"><span class="brackets">Fetterly et al., 2009</span></dt>
+<dd><p>Fetterly, Y. Y. M. I. D., Budiu, M., Erlingsson, Ú., &amp; Currey, P. K. G. J. (2009). Dryadlinq: a system for general-purpose distributed data-parallel computing using a high-level language. <em>Proc. LSDS-IR</em>, <em>8</em>.</p>
+</dd>
+<dt class="bibtex label" id="pmlr-v144-gama21a"><span class="brackets">Gama &amp; Sojoudi, 2021</span></dt>
+<dd><p>Gama, F., &amp; Sojoudi, S. (2021 , 07 – 08 June). Jadbabaie, A., Lygeros, J., Pappas, G. J., A.&amp;nbsp;Parrilo, P., Recht, B., Tomlin, C. J., &amp; Zeilinger, M. N. (Eds.). Graph neural networks for distributed linear-quadratic control. <em>Proceedings of the 3rd Conference on Learning for Dynamics and Control</em> (pp. 111–124). PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v144/gama21a.html">https://proceedings.mlr.press/v144/gama21a.html</a></p>
+</dd>
+<dt class="bibtex label" id="ginart2021mixed"><span class="brackets">Ginart et al., 2021</span></dt>
+<dd><p>Ginart, A., Naumov, M., Mudigere, D., Yang, J., &amp; Zou, J. (2021). <em>Mixed Dimension Embeddings with Application to Memory-Efficient Recommendation Systems</em>.</p>
+</dd>
+<dt class="bibtex label" id="gong2020edgerec"><span class="brackets">Gong et al., 2020</span></dt>
+<dd><p>Gong, Y., Jiang, Z., Feng, Y., Hu, B., Zhao, K., Liu, Q., &amp; Ou, W. (2020). Edgerec: recommender system on edge in mobile taobao. <em>Proceedings of the 29th ACM International Conference on Information &amp; Knowledge Management</em> (pp. 2477–2484).</p>
+</dd>
+<dt class="bibtex label" id="computer"><span class="brackets">Grabmeier et al., 2003</span></dt>
+<dd><p>Grabmeier, J., Kaltofen, E., &amp; Weispfenning, V. (2003). <em>Computer Algebra Handbook: Foundations * Applications * Systems</em>. Computer algebra handbook : foundations, applications, systems.</p>
+</dd>
+<dt class="bibtex label" id="ml4kp"><span class="brackets"><a class="fn-backref" href="#id4">Granados et al., 2021--2021</a></span></dt>
+<dd><p>Granados, E., Sivaramakrishnan, A., McMahon, T., Littlefield, Z., &amp; Bekris, K. E. (2021–2021). <em>Machine Learning for Kinodynamic Planning (ML4KP)</em>.</p>
+</dd>
+<dt class="bibtex label" id="id17"><span class="brackets">Griewank &amp; Walther, 2008</span></dt>
+<dd><p>Griewank, A., &amp; Walther, A. (2008). <em>Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation</em>. Second ed. USA: Society for Industrial and Applied Mathematics.</p>
+</dd>
+<dt class="bibtex label" id="rmpygil"><span class="brackets">Gross, 2021</span></dt>
+<dd><p>Gross, S. (2021). <em>Multithreaded Python without the GIL</em>. <span><a class="reference external" href="#"></a></span>https://docs.google.com/document/d/18CXhDb1ygxg-YXNBJNzfzZsDFosB5e6BfnXLlejd9l0/edit#heading=h.kcngwrty1lv.</p>
+</dd>
+<dt class="bibtex label" id="ijcai2017-239"><span class="brackets">Guo et al., 2017</span></dt>
+<dd><p>Guo, H., TANG, R., Ye, Y., Li, Z., &amp; He, X. (2017). Deepfm: a factorization-machine based neural network for ctr prediction. <em>Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence, IJCAI-17</em> (pp. 1725–1731). URL: <a class="reference external" href="https://doi.org/10.24963/ijcai.2017/239">https://doi.org/10.24963/ijcai.2017/239</a>, <a class="reference external" href="https://doi.org/10.24963/ijcai.2017/239">doi:10.24963/ijcai.2017/239</a></p>
+</dd>
+<dt class="bibtex label" id="han2020tstarbot"><span class="brackets">Han et al., 2020</span></dt>
+<dd><p>Han, L., Xiong, J., Sun, P., Sun, X., Fang, M., Guo, Q., … others. (2020). Tstarbot-x: an open-sourced and comprehensive study for efficient league training in starcraft ii full game. <em>arXiv preprint arXiv:2011.13729</em>.</p>
+</dd>
+<dt class="bibtex label" id="neurips2020-a1d4c20b"><span class="brackets">He et al., 2020</span></dt>
+<dd><p>He, C., Annavaram, M., &amp; Avestimehr, S. (2020). Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M. F., &amp; Lin, H. (Eds.). Group knowledge transfer: federated learning of large cnns at the edge. <em>Advances in Neural Information Processing Systems</em> (pp. 14068–14080). Curran Associates, Inc. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/a1d4c20b182ad7137ab3606f0e3fc8a4-Paper.pdf">https://proceedings.neurips.cc/paper/2020/file/a1d4c20b182ad7137ab3606f0e3fc8a4-Paper.pdf</a></p>
+</dd>
+<dt class="bibtex label" id="he2016deep"><span class="brackets">He et al., 2016</span></dt>
+<dd><p>He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep Residual Learning for Image Recognition. <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>.</p>
+</dd>
+<dt class="bibtex label" id="id18"><span class="brackets">He et al., 2014</span></dt>
+<dd><p>He, X., Pan, J., Jin, O., Xu, T., Liu, B., Xu, T., … Candela, J. Q. (2014). Practical lessons from predicting clicks on ads at facebook. <em>Proceedings of the Eighth International Workshop on Data Mining for Online Advertising</em> (pp. 1–9). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/2648584.2648589">https://doi.org/10.1145/2648584.2648589</a>, <a class="reference external" href="https://doi.org/10.1145/2648584.2648589">doi:10.1145/2648584.2648589</a></p>
+</dd>
+<dt class="bibtex label" id="id19"><span class="brackets">Hindley, 1969</span></dt>
+<dd><p>Hindley, R. (1969). The principal type-scheme of an object in combinatory logic. <em>Transactions of the American Mathematical Society</em>, <em>146</em>, 29-60.</p>
+</dd>
+<dt class="bibtex label" id="hochreiter1997lstm"><span class="brackets">Hochreiter et al., 1997</span></dt>
+<dd><p>Hochreiter, S., Hochreiter, S., Schmidhuber, J., &amp; Schmidhuber, J. (1997). Long Short-Term Memory. <em>Neural Computation</em>, <em>9</em>(8), 1735–80.</p>
+</dd>
+<dt class="bibtex label" id="hoffman2020acme"><span class="brackets">Hoffman et al., 2020</span></dt>
+<dd><p>Hoffman, M., Shahriari, B., Aslanides, J., Barth-Maron, G., Behbahani, F., Norman, T., … others. (2020). Acme: a research framework for distributed reinforcement learning. <em>arXiv preprint arXiv:2006.00979</em>.</p>
+</dd>
+<dt class="bibtex label" id="horgan2018distributed"><span class="brackets">Horgan et al., 2018</span></dt>
+<dd><p>Horgan, D., Quan, J., Budden, D., Barth-Maron, G., Hessel, M., van Hasselt, H., &amp; Silver, D. (2018). <em>Distributed Prioritized Experience Replay</em>.</p>
+</dd>
+<dt class="bibtex label" id="fedavg-momentum"><span class="brackets">Hsu et al., 2019</span></dt>
+<dd><p>Hsu, Tzu-Ming H., Qi, H., &amp; Brown, M. (2019). Measuring the effects of non-identical data distribution for federated visual classification. <em>CoRR</em>, <em>abs/1909.06335</em>. URL: <a class="reference external" href="http://arxiv.org/abs/1909.06335">http://arxiv.org/abs/1909.06335</a>, <a class="reference external" href="https://arxiv.org/abs/1909.06335">arXiv:1909.06335</a></p>
+</dd>
+<dt class="bibtex label" id="huang2021life"><span class="brackets">Huang et al., 2021a</span></dt>
+<dd><p>Huang, Z., Pan, X., Xu, R., Xu, Y., Zhang, G., Li, H., &amp; others. (2021). Life: lighting invariant flow estimation. <em>arXiv preprint arXiv:2104.03097</em>.</p>
+</dd>
+<dt class="bibtex label" id="huang2019prior"><span class="brackets">Huang et al., 2019</span></dt>
+<dd><p>Huang, Z., Xu, Y., Shi, J., Zhou, X., Bao, H., &amp; Zhang, G. (2019). Prior guided dropout for robust visual localization in dynamic environments. <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em> (pp. 2791–2800).</p>
+</dd>
+<dt class="bibtex label" id="huang2021vs"><span class="brackets">Huang et al., 2021b</span></dt>
+<dd><p>Huang, Z., Zhou, H., Li, Y., Yang, B., Xu, Y., Zhou, X., … Li, H. (2021). Vs-net: voting with segmentation for visual localization. <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em> (pp. 6101–6111).</p>
+</dd>
+<dt class="bibtex label" id="minddata"><span class="brackets">HuaWei, 2020</span></dt>
+<dd><p>HuaWei (2020). <em>Dataset Plugin</em>. <span><a class="reference external" href="#"></a></span>https://gitee.com/mindspore/dataset-plugin.</p>
+</dd>
+<dt class="bibtex label" id="c"><span class="brackets">Jaervi &amp; Freeman, 2010</span></dt>
+<dd><p>Jaervi, J., &amp; Freeman, J. (2010). C++ lambda expressions and closures. <em>Science of Computer Programming</em>, <em>75</em>(9), 762-772.</p>
+</dd>
+<dt class="bibtex label" id="mlsys2021-ec895663"><span class="brackets">Jiang et al., 2021</span></dt>
+<dd><p>Jiang, W., He, Z., Zhang, S., Preuß er, T. B., Zeng, K., Feng, L., … Alonso, G. (2021). Smola, A., Dimakis, A., &amp; Stoica, I. (Eds.). Microrec: efficient recommendation inference by hardware and data structure solutions. <em>Proceedings of Machine Learning and Systems</em> (pp. 845–859). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2021/file/ec8956637a99787bd197eacd77acce5e-Paper.pdf">https://proceedings.mlsys.org/paper/2021/file/ec8956637a99787bd197eacd77acce5e-Paper.pdf</a></p>
+</dd>
+<dt class="bibtex label" id="jiang2022signds"><span class="brackets">Jiang et al., 2022</span></dt>
+<dd><p>Jiang, X., Zhou, X., &amp; Grossklags, J. (2022). Signds-fl: local differentially private federated learning with sign-based dimension selection. <em>ACM Transactions on Intelligent Systems and Technology (TIST)</em>.</p>
+</dd>
+<dt class="bibtex label" id="scaffold"><span class="brackets">Karimireddy et al., 2020</span></dt>
+<dd><p>Karimireddy, S. P., Kale, S., Mohri, M., Reddi, S., Stich, S., &amp; Suresh, A. T. (2020). Scaffold: stochastic controlled averaging for federated learning. <em>International Conference on Machine Learning</em> (pp. 5132–5143).</p>
+</dd>
+<dt class="bibtex label" id="kim2018interpretability"><span class="brackets">Kim et al., 2018</span></dt>
+<dd><p>Kim, B., Wattenberg, M., Gilmer, J., Cai, C., Wexler, J., Viegas, F., &amp; Sayres, R. (2018). <em>Interpretability Beyond Feature Attribution: Quantitative Testing with Concept Activation Vectors (TCAV)</em>.</p>
+</dd>
+<dt class="bibtex label" id="kingmaadam2014"><span class="brackets">Kingma &amp; Ba, 2014</span></dt>
+<dd><p>Kingma, D., &amp; Ba, J. (2014). Adam: a method for stochastic optimization. <em>Proceedings of the International Conference on Learning Representations (ICLR)</em>.</p>
+</dd>
+<dt class="bibtex label" id="krizhevsky2012imagenet"><span class="brackets">Krizhevsky et al., 2012</span></dt>
+<dd><p>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). Imagenet classification with deep convolutional neural networks. <em>Advances in Neural Information Processing Systems</em> (pp. 1097–1105).</p>
+</dd>
+<dt class="bibtex label" id="llvm"><span class="brackets">Lattner &amp; Adve, 2004</span></dt>
+<dd><p>Lattner, C., &amp; Adve, V. (2004). Llvm: a compilation framework for lifelong program analysis &amp; transformation. <em>Code Generation and Optimization, 2004. CGO 2004. International Symposium on</em>.</p>
+</dd>
+<dt class="bibtex label" id="mlir"><span class="brackets">Lattner et al., 2020a</span></dt>
+<dd><p>Lattner, C., Amini, M., Bondhugula, U., Cohen, A., Davis, A., Pienaar, J., … Zinenko, O. (2020). <em>MLIR: A Compiler Infrastructure for the End of Moore’s Law</em>.</p>
+</dd>
+<dt class="bibtex label" id="lattner2020mlir"><span class="brackets">Lattner et al., 2020b</span></dt>
+<dd><p>Lattner, C., Amini, M., Bondhugula, U., Cohen, A., Davis, A., Pienaar, J., … Zinenko, O. (2020). Mlir: a compiler infrastructure for the end of moore’s law. <em>arXiv preprint arXiv:2002.11054</em>.</p>
+</dd>
+<dt class="bibtex label" id="lecun2015deep"><span class="brackets">LeCun et al., 2015</span></dt>
+<dd><p>LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature</em>, <em>521</em>(7553), 436.</p>
+</dd>
+<dt class="bibtex label" id="lecun1989backpropagation"><span class="brackets">LeCun et al., 1989</span></dt>
+<dd><p>LeCun, Y., Boser, B., Denker, J. S., Henderson, D., Howard, R. E., Hubbard, W., &amp; Jackel, L. D. (1989). Backpropagation applied to handwritten zip code recognition. <em>Neural computation</em>, <em>1</em>(4), 541–551.</p>
+</dd>
+<dt class="bibtex label" id="li2021metadrive"><span class="brackets"><a class="fn-backref" href="#id9">Li et al., 2021</a></span></dt>
+<dd><p>Li, Q., Peng, Z., Xue, Z., Zhang, Q., &amp; Zhou, B. (2021). Metadrive: composing diverse driving scenarios for generalizable reinforcement learning. <em>ArXiv preprint</em>, <em>abs/2109.12674</em>. URL: <a class="reference external" href="https://arxiv.org/abs/2109.12674">https://arxiv.org/abs/2109.12674</a></p>
+</dd>
+<dt class="bibtex label" id="li2018undeepvo"><span class="brackets">Li et al., 2018</span></dt>
+<dd><p>Li, R., Wang, S., Long, Z., &amp; Gu, D. (2018). Undeepvo: monocular visual odometry through unsupervised deep learning. <em>2018 IEEE international conference on robotics and automation (ICRA)</em> (pp. 7286–7291).</p>
+</dd>
+<dt class="bibtex label" id="fedprox"><span class="brackets">Li et al., 2020a</span></dt>
+<dd><p>Li, T., Sahu, A. K., Zaheer, M., Sanjabi, M., Talwalkar, A., &amp; Smith, V. (2020). Federated optimization in heterogeneous networks. <em>Proceedings of Machine Learning and Systems</em> (pp. 429–450).</p>
+</dd>
+<dt class="bibtex label" id="tkde-li"><span class="brackets">Li et al., 2020b</span></dt>
+<dd><p>Li, X.-H., Cao, C. C., Shi, Y., Bai, W., Gao, H., Qiu, L., … Chen, L. (2020). A survey of data-driven and knowledge-aware explainable ai. <em>IEEE Transactions on Knowledge and Data Engineering</em>, (), 1-1. <a class="reference external" href="https://doi.org/10.1109/TKDE.2020.2983930">doi:10.1109/TKDE.2020.2983930</a></p>
+</dd>
+<dt class="bibtex label" id="liang2017ray"><span class="brackets">Liang et al., 2017</span></dt>
+<dd><p>Liang, E., Liaw, R., Nishihara, R., Moritz, P., Fox, R., Gonzalez, J., … Stoica, I. (2017). Ray rllib: a composable and scalable reinforcement learning library. <em>arXiv preprint arXiv:1712.09381</em>, p. 85.</p>
+</dd>
+<dt class="bibtex label" id="ascend"><span class="brackets">Liao et al., 2021</span></dt>
+<dd><p>Liao, H., Tu, J., Xia, J., Liu, H., Zhou, X., Yuan, H., &amp; Hu, Y. (2021). Ascend: a scalable and unified architecture for ubiquitous deep neural network computing : industry track paper. <em>2021 IEEE International Symposium on High-Performance Computer Architecture (HPCA)</em> (pp. 789–801). <a class="reference external" href="https://doi.org/10.1109/HPCA51647.2021.00071">doi:10.1109/HPCA51647.2021.00071</a></p>
+</dd>
+<dt class="bibtex label" id="makoviychuk2021isaac"><span class="brackets">Makoviychuk et al., 2021</span></dt>
+<dd><p>Makoviychuk, V., Wawrzyniak, L., Guo, Y., Lu, M., Storey, K., Macklin, M., … others. (2021). Isaac gym: high performance gpu-based physics simulation for robot learning. <em>arXiv preprint arXiv:2108.10470</em>.</p>
+</dd>
+<dt class="bibtex label" id="fedavg"><span class="brackets">McMahan et al., 2017</span></dt>
+<dd><p>McMahan, B., Moore, E., Ramage, D., Hampson, S., &amp; y Arcas, B. A. (2017). Communication-efficient learning of deep networks from decentralized data. <em>Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, AISTATS 2017, 20-22 April 2017, Fort Lauderdale, FL, USA</em> (pp. 1273–1282). PMLR. URL: <a class="reference external" href="http://proceedings.mlr.press/v54/mcmahan17a.html">http://proceedings.mlr.press/v54/mcmahan17a.html</a></p>
+</dd>
+<dt class="bibtex label" id="mcsherry2007mechanism"><span class="brackets">McSherry &amp; Talwar, 2007</span></dt>
+<dd><p>McSherry, F., &amp; Talwar, K. (2007). Mechanism design via differential privacy. <em>IEEE Symposium on Foundations of Computer Science</em> (pp. 94–103).</p>
+</dd>
+<dt class="bibtex label" id="pmlr-v144-mehrjou21a"><span class="brackets">Mehrjou et al., 2021</span></dt>
+<dd><p>Mehrjou, A., Ghavamzadeh, M., &amp; Schölkopf, B. (2021 , 07 – 08 June). Jadbabaie, A., Lygeros, J., Pappas, G. J., A.&amp;nbsp;Parrilo, P., Recht, B., Tomlin, C. J., &amp; Zeilinger, M. N. (Eds.). Neural lyapunov redesign. <em>Proceedings of the 3rd Conference on Learning for Dynamics and Control</em> (pp. 459–470). PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v144/mehrjou21a.html">https://proceedings.mlr.press/v144/mehrjou21a.html</a></p>
+</dd>
+<dt class="bibtex label" id="meijer2006linq"><span class="brackets">Meijer et al., 2006</span></dt>
+<dd><p>Meijer, E., Beckman, B., &amp; Bierman, G. (2006). Linq: reconciling object, relations and xml in the. net framework. <em>Proceedings of the 2006 ACM SIGMOD international conference on Management of data</em> (pp. 706–706).</p>
+</dd>
+<dt class="bibtex label" id="a"><span class="brackets">Milner, 1978</span></dt>
+<dd><p>Milner, R. (1978). A theory of type polymorphism in programming. <em>Journal of Computer and System Sciences</em>, <em>17</em>(3), 348-375.</p>
+</dd>
+<dt class="bibtex label" id="mnih2016asynchronous"><span class="brackets">Mnih et al., 2016</span></dt>
+<dd><p>Mnih, V., Badia, A. P., Mirza, M., Graves, A., Lillicrap, T., Harley, T., … Kavukcuoglu, K. (2016). Asynchronous methods for deep reinforcement learning. <em>International Conference on Machine Learning (ICML)</em> (pp. 1928–1937).</p>
+</dd>
+<dt class="bibtex label" id="mohan2020analyzing"><span class="brackets">Mohan et al., 2020</span></dt>
+<dd><p>Mohan, J., Phanishayee, A., Raniwala, A., &amp; Chidambaram, V. (2020). Analyzing and mitigating data stalls in dnn training. <em>arXiv preprint arXiv:2007.06775</em>.</p>
+</dd>
+<dt class="bibtex label" id="moritz2018ray"><span class="brackets">Moritz et al., 2018</span></dt>
+<dd><p>Moritz, P., Nishihara, R., Wang, S., Tumanov, A., Liaw, R., Liang, E., … others. (2018). Ray: a distributed framework for emerging $\$AI$\$ applications. <em>13th $\$USENIX$\$ Symposium on Operating Systems Design and Implementation ($\$OSDI$\$ 18)</em> (pp. 561–577).</p>
+</dd>
+<dt class="bibtex label" id="zionex"><span class="brackets">Mudigere et al., 2021</span></dt>
+<dd><p>Mudigere, D., Hao, Y., Huang, J., Jia, Z., Tulloch, A., Sridharan, S., … others. (2021). Software-hardware co-design for fast and scalable training of deep learning recommendation models. <em>arXiv preprint arXiv:2104.05158</em>.</p>
+</dd>
+<dt class="bibtex label" id="murray2013naiad"><span class="brackets">Murray et al., 2013</span></dt>
+<dd><p>Murray, D. G., McSherry, F., Isaacs, R., Isard, M., Barham, P., &amp; Abadi, M. (2013). Naiad: a timely dataflow system. <em>Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles</em> (pp. 439–455).</p>
+</dd>
+<dt class="bibtex label" id="murray2021tf"><span class="brackets">Murray et al., 2021</span></dt>
+<dd><p>Murray, D. G., Simsa, J., Klimovic, A., &amp; Indyk, I. (2021). Tf. data: a machine learning data processing framework. <em>arXiv preprint arXiv:2101.12127</em>.</p>
+</dd>
+<dt class="bibtex label" id="naumov2019deep"><span class="brackets">Naumov et al., 2019</span></dt>
+<dd><p>Naumov, M., Mudigere, D., Shi, H.-J. M., Huang, J., Sundaraman, N., Park, J., … others. (2019). Deep learning recommendation model for personalization and recommendation systems. <em>arXiv preprint arXiv:1906.00091</em>.</p>
+</dd>
+<dt class="bibtex label" id="nvidia"><span class="brackets">NVIDIA, 2017</span></dt>
+<dd><p>NVIDIA (2017). <em>NVIDIA Tesla V100 GPU Architecture: The World’s Most Advanced Datacenter GPU</em>. <span><a class="reference external" href="#"></a></span>http://www.nvidia.com/object/volta-architecture-whitepaper.html.</p>
+</dd>
+<dt class="bibtex label" id="nvidia-dali"><span class="brackets">NVIDIA, 2018</span></dt>
+<dd><p>NVIDIA (2018). <em>DALI</em>. <span><a class="reference external" href="#"></a></span>https://github.com/NVIDIA/DALI.</p>
+</dd>
+<dt class="bibtex label" id="hugectr"><span class="brackets">NVIDIA, 2022a</span></dt>
+<dd><p>NVIDIA (2022). <em>NVIDIA HugeCTR</em>. Accessed on 2022-03-24.</p>
+</dd>
+<dt class="bibtex label" id="merlin"><span class="brackets">NVIDIA, 2022b</span></dt>
+<dd><p>NVIDIA (2022). <em>NVIDIA Merlin</em>. Accessed on 2022-03-24.</p>
+</dd>
+<dt class="bibtex label" id="nvtabular"><span class="brackets">NVIDIA, 2022c</span></dt>
+<dd><p>NVIDIA (2022). <em>NVIDIA NVTabular</em>. Accessed on 2022-03-24.</p>
+</dd>
+<dt class="bibtex label" id="triton"><span class="brackets">NVIDIA, 2022d</span></dt>
+<dd><p>NVIDIA (2022). <em>NVIDIA Triton</em>. Accessed on 2022-03-24.</p>
+</dd>
+<dt class="bibtex label" id="pate"><span class="brackets">Papernot et al., 2017</span></dt>
+<dd><p>Papernot, N., Abadi, Mart’ın, Erlingsson, Ú., Goodfellow, I. J., &amp; Talwar, K. (2017). Semi-supervised knowledge transfer for deep learning from private training data. <em>5th International Conference on Learning Representations, ICLR 2017, Toulon, France, April 24-26, 2017, Conference Track Proceedings</em>. OpenReview.net.</p>
+</dd>
+<dt class="bibtex label" id="automatic"><span class="brackets">Pearlmutter, 2015</span></dt>
+<dd><p>Pearlmutter, B. A. (2015). Automatic differentiation in machine learning: a survey. <em>computer science</em>.</p>
+</dd>
+<dt class="bibtex label" id="peng2021learning"><span class="brackets"><a class="fn-backref" href="#id10">Peng et al., 2021a</a></span></dt>
+<dd><p>Peng, Z., Li, Q., Hui, K. M., Liu, C., &amp; Zhou, B. (2021). Learning to simulate self-driven particles system with coordinated policy optimization. <em>Advances in Neural Information Processing Systems</em>, <em>34</em>.</p>
+</dd>
+<dt class="bibtex label" id="peng2021safe"><span class="brackets"><a class="fn-backref" href="#id11">Peng et al., 2021b</a></span></dt>
+<dd><p>Peng, Z., Li, Q., Liu, C., &amp; Zhou, B. (2021). Safe driving via expert guided policy optimization. <em>5th Annual Conference on Robot Learning</em>.</p>
+</dd>
+<dt class="bibtex label" id="id20"><span class="brackets">Qin et al., 2018</span></dt>
+<dd><p>Qin, T., Li, P., &amp; Shen, S. (2018). Vins-mono: a robust and versatile monocular visual-inertial state estimator. <em>IEEE Transactions on Robotics</em>, <em>34</em>(4), 1004-1020. <a class="reference external" href="https://doi.org/10.1109/TRO.2018.2853729">doi:10.1109/TRO.2018.2853729</a></p>
+</dd>
+<dt class="bibtex label" id="qiu2021egocentric"><span class="brackets"><a class="fn-backref" href="#id5">Qiu et al., 2021</a></span></dt>
+<dd><p>Qiu, J., Chen, L., Gu, X., Lo, F. P.-W., Tsai, Y.-Y., Sun, J., … Lo, B. (2021). Egocentric human trajectory forecasting with a wearable camera and multi-modal fusion. <em>arXiv preprint arXiv:2111.00993</em>.</p>
+</dd>
+<dt class="bibtex label" id="quintero2021motion"><span class="brackets"><a class="fn-backref" href="#id3">Quintero-Pena et al., 2021</a></span></dt>
+<dd><p>Quintero-Pena, C., Chamzas, C., Unhelkar, V., &amp; Kavraki, L. E. (2021). Motion planning via bayesian learning in the dark. <em>ICRA: Workshop on Machine Learning for Motion Planning</em>.</p>
+</dd>
+<dt class="bibtex label" id="pmlr-v144-rafailov21a"><span class="brackets">Rafailov et al., 2021</span></dt>
+<dd><p>Rafailov, R., Yu, T., Rajeswaran, A., &amp; Finn, C. (2021 , 07 – 08 June). Jadbabaie, A., Lygeros, J., Pappas, G. J., A.&amp;nbsp;Parrilo, P., Recht, B., Tomlin, C. J., &amp; Zeilinger, M. N. (Eds.). Offline reinforcement learning from images with latent space models. <em>Proceedings of the 3rd Conference on Learning for Dynamics and Control</em> (pp. 1154–1168). PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v144/rafailov21a.html">https://proceedings.mlr.press/v144/rafailov21a.html</a></p>
+</dd>
+<dt class="bibtex label" id="ragan2013halide"><span class="brackets">Ragan-Kelley et al., 2013</span></dt>
+<dd><p>Ragan-Kelley, J., Barnes, C., Adams, A., Paris, S., Durand, F., &amp; Amarasinghe, S. (2013). Halide: a language and compiler for optimizing parallelism, locality, and recomputation in image processing pipelines. <em>Acm Sigplan Notices</em>, <em>48</em>(6), 519–530.</p>
+</dd>
+<dt class="bibtex label" id="modeling"><span class="brackets">Raihan et al., 2018</span></dt>
+<dd><p>Raihan, M. A., Goli, N., &amp; Aamodt, T. (2018). Modeling deep learning accelerator enabled gpus. <em>arXiv e-prints arXiv:1811.08309</em>.</p>
+</dd>
+<dt class="bibtex label" id="richard1995a"><span class="brackets">Richard et al., 1995</span></dt>
+<dd><p>Richard, A., &amp; Kelsey. (1995). A correspondence between continuation passing style and static single assignment form. <em>Acm Sigplan Notices</em>.</p>
+</dd>
+<dt class="bibtex label" id="riedl2019human"><span class="brackets">Riedl, 2019</span></dt>
+<dd><p>Riedl, M. O. (2019). Human-centered artificial intelligence and machine learning. <em>Human Behavior and Emerging Technologies</em>, <em>1</em>(1), 33–36.</p>
+</dd>
+<dt class="bibtex label" id="rosenblatt1958perceptron"><span class="brackets">Rosenblatt, 1958</span></dt>
+<dd><p>Rosenblatt, F. (1958). The perceptron: a probabilistic model for information storage and organization in the brain. <em>Psychological Review</em>, <em>65</em>(6), 386.</p>
+</dd>
+<dt class="bibtex label" id="rumelhart1986learning"><span class="brackets">Rumelhart et al., 1986</span></dt>
+<dd><p>Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. <em>Nature</em>, <em>323</em>(6088), 533.</p>
+</dd>
+<dt class="bibtex label" id="salzmann2020trajectron"><span class="brackets"><a class="fn-backref" href="#id6">Salzmann et al., 2020</a></span></dt>
+<dd><p>Salzmann, T., Ivanovic, B., Chakravarty, P., &amp; Pavone, M. (2020). Trajectron++: dynamically-feasible trajectory forecasting with heterogeneous data. <em>European Conference on Computer Vision</em> (pp. 683–700).</p>
+</dd>
+<dt class="bibtex label" id="nips2015-86df7dcf"><span class="brackets">Sculley et al., 2015</span></dt>
+<dd><p>Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., … Dennison, D. (2015). Cortes, C., Lawrence, N., Lee, D., Sugiyama, M., &amp; Garnett, R. (Eds.). Hidden technical debt in machine learning systems. <em>Advances in Neural Information Processing Systems</em> (p. ). Curran Associates, Inc. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf">https://proceedings.neurips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf</a></p>
+</dd>
+<dt class="bibtex label" id="id21"><span class="brackets">Shi et al., 2020</span></dt>
+<dd><p>Shi, H.-J. M., Mudigere, D., Naumov, M., &amp; Yang, J. (2020). Compositional embeddings using complementary partitions for memory-efficient recommendation systems. <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp;amp; Data Mining</em> (pp. 165–175). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3394486.3403059">https://doi.org/10.1145/3394486.3403059</a>, <a class="reference external" href="https://doi.org/10.1145/3394486.3403059">doi:10.1145/3394486.3403059</a></p>
+</dd>
+<dt class="bibtex label" id="divide"><span class="brackets">Siskind &amp; Pearlmutter, 2017</span></dt>
+<dd><p>Siskind, J. M., &amp; Pearlmutter, B. A. (2017). Divide-and-conquer checkpointing for arbitrary programs with no user annotation. <em>Optimization Methods and Software</em>, <em>33</em>(4-6).</p>
+</dd>
+<dt class="bibtex label" id="spuler1994compiler"><span class="brackets">Spuler &amp; Sajeev, 1994</span></dt>
+<dd><p>Spuler, D. A., &amp; Sajeev, A. S. M. (1994). Compiler detection of function call side effects. <em>Informatica</em>, <em>18</em>(2), 219–227.</p>
+</dd>
+<dt class="bibtex label" id="id22"><span class="brackets"><a class="fn-backref" href="#id2">Sun et al., 2022</a></span></dt>
+<dd><p>Sun, J., Huang, D.-A., Lu, B., Liu, Y.-H., Zhou, B., &amp; Garg, A. (2022). Plate: visually-grounded planning with transformers in procedural tasks. <em>IEEE Robotics and Automation Letters</em>, <em>7</em>(2), 4924-4930. <a class="reference external" href="https://doi.org/10.1109/LRA.2022.3150855">doi:10.1109/LRA.2022.3150855</a></p>
+</dd>
+<dt class="bibtex label" id="sun2021adversarial"><span class="brackets"><a class="fn-backref" href="#id8">Sun et al., 2021</a></span></dt>
+<dd><p>Sun, J., Yu, L., Dong, P., Lu, B., &amp; Zhou, B. (2021). Adversarial inverse reinforcement learning with self-attention dynamics model. <em>IEEE Robotics and Automation Letters</em>, <em>6</em>(2), 1880–1886.</p>
+</dd>
+<dt class="bibtex label" id="tanaka2021learning"><span class="brackets">Tanaka et al., 2021</span></dt>
+<dd><p>Tanaka, T., Sasagawa, Y., &amp; Okatani, T. (2021). Learning to bundle-adjust: a graph network approach to faster optimization of bundle adjustment for vehicular slam. <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em> (pp. 6250–6259).</p>
+</dd>
+<dt class="bibtex label" id="tang2018ba"><span class="brackets">Tang &amp; Tan, 2018</span></dt>
+<dd><p>Tang, C., &amp; Tan, P. (2018). Ba-net: dense bundle adjustment network. <em>arXiv preprint arXiv:1806.04807</em>.</p>
+</dd>
+<dt class="bibtex label" id="teed2021droid"><span class="brackets">Teed &amp; Deng, 2021</span></dt>
+<dd><p>Teed, Z., &amp; Deng, J. (2021). Droid-slam: deep visual slam for monocular, stereo, and rgb-d cameras. <em>Advances in Neural Information Processing Systems</em>, <em>34</em>.</p>
+</dd>
+<dt class="bibtex label" id="id23"><span class="brackets">Tian et al., 2018</span></dt>
+<dd><p>Tian, H., Yu, M., &amp; Wang, W. (2018). Continuum: a platform for cost-aware, low-latency continual learning. <em>Proceedings of the ACM Symposium on Cloud Computing</em> (pp. 26–40). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3267809.3267817">https://doi.org/10.1145/3267809.3267817</a>, <a class="reference external" href="https://doi.org/10.1145/3267809.3267817">doi:10.1145/3267809.3267817</a></p>
+</dd>
+<dt class="bibtex label" id="tieleman2012rmsprop"><span class="brackets">Tieleman &amp; Hinton, 2017</span></dt>
+<dd><p>Tieleman, T., &amp; Hinton, G. (2017). <em>Divide the gradient by a running average of its recent magnitude. COURSERA: Neural networks for machine learning</em>. Technical Report.</p>
+</dd>
+<dt class="bibtex label" id="vasilache2022composable"><span class="brackets">Vasilache et al., 2022</span></dt>
+<dd><p>Vasilache, N., Zinenko, O., Bik, A. J., Ravishankar, M., Raoux, T., Belyaev, A., … others. (2022). Composable and modular code generation in mlir: a structured and retargetable approach to tensor compiler construction. <em>arXiv preprint arXiv:2202.03293</em>.</p>
+</dd>
+<dt class="bibtex label" id="vaswani2017attention"><span class="brackets">Vaswani et al., 2017</span></dt>
+<dd><p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., … Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems</em> (pp. 5998–6008).</p>
+</dd>
+<dt class="bibtex label" id="verdoolaege2010isl"><span class="brackets">Verdoolaege, 2010</span></dt>
+<dd><p>Verdoolaege, S. (2010). Isl: an integer set library for the polyhedral model. <em>International Congress on Mathematical Software</em> (pp. 299–302).</p>
+</dd>
+<dt class="bibtex label" id="an"><span class="brackets">Verma, 2000</span></dt>
+<dd><p>Verma, A. (2000). An introduction to automatic differentiation. <em>Siam Computational Differentiation Techniques Applications &amp; Tools</em>, <em>78</em>(7), 804-807.</p>
+</dd>
+<dt class="bibtex label" id="vianna2021neural"><span class="brackets">Vianna et al., 2021</span></dt>
+<dd><p>Vianna, M. L. C., Goubault, E., &amp; Putot, S. (2021). Neural network based model predictive control for an autonomous vehicle. <em>arXiv preprint arXiv:2107.14573</em>.</p>
+</dd>
+<dt class="bibtex label" id="vinyals2019grandmaster"><span class="brackets">Vinyals et al., 2019</span></dt>
+<dd><p>Vinyals, O., Babuschkin, I., Czarnecki, W. M., Mathieu, M., Dudzik, A., Chung, J., … others. (2019). Grandmaster level in starcraft ii using multi-agent reinforcement learning. <em>Nature</em>, <em>575</em>(7782), 350–354.</p>
+</dd>
+<dt class="bibtex label" id="id24"><span class="brackets">Wang et al., 2017</span></dt>
+<dd><p>Wang, R., Fu, B., Fu, G., &amp; Wang, M. (2017). Deep &amp;amp; cross network for ad click predictions. <em>Proceedings of the ADKDD‘17</em>. New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3124749.3124754">https://doi.org/10.1145/3124749.3124754</a>, <a class="reference external" href="https://doi.org/10.1145/3124749.3124754">doi:10.1145/3124749.3124754</a></p>
+</dd>
+<dt class="bibtex label" id="wang2021scc"><span class="brackets">Wang et al., 2021a</span></dt>
+<dd><p>Wang, X., Song, J., Qi, P., Peng, P., Tang, Z., Zhang, W., … others. (2021). Scc: an efficient deep reinforcement learning agent mastering the game of starcraft ii. <em>International Conference on Machine Learning</em> (pp. 10905–10915).</p>
+</dd>
+<dt class="bibtex label" id="wang-etal-2021-lightseq"><span class="brackets">Wang et al., 2021</span></dt>
+<dd><p>Wang, X., Xiong, Y., Wei, Y., Wang, M., &amp; Li, L. (2021 , June). LightSeq: a high performance inference library for transformers. <em>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Industry Papers</em> (pp. 113–120). Online: Association for Computational Linguistics. URL: <a class="reference external" href="https://aclanthology.org/2021.naacl-industry.15">https://aclanthology.org/2021.naacl-industry.15</a>, <a class="reference external" href="https://doi.org/10.18653/v1/2021.naacl-industry.15">doi:10.18653/v1/2021.naacl-industry.15</a></p>
+</dd>
+<dt class="bibtex label" id="id25"><span class="brackets">Xie et al., 2020</span></dt>
+<dd><p>Xie, M., Ren, K., Lu, Y., Yang, G., Xu, Q., Wu, B., … Shu, J. (2020). Kraken: memory-efficient continual learning for large-scale real-time recommendations. <em>SC20: International Conference for High Performance Computing, Networking, Storage and Analysis</em> (pp. 1–17). <a class="reference external" href="https://doi.org/10.1109/SC41405.2020.00025">doi:10.1109/SC41405.2020.00025</a></p>
+</dd>
+<dt class="bibtex label" id="xu2020selfvoxelo"><span class="brackets">Xu et al., 2020</span></dt>
+<dd><p>Xu, Y., Huang, Z., Lin, K.-Y., Zhu, X., Shi, J., Bao, H., … Li, H. (2020). Selfvoxelo: self-supervised lidar odometry with voxel-based deep neural networks. <em>arXiv preprint arXiv:2010.09343</em>.</p>
+</dd>
+<dt class="bibtex label" id="xu2022robust"><span class="brackets">Xu et al., 2022a</span></dt>
+<dd><p>Xu, Y., Lin, J., Shi, J., Zhang, G., Wang, X., &amp; Li, H. (2022). Robust self-supervised lidar odometry via representative structure discovery and 3d inherent error modeling. <em>IEEE Robotics and Automation Letters</em>.</p>
+</dd>
+<dt class="bibtex label" id="xu2022rnnpose"><span class="brackets">Xu et al., 2022b</span></dt>
+<dd><p>Xu, Y., Lin, J., Zhang, G., Wang, X., &amp; Li, H. (2022). Rnnpose: recurrent 6-dof object pose refinement with robust correspondence field estimation and pose optimization. <em>arXiv preprint arXiv:2203.12870</em>.</p>
+</dd>
+<dt class="bibtex label" id="xu2019depth"><span class="brackets">Xu et al., 2019</span></dt>
+<dd><p>Xu, Y., Zhu, X., Shi, J., Zhang, G., Bao, H., &amp; Li, H. (2019). Depth completion from sparse lidar data with depth-normal constraints. <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em> (pp. 2811–2820).</p>
+</dd>
+<dt class="bibtex label" id="yang2021pdnet"><span class="brackets">Yang et al., 2021</span></dt>
+<dd><p>Yang, L., Xu, Y., Wang, S., Yuan, C., Zhang, Z., Li, B., &amp; Hu, W. (2021). Pdnet: towards better one-stage object detection with prediction decoupling. <em>arXiv preprint arXiv:2104.13876</em>.</p>
+</dd>
+<dt class="bibtex label" id="yi2020segvoxelnet"><span class="brackets">Yi et al., 2020</span></dt>
+<dd><p>Yi, H., Shi, S., Ding, M., Sun, J., Xu, K., Zhou, H., … Wang, G. (2020). Segvoxelnet: exploring semantic context and depth-aware features for 3d vehicle detection from point cloud. <em>2020 IEEE International Conference on Robotics and Automation (ICRA)</em> (pp. 2274–2280).</p>
+</dd>
+<dt class="bibtex label" id="mlsys2021-979d472a"><span class="brackets">Yin et al., 2021</span></dt>
+<dd><p>Yin, C., Acun, B., Wu, C.-J., &amp; Liu, X. (2021). Smola, A., Dimakis, A., &amp; Stoica, I. (Eds.). Tt-rec: tensor train compression for deep learning recommendation models. <em>Proceedings of Machine Learning and Systems</em> (pp. 448–462). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2021/file/979d472a84804b9f647bc185a877a8b5-Paper.pdf">https://proceedings.mlsys.org/paper/2021/file/979d472a84804b9f647bc185a877a8b5-Paper.pdf</a></p>
+</dd>
+<dt class="bibtex label" id="zaharia2010spark"><span class="brackets">Zaharia et al., 2010</span></dt>
+<dd><p>Zaharia, M., Chowdhury, M., Franklin, M. J., Shenker, S., &amp; Stoica, I. (2010). Spark: cluster computing with working sets. <em>2nd USENIX Workshop on Hot Topics in Cloud Computing (HotCloud 10)</em>.</p>
+</dd>
+<dt class="bibtex label" id="pmlr-v144-zhang21b"><span class="brackets">Zhang &amp; Capel, 2021</span></dt>
+<dd><p>Zhang, N., &amp; Capel, N. (2021 , 07 – 08 June). Jadbabaie, A., Lygeros, J., Pappas, G. J., A.&amp;nbsp;Parrilo, P., Recht, B., Tomlin, C. J., &amp; Zeilinger, M. N. (Eds.). LEOC: a principled method in integrating reinforcement learning and classical control theory. <em>Proceedings of the 3rd Conference on Learning for Dynamics and Control</em> (pp. 689–701). PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v144/zhang21b.html">https://proceedings.mlr.press/v144/zhang21b.html</a></p>
+</dd>
+<dt class="bibtex label" id="zhao2021akg"><span class="brackets">Zhao et al., 2021</span></dt>
+<dd><p>Zhao, J., Li, B., Nie, W., Geng, Z., Zhang, R., Gao, X., … others. (2021). Akg: automatic kernel generation for neural processing units using polyhedral transformations. <em>Proceedings of the 42nd ACM SIGPLAN International Conference on Programming Language Design and Implementation</em> (pp. 1233–1248).</p>
+</dd>
+<dt class="bibtex label" id="mlsys2020-f7e6c855"><span class="brackets">Zhao et al., 2020</span></dt>
+<dd><p>Zhao, W., Xie, D., Jia, R., Qian, Y., Ding, R., Sun, M., &amp; Li, P. (2020). Dhillon, I., Papailiopoulos, D., &amp; Sze, V. (Eds.). Distributed hierarchical gpu parameter server for massive scale deep learning ads systems. <em>Proceedings of Machine Learning and Systems</em> (pp. 412–428). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2020/file/f7e6c85504ce6e82442c770f7c8606f0-Paper.pdf">https://proceedings.mlsys.org/paper/2020/file/f7e6c85504ce6e82442c770f7c8606f0-Paper.pdf</a></p>
+</dd>
+<dt class="bibtex label" id="zheng2020ansor"><span class="brackets">Zheng et al., 2020</span></dt>
+<dd><p>Zheng, L., Jia, C., Sun, M., Wu, Z., Yu, C. H., Haj-Ali, A., … others. (2020). Ansor: generating $\$High-Performance$\$ tensor programs for deep learning. <em>14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20)</em> (pp. 863–879).</p>
+</dd>
+<dt class="bibtex label" id="zhu2020ssn"><span class="brackets">Zhu et al., 2020</span></dt>
+<dd><p>Zhu, X., Ma, Y., Wang, T., Xu, Y., Shi, J., &amp; Lin, D. (2020). Ssn: shape signature networks for multi-class object detection from point clouds. <em>European Conference on Computer Vision</em> (pp. 581–597).</p>
+</dd>
+</dl>
+</p>
 </div>
 
 
@@ -424,14 +838,14 @@ RL），样本效率极高，是单纯强化学习算法的50倍。为了更好�
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>16.3. 感知系统</div>
+            <div>17.3. 感知系统</div>
          </div>
      </a>
      <a id="button-next" href="control.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>16.5. 控制系统</div>
+            <div>17.5. 控制系统</div>
         </div>
      </a>
   </div>

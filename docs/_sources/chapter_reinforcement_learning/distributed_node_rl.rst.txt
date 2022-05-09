@@ -40,7 +40,7 @@ Target），通过重要性加权来稳定训练。我们这里侧重对分布�
 
 .. _ch12/ch12-rllib:
 
-.. figure:: ../img/ch12/ch12-rllib-arch.png
+.. figure:: ../img/ch12/ch12-rllib-arch.svg
    :width: 800px
 
    RLlib系统架构
@@ -53,7 +53,7 @@ Ray
 
 .. _ch12/ch12-rllib_dist:
 
-.. figure:: ../img/ch12/ch12-rllib-distributed.png
+.. figure:: ../img/ch12/ch12-rllib-distributed.svg
    :width: 800px
 
    RLlib分布式训练

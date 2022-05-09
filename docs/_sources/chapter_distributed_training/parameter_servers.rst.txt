@@ -18,7 +18,7 @@ feature）构成。这些特征往往是大型向量（Vector）。现代推荐�
 
 .. _ch10-parameter-servers:
 
-.. figure:: ../img/ch09/ch10-parameter-servers.svg
+.. figure:: ../img/ch09/ch10-parameter-servers.png
    :width: 800px
 
    参数服务器

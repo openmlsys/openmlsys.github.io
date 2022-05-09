@@ -7,7 +7,7 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
   <title>
-   6.5. 计算调度与执行 — 机器学习系统：设计和实现 1.0.0 documentation
+   7.5. 计算调度与执行 — 机器学习系统：设计和实现 1.0.0 documentation
   </title>
   <link href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" rel="stylesheet" type="text/css"/>
   <link href="../_static/sphinx_materialdesign_theme.css" rel="stylesheet" type="text/css"/>
@@ -29,8 +29,8 @@
   <link href="../_static/favicon.png" rel="shortcut icon"/>
   <link href="../genindex.html" rel="index" title="Index"/>
   <link href="../search.html" rel="search" title="Search"/>
-  <link href="summary.html" rel="next" title="6.6. 总结"/>
-  <link href="memory_allocator.html" rel="prev" title="6.4. 内存分配"/>
+  <link href="summary.html" rel="next" title="7.6. 总结"/>
+  <link href="memory_allocator.html" rel="prev" title="7.4. 内存分配"/>
  </head>
  <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
@@ -39,7 +39,7 @@
      <nav class="mdl-navigation breadcrumb">
       <a class="mdl-navigation__link" href="index.html">
        <span class="section-number">
-        6.
+        7.
        </span>
        编译器后端和运行时
       </a>
@@ -48,7 +48,7 @@
       </i>
       <a class="mdl-navigation__link is-active">
        <span class="section-number">
-        6.5.
+        7.5.
        </span>
        计算调度与执行
       </a>
@@ -109,514 +109,529 @@
      <nav class="mdl-navigation">
       <ul class="current">
        <li class="toctree-l1">
+        <a class="reference internal" href="../chapter_preface/index.html">
+         1. 序言
+        </a>
+       </li>
+       <li class="toctree-l1">
         <a class="reference internal" href="../chapter_introduction/index.html">
-         1. 导论
+         2. 导论
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">
-           1.1. 机器学习应用
+           2.1. 机器学习应用
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">
-           1.2. 机器学习系统的需求
+           2.2. 设计目标
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">
-           1.3. 机器学习系统基本组成
+           2.3. 基本组成
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_introduction/applicable_readers.html">
-           1.4. 适用读者
+           2.4. 适用读者
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_programming_interface/index.html">
-         2. 编程接口
+         3. 编程接口
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_programming_interface/development_history.html">
-           2.1. 机器学习系统编程模型的演进
+           3.1. 机器学习系统编程模型的演进
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">
-           2.2. 机器学习工作流
+           3.2. 机器学习工作流
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">
-           2.3. 定义深度神经网络
+           3.3. 定义深度神经网络
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">
-           2.4. C/C++编程接口
+           3.4. C/C++编程接口
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_programming_interface/summary.html">
-           2.5. 总结
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_programming_interface/summary.html#id2">
-           2.6. 扩展阅读
-          </a>
-         </li>
-        </ul>
-       </li>
-       <li class="toctree-l1">
-        <a class="reference internal" href="../chapter_computational_graph/index.html">
-         3. 计算图
-        </a>
-        <ul>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">
-           3.1. 计算图的设计背景和作用
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">
-           3.2. 计算图的基本构成
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">
-           3.3. 计算图的生成
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">
-           3.4. 计算图的调度
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/summary.html">
            3.5. 总结
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+          <a class="reference internal" href="../chapter_programming_interface/summary.html#id2">
            3.6. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
+        <a class="reference internal" href="../chapter_computational_graph/index.html">
+         4. 计算图
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">
+           4.1. 计算图的设计背景和作用
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">
+           4.2. 计算图的基本构成
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">
+           4.3. 计算图的生成
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">
+           4.4. 计算图的调度
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/summary.html">
+           4.5. 总结
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+           4.6. 扩展阅读
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
         <a class="reference internal" href="../chapter_preface_advanced/index.html">
-         4. 第二部分：进阶篇
+         5. 第二部分：进阶篇
         </a>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_frontend_and_ir/index.html">
-         5. 编译器前端
+         6. 编译器前端
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">
-           5.1. 概述
+           6.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">
-           5.2. 中间表示
+           6.2. 中间表示
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/ad.html">
-           5.3. 自动微分
+           6.3. 自动微分
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">
-           5.4. 类型系统和静态分析
+           6.4. 类型系统和静态分析
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">
-           5.5. 常见前端编译优化方法
+           6.5. 常见前端编译优化方法
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/summary.html">
-           5.6. 总结
+           6.6. 总结
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">
-           5.7. 扩展阅读
+           6.7. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1 current">
         <a class="reference internal" href="index.html">
-         6. 编译器后端和运行时
+         7. 编译器后端和运行时
         </a>
         <ul class="current">
          <li class="toctree-l2">
           <a class="reference internal" href="overview.html">
-           6.1. 概述
+           7.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="graph_optimizer.html">
-           6.2. 计算图优化
+           7.2. 计算图优化
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="kernel_selecter.html">
-           6.3. 算子选择
+           7.3. 算子选择
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="memory_allocator.html">
-           6.4. 内存分配
+           7.4. 内存分配
           </a>
          </li>
          <li class="toctree-l2 current">
           <a class="current reference internal" href="#">
-           6.5. 计算调度与执行
+           7.5. 计算调度与执行
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="summary.html">
-           6.6. 总结
+           7.6. 总结
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="summary.html#id2">
+           7.7. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_accelerator/index.html">
-         7. 硬件加速器
+         8. 硬件加速器
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">
-           7.1. 概述
+           8.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">
-           7.2. 加速器基本组成原理
+           8.2. 加速器基本组成原理
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">
-           7.3. 加速器基本编程原理
+           8.3. 加速器基本编程原理
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_accelerator/summary.html">
-           7.4. 总结
+           8.4. 总结
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_accelerator/summary.html#id2">
-           7.5. 扩展阅读
+           8.5. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_data_processing/index.html">
-         8. 数据处理框架
+         9. 数据处理框架
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/requirements.html">
-           8.1. 概述
+           9.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/program_model.html">
-           8.2. 易用性设计
+           9.2. 易用性设计
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/performance.html">
-           8.3. 高效性设计
+           9.3. 高效性设计
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/data_order.html">
-           8.4. 保序性设计
+           9.4. 保序性设计
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/extension.html">
-           8.5. 单机数据处理性能的扩展
+           9.5. 单机数据处理性能的扩展
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_data_processing/summary.html">
-           8.6. 章节总结
+           9.6. 总结
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_model_deployment/index.html">
-         9. 模型部署
+         10. 模型部署
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">
-           9.1. 概述
+           10.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">
-           9.2. 训练模型到推理模型的转换及优化
+           10.2. 训练模型到推理模型的转换及优化
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/model_compression.html">
-           9.3. 模型压缩
+           10.3. 模型压缩
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/model_inference.html">
-           9.4. 模型推理
+           10.4. 模型推理
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/model_security.html">
-           9.5. 模型的安全保护
+           10.5. 模型的安全保护
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_model_deployment/summary.html">
-           9.6. 总结
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_model_deployment/summary.html#id2">
-           9.7. 扩展阅读
-          </a>
-         </li>
-        </ul>
-       </li>
-       <li class="toctree-l1">
-        <a class="reference internal" href="../chapter_distributed_training/index.html">
-         10. 分布式训练
-        </a>
-        <ul>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/overview.html">
-           10.1. 系统概述
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/methods.html">
-           10.2. 分布式方法
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
-           10.3. 流水线并行
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/collective.html">
-           10.4. 集合通讯
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-           10.5. 参数服务器
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/summary.html">
            10.6. 总结
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+          <a class="reference internal" href="../chapter_model_deployment/summary.html#id2">
            10.7. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
+        <a class="reference internal" href="../chapter_distributed_training/index.html">
+         11. 分布式训练
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/overview.html">
+           11.1. 系统概述
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/methods.html">
+           11.2. 分布式方法
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+           11.3. 流水线并行
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/collective.html">
+           11.4. 集合通讯
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
+           11.5. 参数服务器
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/summary.html">
+           11.6. 总结
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+           11.7. 扩展阅读
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
         <a class="reference internal" href="../chapter_preface_extension/index.html">
-         11. 第三部分：拓展篇
+         12. 第三部分：拓展篇
         </a>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_recommender_system/index.html">
-         12. 深度学习推荐系统
+         13. 深度学习推荐系统
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/overview.html">
-           12.1. 背景
+           13.1. 背景
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-           12.2. 主流系统架构
+           13.2. 主流系统架构
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-           12.3. 现有解决方案及其存在的问题
+           13.3. 现有解决方案及其存在的问题
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/future.html">
-           12.4. 未来可以探索的方向
+           13.4. 未来可以探索的方向
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/summary.html">
-           12.5. 小结
+           13.5. 小结
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_recommender_system/summary.html#id2">
+           13.6. 扩展阅读
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_federated_learning/index.html">
-         13. 联邦学习系统
+         14. 联邦学习系统
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/overview.html">
-           13.1. 概述
+           14.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
-           13.2. 横向联邦学习
+           14.2. 横向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-           13.3. 纵向联邦学习
+           14.3. 纵向联邦学习
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">
-           13.4. 隐私加密算法
+           14.4. 隐私加密算法
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/outlook.html">
-           13.5. 展望
+           14.5. 展望
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_federated_learning/summary.html">
-           13.6. 小结
-          </a>
-         </li>
-        </ul>
-       </li>
-       <li class="toctree-l1">
-        <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
-         14. 强化学习系统
-        </a>
-        <ul>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
-           14.1. 强化学习介绍
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
-           14.2. 单节点强化学习系统
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">
-           14.3. 分布式强化学习系统
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
-           14.4. 多智能体强化学习
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
-           14.5. 多智能体强化学习系统
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
            14.6. 小结
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
+        <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
+         15. 强化学习系统
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+           15.1. 强化学习介绍
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+           15.2. 单节点强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">
+           15.3. 分布式强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+           15.4. 多智能体强化学习
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+           15.5. 多智能体强化学习系统
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+           15.6. 小结
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
         <a class="reference internal" href="../chapter_explainable_AI/index.html">
-         15. 可解释性AI系统
+         16. 可解释性AI系统
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
-           15.1. 背景
+           16.1. 背景
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">
-           15.2. 可解释AI定义
+           16.2. 可解释AI定义
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">
-           15.3. 可解释AI算法现状介绍
+           16.3. 可解释AI算法现状介绍
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">
-           15.4. 未来可解释AI
+           16.4. 未来可解释AI
           </a>
          </li>
         </ul>
        </li>
        <li class="toctree-l1">
         <a class="reference internal" href="../chapter_rl_sys/index.html">
-         16. 机器人学习系统
+         17. 机器人系统
         </a>
         <ul>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">
-           16.1. 概述
+           17.1. 概述
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/ros.html">
-           16.2. 通用机器人操作系统
+           17.2. 通用机器人操作系统
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/perception.html">
-           16.3. 感知系统
+           17.3. 感知系统
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/planning.html">
-           16.4. 规划系统
+           17.4. 规划系统
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/control.html">
-           16.5. 控制系统
+           17.5. 控制系统
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_rl_sys/summary.html">
-           16.6. 小结
+           17.6. 小结
           </a>
          </li>
         </ul>
@@ -671,514 +686,529 @@
       <nav class="mdl-navigation">
        <ul class="current">
         <li class="toctree-l1">
+         <a class="reference internal" href="../chapter_preface/index.html">
+          1. 序言
+         </a>
+        </li>
+        <li class="toctree-l1">
          <a class="reference internal" href="../chapter_introduction/index.html">
-          1. 导论
+          2. 导论
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">
-            1.1. 机器学习应用
+            2.1. 机器学习应用
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">
-            1.2. 机器学习系统的需求
+            2.2. 设计目标
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">
-            1.3. 机器学习系统基本组成
+            2.3. 基本组成
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_introduction/applicable_readers.html">
-            1.4. 适用读者
+            2.4. 适用读者
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_programming_interface/index.html">
-          2. 编程接口
+          3. 编程接口
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_programming_interface/development_history.html">
-            2.1. 机器学习系统编程模型的演进
+            3.1. 机器学习系统编程模型的演进
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">
-            2.2. 机器学习工作流
+            3.2. 机器学习工作流
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">
-            2.3. 定义深度神经网络
+            3.3. 定义深度神经网络
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">
-            2.4. C/C++编程接口
+            3.4. C/C++编程接口
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_programming_interface/summary.html">
-            2.5. 总结
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_programming_interface/summary.html#id2">
-            2.6. 扩展阅读
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toctree-l1">
-         <a class="reference internal" href="../chapter_computational_graph/index.html">
-          3. 计算图
-         </a>
-         <ul>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">
-            3.1. 计算图的设计背景和作用
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">
-            3.2. 计算图的基本构成
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">
-            3.3. 计算图的生成
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">
-            3.4. 计算图的调度
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/summary.html">
             3.5. 总结
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+           <a class="reference internal" href="../chapter_programming_interface/summary.html#id2">
             3.6. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
+         <a class="reference internal" href="../chapter_computational_graph/index.html">
+          4. 计算图
+         </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">
+            4.1. 计算图的设计背景和作用
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">
+            4.2. 计算图的基本构成
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">
+            4.3. 计算图的生成
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">
+            4.4. 计算图的调度
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/summary.html">
+            4.5. 总结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_computational_graph/summary.html#id2">
+            4.6. 扩展阅读
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toctree-l1">
          <a class="reference internal" href="../chapter_preface_advanced/index.html">
-          4. 第二部分：进阶篇
+          5. 第二部分：进阶篇
          </a>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_frontend_and_ir/index.html">
-          5. 编译器前端
+          6. 编译器前端
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">
-            5.1. 概述
+            6.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">
-            5.2. 中间表示
+            6.2. 中间表示
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/ad.html">
-            5.3. 自动微分
+            6.3. 自动微分
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">
-            5.4. 类型系统和静态分析
+            6.4. 类型系统和静态分析
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">
-            5.5. 常见前端编译优化方法
+            6.5. 常见前端编译优化方法
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/summary.html">
-            5.6. 总结
+            6.6. 总结
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">
-            5.7. 扩展阅读
+            6.7. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1 current">
          <a class="reference internal" href="index.html">
-          6. 编译器后端和运行时
+          7. 编译器后端和运行时
          </a>
          <ul class="current">
           <li class="toctree-l2">
            <a class="reference internal" href="overview.html">
-            6.1. 概述
+            7.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="graph_optimizer.html">
-            6.2. 计算图优化
+            7.2. 计算图优化
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="kernel_selecter.html">
-            6.3. 算子选择
+            7.3. 算子选择
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="memory_allocator.html">
-            6.4. 内存分配
+            7.4. 内存分配
            </a>
           </li>
           <li class="toctree-l2 current">
            <a class="current reference internal" href="#">
-            6.5. 计算调度与执行
+            7.5. 计算调度与执行
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="summary.html">
-            6.6. 总结
+            7.6. 总结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="summary.html#id2">
+            7.7. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_accelerator/index.html">
-          7. 硬件加速器
+          8. 硬件加速器
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">
-            7.1. 概述
+            8.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">
-            7.2. 加速器基本组成原理
+            8.2. 加速器基本组成原理
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">
-            7.3. 加速器基本编程原理
+            8.3. 加速器基本编程原理
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_accelerator/summary.html">
-            7.4. 总结
+            8.4. 总结
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_accelerator/summary.html#id2">
-            7.5. 扩展阅读
+            8.5. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_data_processing/index.html">
-          8. 数据处理框架
+          9. 数据处理框架
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/requirements.html">
-            8.1. 概述
+            9.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/program_model.html">
-            8.2. 易用性设计
+            9.2. 易用性设计
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/performance.html">
-            8.3. 高效性设计
+            9.3. 高效性设计
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/data_order.html">
-            8.4. 保序性设计
+            9.4. 保序性设计
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/extension.html">
-            8.5. 单机数据处理性能的扩展
+            9.5. 单机数据处理性能的扩展
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_data_processing/summary.html">
-            8.6. 章节总结
+            9.6. 总结
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_model_deployment/index.html">
-          9. 模型部署
+          10. 模型部署
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">
-            9.1. 概述
+            10.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">
-            9.2. 训练模型到推理模型的转换及优化
+            10.2. 训练模型到推理模型的转换及优化
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/model_compression.html">
-            9.3. 模型压缩
+            10.3. 模型压缩
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/model_inference.html">
-            9.4. 模型推理
+            10.4. 模型推理
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/model_security.html">
-            9.5. 模型的安全保护
+            10.5. 模型的安全保护
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_model_deployment/summary.html">
-            9.6. 总结
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_model_deployment/summary.html#id2">
-            9.7. 扩展阅读
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toctree-l1">
-         <a class="reference internal" href="../chapter_distributed_training/index.html">
-          10. 分布式训练
-         </a>
-         <ul>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/overview.html">
-            10.1. 系统概述
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/methods.html">
-            10.2. 分布式方法
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
-            10.3. 流水线并行
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/collective.html">
-            10.4. 集合通讯
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-            10.5. 参数服务器
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/summary.html">
             10.6. 总结
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+           <a class="reference internal" href="../chapter_model_deployment/summary.html#id2">
             10.7. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
+         <a class="reference internal" href="../chapter_distributed_training/index.html">
+          11. 分布式训练
+         </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/overview.html">
+            11.1. 系统概述
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/methods.html">
+            11.2. 分布式方法
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+            11.3. 流水线并行
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/collective.html">
+            11.4. 集合通讯
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
+            11.5. 参数服务器
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/summary.html">
+            11.6. 总结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
+            11.7. 扩展阅读
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toctree-l1">
          <a class="reference internal" href="../chapter_preface_extension/index.html">
-          11. 第三部分：拓展篇
+          12. 第三部分：拓展篇
          </a>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_recommender_system/index.html">
-          12. 深度学习推荐系统
+          13. 深度学习推荐系统
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/overview.html">
-            12.1. 背景
+            13.1. 背景
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-            12.2. 主流系统架构
+            13.2. 主流系统架构
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-            12.3. 现有解决方案及其存在的问题
+            13.3. 现有解决方案及其存在的问题
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/future.html">
-            12.4. 未来可以探索的方向
+            13.4. 未来可以探索的方向
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/summary.html">
-            12.5. 小结
+            13.5. 小结
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_recommender_system/summary.html#id2">
+            13.6. 扩展阅读
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_federated_learning/index.html">
-          13. 联邦学习系统
+          14. 联邦学习系统
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/overview.html">
-            13.1. 概述
+            14.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">
-            13.2. 横向联邦学习
+            14.2. 横向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">
-            13.3. 纵向联邦学习
+            14.3. 纵向联邦学习
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">
-            13.4. 隐私加密算法
+            14.4. 隐私加密算法
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/outlook.html">
-            13.5. 展望
+            14.5. 展望
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_federated_learning/summary.html">
-            13.6. 小结
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toctree-l1">
-         <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
-          14. 强化学习系统
-         </a>
-         <ul>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
-            14.1. 强化学习介绍
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
-            14.2. 单节点强化学习系统
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">
-            14.3. 分布式强化学习系统
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
-            14.4. 多智能体强化学习
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
-            14.5. 多智能体强化学习系统
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
             14.6. 小结
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
+         <a class="reference internal" href="../chapter_reinforcement_learning/index.html">
+          15. 强化学习系统
+         </a>
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">
+            15.1. 强化学习介绍
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">
+            15.2. 单节点强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">
+            15.3. 分布式强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl.html">
+            15.4. 多智能体强化学习
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">
+            15.5. 多智能体强化学习系统
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_reinforcement_learning/summary.html">
+            15.6. 小结
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toctree-l1">
          <a class="reference internal" href="../chapter_explainable_AI/index.html">
-          15. 可解释性AI系统
+          16. 可解释性AI系统
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">
-            15.1. 背景
+            16.1. 背景
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">
-            15.2. 可解释AI定义
+            16.2. 可解释AI定义
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">
-            15.3. 可解释AI算法现状介绍
+            16.3. 可解释AI算法现状介绍
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">
-            15.4. 未来可解释AI
+            16.4. 未来可解释AI
            </a>
           </li>
          </ul>
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="../chapter_rl_sys/index.html">
-          16. 机器人学习系统
+          17. 机器人系统
          </a>
          <ul>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">
-            16.1. 概述
+            17.1. 概述
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/ros.html">
-            16.2. 通用机器人操作系统
+            17.2. 通用机器人操作系统
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/perception.html">
-            16.3. 感知系统
+            17.3. 感知系统
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/planning.html">
-            16.4. 规划系统
+            17.4. 规划系统
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/control.html">
-            16.5. 控制系统
+            17.5. 控制系统
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_rl_sys/summary.html">
-            16.6. 小结
+            17.6. 小结
            </a>
           </li>
          </ul>
@@ -1221,7 +1251,7 @@
       <div class="section" id="id1">
        <h1>
         <span class="section-number">
-         6.5.
+         7.5.
         </span>
         计算调度与执行
         <a class="headerlink" href="#id1" title="Permalink to this headline">
@@ -1234,7 +1264,7 @@
        <div class="section" id="id2">
         <h2>
          <span class="section-number">
-          6.5.1.
+          7.5.1.
          </span>
          单算子调度
          <a class="headerlink" href="#id2" title="Permalink to this headline">
@@ -1274,7 +1304,7 @@
          单算子执行的调用链路如
          <a class="reference internal" href="#single-op-exec">
           <span class="std std-numref">
-           图6.5.1
+           图7.5.1
           </span>
          </a>
          所示，算子在Python侧被触发执行后，会经过AI框架初始化，其中需要确定包括算子的精度，输入与输出的类型和大小以及对应的硬件设备等信息，接着框架会为该算子分配计算所需的内存，最后交给具体的硬件计算设备完成计算的执行。
@@ -1287,7 +1317,7 @@
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.1
+           图7.5.1
           </span>
           <span class="caption-text">
            单算子执行
@@ -1304,7 +1334,7 @@
        <div class="section" id="id3">
         <h2>
          <span class="section-number">
-          6.5.2.
+          7.5.2.
          </span>
          计算图调度
          <a class="headerlink" href="#id3" title="Permalink to this headline">
@@ -1315,7 +1345,7 @@
          虽然单算子调度具有如上所述的优点，其缺点也很明显。一方面是难于进行计算性能的优化，原因是由于缺乏计算图的全局信息，单算子执行时无法根据上下文完成算子融合，代数化简等优化；另一方面由于缺乏计算的拓扑关系，整个计算只能串行调度执行，即无法通过运行时完成并行计算。例如上述示例代码的计算逻辑可以表达为
          <a class="reference internal" href="#graph-exec">
           <span class="std std-numref">
-           图6.5.2
+           图7.5.2
           </span>
          </a>
          所示。由该计算图可以看出，其中乘法和减法之间并没有依赖关系，因此这两个计算可以并行执行，而这样的并行执行信息只有将计算表达为计算图后才能完成分析，这也是计算图调度相对于单算子调度的优势之一。
@@ -1328,7 +1358,7 @@
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.2
+           图7.5.2
           </span>
           <span class="caption-text">
            计算图
@@ -1342,7 +1372,7 @@
          下面我们开始介绍计算图的调度方式，在一个典型的异构计算环境中，主要存在CPU、GPU以及NPU等多种计算设备，因此一张计算图可以由运行在不同设备上的算子组成为异构计算图。
          <a class="reference internal" href="#computation-graph">
           <span class="std std-numref">
-           图6.5.3
+           图7.5.3
           </span>
          </a>
          展示了一个典型的由异构硬件共同参与的计算图。
@@ -1355,7 +1385,7 @@
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.3
+           图7.5.3
           </span>
           <span class="caption-text">
            异构硬件计算图
@@ -1408,7 +1438,7 @@ Ascend是一个高度集成的SoC芯片，NPU的优势是支持将部分或整�
          异构计算图能够被正确表达的首要条件是准确标识算子执行所在的设备，例如异构计算图
          <a class="reference internal" href="#computation-graph">
           <span class="std std-numref">
-           图6.5.3
+           图7.5.3
           </span>
          </a>
          中所标识的CPU、GPU和Ascend
@@ -1502,7 +1532,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.4
+           图7.5.4
           </span>
           <span class="caption-text">
            并发算子执行
@@ -1516,13 +1546,13 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          代码中所示三行计算之间并没有依赖关系，因此这三个算子在计算图的逻辑上可以被并发执行，并发关系如
          <a class="reference internal" href="#side-effect-1">
           <span class="std std-numref">
-           图6.5.4
+           图7.5.4
           </span>
          </a>
          所示，然而根据代码的语义，显而易见是需要确保程序能够被顺序执行，这里引入的问题被称为副作用，副作用是指函数修改了在函数外部定义的状态变量的行为。由于副作用的引入而导致了错误并发关系的发生，一种解决方案是在计算图编译阶段通过添加算子间的依赖，将并发执行逻辑转换为顺序执行逻辑，转换后的计算图如
          <a class="reference internal" href="#side-effect-2">
           <span class="std std-numref">
-           图6.5.5
+           图7.5.5
           </span>
          </a>
          所示：
@@ -1535,7 +1565,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.5
+           图7.5.5
           </span>
           <span class="caption-text">
            消除副作用
@@ -1552,7 +1582,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
        <div class="section" id="id4">
         <h2>
          <span class="section-number">
-          6.5.3.
+          7.5.3.
          </span>
          交互式执行
          <a class="headerlink" href="#id4" title="Permalink to this headline">
@@ -1573,7 +1603,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.6
+           图7.5.6
           </span>
           <span class="caption-text">
            非异构计算图
@@ -1587,7 +1617,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          如
          <a class="reference internal" href="#graph-exec-1">
           <span class="std std-numref">
-           图6.5.6
+           图7.5.6
           </span>
          </a>
          是一张非异构计算图，计算图上全部Kernel均为GPU算子，执行方式一般分为串行执行和并行执行：
@@ -1600,7 +1630,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.7
+           图7.5.7
           </span>
           <span class="caption-text">
            串行执行
@@ -1618,7 +1648,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.8
+           图7.5.8
           </span>
           <span class="caption-text">
            并行执行
@@ -1637,7 +1667,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            ：将计算图展开为执行序列，按照执行序逐个串行执行，如
            <a class="reference internal" href="#graph-exec-2">
             <span class="std std-numref">
-             图6.5.7
+             图7.5.7
             </span>
            </a>
            所示。其特点为执行顺序固定，单线程执行，对系统资源要求相对较低。
@@ -1651,7 +1681,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            ：将计算图按照算子之间的依赖关系展开，有依赖关系的算子通过输入依赖保证执行顺序，没有依赖关系的算子则可以并行执行，如
            <a class="reference internal" href="#graph-exec-3">
             <span class="std std-numref">
-             图6.5.8
+             图7.5.8
             </span>
            </a>
            所示，Kernel_1和Kernel_2没有依赖可以并行执行，Kernel_3和Kernel_4没有依赖可以并行执行。其特点为执行顺序不固定，每轮执行的算子顺序大概率不一样，多线程执行，对系统资源要求相对较高。
@@ -1662,7 +1692,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          串行执行和并行执行各有优点和缺点，总结对比见
          <a class="reference internal" href="#serial-vs-parallel">
           <span class="std std-numref">
-           表6.5.1
+           表7.5.1
           </span>
          </a>
          。
@@ -1672,7 +1702,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <table class="docutils align-default" id="id14" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
          <caption>
           <span class="caption-number">
-           表6.5.1
+           表7.5.1
           </span>
           <span class="caption-text">
            串行执行和并行执行之对比
@@ -1770,7 +1800,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.9
+           图7.5.9
           </span>
           <span class="caption-text">
            异构计算图
@@ -1784,14 +1814,14 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          如
          <a class="reference internal" href="#graph-exec-4">
           <span class="std std-numref">
-           图6.5.9
+           图7.5.9
           </span>
          </a>
          是一张异构计算图，其中Kernel_1、Kernel_2、Kernel_5、Kernel_9为CPU算子，Kernel_6为python算子（执行也是在CPU上），Kernel_3和Kernel_4为GPU算子，Kernel_7和Kernel_8为GPU算子。
 一般来说计算图的优化都是基于非异构计算图来实现的，要求计算图中的算子为同一设备上的，方便算子间的融合替换等优化操作，因此需要将一张异构计算图切分为多个非异构计算图，这里切分就比较灵活了，可以定义各种切分规则，一般按照产生尽量少的子图的切分规则来切分，尽量将多的同一设备上的算子放在一张子图中，如
          <a class="reference internal" href="#graph-exec-5">
           <span class="std std-numref">
-           图6.5.10
+           图7.5.10
           </span>
          </a>
          所示，最后产生5张子图：Graph_1_CPU、Graph_2_GPU、Graph_3_CPU、Graph_4_Ascend、Graph_5_CPU。
@@ -1804,7 +1834,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.10
+           图7.5.10
           </span>
           <span class="caption-text">
            异构计算图切分
@@ -1826,7 +1856,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            ：将切分后的多个子图分开执行，即一个子图执行完再执行另一个子图，如
            <a class="reference internal" href="#graph-exec-6">
             <span class="std std-numref">
-             图6.5.11
+             图7.5.11
             </span>
            </a>
            所示，上一个子图的输出数据会传输给下一个子图的输入数据，并且下一个子图需要将输入数据拷贝为本图的device数据，如Graph_2_GPU需要将Graph_1_CPU的输出数据从CPU拷贝到GPU，反过来Graph_3_CPU需要将Graph2GPU的输出数据从GPU拷贝到CPU，子图之间互相切换执行有一定的开销。
@@ -1840,7 +1870,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
            ：将切分后的多个子图进行合并，合并为一个整体的DAG执行，如
            <a class="reference internal" href="#graph-exec-7">
             <span class="std std-numref">
-             图6.5.12
+             图7.5.12
             </span>
            </a>
            所示，通过算子的设备属性来插入拷贝算子以实现不同设备上的算子数据传输，并且拷贝算子也是进入整图中的，从而形成一个大的整图执行，减少子图之间的切换执行开销。
@@ -1855,7 +1885,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.11
+           图7.5.11
           </span>
           <span class="caption-text">
            子图拆分
@@ -1873,7 +1903,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.12
+           图7.5.12
           </span>
           <span class="caption-text">
            子图合并
@@ -1887,7 +1917,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          由于子图合并执行能够减少子图之间的切换执行开销，因此一般来说子图合并执行性能较高，总结对比见
          <a class="reference internal" href="#partitioning-vs-merging">
           <span class="std std-numref">
-           表6.5.2
+           表7.5.2
           </span>
          </a>
          。
@@ -1897,7 +1927,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <table class="docutils align-default" id="id19" style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:20px;">
          <caption>
           <span class="caption-number">
-           表6.5.2
+           表7.5.2
           </span>
           <span class="caption-text">
            子图拆分和子图合并之对比
@@ -1991,7 +2021,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          前面讲述了非异构计算图的两种执行方式和异构计算图的两种执行方式，其中异构计算图又是在非异构计算图的基础之上，因此异构计算图按照两两组合共有四种执行方式，以MindSpore为例，采用的是子图合并并行执行，示例图如
          <a class="reference internal" href="#graph-exec-5">
           <span class="std std-numref">
-           图6.5.10
+           图7.5.10
           </span>
          </a>
          所示，首先是作为一张整图来执行可以避免子图切换的执行开销，然后在整图内并行执行，可以最大粒度的发挥并发执行优势，达到最优的执行性能。
@@ -2004,7 +2034,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          </a>
          <p class="caption">
           <span class="caption-number">
-           图6.5.13
+           图7.5.13
           </span>
           <span class="caption-text">
            异构硬件加速
@@ -2018,7 +2048,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
        <div class="section" id="id5">
         <h2>
          <span class="section-number">
-          6.5.4.
+          7.5.4.
          </span>
          下沉式执行
          <a class="headerlink" href="#id5" title="Permalink to this headline">
@@ -2029,7 +2059,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
          下沉式执行是通过专用芯片的SoC架构，将整个或部分计算图一次性调度到芯片上以完成全量数据的计算。例如对于Ascend芯片，多个Ascend算子组成的计算图可以在执行前被编译成为一个Task，通过Ascend驱动程序提供的接口，将包含多个算子的Task一次性下发到硬件上调度执行。因此上例中可以将Ascend的算子Kernel_7和Kernel_8优化为一个子图Graph_4_Ascend，再将该子图编译成为一个Task，并下沉到Ascend上执行，如
          <a class="reference internal" href="#graph-exec-8">
           <span class="std std-numref">
-           图6.5.13
+           图7.5.13
           </span>
          </a>
          所示。
@@ -2051,27 +2081,27 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         <ul>
          <li>
           <a class="reference internal" href="#">
-           6.5. 计算调度与执行
+           7.5. 计算调度与执行
           </a>
           <ul>
            <li>
             <a class="reference internal" href="#id2">
-             6.5.1. 单算子调度
+             7.5.1. 单算子调度
             </a>
            </li>
            <li>
             <a class="reference internal" href="#id3">
-             6.5.2. 计算图调度
+             7.5.2. 计算图调度
             </a>
            </li>
            <li>
             <a class="reference internal" href="#id4">
-             6.5.3. 交互式执行
+             7.5.3. 交互式执行
             </a>
            </li>
            <li>
             <a class="reference internal" href="#id5">
-             6.5.4. 下沉式执行
+             7.5.4. 下沉式执行
             </a>
            </li>
           </ul>
@@ -2092,7 +2122,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         Previous
        </span>
        <div>
-        6.4. 内存分配
+        7.4. 内存分配
        </div>
       </div>
      </a>
@@ -2104,7 +2134,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
         Next
        </span>
        <div>
-        6.6. 总结
+        7.6. 总结
        </div>
       </div>
      </a>

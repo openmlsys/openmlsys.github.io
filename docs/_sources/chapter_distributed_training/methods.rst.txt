@@ -9,7 +9,7 @@
 
 .. _ch10-single-node:
 
-.. figure:: ../img/ch09/ch10-single-node.svg
+.. figure:: ../img/ch09/ch10-single-node.png
    :width: 800px
 
    单节点训练系统
@@ -17,8 +17,7 @@
 
 
 分布式训练系统的设计目标是：将单节点训练系统转化成\ **等价的**\ 并行训练系统，从而在不影响模型精度的条件下完成训练过程的加速。一个单节点训练系统往往如
-:numref:`ch10-single-node`\ 所示。一个训练过程会由多个数据小批次（mini-batch）完成。在图中，一个数据小批次被标示为\ **数据**\ 。训练系统会利用数据小批次来生成梯度，提升模型精度。这个过程由一个训练\ **程序**\ 实现。在实际中，这个程序往往实现了一个多层神经网络的执行过程。
-该神经网络的执行由一个计算图（Computational
+:numref:`ch10-single-node`\ 所示。一个训练过程会由多个数据小批次（mini-batch）完成。在图中，一个数据小批次被标示为\ **数据**\ 。训练系统会利用数据小批次来生成梯度，提升模型精度。这个过程由一个训练\ **程序**\ 实现。在实际中，这个程序往往实现了一个多层神经网络的执行过程。该神经网络的执行由一个计算图（Computational
 Graph）表达。这个图有多个相互连接的算子（Operator），每个算子会拥有计算参数。每个算子往往会实现一个神经网络层（Neural
 Network Layer），而参数则代表了这个层在训练中所更新的的权重（Weights）。
 
@@ -41,10 +40,8 @@ Network Layer），而参数则代表了这个层在训练中所更新的的权�
 
 
 给定一个单节点训练系统，人们会对\ **数据**\ 和\ **程序**\ 分区（Partition），从而完成并行加速。
-:numref:`ch10-parallel-methods`\ 总结了不同的切分方法。单节点训练系统可以被归类于
-单程序单数据模式。而假如用户希望使用更多的设备来实现并行计算，他们首先可以选择对数据进行分区，并将同一个程序复制到多个设备上并行执行。这种方式是单程序多数据模式，常被称为\ **数据并行**\ （Data
-Parallelism）。另一种并行方式是对程序进行分区：程序的算子会被分发给多个设备按照依次完成。这种模式是
-多程序单数据模式，常被称为\ **模型并行**\ （Model
+:numref:`ch10-parallel-methods`\ 总结了不同的切分方法。单节点训练系统可以被归类于单程序单数据模式。而假如用户希望使用更多的设备来实现并行计算，他们首先可以选择对数据进行分区，并将同一个程序复制到多个设备上并行执行。这种方式是单程序多数据模式，常被称为\ **数据并行**\ （Data
+Parallelism）。另一种并行方式是对程序进行分区：程序的算子会被分发给多个设备按照依次完成。这种模式是多程序单数据模式，常被称为\ **模型并行**\ （Model
 Parallelism）。当训练超大型智能模型时，开发人们往往要同时对数据和程序进行切分，从而实现最高程度的并行。这种模式是多程序多数据模式，常被称为\ **混合并行**\ （Hybrid
 Parallelism）。
 
@@ -55,7 +52,7 @@ Parallelism）。
 
 .. _ch10-data-parallel:
 
-.. figure:: ../img/ch09/ch10-data-parallel.svg
+.. figure:: ../img/ch09/ch10-data-parallel.png
    :width: 800px
 
    数据并行训练系统
@@ -94,7 +91,7 @@ Parallelism）。
 
 .. _ch10-model-parallel-inter-op:
 
-.. figure:: ../img/ch09/ch10-model-parallel-inter-op.svg
+.. figure:: ../img/ch09/ch10-model-parallel-inter-op.png
    :width: 800px
 
    模型并行系统：算子间并行
@@ -108,7 +105,7 @@ Parallelism）。
 
 .. _ch10-hybrid-parallel:
 
-.. figure:: ../img/ch09/ch10-hybrid-parallel.svg
+.. figure:: ../img/ch09/ch10-hybrid-parallel.png
    :width: 800px
 
    混合并行系统
