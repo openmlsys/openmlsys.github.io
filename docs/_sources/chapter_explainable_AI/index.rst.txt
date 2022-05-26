@@ -17,6 +17,6 @@
 -  思考可解释AI方法的未来发展
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   explainable_ai
+    explainable_ai

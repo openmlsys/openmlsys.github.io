@@ -17,29 +17,29 @@ FFT)，图像中的去噪等，使得部分操作可以被卸载到AI芯片上�
 
 .. code:: python
 
-   namespace ms = mindspore;
-   namespace ds = mindspore::dataset;
+    namespace ms = mindspore;
+    namespace ds = mindspore::dataset;
 
-   // 初始化操作
-   //...
+    // 初始化操作
+    //...
 
-   // 构建数据处理算子
+    // 构建数据处理算子
 
-   // 1. 解码
-   std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
-   // 2. 缩放
-   std::shared_ptr<ds::TensorTransform> resize(new ds::vision::Resize({256}));
-   // 3. 归一化
-   std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
-       {0.485 * 255, 0.456 * 255, 0.406 * 255}, {0.229 * 255, 0.224 * 255, 0.225 * 255}));
-   // 4. 剪裁
-   std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
+    // 1. 解码
+    std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
+    // 2. 缩放
+    std::shared_ptr<ds::TensorTransform> resize(new ds::vision::Resize({256}));
+    // 3. 归一化
+    std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
+        {0.485 * 255, 0.456 * 255, 0.406 * 255}, {0.229 * 255, 0.224 * 255, 0.225 * 255}));
+    // 4. 剪裁
+    std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
 
-   // 构建流水并指定使用昇腾Ascend进行计算
-   ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310, 0);
+    // 构建流水并指定使用昇腾Ascend进行计算
+    ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310, 0);
 
-   // 执行数据处理流水
-   ret = preprocessor(image, &image);
+    // 执行数据处理流水
+    ret = preprocessor(image, &image);
 
 相比较Dvpp只支持图像的部分预处理操作，英伟达公司研发的DALI
 :cite:`nvidia_dali`\ 是一个更加通用的基于GPU的数据预处理加速框架。DALI中包含如下三个核心概念：
@@ -67,18 +67,18 @@ DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。
 
 .. code:: python
 
-   import nvidia.dali as dali
+    import nvidia.dali as dali
 
-   pipe = dali.pipeline.Pipeline(batch_size = 3, num_threads = 2, device_id = 0)
-   with pipe:
-       files, labels = dali.fn.readers.file(file_root = "./my_file_root")
-       images = dali.fn.decoders.image(files, device = "mixed")
-       images = dali.fn.rotate(images, angle = dali.fn.random.uniform(range=(-45,45)))
-       images = dali.fn.resize(images, resize_x = 300, resize_y = 300)
-       pipe.set_outputs(images, labels)
+    pipe = dali.pipeline.Pipeline(batch_size = 3, num_threads = 2, device_id = 0)
+    with pipe:
+        files, labels = dali.fn.readers.file(file_root = "./my_file_root")
+        images = dali.fn.decoders.image(files, device = "mixed")
+        images = dali.fn.rotate(images, angle = dali.fn.random.uniform(range=(-45,45)))
+        images = dali.fn.resize(images, resize_x = 300, resize_y = 300)
+        pipe.set_outputs(images, labels)
 
-   pipe.build()
-   outputs = pipe.run()
+    pipe.build()
+    outputs = pipe.run()
 
 基于分布式的数据预处理
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -102,7 +102,7 @@ DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。
 
 -  由于大数据计算框架并不是完全针对机器学习场景，使得某些分布式预处理操作如全局的数据混洗无法被高效的实现。
 
-为了更适配机器学习场景的数据预处理，分布式机器学习框架Ray借助其自身的任务调度能力实现了简单的分布式的数据预处理——
+为了更适配机器学习场景的数据预处理，分布式机器学习框架Ray借助其自身的任务调度能力实现了简单的分布式的数据预处理------
 Ray Dataset
 :cite:`moritz2018ray`\ ，由于数据预处理和训练处在同一个框架内，在降低了用户的编程负担的同时也通过数据的零拷贝共享消除了序列化/反序列化带来的额外开销。Ray
 Dataset支持如map、batch、map、filter等简单并行数据集变换算子、以及如mean等一些基础的聚合操作算子。同时Ray
@@ -110,8 +110,8 @@ Dataset也支持排序、随机打乱、GroupBy等全局混洗操作，该方案
 
 .. code:: python
 
-   ray.data.read_parquet("foo.parquet") \
-       .filter(lambda x: x < 0) \
-       .map(lambda x: x**2) \
-       .random_shuffle() \
-       .write_parquet("bar.parquet")
+    ray.data.read_parquet("foo.parquet") \
+        .filter(lambda x: x < 0) \
+        .map(lambda x: x**2) \
+        .random_shuffle() \
+        .write_parquet("bar.parquet")

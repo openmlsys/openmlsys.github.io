@@ -17,3 +17,9 @@
    `CUDA <https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html>`__
 -  昇腾社区 `Ascend <https://gitee.com/ascend>`__
 -  MLIR应用进展 `MLIR <https://mlir.llvm.org/talks>`__
+
+参考文献
+--------
+
+.. bibliography:: ../references/accelerator.bib
+   :style: apa

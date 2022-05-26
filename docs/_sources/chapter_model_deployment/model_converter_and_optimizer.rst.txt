@@ -83,17 +83,10 @@ Batchnorm算子的计算过程如公式 :eq:`ch08-equ-bn_equation`\ 所示。
 Lite为例，构造了包含一个Convolution和一个Batchnorm的sample网络，分别以样例网络和mobilenet-v2网络为例，在华为Mate30手机上，以两线程运行模型推理，取3000轮推理的平均时耗作为模型推理性能的指标，对比融合前后该指标的变化。从表
 :numref:`ch08-tab-conv_bn_fusion`\ 可以看到，对于sample网络和mobilenet-v2网络，融合后分别获得了8.5%和11.7%的推理性能提升，这个性能提升非常可观。并且这个性能提升没有带来任何的副作用，也没有对于硬件或算子库的提出额外要求。
 
-.. container::
-   :name: tab:ch08-tab-conv_bn_fusion
+::: {#tab:ch08-tab-conv\_bn\_fusion} 网络 sample mobilenet-v2 -------
+------------- ----------------- 融合前 0.035 15.415 融合后 0.031 13.606
 
-   .. table:: Convolution + Batchnorm融合前后推理性能（单位：ms）
-
-      ====== ====== ============
-      网络   sample mobilenet-v2
-      ====== ====== ============
-      融合前 0.035  15.415
-      融合后 0.031  13.606
-      ====== ====== ============
+: Convolution + Batchnorm融合前后推理性能（单位：ms） :::
 
 
 算子替换

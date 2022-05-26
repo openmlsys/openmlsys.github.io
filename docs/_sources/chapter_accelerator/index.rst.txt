@@ -17,9 +17,9 @@
 -  理解异构硬件加速的表达与执行
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   accelerator_introduction
-   accelerator_architecture
-   accelerator_programming
-   summary
+    accelerator_introduction
+    accelerator_architecture
+    accelerator_programming
+    summary

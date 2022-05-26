@@ -11,11 +11,11 @@
 -  了解联邦学习前沿算法和未来研究方向。
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   overview
-   horizontal_fl
-   vertical_fl
-   privacy_encryption_algorithm
-   outlook
-   summary
+    overview
+    horizontal_fl
+    vertical_fl
+    privacy_encryption_algorithm
+    outlook
+    summary

@@ -35,99 +35,99 @@
 ~~~~~~~~
 
 下面以MindSpore框架实现多层感知机为例，了解完整的机器学习工作流。代码运行环境为MindSpore1.5.2，Ubuntu16.04，CUDA10.1。
-在构建机器学习工作流程前，MindSpore需要通过context.set_context来配置运行需要的信息，如运行模式、后端信息、硬件等信息。
+在构建机器学习工作流程前，MindSpore需要通过context.set\_context来配置运行需要的信息，如运行模式、后端信息、硬件等信息。
 以下代码导入context模块，配置运行需要的信息。
 
 .. code:: python
 
-   import os
-   import argparse
-   from mindspore import context
-   parser = argparse.ArgumentParser(description='MindSpore MLPNet Example')
-   parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'])
-   args = parser.parse_known_args()[0]
-   context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+    import os
+    import argparse
+    from mindspore import context
+    parser = argparse.ArgumentParser(description='MindSpore MLPNet Example')
+    parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'])
+    args = parser.parse_known_args()[0]
+    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
 
 上述配置样例运行使用图模式。根据实际情况配置硬件信息，譬如代码运行在Ascend
-AI处理器上，则–device_target选择Ascend，代码运行在CPU、GPU同理。
+AI处理器上，则--device\_target选择Ascend，代码运行在CPU、GPU同理。
 
 数据处理
 ~~~~~~~~
 
 配置好运行信息后，首先讨论数据处理API的设计。这些API提供了大量Python函数支持用户用一行命令即可读入常见的训练数据集（如MNIST，CIFAR，COCO等）。
-在加载之前需要将下载的数据集存放在./datasets/MNIST_Data路径中；MindSpore提供了用于数据处理的API模块
+在加载之前需要将下载的数据集存放在./datasets/MNIST\_Data路径中；MindSpore提供了用于数据处理的API模块
 mindspore.dataset，用于存储样本和标签。在加载数据集前，通常会对数据集进行一些处理，mindspore.dataset也集成了常见的数据处理方法。
 以下代码读取了MNIST的数据是大小为\ :math:`28 \times 28`\ 的图片，返回DataSet对象。
 
 .. code:: python
 
-   import mindspore.dataset as ds
-   DATA_DIR = './datasets/MNIST_Data/train'
-   mnist_dataset = ds.MnistDataset(DATA_DIR)
+    import mindspore.dataset as ds
+    DATA_DIR = './datasets/MNIST_Data/train'
+    mnist_dataset = ds.MnistDataset(DATA_DIR)
 
 有了DataSet对象后，通常需要对数据进行增强，常用的数据增强包括翻转、旋转、剪裁、缩放等；在MindSpore中是使用map将数据增强的操作映射到数据集中的，之后进行打乱（Shuffle）和批处理（Batch）。
 
 .. code:: python
 
-   # 导入需要用到的模块
-   import mindspore.dataset as ds
-   import mindspore.dataset.transforms.c_transforms as C
-   import mindspore.dataset.vision.c_transforms as CV
-   from mindspore.dataset.vision import Inter
-   from mindspore import dtype as mstype
-   # 数据处理过程
-   def create_dataset(data_path, batch_size=32, repeat_size=1,
-                      num_parallel_workers=1):
-       # 定义数据集
-       mnist_ds = ds.MnistDataset(data_path)
-       resize_height, resize_width = 32, 32
-       rescale = 1.0 / 255.0
-       rescale_nml = 1 / 0.3081
-       shift_nml = -1 * 0.1307 / 0.3081
+    # 导入需要用到的模块
+    import mindspore.dataset as ds
+    import mindspore.dataset.transforms.c_transforms as C
+    import mindspore.dataset.vision.c_transforms as CV
+    from mindspore.dataset.vision import Inter
+    from mindspore import dtype as mstype
+    # 数据处理过程
+    def create_dataset(data_path, batch_size=32, repeat_size=1,
+                       num_parallel_workers=1):
+        # 定义数据集
+        mnist_ds = ds.MnistDataset(data_path)
+        resize_height, resize_width = 32, 32
+        rescale = 1.0 / 255.0
+        rescale_nml = 1 / 0.3081
+        shift_nml = -1 * 0.1307 / 0.3081
 
-       # 定义所需要操作的map映射
-       resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)
-       rescale_nml_op = CV.Rescale(rescale_nml * rescale, shift_nml)
-       hwc2chw_op = CV.HWC2CHW()
-       type_cast_op = C.TypeCast(mstype.int32)
-       # 使用map映射函数，将数据操作应用到数据集
-       mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
-       mnist_ds = mnist_ds.map(operations=[resize_op, rescale_nml_op,hwc2chw_op], input_columns="image",num_parallel_workers=num_parallel_workers)
+        # 定义所需要操作的map映射
+        resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)
+        rescale_nml_op = CV.Rescale(rescale_nml * rescale, shift_nml)
+        hwc2chw_op = CV.HWC2CHW()
+        type_cast_op = C.TypeCast(mstype.int32)
+        # 使用map映射函数，将数据操作应用到数据集
+        mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
+        mnist_ds = mnist_ds.map(operations=[resize_op, rescale_nml_op,hwc2chw_op], input_columns="image",num_parallel_workers=num_parallel_workers)
 
-       # 进行shuffle、batch操作
-       buffer_size = 10000
-       mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)
-       mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
-       return mnist_ds
+        # 进行shuffle、batch操作
+        buffer_size = 10000
+        mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)
+        mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+        return mnist_ds
 
 模型定义
 ~~~~~~~~
 
-使用MindSpore定义神经网络需要继承mindspore.nn.Cell，神经网络的各层需要预先在__init__方法中定义，然后重载__construct__方法实现神经网络的前向传播过程。
+使用MindSpore定义神经网络需要继承mindspore.nn.Cell，神经网络的各层需要预先在\_\_init\_\_方法中定义，然后重载\_\_construct\_\_方法实现神经网络的前向传播过程。
 因为输入大小被处理成\ :math:`32 \times 32`\ 的图片，所以需要用Flatten将数据压平为一维向量后给全连接层。
 全连接层的输入大小为\ :math:`32 \times 32`\ ，输出是预测属于\ :math:`0 \sim 9`\ 中的哪个数字，因此输出大小为10，下面定义了一个三层的全连接层。
 
 .. code:: python
 
-   # 导入需要用到的模块
-   import mindspore.nn as nn
-   # 定义线性模型
-   class MLPNet(nn.Cell):
-       def __init__(self):
-           super(MLPNet, self).__init__()
-           self.flatten = nn.Flatten()
-           self.dense1 = nn.Dense(32*32, 128)
-           self.dense2 = nn.Dense(128, 64)
-           self.dense3 = nn.Dense(64, 10)
+    # 导入需要用到的模块
+    import mindspore.nn as nn
+    # 定义线性模型
+    class MLPNet(nn.Cell):
+        def __init__(self):
+            super(MLPNet, self).__init__()
+            self.flatten = nn.Flatten()
+            self.dense1 = nn.Dense(32*32, 128)
+            self.dense2 = nn.Dense(128, 64)
+            self.dense3 = nn.Dense(64, 10)
 
-       def construct(self, inputs):
-           x = self.flatten(inputs)
-           x = self.dense1(x)
-           x = self.dense2(x)
-           logits = self.dense3(x)
-           return logits
-   # 实例化网络
-   net = MLPNet()
+        def construct(self, inputs):
+            x = self.flatten(inputs)
+            x = self.dense1(x)
+            x = self.dense2(x)
+            logits = self.dense3(x)
+            return logits
+    # 实例化网络
+    net = MLPNet()
 
 损失函数和优化器
 ~~~~~~~~~~~~~~~~
@@ -153,10 +153,10 @@ MindSpore提供了丰富的API来让用户导入损失函数和优化器。在�
 
 .. code:: python
 
-   # 定义损失函数
-   net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-   # 定义优化器
-   net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
+    # 定义损失函数
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+    # 定义优化器
+    net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
 
 训练及保存模型
 ~~~~~~~~~~~~~~
@@ -165,40 +165,40 @@ MindSpore提供了回调Callback机制，可以在训练过程中执行自定义
 
 .. code:: python
 
-   # 导入模型保存模块
-   from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
-   # 设置模型保存参数
-   config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-   # 应用模型保存参数
-   ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+    # 导入模型保存模块
+    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+    # 设置模型保存参数
+    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+    # 应用模型保存参数
+    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
 
 通过MindSpore提供的model.train接口可以方便地进行网络的训练，LossMonitor可以监控训练过程中loss值的变化。
 
 .. code:: python
 
-   # 导入模型训练需要的库
-   from mindspore.nn import Accuracy
-   from mindspore.train.callback import LossMonitor
-   from mindspore import Model
+    # 导入模型训练需要的库
+    from mindspore.nn import Accuracy
+    from mindspore.train.callback import LossMonitor
+    from mindspore import Model
 
-   def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
-       """定义训练的方法"""
-       # 加载训练数据集
-       ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
-       model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor(125)], dataset_sink_mode=sink_mode)
+    def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
+        """定义训练的方法"""
+        # 加载训练数据集
+        ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
+        model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor(125)], dataset_sink_mode=sink_mode)
 
-其中，dataset_sink_mode用于控制数据是否下沉，数据下沉是指数据通过通道直接传送到Device上，可以加快训练速度，dataset_sink_mode为True表示数据下沉，否则为非下沉。
+其中，dataset\_sink\_mode用于控制数据是否下沉，数据下沉是指数据通过通道直接传送到Device上，可以加快训练速度，dataset\_sink\_mode为True表示数据下沉，否则为非下沉。
 
-有了数据集、模型、损失函数、优化器后就可以进行训练了，这里把train_epoch设置为1，对数据集进行1个迭代的训练。在train_net和
-test_net方法中，我们加载了之前下载的训练数据集，mnist_path是MNIST数据集路径。
+有了数据集、模型、损失函数、优化器后就可以进行训练了，这里把train\_epoch设置为1，对数据集进行1个迭代的训练。在train\_net和
+test\_net方法中，我们加载了之前下载的训练数据集，mnist\_path是MNIST数据集路径。
 
 .. code:: python
 
-   train_epoch = 1
-   mnist_path = "./datasets/MNIST_Data"
-   dataset_size = 1
-   model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-   train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, False)
+    train_epoch = 1
+    mnist_path = "./datasets/MNIST_Data"
+    dataset_size = 1
+    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, False)
 
 测试和验证
 ~~~~~~~~~~
@@ -207,32 +207,32 @@ test_net方法中，我们加载了之前下载的训练数据集，mnist_path�
 
 .. code:: python
 
-   def test_net(model, data_path):
-       """定义验证的方法"""
-       ds_eval = create_dataset(os.path.join(data_path, "test"))
-       acc = model.eval(ds_eval, dataset_sink_mode=False)
-       print("{}".format(acc))
-   # 验证模型精度
-   test_net(model, mnist_path)
+    def test_net(model, data_path):
+        """定义验证的方法"""
+        ds_eval = create_dataset(os.path.join(data_path, "test"))
+        acc = model.eval(ds_eval, dataset_sink_mode=False)
+        print("{}".format(acc))
+    # 验证模型精度
+    test_net(model, mnist_path)
 
 在训练完毕后，参数保存在checkpoint中，可以将训练好的参数加载到模型中进行验证。
 
 .. code:: python
 
-   import numpy as np
-   from mindspore import Tensor
-   from mindspore import load_checkpoint, load_param_into_net
-   # 定义测试数据集，batch_size设置为1，则取出一张图片
-   ds_test = create_dataset(os.path.join(mnist_path, "test"), batch_size=1).create_dict_iterator()
-   data = next(ds_test)
-   # images为测试图片，labels为测试图片的实际分类
-   images = data["image"].asnumpy()
-   labels = data["label"].asnumpy()
-   # 加载已经保存的用于测试的模型
-   param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
-   # 加载参数到网络中
-   load_param_into_net(net, param_dict)
-   # 使用函数model.predict预测image对应分类
-   output = model.predict(Tensor(data['image']))
-   # 输出预测分类与实际分类
-   print(f'Predicted: "{predicted[0]}", Actual: "{labels[0]}"')
+    import numpy as np
+    from mindspore import Tensor
+    from mindspore import load_checkpoint, load_param_into_net
+    # 定义测试数据集，batch_size设置为1，则取出一张图片
+    ds_test = create_dataset(os.path.join(mnist_path, "test"), batch_size=1).create_dict_iterator()
+    data = next(ds_test)
+    # images为测试图片，labels为测试图片的实际分类
+    images = data["image"].asnumpy()
+    labels = data["label"].asnumpy()
+    # 加载已经保存的用于测试的模型
+    param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
+    # 加载参数到网络中
+    load_param_into_net(net, param_dict)
+    # 使用函数model.predict预测image对应分类
+    output = model.predict(Tensor(data['image']))
+    # 输出预测分类与实际分类
+    print(f'Predicted: "{predicted[0]}", Actual: "{labels[0]}"')

@@ -17,10 +17,10 @@
 -  了解机器学习系统编程接口的演进方向。
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   development_history
-   ml_workflow
-   neural_network_layer
-   c_python_interaction
-   summary
+    development_history
+    ml_workflow
+    neural_network_layer
+    c_python_interaction
+    summary

@@ -54,7 +54,7 @@ Ray
 .. _ch12/ch12-rllib_dist:
 
 .. figure:: ../img/ch12/ch12-rllib-distributed.svg
-   :width: 800px
+   :width: 600px
 
    RLlib分布式训练
 

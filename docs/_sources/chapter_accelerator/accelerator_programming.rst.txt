@@ -69,14 +69,14 @@ TVM是陈天奇博士等人开发的开源深度学习编译框架，提供了�
 .. figure:: ../img/ch06/MLIR-Lowing.svg
    :width: 800px
 
-   MLIR_Lowing
+   MLIR\_Lowing
 
 
 
 -  **华为TBE/AKG**
 
 TBE（Tensor Boost Engine）是华为的Ascend芯片及其CANN软件栈基于TVM
-开发的一套算子编译优化工具，用于对Ascend芯片进行调度优化、指令映射、及后端pass优化等。不仅提供了一个优化过的神经网络标准算子库，同时还提供了算子开发能力及融合能力。通过TBE提供的API和自定义算子编程开发界面可以完成相应神经网络算子的开发，帮助用户较容易的去使能硬件加速器上的AI_CORE
+开发的一套算子编译优化工具，用于对Ascend芯片进行调度优化、指令映射、及后端pass优化等。不仅提供了一个优化过的神经网络标准算子库，同时还提供了算子开发能力及融合能力。通过TBE提供的API和自定义算子编程开发界面可以完成相应神经网络算子的开发，帮助用户较容易的去使能硬件加速器上的AI\_CORE
 相关指令，以实现高性能的神经网络计算。为了简化算子开发流程，TBE还实现了一个Auto
 Schedule工具，开放了自定义算子编程DSL，用于自动完成复杂算子的调度生成。此外，TBE还实现了端到端的动态shape算子编译能力。
 
@@ -117,13 +117,10 @@ DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合�
 
 .. _gemm-algorith:
 
-.. _编程接口使能加速器-1:
-
 .. figure:: ../img/ch06/gemm.svg
    :width: 800px
 
    矩阵乘法GEMM运算
-
 
 
 
@@ -140,39 +137,39 @@ Core步骤包括： 1. 创建cuBLAS对象句柄且设置对应数学计算模式
 
 .. code:: cpp
 
-   cublasHandle_t handle;
-   cublasStatus_t cublasStat = cublasCreate(&handle);
-   cublasStat = cublasSetMathMode(handle, CUBLAS_TENSOR_OP_MATH);
+    cublasHandle_t handle;
+    cublasStatus_t cublasStat = cublasCreate(&handle);
+    cublasStat = cublasSetMathMode(handle, CUBLAS_TENSOR_OP_MATH);
 
 2. 分配和初始化矩阵内存空间及内容元素
 
 .. code:: cpp
 
-   size_t matrixSizeA = (size_t)M * K;
-   cublasStat = cudaMalloc(&devPtrA[0], matrixSizeA * sizeof(devPtrA[0][0]));
-   cublasStat = cublasSetMatrix(M, K, sizeof(A[0]), A, M, devPtrA[i], M);
+    size_t matrixSizeA = (size_t)M * K;
+    cublasStat = cudaMalloc(&devPtrA[0], matrixSizeA * sizeof(devPtrA[0][0]));
+    cublasStat = cublasSetMatrix(M, K, sizeof(A[0]), A, M, devPtrA[i], M);
 
 3. 调用对应计算函数接口
 
 .. code:: cpp
 
-   cublasStat = cublasGemmEx(handle, transa, transb, m, n, k, alpha,
-                             A, CUDA_R_16F, lda,
-                             B, CUDA_R_16F, ldb,
-                             beta, C, CUDA_R_16F, ldc, CUDA_R_32F, algo);
+    cublasStat = cublasGemmEx(handle, transa, transb, m, n, k, alpha,
+                              A, CUDA_R_16F, lda,
+                              B, CUDA_R_16F, ldb,
+                              beta, C, CUDA_R_16F, ldc, CUDA_R_32F, algo);
 
 4. 传回结果数据
 
 .. code:: cpp
 
-   cublasStat = cublasGetMatrix(M, N, sizeof(D[0]), devPtrD[i], M, D, M);
+    cublasStat = cublasGetMatrix(M, N, sizeof(D[0]), devPtrD[i], M, D, M);
 
 5. 释放内存和对象句柄
 
 .. code:: cpp
 
-   cudaFree(devPtrA);
-   cudaDestroy(handle);
+    cudaFree(devPtrA);
+    cudaDestroy(handle);
 
 当然，由于加速器一般会有矩阵形状、数据类型、排布方式等限制，因此在调用句柄和函数接口时要多加注意。如本例中，cuBLAS计算模式必须设置为\ :math:`CUBLAS\_TENSOR\_OP\_MATH`\ ，步长必须设置为8的倍数，输入数据类型必须为\ :math:`CUDA\_R\_16F`\ 等。按照如上方式即可通过cuBLAS算子库对
 :numref:`accelerator-programable-title`\ 实例使能Tensor
@@ -192,10 +189,10 @@ Float）、排布方式（\ :math:`row\_major/ col\_major`\ ）等信息的模�
 
 .. code:: cpp
 
-   wmma::fragment<wmma::matrix_a, WMMA_M, WMMA_N, WMMA_K, half, wmma::row_major> a_frag;
-   wmma::fragment<wmma::matrix_b, WMMA_M, WMMA_N, WMMA_K, half, wmma::col_major> b_frag;
-   wmma::fragment<wmma::accumulator, WMMA_M, WMMA_N, WMMA_K, float> acc_frag;
-   wmma::fragment<wmma::accumulator, WMMA_M, WMMA_N, WMMA_K, float> c_frag;
+    wmma::fragment<wmma::matrix_a, WMMA_M, WMMA_N, WMMA_K, half, wmma::row_major> a_frag;
+    wmma::fragment<wmma::matrix_b, WMMA_M, WMMA_N, WMMA_K, half, wmma::col_major> b_frag;
+    wmma::fragment<wmma::accumulator, WMMA_M, WMMA_N, WMMA_K, float> acc_frag;
+    wmma::fragment<wmma::accumulator, WMMA_M, WMMA_N, WMMA_K, float> c_frag;
 
 使用时，我们需要将待执行乘法操作矩阵块的数据，作为Fragment，由寄存器加载至TensorCore，在将累加Fragment初始化/清零操作后，通过TensorCore单元执行乘累加运算，最后将运算结果的Fragment存回寄存器或其他内存区域。与上述操作对应的，NVIDIA提供了\ :math:`wmma.load\_matrix\_sync(), wmma.store\_matrix\_sync()`\ 接口用于将参与计算的子矩阵块写入/载出Fragment片段；\ :math:`wmma.fill\_fragment()`\ 接口用于初始化对应Fragment的数据；\ :math:`wmma.mma\_sync()`\ 接口用于对Fragment进行乘累加运算。
 
@@ -226,15 +223,15 @@ API具有更好的灵活性。
 
 .. code:: python
 
-   a_shape = (1024, 256)
-   b_shape = (256, 512)
-   bias_shape = (512, )
-   in_dtype = "float16"
-   dst_dtype = "float32"
-   tensor_a = tvm.placeholder(a_shape, name='tensor_a', dtype=in_dtype)
-   tensor_b = tvm.placeholder(b_shape, name='tensor_b', dtype=in_dtype)
-   tensor_bias = tvm.placeholder(bias_shape, name='tensor_bias', dtype=dst_dtype)
-   res = te.lang.cce.matmul(tensor_a, tensor_b, False, False, False, dst_dtype=dst_dtype, tensor_bias=tensor_bias)
+    a_shape = (1024, 256)
+    b_shape = (256, 512)
+    bias_shape = (512, )
+    in_dtype = "float16"
+    dst_dtype = "float32"
+    tensor_a = tvm.placeholder(a_shape, name='tensor_a', dtype=in_dtype)
+    tensor_b = tvm.placeholder(b_shape, name='tensor_b', dtype=in_dtype)
+    tensor_bias = tvm.placeholder(bias_shape, name='tensor_bias', dtype=dst_dtype)
+    res = te.lang.cce.matmul(tensor_a, tensor_b, False, False, False, dst_dtype=dst_dtype, tensor_bias=tensor_bias)
 
 硬件加速器高性能编程实例
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -258,7 +255,7 @@ Core加速单元为例，介绍如何通过矩阵分块、资源映射等方式�
 若要得到高性能CUDA程序，提高并行性、增大吞吐量、优化指令执行是至关重要的三个优化目标。针对该实例，具体地实现和优化方案列出如下，对应到具体实例伪代码如
 :numref:`gemm-tensor-core-algorith`\ 所示：
 
-1. **优化内存结构——增大吞吐量**\ ：将原始大规模矩阵根据不同阈值切分成不同层级的子矩阵块，使得子矩阵块能被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。设置切分参数为\ :math:`BlockTile[Ms, Ns, Ks]`\ 和\ :math:`WarpTile[Mw, Nw, Kw]`\ ，对应的将BlockTile下的矩阵由全局内存搬移至共享内存，以提高全局内存合并访问和数据局部性，如
+1. **优化内存结构------增大吞吐量**\ ：将原始大规模矩阵根据不同阈值切分成不同层级的子矩阵块，使得子矩阵块能被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。设置切分参数为\ :math:`BlockTile[Ms, Ns, Ks]`\ 和\ :math:`WarpTile[Mw, Nw, Kw]`\ ，对应的将BlockTile下的矩阵由全局内存搬移至共享内存，以提高全局内存合并访问和数据局部性，如
    :numref:`GEMM-BlockTile`\ 所示；再将内层WarpTile下的矩阵由共享内存搬移至寄存器中，如
    :numref:`GEMM-WarpTile`\ 所示，以备Tensor Core加速器数据存取。
 
@@ -280,12 +277,12 @@ Core加速单元为例，介绍如何通过矩阵分块、资源映射等方式�
 
 
 
-2. **并行资源映射——提高并行性**\ ：将多层级的并行资源（Block、Warp、Thread）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于GEMM实例，M/N轴即为可并行轴，将数据搬移操作中的循环指令映射分配到Block层级（即
+2. **并行资源映射------提高并行性**\ ：将多层级的并行资源（Block、Warp、Thread）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于GEMM实例，M/N轴即为可并行轴，将数据搬移操作中的循环指令映射分配到Block层级（即
    :numref:`gemm-tensor-core-algorith`\ 中的2-4行\ :math:`For`\ 循环），将内层循环指令映射分配到Warp层级（即
    :numref:`gemm-tensor-core-algorith`\ 中的8-9行\ :math:`For`\ 循环）。（前文介绍，线程束Warp作为调度的基本单位，且是WMMA
    API操纵的基本层级，因此对Warp层级进行数据映射比Thread层级映射更为合适）
 
-3. **Warp统一的Tensor Core数据交互——增大吞吐量**\ ：根据
+3. **Warp统一的Tensor Core数据交互------增大吞吐量**\ ：根据
    :numref:`diversified-programming-title`\ 节中介绍的编程方法，除调用算子库外，均需要使用或将指令封装成WMMA接口形式统一进行Warp层级的数据存取和计算。如
    :numref:`GEMM-TensorCore`\ 所示，Tensor
    Core加速器需要从局部内存/寄存器中读取数据，存于虚拟Fragment数据结构中，对应使用\ :math:`wmma.load\_matrix\_sync()`\ 接口，将累加Fragment
@@ -302,11 +299,11 @@ Core加速单元为例，介绍如何通过矩阵分块、资源映射等方式�
 
 
 
-4. **优化数据访存——提高并行性**\ ：在进行内存结构变化（矩阵数据搬移）时，需要注意全局内存的合并访问、共享内存的存储体冲突等常见性能瓶颈点。
+4. **优化数据访存------提高并行性**\ ：在进行内存结构变化（矩阵数据搬移）时，需要注意全局内存的合并访问、共享内存的存储体冲突等常见性能瓶颈点。
 
-5. **资源负载均衡——增大吞吐量**\ ：调整平衡每个线程处理的数据量、共享内存使用量、寄存器使用量，以获得更高的SM占用率。一般在实际程序中BlockTile和WarpTile的选取至关重要。
+5. **资源负载均衡------增大吞吐量**\ ：调整平衡每个线程处理的数据量、共享内存使用量、寄存器使用量，以获得更高的SM占用率。一般在实际程序中BlockTile和WarpTile的选取至关重要。
 
 6. **优化指令执行**\ ：使用#unroll功能进行循环展开来提升指令级并行，如
    :numref:`gemm-tensor-core-algorith`\ 中13行；使用向量化加载指令以提高带宽等，对于GPU
    Volta架构，最大向量化加载指令为ldg128，即128比特带宽，对于
-   :numref:`gemm-tensor-core-algorith`\ 中5-6行数据由全局内存加载至共享内存时，即可采用Float4*类型指针进行内存读取。
+   :numref:`gemm-tensor-core-algorith`\ 中5-6行数据由全局内存加载至共享内存时，即可采用Float4\*类型指针进行内存读取。

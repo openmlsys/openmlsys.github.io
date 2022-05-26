@@ -98,7 +98,7 @@ MindRecord是MindSpore推出的统一数据格式，目标是归一化用户的�
 
 用户训练时，MindRecord的读取器能基于索引文件快速的定位找到数据所在的位置，并将其读取解码出来。另外MindRecord具备一定的检索能力，用户可以通过指定查询条件筛选获取符合期望的数据样本。
 
-对于分布式训练场景，MindRecord会基于数据文件中Header及索引文件进行元数据的加载，得到所有样本的ID及样本在数据文件中的偏移信息，然后根据用户输入的num_shards（训练节点数）和shard_id（当前节点号）进行数据的partition，得到当前节点的num_shards分之一的数据，即：分布式训练时，多个节点只读取数据集的num_shards分之一，借由计算侧的AllReduce实现整个数据集训练的效果。进一步，如果用户开启shuffle操作，那么每epoch保证所有节点shuffle
+对于分布式训练场景，MindRecord会基于数据文件中Header及索引文件进行元数据的加载，得到所有样本的ID及样本在数据文件中的偏移信息，然后根据用户输入的num\_shards（训练节点数）和shard\_id（当前节点号）进行数据的partition，得到当前节点的num\_shards分之一的数据，即：分布式训练时，多个节点只读取数据集的num\_shards分之一，借由计算侧的AllReduce实现整个数据集训练的效果。进一步，如果用户开启shuffle操作，那么每epoch保证所有节点shuffle
 seed保持一致，那么对所有样本的ID
 shuffle结果是一致的，那么数据partition的结果就是正确的。
 
@@ -142,7 +142,7 @@ shuffle结果是一致的，那么数据partition的结果就是正确的。
 
 
 
-在Pytorch中，用户只需要实现一个Dataset的Python类编写数据处理过程，Dataloader通过用户指定的并行度参数num_workers来启动相应个数的Python进程调用用户自定义的Dataset类进行数据预处理。Dataloader中的进程有两类角色：worker进程以及主进程，以及两类进程间通信队列：index_queue以及worker_result_queue。训练过程中，主进程负责将待处理数据任务列表通过index_queue发送给各个worker进程，每个woker进程执行用户编写的Dataset类的数据预处理逻辑并将处理后的结果通过worker_result_queue返回给主进程。
+在Pytorch中，用户只需要实现一个Dataset的Python类编写数据处理过程，Dataloader通过用户指定的并行度参数num\_workers来启动相应个数的Python进程调用用户自定义的Dataset类进行数据预处理。Dataloader中的进程有两类角色：worker进程以及主进程，以及两类进程间通信队列：index\_queue以及worker\_result\_queue。训练过程中，主进程负责将待处理数据任务列表通过index\_queue发送给各个worker进程，每个woker进程执行用户编写的Dataset类的数据预处理逻辑并将处理后的结果通过worker\_result\_queue返回给主进程。
 
 .. _pytorch_dataloader:
 
@@ -153,31 +153,31 @@ shuffle结果是一致的，那么数据partition的结果就是正确的。
 
 
 
-接下来我们展示一段用户使用Pytorch的Dataloader进行并行数据预处理的代码片段，可以发现我们只需要实现Dataset类描述数据预处理逻辑，并指定num_workers即可实现流水线粒度的并行数据预处理。
+接下来我们展示一段用户使用Pytorch的Dataloader进行并行数据预处理的代码片段，可以发现我们只需要实现Dataset类描述数据预处理逻辑，并指定num\_workers即可实现流水线粒度的并行数据预处理。
 
 .. code:: python
 
-   # 描述数据预处理流程
-   class TensorDataset:
-       def __init__(self, inps):
-           sef.inps = inps
-       
-       def __getitem__(self, idx):
-           data = self.inps[idx]
-           data = data + 1
-           return data
-       
-       def __len__(self):
-           return self.inps.shape[0]
+    # 描述数据预处理流程
+    class TensorDataset:
+        def __init__(self, inps):
+            sef.inps = inps
+        
+        def __getitem__(self, idx):
+            data = self.inps[idx]
+            data = data + 1
+            return data
+        
+        def __len__(self):
+            return self.inps.shape[0]
 
-   inps = torch.arange(10 * 5, dtype=torch.float32).view(10, 5)
-   dataset = TensorDataset(inps)
+    inps = torch.arange(10 * 5, dtype=torch.float32).view(10, 5)
+    dataset = TensorDataset(inps)
 
-   # 指定并行度为3
-   loader = DataLoader(dataset, batch_size=2, num_workers=3)
+    # 指定并行度为3
+    loader = DataLoader(dataset, batch_size=2, num_workers=3)
 
-   for batch_idx, sample in enumerate(loader):
-       print(sample)
+    for batch_idx, sample in enumerate(loader):
+        print(sample)
 
 最后需要指出的是, Pytorch
 Dataloader的执行过程中涉及大量进程间通信，虽然为了加速这一步骤，Pytorch对Tensor类数据实现了基于共享内存的进程间通信机制。然而当通信数据量较大时，跨进程通信仍然会较大地影响端到端的数据预处理吞吐率性能。当然，这不是流水线并行自身的架构问题，而是由于CPython的全局解释器锁(Global
@@ -216,30 +216,30 @@ GIL)导致在Python层面实现流水线并行时只能采用进程并行。为�
 
 .. code:: python
 
-   import mindspore.dataset as ds
-   import mindspore.dataset.transforms.c_transforms as c_transforms
-   import mindspore.dataset.transforms.vision.c_transforms as vision
+    import mindspore.dataset as ds
+    import mindspore.dataset.transforms.c_transforms as c_transforms
+    import mindspore.dataset.transforms.vision.c_transforms as vision
 
-   # 读取数据
-   dataset_dir = "path/to/imagefolder_directory"
-   dataset = ds.ImageFolderDatasetV2(dataset_dir, num_parallel_workers=8)
-   transforms_list = [vision.Decode(),
-                      vision.Resize((256, 256)),
-                      vision.RandomRotation((0, 15)),
-                      vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)),
-                      vision.HWC2CHW()]
-   onehot_op = c_transforms.OneHot(num_classes)
-   # 解码算子并行度为3
-   dataset = dataset.map(input_columns="image", operations=vision.Decode(), num_parallel_workers=3)
-   # 缩放算子并行度为2
-   dataset = dataset.map(input_columns="image", operations=vision.Resize((256, 256)), num_parallel_workers=2)
-   # 随机旋转算子并行度为4
-   dataset = dataset.map(input_columns="image", operations=vision.RandomRotation((0, 15)), num_parallel_workers=4)
-   # 正规化算子并行度为3
-   dataset = dataset.map(input_columns="image", operations=vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)), num_parallel_workers=3)
-   # 通道转置算子并行度为1
-   dataset = dataset.map(input_columns="image", operations=vision.HWC2CHW(), num_parallel_workers=1)
-   dataset = dataset.map(input_columns="label", operations=onehot_op)
+    # 读取数据
+    dataset_dir = "path/to/imagefolder_directory"
+    dataset = ds.ImageFolderDatasetV2(dataset_dir, num_parallel_workers=8)
+    transforms_list = [vision.Decode(),
+                       vision.Resize((256, 256)),
+                       vision.RandomRotation((0, 15)),
+                       vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)),
+                       vision.HWC2CHW()]
+    onehot_op = c_transforms.OneHot(num_classes)
+    # 解码算子并行度为3
+    dataset = dataset.map(input_columns="image", operations=vision.Decode(), num_parallel_workers=3)
+    # 缩放算子并行度为2
+    dataset = dataset.map(input_columns="image", operations=vision.Resize((256, 256)), num_parallel_workers=2)
+    # 随机旋转算子并行度为4
+    dataset = dataset.map(input_columns="image", operations=vision.RandomRotation((0, 15)), num_parallel_workers=4)
+    # 正规化算子并行度为3
+    dataset = dataset.map(input_columns="image", operations=vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)), num_parallel_workers=3)
+    # 通道转置算子并行度为1
+    dataset = dataset.map(input_columns="image", operations=vision.HWC2CHW(), num_parallel_workers=1)
+    dataset = dataset.map(input_columns="label", operations=onehot_op)
 
 我们发现，虽然算子并行具备更高的性能潜力，但却需要我们对每一个算子设置合理并行参数。这不仅对用户提出了较高的要求，同时也增加了由于不合理的并行参数设置导致性能反而下降的风险。为了让用户更加轻松的使用算子并行，tf.data和MindData都增加了流水线关键参数动态调优功能，基于对流水线执行时的性能监控计算得到合理的参数以尽可能达到最优的数据预处理吞吐率
 :cite:`murray2021tf`\ 。
@@ -248,4 +248,4 @@ GIL)导致在Python层面实现流水线并行时只能采用进程并行。为�
 ^^^^^^^^^^^^^^^^^^
 
 在前文中，我们专注于通过并行架构来高效执行用户构建的数据预处理计算图。但我们可以思考如下问题：用户给定的计算图是否是一个高效的计算图?
-如果不高效，我们是否能够在保证等价变换的前提下将用户的数据计算图进行优化重写得到执行性能预期更好的计算图？没错，这和我们在前几章中学习的模型计算图编译优化有着相同的思想，即通过分析变换计算图IR得到更优的IR表示来达到更好的执行性能。常用的数据图优化策略有算子融合以及map操作向量化两种。算子融合将map+map、map+batch、map+filter、filter+filter等算子组合融合成一个等价复合算子，将原先需要在两个线程组中执行的计算融合为在一个线程组中执行的复合计算，减少线程间的同步通信开销，达到了更优的性能。而map操作向量化则将常见的dataset.map(f).batch(b)操作组合变换调整为dataset.batch(b).map(parallel_for(f))，借助现代CPU的对并行操作更友好的SIMD指令集来加速数据预处理。
+如果不高效，我们是否能够在保证等价变换的前提下将用户的数据计算图进行优化重写得到执行性能预期更好的计算图？没错，这和我们在前几章中学习的模型计算图编译优化有着相同的思想，即通过分析变换计算图IR得到更优的IR表示来达到更好的执行性能。常用的数据图优化策略有算子融合以及map操作向量化两种。算子融合将map+map、map+batch、map+filter、filter+filter等算子组合融合成一个等价复合算子，将原先需要在两个线程组中执行的计算融合为在一个线程组中执行的复合计算，减少线程间的同步通信开销，达到了更优的性能。而map操作向量化则将常见的dataset.map(f).batch(b)操作组合变换调整为dataset.batch(b).map(parallel\_for(f))，借助现代CPU的对并行操作更友好的SIMD指令集来加速数据预处理。

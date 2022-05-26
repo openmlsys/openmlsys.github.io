@@ -11,11 +11,11 @@
 -  掌握多智能体强化学习基础知识及系统设计简介。
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   rl_introduction
-   single_node_rl
-   distributed_node_rl
-   marl
-   marl_sys
-   summary
+    rl_introduction
+    single_node_rl
+    distributed_node_rl
+    marl
+    marl_sys
+    summary

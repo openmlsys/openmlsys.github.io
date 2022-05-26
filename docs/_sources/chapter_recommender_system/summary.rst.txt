@@ -20,3 +20,9 @@
 -  工业界机器学习系统的实践：\ `Hidden Technical Debt in Machine
    Learning
    Systems <https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html>`__
+
+参考文献
+--------
+
+.. bibliography:: ../references/recommender.bib
+   :style: apa
