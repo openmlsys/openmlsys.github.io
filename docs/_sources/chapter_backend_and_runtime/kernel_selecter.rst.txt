@@ -60,7 +60,7 @@
 
 
 
-类似的NHWC数据格式是先取C方向数据，再取W方向，然后是H方向，最后取N方向。NHWC是Tensorflow默认的数据格式。这种格式在PyTorch中称为Chanel-Last。
+类似的NHWC数据格式是先取C方向数据，再取W方向，然后是H方向，最后取N方向。NHWC是Tensorflow默认的数据格式。这种格式在PyTorch中称为Channel-Last。
 
 .. math:: offsetnhwc(n,h,w,c) = n*HWC + h*WC + w*C +c
 

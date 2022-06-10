@@ -2,6 +2,11 @@
 机器学习系统：设计和实现
 ========================
 
+
+
+.. raw:: html
+   :file: frontpage.html
+
 .. toctree::
    :maxdepth: 2
    :numbered:

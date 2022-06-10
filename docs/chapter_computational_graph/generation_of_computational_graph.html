@@ -471,7 +471,7 @@ Show Source
 <p>尽管静态图和动态图在前端语言表达上略有差异，但本质的区别在于静态生成和动态生成的编译执行过程不同。使用前端语言构建完成模型表达后，动态生成并不采用计算框架编译器生成完整的静态计算图，而是采用前端语言的解释器Python
 API调用计算框架，框架利用自身的算子分发功能，将Python调用的算子在相应的硬件如CPU、GPU、NPU等上进行加速计算，然后再将计算结果返回给前端。该过程并不产生静态的计算图，而是按照前端语言描述模型结构，按照计算依赖关系进行调度执行，动态生成临时的图拓扑结构。</p>
 <div class="figure align-default" id="id9">
-<span id="dynamicgen"></span><a class="reference internal image-reference" href="../_images/dynamic-gen.svg"><img alt="../_images/dynamic-gen.svg" src="../_images/dynamic-gen.svg" width="700px" /></a>
+<span id="dynamicgen"></span><a class="reference internal image-reference" href="../_images/dynamic_gen.png"><img alt="../_images/dynamic_gen.png" src="../_images/dynamic_gen.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">图4.3.4 </span><span class="caption-text">动态生成</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>如

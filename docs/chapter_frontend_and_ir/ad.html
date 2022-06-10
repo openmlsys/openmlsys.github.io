@@ -584,41 +584,41 @@ Overloading，OO）和代码变换法（Source Code Transformation，ST）。</p
 <p>基本表达式法的优缺点显而易见，优点是实现简单直接，可为任意语言快速实现微分的库函数；而缺点是增加了用户的工作量，用户必须先手工分解程序为一些基本表达式，才能使用这些库函数进行编程，无法方便地使用语言原生的表达式。</p>
 <p>（2）操作符重载法（Operator Overloading,
 OO）：依赖于现代编程语言的多态特性，使用操作符重载对编程语言中的基本操作语义进行重定义，封装其微分规则。每个基本操作类型及其输入关系，在程序运行时会被记录在一个所谓的“tape”的数据结构里面，最后，这些“tape”会形成一个跟踪轨迹(trace)，我们就可以使用链式法则沿着轨迹正向或者反向地将基本操作组成起来进行微分。以自动微分库AutoDiff为例，对编程语言的基本运算操作符进行了重载：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">AutoDiff</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Term</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// 重载操作符 `+`，`*` 和 `/`，调用这些操作符时，会通过其中的</span>
-<span class="w">    </span><span class="c1">// TermBuilder 将操作的类型、输入输出信息等记录至 tape 中</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="n">Term</span><span class="w"> </span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">TermBuilder</span><span class="p">.</span><span class="n">Power</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">AutoDiff</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">abstract</span> <span class="k">class</span> <span class="nc">Term</span>
+    <span class="p">{</span>
+    <span class="c1">// 重载操作符 `+`，`*` 和 `/`，调用这些操作符时，会通过其中的</span>
+    <span class="c1">// TermBuilder 将操作的类型、输入输出信息等记录至 tape 中</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Term</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Term</span> <span class="n">left</span><span class="p">,</span> <span class="n">Term</span> <span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TermBuilder</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Term</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Term</span> <span class="n">left</span><span class="p">,</span> <span class="n">Term</span> <span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Term</span> <span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="n">Term</span> <span class="n">numerator</span><span class="p">,</span> <span class="n">Term</span> <span class="n">denominator</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TermBuilder</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">TermBuilder</span><span class="p">.</span><span class="n">Power</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Tape 数据结构中的基本元素，主要包含：</span>
-<span class="w">    </span><span class="c1">// 1) 操作的运算结果</span>
-<span class="w">    </span><span class="c1">// 2) 操作的运算结果对应的导数结果</span>
-<span class="w">    </span><span class="c1">// 3) 操作的输入</span>
-<span class="w">    </span><span class="c1">// 除此外还通过函数 Eval 和 Diff 定义了该运算操作的计算规则和微分规则</span>
-<span class="w">    </span><span class="n">internal</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">TapeElement</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Adjoint</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">InputEdges</span><span class="w"> </span><span class="n">Inputs</span><span class="p">;</span><span class="w"></span>
+    <span class="c1">// Tape 数据结构中的基本元素，主要包含：</span>
+    <span class="c1">// 1) 操作的运算结果</span>
+    <span class="c1">// 2) 操作的运算结果对应的导数结果</span>
+    <span class="c1">// 3) 操作的输入</span>
+    <span class="c1">// 除此外还通过函数 Eval 和 Diff 定义了该运算操作的计算规则和微分规则</span>
+    <span class="n">internal</span> <span class="n">abstract</span> <span class="k">class</span> <span class="nc">TapeElement</span>
+    <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">double</span> <span class="n">Value</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">double</span> <span class="n">Adjoint</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">InputEdges</span> <span class="n">Inputs</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Eval</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Diff</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">public</span> <span class="n">abstract</span> <span class="kt">void</span> <span class="nf">Eval</span><span class="p">();</span>
+    <span class="k">public</span> <span class="n">abstract</span> <span class="kt">void</span> <span class="nf">Diff</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>OO对程序的运行跟踪经过了函数调用和控制流，因此实现起来也是简单直接。而缺点是需要在程序运行时进行跟踪，特别在反向模式上还需要沿着轨迹反向地执行微分，所以会造成性能上的损耗，尤其对于本来运行就很快的基本操作。并且因为其运行时跟踪程序的特性，该方法不允许在运行前做编译时刻的图优化，控制流也需要根据运行时的信息来展开。Pytorch的自动微分框架使用了该方法。</p>
@@ -634,23 +634,23 @@ Transformation，ST）：提供对编程语言的扩展，分析程序的源码�
 <p>（2）应用全微分法则，将(<span class="math notranslate nohighlight">\(df\)</span>, <span class="math notranslate nohighlight">\(dinputs\)</span>)累加到对应的变量上。</p>
 <p>涉及控制流语句时，因为MindIR实现了分支、循环和闭包等操作的函数式表达，我们对这些操作应用上述法则进行组合，即可完成微分。定义运算符K求解导数，MindSpore的自动微分算法可以简单表达如下：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// func和inputs分别表示函数及其输入，dout为关于输出的梯度</span>
-<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">)</span><span class="w"></span>
-<span class="n">F</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">bprop</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dinputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bprop</span><span class="p">(</span><span class="n">dout</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">df</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">df</span><span class="w"></span>
-<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">dinputs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dinputs</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+<span class="n">F</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">bprop</span><span class="p">)</span> <span class="o">=</span> <span class="n">K</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">dinputs</span> <span class="o">=</span> <span class="n">bprop</span><span class="p">(</span><span class="n">dout</span><span class="p">)</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">df</span> <span class="o">+=</span> <span class="n">df</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">dinputs</span> <span class="o">+=</span> <span class="n">dinputs</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>MindSpore解析器模块首先根据Python的AST生成MindIR，再经过特化模块使得中间表示中的算子可识别，然后调用自动微分模块。自动微分模块的入口函数如下所示：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="w"> </span><span class="n">Grad</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Init</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">MapObject</span><span class="p">();</span><span class="w">  </span><span class="c1">// 实现Parameter/Primitive/FuncGraph/FreeVariable对象的映射</span>
-<span class="w">    </span><span class="n">MapMorphism</span><span class="p">();</span><span class="w">  </span><span class="c1">// 实现CNode的映射</span>
-<span class="w">    </span><span class="n">Finish</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">Return</span><span class="w"> </span><span class="nf">GetKGraph</span><span class="p">();</span><span class="w">  </span><span class="c1">// 获取梯度函数计算图</span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">Grad</span> <span class="p">{</span>
+    <span class="n">Init</span><span class="p">();</span>
+    <span class="n">MapObject</span><span class="p">();</span>  <span class="c1">// 实现Parameter/Primitive/FuncGraph/FreeVariable对象的映射</span>
+    <span class="n">MapMorphism</span><span class="p">();</span>  <span class="c1">// 实现CNode的映射</span>
+    <span class="n">Finish</span><span class="p">();</span>
+    <span class="n">Return</span> <span class="nf">GetKGraph</span><span class="p">();</span>  <span class="c1">// 获取梯度函数计算图</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Grad函数先通过MapObject实现图上自由变量、Parameter和ValueNode（Primitive或FuncGraph）等节点到<span class="math notranslate nohighlight">\(fprop\)</span>的映射。<span class="math notranslate nohighlight">\(fprop\)</span>是<span class="math notranslate nohighlight">\((forward\_result, bprop)\)</span>形式的梯度函数对象。<span class="math notranslate nohighlight">\(forward\_result\)</span>是前向计算图的输出节点，<span class="math notranslate nohighlight">\(bprop\)</span>是以<span class="math notranslate nohighlight">\(fprop\)</span>的闭包对象形式生成的梯度函数，它只有<span class="math notranslate nohighlight">\(dout\)</span>一个入参，其余的输入则是引用的<span class="math notranslate nohighlight">\(fprop\)</span>的输入和输出。其中对于ValueNode&lt;Primitive&gt;类型的<span class="math notranslate nohighlight">\(bprop\)</span>，通过解析Python层预先注册的<span class="math notranslate nohighlight">\(get\_bprop\)</span>函数的得到，如下所示。对于ValueNode&lt;FuncGraph&gt;类型的节点，则递归求出它的梯度函数对象。</p>

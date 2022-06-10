@@ -76,7 +76,7 @@ API调用计算框架，框架利用自身的算子分发功能，将Python调�
 
 .. _dynamicgen:
 
-.. figure:: ../img/ch03/dynamic-gen.svg
+.. figure:: ../img/ch03/dynamic_gen.png
    :width: 700px
 
    动态生成
