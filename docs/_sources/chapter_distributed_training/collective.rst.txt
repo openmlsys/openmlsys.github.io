@@ -73,7 +73,7 @@ AllGather
 相比起Gather，AllGather
 算子会把聚合的结果存到所有的处理单元上。在这里，一个简单的做法是使用Gather和Broadcast把聚合结果先存到编号为1的处理单元中，再将其广播到剩余的处理单元上。这会产生一个\ :math:`a \log p + (p-1) bl + (a+plb) \log p`\ 的时间复杂度，因为在Broadcast时如果忽略链表/数组实现所带来的额外空间开销，每次通信的长度为\ :math:`pl`\ 而不是\ :math:`l`\ 。简化后，我们得到了一个\ :math:`a \log p + plb \log p`
 的时间复杂度。在一个基于超立方体的算法下，我们可以将其进一步优化到和Gather一样的\ :math:`a \log p + (p-1) bl`
-（:cite:\ ``Sanders2019-cq``\ ），然而由于篇幅问题便不再赘述。
+（:cite:`Sanders2019-cq`\ ），然而由于篇幅问题便不再赘述。
 
 Scatter
 ^^^^^^^
@@ -188,7 +188,7 @@ AllReduce算子会把梯度的计算拆分成\ :math:`M-1`\ 个Reduce算子和\ 
 带宽计算
 ~~~~~~~~
 
-在讨论集合通信算子的性能时，人们经常会使用一些数值化指标去量化不同的算法实现，其中一个重要概念为带宽（Bandwidth）。在文献（:cite:\ ``nvidia-nccl``\ ）中，通常有两种主流的对带宽的计算方法，分别为算法带宽（Algorithm
+在讨论集合通信算子的性能时，人们经常会使用一些数值化指标去量化不同的算法实现，其中一个重要概念为带宽（Bandwidth）。在文献（:cite:`nvidia-nccl`\ ）中，通常有两种主流的对带宽的计算方法，分别为算法带宽（Algorithm
 Bandwidth）与总线带宽（Bus Bandwidth）。
 
 算法带宽
@@ -233,7 +233,7 @@ ZeRO
 ^^^^
 
 ZeRO
-（:cite:\ ``rajbhandari2020zero``\ ）是微软提出的神经网络优化器，可用于训练千亿级参数的神经网络，也在实践中成功训练了当时世界上最大的语言模型（为高达170亿参数的transformer）。在训练这个级别的神经网络时主要遇到的问题是巨量参数对于加速器内存的占用，其中包括优化器本身的参数，反向传播时的梯度，以及模型参数本身。通过简易的计算不难得出，170亿参数的模型在32位浮点表示情况下会占用至少680GB的内存，远超于现在内存最高的深度学习加速器A100
+（:cite:`rajbhandari2020zero`\ ）是微软提出的神经网络优化器，可用于训练千亿级参数的神经网络，也在实践中成功训练了当时世界上最大的语言模型（为高达170亿参数的transformer）。在训练这个级别的神经网络时主要遇到的问题是巨量参数对于加速器内存的占用，其中包括优化器本身的参数，反向传播时的梯度，以及模型参数本身。通过简易的计算不难得出，170亿参数的模型在32位浮点表示情况下会占用至少680GB的内存，远超于现在内存最高的深度学习加速器A100
 （最高内存80GB）。于是，我们需要考虑如何高效的把模型切成数份存储在不同的加速器上，以及如何高效的通过使用集合通信算子来进行模型训练和推理。ZeRO对此提出了多个优化方法，这里例举了三个典型的例子：
 1.
 首先，可以发现在现代集群中，节点内部加速器的带宽往往比节点之间的带宽要大很多。这在某种程度上偏离了上文中的理论框架。为此，我们需要尽量减少节点间的通信，尽量保证大部分通信仅存在于节点内部的加速器之间。在观察模型切分时，不难看出模型本身前馈和反向传播时需要大量的在不同切片之间通信，相比下来不同模型拷贝之间的梯度聚合反而具有相对较少的通信量。针对这一特性，ZeRO选择了将单一模型的全部切片存储到同一节点内部，从而大大提高了训练效率。
@@ -246,7 +246,7 @@ DALL-E
 ^^^^^^
 
 DALL-E
-（:cite:\ ``ramesh2021zero``\ ）是OpenAI提出的一个基于文字的图片生成模型，模型同样拥有高达120亿参数。在训练时，除了运用到ZeRO所使用的AllGather
+（:cite:`ramesh2021zero`\ ）是OpenAI提出的一个基于文字的图片生成模型，模型同样拥有高达120亿参数。在训练时，除了运用到ZeRO所使用的AllGather
 + ReduceScatter
 技巧，OpenAI团队在细节上做了进一步的优化，以达到更快的训练速度。这里，我们简略介绍以下和集合通信相关的两点：
 1.
@@ -269,102 +269,102 @@ distributed等），而作为集群的维护者，往往需要深入了解前者
 PyTorch 举例，在torch.distributed
 命名空间（namespace）下实现了一系列方便开发者使用的分布式模型训练和推理函数。在其内部，会根据实际运行的集群调用更底层的集合通信算子库，例如MPI，NCCL（前文中已有介绍，适用于GPU分布式训练），gloo（适用于CPU分布式训练）等。我们来具体对比PyTorch
 distributed 中对于AllReduce 的应用和 NCCL
-的差异性：下面两段代码中，前者（:cite:\ ``li2022ddp``\ ）通过PyTorch自带的分布式数据并行（Distributed
+的差异性：下面两段代码中，前者（:cite:`li2022ddp`\ ）通过PyTorch自带的分布式数据并行（Distributed
 Data
 Parallel）方法完成了一次简易的深度学习模型计算，后者则通过gloo的Python
-接口pygloo和Ray（:cite:\ ``moritz2018ray``\ ）完成了一个二维张量的AllReduce计算。
+接口pygloo和Ray（:cite:`moritz2018ray`\ ）完成了一个二维张量的AllReduce计算。
 
 .. code:: python
 
-    import os
-    import sys
-    import tempfile
-    import torch
-    import torch.distributed as dist
-    import torch.nn as nn
-    import torch.optim as optim
-    import torch.multiprocessing as mp
+   import os
+   import sys
+   import tempfile
+   import torch
+   import torch.distributed as dist
+   import torch.nn as nn
+   import torch.optim as optim
+   import torch.multiprocessing as mp
 
-    from torch.nn.parallel import DistributedDataParallel as DDP
+   from torch.nn.parallel import DistributedDataParallel as DDP
 
-    def setup(rank, world_size):
-        os.environ['MASTER_ADDR'] = 'localhost'
-        os.environ['MASTER_PORT'] = '12355'
-        dist.init_process_group("gloo", rank=rank, world_size=world_size)
+   def setup(rank, world_size):
+       os.environ['MASTER_ADDR'] = 'localhost'
+       os.environ['MASTER_PORT'] = '12355'
+       dist.init_process_group("gloo", rank=rank, world_size=world_size)
 
-    class ToyModel(nn.Module):
-        def __init__(self):
-            super(ToyModel, self).__init__()
-            self.net1 = nn.Linear(10, 10)
-            self.relu = nn.ReLU()
-            self.net2 = nn.Linear(10, 5)
+   class ToyModel(nn.Module):
+       def __init__(self):
+           super(ToyModel, self).__init__()
+           self.net1 = nn.Linear(10, 10)
+           self.relu = nn.ReLU()
+           self.net2 = nn.Linear(10, 5)
 
-        def forward(self, x):
-            return self.net2(self.relu(self.net1(x)))
+       def forward(self, x):
+           return self.net2(self.relu(self.net1(x)))
 
-    def demo_basic(rank, world_size):
-        setup(rank, world_size)
+   def demo_basic(rank, world_size):
+       setup(rank, world_size)
 
-        model = ToyModel().to(rank)
-        # 通过调用DDP将模型在每个处理器上完成初始化
-        ddp_model = DDP(model, device_ids=[rank])
+       model = ToyModel().to(rank)
+       # 通过调用DDP将模型在每个处理器上完成初始化
+       ddp_model = DDP(model, device_ids=[rank])
 
-        loss_fn = nn.MSELoss()
-        optimizer = optim.SGD(ddp_model.parameters(), lr=0.001)
+       loss_fn = nn.MSELoss()
+       optimizer = optim.SGD(ddp_model.parameters(), lr=0.001)
 
-        optimizer.zero_grad()
-        outputs = ddp_model(torch.randn(20, 10))
-        labels = torch.randn(20, 5).to(rank)
+       optimizer.zero_grad()
+       outputs = ddp_model(torch.randn(20, 10))
+       labels = torch.randn(20, 5).to(rank)
 
-        # 在反向传播时，框架内部会执行AllReduce算法
-        loss_fn(outputs, labels).backward()
-        optimizer.step()
+       # 在反向传播时，框架内部会执行AllReduce算法
+       loss_fn(outputs, labels).backward()
+       optimizer.step()
 
-    def run_demo(demo_fn, world_size):
-        mp.spawn(demo_fn,
-                 args=(world_size,),
-                 nprocs=world_size,
-                 join=True)
+   def run_demo(demo_fn, world_size):
+       mp.spawn(demo_fn,
+                args=(world_size,),
+                nprocs=world_size,
+                join=True)
 
-    if __name__ == "__main__":
-        n_gpus = torch.cuda.device_count()
-        assert n_gpus >= 2, f"Requires at least 2 GPUs to run, but got {n_gpus}"
-        run_demo(demo_basic, n_gpus)
+   if __name__ == "__main__":
+       n_gpus = torch.cuda.device_count()
+       assert n_gpus >= 2, f"Requires at least 2 GPUs to run, but got {n_gpus}"
+       run_demo(demo_basic, n_gpus)
 
 .. code:: python
 
-    import os
-    import ray
-    import pygloo
-    import numpy as np
-    import multiprocessing
+   import os
+   import ray
+   import pygloo
+   import numpy as np
+   import multiprocessing
 
-    @ray.remote(num_cpus=1)
-    def test_allreduce(rank, world_size, fileStore_path):
-        context = pygloo.rendezvous.Context(rank, world_size)
-        attr = pygloo.transport.tcp.attr("localhost")
-        dev = pygloo.transport.tcp.CreateDevice(attr)
-        fileStore = pygloo.rendezvous.FileStore(fileStore_path)
-        store = pygloo.rendezvous.PrefixStore(str(world_size), fileStore)
+   @ray.remote(num_cpus=1)
+   def test_allreduce(rank, world_size, fileStore_path):
+       context = pygloo.rendezvous.Context(rank, world_size)
+       attr = pygloo.transport.tcp.attr("localhost")
+       dev = pygloo.transport.tcp.CreateDevice(attr)
+       fileStore = pygloo.rendezvous.FileStore(fileStore_path)
+       store = pygloo.rendezvous.PrefixStore(str(world_size), fileStore)
 
-        context.connectFullMesh(store, dev)
+       context.connectFullMesh(store, dev)
 
-        sendbuf = np.array([[1,2,3],[1,2,3]], dtype=np.float32)
-        recvbuf = np.zeros_like(sendbuf, dtype=np.float32)
-        sendptr = sendbuf.ctypes.data
-        recvptr = recvbuf.ctypes.data
+       sendbuf = np.array([[1,2,3],[1,2,3]], dtype=np.float32)
+       recvbuf = np.zeros_like(sendbuf, dtype=np.float32)
+       sendptr = sendbuf.ctypes.data
+       recvptr = recvbuf.ctypes.data
 
-        # 标明发送者和者并直接调用AllReduce
-        pygloo.allreduce(context, sendptr, recvptr,
-                        sendbuf.size, pygloo.glooDataType_t.glooFloat32,
-                        pygloo.ReduceOp.SUM, pygloo.allreduceAlgorithm.RING)
+       # 标明发送者和者并直接调用AllReduce
+       pygloo.allreduce(context, sendptr, recvptr,
+                       sendbuf.size, pygloo.glooDataType_t.glooFloat32,
+                       pygloo.ReduceOp.SUM, pygloo.allreduceAlgorithm.RING)
 
-    if __name__ == "__main__":
-        ray.init()
-        world_size = multiprocessing.cpu_count()
-        fileStore_path = f"{ray.worker._global_node.get_session_dir_path()}" + "/collective/gloo/rendezvous"
-        os.makedirs(fileStore_path)
-        ray.get([test_allreduce.remote(rank, world_size, fileStore_path) for rank in range(world_size)])
+   if __name__ == "__main__":
+       ray.init()
+       world_size = multiprocessing.cpu_count()
+       fileStore_path = f"{ray.worker._global_node.get_session_dir_path()}" + "/collective/gloo/rendezvous"
+       os.makedirs(fileStore_path)
+       ray.get([test_allreduce.remote(rank, world_size, fileStore_path) for rank in range(world_size)])
 
 可以注意到，前者并没有显式的调用集合通信算子，而是通过DistributedDataParallel将分布式训练和正常训练之间的不同隐藏了起来。如果我们需要在不同集群上运行这段代码，只需要在setup
 函数内相对的更改PyTorch使用的底层集合通信库即可。在backward函数被调用时，才会真正的使用AllReduce算法。相比下来，如果想要直接使用gloo，不仅需要使用一步一步的创建通信所需要的数据结构，同时也很难和现有的模型训练框架无缝连接。

@@ -17,11 +17,11 @@
 -  了解模型安全保护的常用方法
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    model_deployment_introduction
-    model_converter_and_optimizer
-    model_compression
-    model_inference
-    model_security
-    summary
+   model_deployment_introduction
+   model_converter_and_optimizer
+   model_compression
+   model_inference
+   model_security
+   summary

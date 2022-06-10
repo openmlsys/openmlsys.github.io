@@ -43,9 +43,9 @@ Binding）。在Pybind11出现以前，将C和C++函数进行Python绑定的手�
 
 -  算子名：TensorAdd
 
--  算子属性：构造函数\_\_init\_\_中初始化属性，因加法没有属性，因此\_\_init\_\_不需要额外输入。
+-  算子属性：构造函数__init__中初始化属性，因加法没有属性，因此__init__不需要额外输入。
 
--  算子输入输出及合法性校验：infer\_shape方法中约束两个输入维度必须相同，输出的维度和输入维度相同。infer\_dtype方法中约束两个输入数据必须是float32类型，输出的数据类型和输入数据类型相同。
+-  算子输入输出及合法性校验：infer_shape方法中约束两个输入维度必须相同，输出的维度和输入维度相同。infer_dtype方法中约束两个输入数据必须是float32类型，输出的数据类型和输入数据类型相同。
 
 -  算子输出
 
@@ -53,123 +53,123 @@ MindSpore中实现注册TensorAdd代码如下：
 
 .. code:: python
 
-    # mindspore/ops/operations/math_ops.py
-    class TensorAdd(PrimitiveWithInfer):
-        """
-        Adds two input tensors element-wise.
-        """
-        @prim_attr_register
-        def __init__(self):
-            self.init_prim_io_names(inputs=['x1', 'x2'], outputs=['y'])
+   # mindspore/ops/operations/math_ops.py
+   class TensorAdd(PrimitiveWithInfer):
+       """
+       Adds two input tensors element-wise.
+       """
+       @prim_attr_register
+       def __init__(self):
+           self.init_prim_io_names(inputs=['x1', 'x2'], outputs=['y'])
 
-        def infer_shape(self, x1_shape, x2_shape):
-            validator.check_integer('input dims', len(x1_shape), len(x2_shape), Rel.EQ, self.name)
-            for i in range(len(x1_shape)):
-                validator.check_integer('input_shape', x1_shape[i], x2_shape[i], Rel.EQ, self.name)
-            return x1_shape
+       def infer_shape(self, x1_shape, x2_shape):
+           validator.check_integer('input dims', len(x1_shape), len(x2_shape), Rel.EQ, self.name)
+           for i in range(len(x1_shape)):
+               validator.check_integer('input_shape', x1_shape[i], x2_shape[i], Rel.EQ, self.name)
+           return x1_shape
 
-        def infer_dtype(self, x1_dtype, x2_type):
-            validator.check_tensor_type_same({'x1_dtype': x1_dtype}, [mstype.float32], self.name)
-            validator.check_tensor_type_same({'x2_dtype': x2_dtype}, [mstype.float32], self.name)
-            return x1_dtype
+       def infer_dtype(self, x1_dtype, x2_type):
+           validator.check_tensor_type_same({'x1_dtype': x1_dtype}, [mstype.float32], self.name)
+           validator.check_tensor_type_same({'x2_dtype': x2_dtype}, [mstype.float32], self.name)
+           return x1_dtype
 
-在mindspore/ops/operations/math\_ops.py文件内注册加法算子原语后，需要在mindspore/ops/operations/\_\_init\_\_中导出，方便python导入模块时候调用。
+在mindspore/ops/operations/math_ops.py文件内注册加法算子原语后，需要在mindspore/ops/operations/__init__中导出，方便python导入模块时候调用。
 
 .. code:: python
 
-    # mindspore/ops/operations/__init__.py
-    from .math_ops import (Abs, ACos, ..., TensorAdd)
-    __all__ = [
-      'ReverseSequence',
-      'CropAndResize',
-      ...,
-      'TensorAdd'
-    ]
+   # mindspore/ops/operations/__init__.py
+   from .math_ops import (Abs, ACos, ..., TensorAdd)
+   __all__ = [
+     'ReverseSequence',
+     'CropAndResize',
+     ...,
+     'TensorAdd'
+   ]
 
 **2.GPU算子开发**\ 继承GPUKernel，实现加法使用类模板定义TensorAddGpuKernel，需要实现以下方法：
 
 -  Init(): 用于完成GPU
    Kernel的初始化，通常包括记录算子输入/输出维度，完成Launch前的准备工作；因此在此记录Tensor元素个数。
 
--  GetInputSizeList():向框架反馈输入Tensor需要占用的显存字节数；返回了输入Tensor需要占用的字节数，TensorAdd有两个Input，每个Input占用字节数为element\_num\ :math:`\ast`\ sizeof(T)。
+-  GetInputSizeList():向框架反馈输入Tensor需要占用的显存字节数；返回了输入Tensor需要占用的字节数，TensorAdd有两个Input，每个Input占用字节数为element_num\ :math:`\ast`\ sizeof(T)。
 
--  GetOutputSizeList():向框架反馈输出Tensor需要占用的显存字节数；返回了输出Tensor需要占用的字节数，TensorAdd有一个output，占用element\_num\ :math:`\ast`\ sizeof(T)字节。
+-  GetOutputSizeList():向框架反馈输出Tensor需要占用的显存字节数；返回了输出Tensor需要占用的字节数，TensorAdd有一个output，占用element_num\ :math:`\ast`\ sizeof(T)字节。
 
--  GetWorkspaceSizeList():向框架反馈Workspace字节数，Workspace是用于计算过程中存放临时数据的空间；由于TensorAdd不需要Workspace，因此GetWorkspaceSizeList()返回空的std::vector<size\_t>。
+-  GetWorkspaceSizeList():向框架反馈Workspace字节数，Workspace是用于计算过程中存放临时数据的空间；由于TensorAdd不需要Workspace，因此GetWorkspaceSizeList()返回空的std::vector<size_t>。
 
 -  Launch(): 通常调用CUDA kernel(CUDA kernel是基于Nvidia
    GPU的并行计算架构开发的核函数)，或者cuDNN接口等方式，完成算子在GPU上加速；Launch()接收input、output在显存的地址，接着调用TensorAdd完成加速。
 
 .. code:: python
 
-    // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
+   // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
 
-    template <typename T>
-    class TensorAddGpuKernel : public GpuKernel {
-     public:
-      TensorAddGpuKernel() : element_num_(1) {}
-      ~TensorAddGpuKernel() override = default;
+   template <typename T>
+   class TensorAddGpuKernel : public GpuKernel {
+    public:
+     TensorAddGpuKernel() : element_num_(1) {}
+     ~TensorAddGpuKernel() override = default;
 
-      bool Init(const CNodePtr &kernel_node) override {
-        auto shape = AnfAlgo::GetPrevNodeOutputInferShape(kernel_node, 0);
-        for (size_t i = 0; i < shape.size(); i++) {
-          element_num_ *= shape[i];
-        }
-        InitSizeLists();
-        return true;
-      }
+     bool Init(const CNodePtr &kernel_node) override {
+       auto shape = AnfAlgo::GetPrevNodeOutputInferShape(kernel_node, 0);
+       for (size_t i = 0; i < shape.size(); i++) {
+         element_num_ *= shape[i];
+       }
+       InitSizeLists();
+       return true;
+     }
 
-      const std::vector<size_t> &GetInputSizeList() const override { return input_size_list_; }
-      const std::vector<size_t> &GetOutputSizeList() const override { return output_size_list_; }
-      const std::vector<size_t> &GetWorkspaceSizeList() const override { return workspace_size_list_; }
+     const std::vector<size_t> &GetInputSizeList() const override { return input_size_list_; }
+     const std::vector<size_t> &GetOutputSizeList() const override { return output_size_list_; }
+     const std::vector<size_t> &GetWorkspaceSizeList() const override { return workspace_size_list_; }
 
-      bool Launch(const std::vector<AddressPtr> &inputs, const std::vector<AddressPtr> &,
-                  const std::vector<AddressPtr> &outputs, void *stream_ptr) override {
-        T *x1 = GetDeviceAddress<T>(inputs, 0);
-        T *x2 = GetDeviceAddress<T>(inputs, 1);
-        T *y = GetDeviceAddress<T>(outputs, 0);
+     bool Launch(const std::vector<AddressPtr> &inputs, const std::vector<AddressPtr> &,
+                 const std::vector<AddressPtr> &outputs, void *stream_ptr) override {
+       T *x1 = GetDeviceAddress<T>(inputs, 0);
+       T *x2 = GetDeviceAddress<T>(inputs, 1);
+       T *y = GetDeviceAddress<T>(outputs, 0);
 
-        TensorAdd(element_num_, x1, x2, y, reinterpret_cast<cudaStream_t>(stream_ptr));
-        return true;
-      }
+       TensorAdd(element_num_, x1, x2, y, reinterpret_cast<cudaStream_t>(stream_ptr));
+       return true;
+     }
 
-     protected:
-      void InitSizeLists() override {
-        input_size_list_.push_back(element_num_ * sizeof(T));
-        input_size_list_.push_back(element_num_ * sizeof(T));
-        output_size_list_.push_back(element_num_ * sizeof(T));
-      }
+    protected:
+     void InitSizeLists() override {
+       input_size_list_.push_back(element_num_ * sizeof(T));
+       input_size_list_.push_back(element_num_ * sizeof(T));
+       output_size_list_.push_back(element_num_ * sizeof(T));
+     }
 
-     private:
-      size_t element_num_;
-      std::vector<size_t> input_size_list_;
-      std::vector<size_t> output_size_list_;
-      std::vector<size_t> workspace_size_list_;
-    };
+    private:
+     size_t element_num_;
+     std::vector<size_t> input_size_list_;
+     std::vector<size_t> output_size_list_;
+     std::vector<size_t> workspace_size_list_;
+   };
 
 TensorAdd中调用了CUDA
-kernelTensorAddKernel来实现element\_num个元素的并行相加:
+kernelTensorAddKernel来实现element_num个元素的并行相加:
 
 .. code:: python
 
-    // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
+   // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
 
-     template <typename T>
-     __global__ void TensorAddKernel(const size_t element_num, const T* x1, const T* x2, T* y) {
-      for (size_t i = blockIdx.x * blockDim.x + threadIdx.x; i < element_num; i += blockDim.x * gridDim.x) {
-        y[i] = x1[i] + x2[i];
-      }
+    template <typename T>
+    __global__ void TensorAddKernel(const size_t element_num, const T* x1, const T* x2, T* y) {
+     for (size_t i = blockIdx.x * blockDim.x + threadIdx.x; i < element_num; i += blockDim.x * gridDim.x) {
+       y[i] = x1[i] + x2[i];
      }
+    }
 
-     template <typename T>
-     void TensorAdd(const size_t &element_num, const T* x1, const T* x2, T* y, cudaStream_t stream){
-        size_t thread_per_block = 256;
-        size_t block_per_grid = (element_num + thread_per_block - 1 ) / thread_per_block;
-        TensorAddKernel<<<block_per_grid, thread_per_block, 0, stream>>>(element_num, x1, x2, y);
-       return;
-     }
+    template <typename T>
+    void TensorAdd(const size_t &element_num, const T* x1, const T* x2, T* y, cudaStream_t stream){
+       size_t thread_per_block = 256;
+       size_t block_per_grid = (element_num + thread_per_block - 1 ) / thread_per_block;
+       TensorAddKernel<<<block_per_grid, thread_per_block, 0, stream>>>(element_num, x1, x2, y);
+      return;
+    }
 
-     template void TensorAdd(const size_t &element_num, const float* x1, const float* x2, float* y, cudaStream_t stream);
+    template void TensorAdd(const size_t &element_num, const float* x1, const float* x2, float* y, cudaStream_t stream);
 
 **3.GPU算子注册**\ 算子信息包含1.Primive；2.Input dtype, output
 dtype；3.GPU Kernel class； 4.CUDA内置数据类型。框架会根据Primive和Input
@@ -178,19 +178,19 @@ class模板类。如下代码中分别注册了支持float和int的TensorAdd算�
 
 .. code:: python
 
-    // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.cc
+   // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.cc
 
-    MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
-                                        .AddInputAttr(kNumberTypeFloat32)
-                                        .AddInputAttr(kNumberTypeFloat32)
-                                        .AddOutputAttr(kNumberTypeFloat32),
-                          TensorAddV2GpuKernel, float)
+   MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
+                                       .AddInputAttr(kNumberTypeFloat32)
+                                       .AddInputAttr(kNumberTypeFloat32)
+                                       .AddOutputAttr(kNumberTypeFloat32),
+                         TensorAddV2GpuKernel, float)
 
-    MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
-                                        .AddInputAttr(kNumberTypeInt32)
-                                        .AddInputAttr(kNumberTypeInt32)
-                                        .AddOutputAttr(kNumberTypeInt32),
-                          TensorAddV2GpuKernel, int)
+   MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
+                                       .AddInputAttr(kNumberTypeInt32)
+                                       .AddInputAttr(kNumberTypeInt32)
+                                       .AddOutputAttr(kNumberTypeInt32),
+                         TensorAddV2GpuKernel, int)
 
 完成上述三步工作后，需要把MindSpore重新编译，在源码的根目录执行bash
 build.sh -e gpu，最后使用算子进行验证。

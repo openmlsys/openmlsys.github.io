@@ -26,6 +26,3 @@ Lyapunov来将安全性纳入考虑。
    :cite:`brunke2021safe`
 
 
-
-.. bibliography:: ../mlsys.bib
-   :style: apa

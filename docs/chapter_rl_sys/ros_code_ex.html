@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>17.3. 机器人操作系统（ROS）的入门案例 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="17.4. 感知系统" href="perception.html" />
+    <link rel="prev" title="17.2. 通用机器人操作系统" href="ros.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.3. </span>机器人操作系统（ROS）的入门案例</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_rl_sys/ros_code_ex.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="ros">
+<h1><span class="section-number">17.3. </span>机器人操作系统（ROS）的入门案例<a class="headerlink" href="#ros" title="Permalink to this headline">¶</a></h1>
+<p>在这一章节中，我们将带领大家安装ROS2并配置好使用环境，然后再通过一些简单的代码示例来让大家更深入的了解如何使用ROS2和上一章节所介绍的概念。</p>
+<p>在本章节以及本章后续的案例章节中，我们将使用ROS2 Foxy
+Fitzroy（笔者撰写时的最新的ROS2 LTS版本），Ubuntu Focal（20.04）和Ubuntu
+Focal系统所带的Python 3.8（笔者的Ubuntu Focal所带的是3.8.10）。 其中ROS2
+Foxy Fitzroy和Ubuntu
+Focal是官方的搭配，而如果你采用debian安装的方式（官方推荐方式）来安装ROS2的话，则Python必须使用Ubuntu所带的Python3版本。
+这是因为debian安装方式会将很多ROS2的Python依赖库以<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>（而非<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>）的方式安装到Ubuntu自带的Python3路径中去。
+这也就是说，当你选定ROS2版本后，你所需的Ubuntu版本和Python版本也就随之确定了。</p>
+<p>如果想要使用Python虚拟环境（virtual
+env）的话，也必须指定使用Ubuntu系统所带的Python解释器（interpreter），并在创建时加上<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>选项。添加这个选项是因为我们需要那些安装在系统Python3路径中的ROS2的依赖库。如果读者感兴趣的话，可以阅读这篇<a class="reference external" href="https://docs.ros.org/en/foxy/How-To-Guides/Using-Python-Packages.html">英文教程</a>来了解更多细节。</p>
+<p>举例来说，对于<code class="docutils literal notranslate"><span class="pre">pipenv</span></code>用户，可以通过下面这条命令来创建一个使用系统Python3并添加了<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>的虚拟环境。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pipenv --python <span class="k">$(</span>/usr/bin/python3 -V <span class="p">|</span> cut -d<span class="s2">&quot; &quot;</span> -f2<span class="k">)</span> --site-packages
+</pre></div>
+</div>
+<p>因为要使用系统Python3的原因，用<code class="docutils literal notranslate"><span class="pre">conda</span></code>创建的虚拟环境可能会出现各种不兼容的问题。</p>
+<p>对于其它版本的ROS2，安装过程和使用方式基本相同。</p>
+<p>在本章节以及本章后续的案例章节中，我们在合适的场合将用ROS2，Ubuntu和Python来分别指代ROS2
+Foxy Fitzroy，Ubuntu Focal和Ubuntu Focal所带的Python 3.8。</p>
+<p>本章节中的案例有参考ROS2的<a class="reference external" href="https://docs.ros.org/en/foxy/Tutorials.html">官方教程</a>。这个官方教程讲解的非常详细，非常适合初学者入门ROS2。如果读者对英文有自信的话，可以尝试阅读官方教程来了解更多ROS2的细节。</p>
+<div class="section" id="ros2-foxy-fitzroy">
+<h2><span class="section-number">17.3.1. </span>安装ROS2 Foxy Fitzroy<a class="headerlink" href="#ros2-foxy-fitzroy" title="Permalink to this headline">¶</a></h2>
+<p>在Ubuntu上安装ROS2相对简单，绝大多数情况跟随官方教程安装即可。
+例如对于ROS2 Foxy Fitzroy和Ubuntu
+Focal，对自己英文水平较为自信的读者也可以跟随<a class="reference external" href="https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html">这篇官方教程</a>。
+本章节关于ROS2的安装的部分主要也是这篇教程相关部分的转述。</p>
+<div class="section" id="locale-utf-8">
+<h3><span class="section-number">17.3.1.1. </span>系统区域（locale）需要支持UTF-8<a class="headerlink" href="#locale-utf-8" title="Permalink to this headline">¶</a></h3>
+<p>在开始安装之前，我们需要先确保我们Ubuntu系统的区域（locale）已经设置成了支持UTF-8的值。
+我们可以通过<code class="docutils literal notranslate"><span class="pre">locale</span></code>命令来查看目前的区域（locale）设置。
+如果<code class="docutils literal notranslate"><span class="pre">LANG</span></code>的值是以<code class="docutils literal notranslate"><span class="pre">.UTF-8</span></code>结尾的话，则代表系统已经是支持UTF-8的区域（locale）设置了。
+否则，可以使用下面的命令来将系统的区域（locale）设置为支持UTF-8的美式英语。
+想设置成其它语言只需更改相应的语言代码即可。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt update <span class="o">&amp;&amp;</span> sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8 <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+<span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3><span class="section-number">17.3.1.2. </span>设置软件源<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>我们还需要将ROS2的软件源加入到系统中。我们可以通过下面这些命令完成这点。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt update <span class="o">&amp;&amp;</span> sudo apt install curl gnupg2 lsb-release
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+<span class="nb">echo</span> <span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu </span><span class="k">$(</span><span class="nb">source</span> /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$UBUNTU_CODENAME</span><span class="k">)</span><span class="s2"> main&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null
+</pre></div>
+</div>
+</div>
+<div class="section" id="ros2">
+<h3><span class="section-number">17.3.1.3. </span>安装ROS2<a class="headerlink" href="#ros2" title="Permalink to this headline">¶</a></h3>
+<p>现在我们可以开始安装ROS2了。我们可以先更新软件源缓存，然后再安装ROS2
+Desktop版。这个版本包含了ROS2框架和大部分ROS2开发常用的软件库，如RViz等，因此是首选的版本。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt update
+sudo apt install ros-foxy-desktop
+</pre></div>
+</div>
+<p>另外，让我们再来安装两个额外的软件，<code class="docutils literal notranslate"><span class="pre">colcon</span></code>和<code class="docutils literal notranslate"><span class="pre">rosdep</span></code>。前者是ROS2的编译工具，后者可以帮助我们迅速安装一个ROS2工程所需的依赖库。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python3-colcon-common-extensions python3-rosdep
+</pre></div>
+</div>
+<p>到此，我们已经安装好了ROS2。但是，如果想要使用它，我们还需要一个额外的环境设置步骤。</p>
+</div>
+<div class="section" id="id2">
+<h3><span class="section-number">17.3.1.4. </span>环境设置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>对于任意安装好的ROS2（和ROS）版本，我们需要source对应的setup脚本来为对应的版本设置好所需环境，然后才能开始使用其版本。</p>
+<p>例如，对于刚安装好的ROS2 Foxy
+Fitzroy，我们可以在终端中执行下面的命令来设置好ROS2所需的环境。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /opt/ros/foxy/setup.bash
+</pre></div>
+</div>
+<p>如果你用的是bash以外的shell，你可以尝试将setup的文件扩展名改为对应shell的名字。例如zsh的用户可以尝试使用<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/opt/ros/foxy/setup.zsh</span></code>命令。</p>
+<p>如果你不想每次使用ROS2之前都要输入上述命令，可以尝试将这条命令加入到你的<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>文件中去（或者是<code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>或其它对应的shell文件）。这样，你以后的每个新命令行终端都会自动设置到ROS2所需的环境。</p>
+<p>这种环境设置方式的好处在于你可以放心的安装多个不同版本的ROS2（和ROS），然后只需在需要时<code class="docutils literal notranslate"><span class="pre">source</span></code>对应版本的<code class="docutils literal notranslate"><span class="pre">setup.bash</span></code>文件，从而使用这个版本的ROS2并不受其它版本的干扰。</p>
+<p>如果你是一个Python的重度用户，上面这种将<code class="docutils literal notranslate"><span class="pre">setup.bash</span></code>加入到<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>的方式可能会对你造成一些困扰。因为你的所有virtual
+env从此都会自动引入ROS2的环境设置，并且ROS2所包含的python
+libraries也会加入到你的virtual env的路径里面去。
+我相信，你可能对于virtual
+env会检测到ROS2的库这种情况不会感到特别开心，即使这些库并不会被用到或破坏你virtual
+env中程序的运行。</p>
+<p>解决这个问题的方法也很简单。当你准备主要用Python来开发一个ROS2项目时，你可以为这个项目新建一个virtual
+env，然后将<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/opt/ros/foxy/setup.bash</span></code>这条命令加入到这个virtual
+env的<code class="docutils literal notranslate"><span class="pre">activate</span></code>脚本中去。</p>
+<p>注意！你可能需要将这条<code class="docutils literal notranslate"><span class="pre">source</span></code>命令添加到脚本结尾前一些的位置或脚本最开头，要不然当你进入（activate）virtual
+env时你有可能会遇到下面这个错误（例如，对于<code class="docutils literal notranslate"><span class="pre">pipenv</span></code>的用户就需要添加到脚本结尾处的<code class="docutils literal notranslate"><span class="pre">hash</span> <span class="pre">-r</span> <span class="pre">2&gt;/dev/null</span></code>这条命令之前而不是最末尾）。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Shell <span class="k">for</span> UNKNOWN_VIRTUAL_ENVIRONMENT already activated.
+No action taken to avoid nested environments.
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">17.3.1.5. </span>测试安装成功<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>当我们执行了上述的<code class="docutils literal notranslate"><span class="pre">source</span></code>命令之后，我们可以测试ROS2的安装以及环境设置时成功的。</p>
+<p>我们只需在执行了<code class="docutils literal notranslate"><span class="pre">source</span></code>命令的命令行中执行<code class="docutils literal notranslate"><span class="pre">printenv</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">^ROS</span></code>。输出的结果应该包含以下三个环境变量。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">ROS_VERSION</span><span class="o">=</span><span class="m">2</span>
+<span class="nv">ROS_PYTHON_VERSION</span><span class="o">=</span><span class="m">3</span>
+<span class="nv">ROS_DISTRO</span><span class="o">=</span>foxy
+</pre></div>
+</div>
+<p>此外，我们可以新开两个执行了<code class="docutils literal notranslate"><span class="pre">source</span></code>命令的终端窗口，然后分别执行以下两条命令。</p>
+<p>终端1:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run demo_nodes_cpp talker
+</pre></div>
+</div>
+<p>终端2：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run demo_nodes_py listener
+</pre></div>
+</div>
+<p>如果成功安装并执行了<code class="docutils literal notranslate"><span class="pre">source</span></code>命令的话，我们将会看到<code class="docutils literal notranslate"><span class="pre">talker</span></code>显示它正在发布消息，同时<code class="docutils literal notranslate"><span class="pre">listener</span></code>显示它听到了这些消息。</p>
+<p>恭喜！您已经成功安装好了ROS2并配置到了环境。下面我们将会通过几个简单的案例来展示上章节中介绍过的ROS2的核心概念。</p>
+</div>
+</div>
+<div class="section" id="ros2hello-world">
+<h2><span class="section-number">17.3.2. </span>ROS2节点和Hello World<a class="headerlink" href="#ros2hello-world" title="Permalink to this headline">¶</a></h2>
+<p>在这一小节中，我们将会创建一个ROS2项目，并使用Python来编写一个Hello
+World案例，以便展示ROS2 Node的基本结构。</p>
+<div class="section" id="id4">
+<h3><span class="section-number">17.3.2.1. </span>新建一个ROS2项目<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>首先，在一个合适的位置新建一个文件夹。这个文件夹将是我们ROS2项目的根目录，同时也是上一章节中介绍过的“工作区”（Workspace）。这个工作区是我们自己创建的，所以它是一个Overlay
+Workspace。相对的，我们之前执行的<code class="docutils literal notranslate"><span class="pre">source</span></code>命令会帮我们准备好这个Overlay所基于的核心工作区（Underlay
+Workspace）。</p>
+<p>假设我们创建了名为<code class="docutils literal notranslate"><span class="pre">openmlsys-ros2</span></code>的工作区。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir openmlsys-ros2
+<span class="nb">cd</span> openmlsys-ros2
+</pre></div>
+</div>
+<p>然后让我们为这个工作区创建一个Python的虚拟环境（virtual
+env）并依照上面<em>环境设置</em>小节中所介绍的那样将<code class="docutils literal notranslate"><span class="pre">source</span></code>命令添加到虚拟环境对应的<code class="docutils literal notranslate"><span class="pre">activate</span></code>脚本中去。</p>
+<p><strong>我们默认之后所有案例章节的命令都是在这个新建的虚拟环境中执行的。</strong></p>
+<p>不同的虚拟环境管理工具会有不同的指令，因此这一步笔者没有提供可执行命令的示例，而是留给读者自行处理。</p>
+<p>接下来，我们要在这个工作区文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">src</span></code>的子文件夹。在这个子文件夹内，我们将会创建不同的ROS2的程序库（package）。这些程序库相互独立，但又会互相调用其他库的功能来达成整个ROS2项目想要达成的各种目的。</p>
+<p>在创建好<code class="docutils literal notranslate"><span class="pre">src</span></code>文件夹后，我们可以尝试调用<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>命令。<code class="docutils literal notranslate"><span class="pre">colcon</span></code>是ROS2项目常用的一个编译工具（build
+tool）。这个命令会尝试编译整个ROS2项目（即目前工作区内的所有的程序库）。在成功运行完命令后，我们可以发现工作区内多出了三个新文件夹：<code class="docutils literal notranslate"><span class="pre">build</span></code>，<code class="docutils literal notranslate"><span class="pre">install</span></code>和<code class="docutils literal notranslate"><span class="pre">log</span></code>。其中<code class="docutils literal notranslate"><span class="pre">build</span></code>内是编译过程的中间产物，<code class="docutils literal notranslate"><span class="pre">install</span></code>内是编译的最终产物（即编译好的库），而<code class="docutils literal notranslate"><span class="pre">log</span></code>内是编译过程的日志。</p>
+<p>到此，我们已经新建好了一个ROS2项目的框架，可以开始编写具体的代码了。</p>
+</div>
+<div class="section" id="ros2python">
+<h3><span class="section-number">17.3.2.2. </span>新建一个ROS2框架下的Python库<a class="headerlink" href="#ros2python" title="Permalink to this headline">¶</a></h3>
+<p>下面，让我们在<code class="docutils literal notranslate"><span class="pre">src</span></code>文件夹内新建一个ROS2的程序库。我们将在这个程序库内编写我们的Hello
+World案例。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> src
+ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs --node-name hello_world_node my_hello_world
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ros2</span></code>命令的<code class="docutils literal notranslate"><span class="pre">pkg</span> <span class="pre">create</span></code>子项可以帮助我们快速的创建一个ROS2程序库的框架。<code class="docutils literal notranslate"><span class="pre">build-type</span></code>参数指明了这是一个纯Python库，<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>参数指明了这个库将会使用<code class="docutils literal notranslate"><span class="pre">rclpy</span></code>和<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>这两个依赖库，<code class="docutils literal notranslate"><span class="pre">node-name</span></code>参数指明了我们创建的程序库中会有一个名为hello_world_node的ROS2节点，而最后的my_hello_world则是新建程序库的名字。</p>
+<p>进入新建好的程序库文件夹<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>，我们可以看到刚运行的命令已经帮我们建好一个Python库文件夹<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>。其与程序库同名，且内含<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>文件和<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>文件。后者的存在是由于我们使用了<code class="docutils literal notranslate"><span class="pre">node_name</span></code>参数的原因。我们将在这个Python库文件夹内编写我们的Python代码。</p>
+<p>除此之外，还有<code class="docutils literal notranslate"><span class="pre">resource</span></code>和<code class="docutils literal notranslate"><span class="pre">test</span></code>这两个文件夹。前者帮助ROS2来定位Python程序库，因此我们不需要管它。后者用来包含所有的测试代码，并且我们可以看到里面已经有了三个测试文件。</p>
+<p>除了这三个文件夹外，还有三个文件，<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>，<code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>和<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">package.xml</span></code>是ROS2程序库的标准配置文件。打开后我们可以发现很多内容已经预生成好了，但是我们还需填写或更新<code class="docutils literal notranslate"><span class="pre">version</span></code>，<code class="docutils literal notranslate"><span class="pre">description</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer</span></code>和<code class="docutils literal notranslate"><span class="pre">license</span></code>这几项的内容。在此笔者推荐大家每次新建一个ROS2库的时候都第一时间将这些信息补全。除了这些项，我们还能看到<code class="docutils literal notranslate"><span class="pre">rclpy</span></code>和<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>已经被列为依赖库了，这是因为我们使用了<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>参数的原因。如果我们要添加或修改依赖库，可以直接在<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>内的<code class="docutils literal notranslate"><span class="pre">depend</span></code>列表处修改。除了最常用的<code class="docutils literal notranslate"><span class="pre">depend</span></code>（同时针对build，export和execution），我们还有<code class="docutils literal notranslate"><span class="pre">build_depend</span></code>，<code class="docutils literal notranslate"><span class="pre">build_export_depend</span></code>，<code class="docutils literal notranslate"><span class="pre">exec_depend</span></code>，<code class="docutils literal notranslate"><span class="pre">test_depend</span></code>，<code class="docutils literal notranslate"><span class="pre">buildtool_depend</span></code>和<code class="docutils literal notranslate"><span class="pre">dec_depend</span></code>。关于<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>的具体介绍可以参考此英文<a class="reference external" href="http://wiki.ros.org/catkin/package.xml">Wiki
+Page</a>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>和<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>都是Python库的相关文件，但是ROS2也会通过这两个文件来了解怎么安装这个Python库至<code class="docutils literal notranslate"><span class="pre">install</span></code>文件夹以及有哪些需要注册的entry
+points，即可以直接用ROS2命令行命令来直接调用的程序。我们可以看到在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的<code class="docutils literal notranslate"><span class="pre">entry_points</span></code>项的<code class="docutils literal notranslate"><span class="pre">console_scripts</span></code>子项中已经将<code class="docutils literal notranslate"><span class="pre">hello_world_node</span></code>这个名字设置为<code class="docutils literal notranslate"><span class="pre">my_hello_world/hello_world_node.py</span></code>这个Python文件中<code class="docutils literal notranslate"><span class="pre">main()</span></code>函数的别名。我们后续就可以使用ROS2命令行命令和这个名字来直接调用这个函数。具体方式如下:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># ros2 run &lt;package_name&gt; &lt;entry_point&gt;</span>
+ros2 run my_hello_world hello_world_node
+</pre></div>
+</div>
+<p>后续如果需要添加新的entry point的话可以直接在此位置添加。</p>
+<p>除了entry
+point需要关注之外，我们也需要及时将<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的<code class="docutils literal notranslate"><span class="pre">version</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer_email</span></code>，<code class="docutils literal notranslate"><span class="pre">description</span></code>和<code class="docutils literal notranslate"><span class="pre">license</span></code>项都更新好。</p>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">17.3.2.3. </span>第一个ROS2节点<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>让我们打开<code class="docutils literal notranslate"><span class="pre">my_hello_world/hello_world_node.py</span></code>这个Python文件，清空里面全部内容，以便于编写我们需要的代码。</p>
+<p>首先，让我们引入必要的库：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rclpy</span></code>（ROS Client Library for
+Python）让我们能够通过Python来使用ROS2框架内的各种功能。而<code class="docutils literal notranslate"><span class="pre">Node</span></code>类则是所有ROS2节点的基类（Base
+Class），我们的节点类也需要继承这个基类。<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>则包含了ROS2预定义的一些用于框架内通信的标准信息格式，我们需要使用<code class="docutils literal notranslate"><span class="pre">String</span></code>这种消息格式来传递字符串信息。</p>
+<p>接下来让我们定义我们自己的ROS2节点：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloWorldNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;my_hello_world_node&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_publisher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="s1">&#39;hello_world_topic&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">timer_period</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span><span class="n">timer_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer_callback</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">timer_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Hello World: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Publishing: &quot;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>如上所述，我们的节点类<code class="docutils literal notranslate"><span class="pre">HelloWorldNode</span></code>继承于<code class="docutils literal notranslate"><span class="pre">Node</span></code>基类。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">__init__()</span></code>方法中，我们先调用基类的初始化方法，并通过这个调用将我们的节点命名为<code class="docutils literal notranslate"><span class="pre">my_hello_world_node</span></code>。接着我们创建一个信息发布者，它可以将字符串类型的信息发布到<code class="docutils literal notranslate"><span class="pre">hello_world_topic</span></code>这个主题上，并且会维持一个大小为10的缓冲区。再接着我们创建一个计时器，它会每秒钟调用一次<code class="docutils literal notranslate"><span class="pre">timer_callback()</span></code>方法。最后，我们初始化一个计数器，来统计总共有多少条信息被发布了。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">timer_callback()</span></code>方法中，我们简单的创建一条带计数器的Hello
+World信息，并通过信息发布者发送出去。然后我们在日志中记录这次操作并将计数器加一。</p>
+<p>定义好我们的Hello
+World节点类后，我们可以开始定义<code class="docutils literal notranslate"><span class="pre">main()</span></code>函数。这个函数就是我们之前在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中看到的那个entry
+point。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">hello_world_node</span> <span class="o">=</span> <span class="n">HelloWorldNode</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">hello_world_node</span><span class="p">)</span>
+    <span class="n">hello_world_node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这个<code class="docutils literal notranslate"><span class="pre">main()</span></code>也比较简单。我们先通过<code class="docutils literal notranslate"><span class="pre">rclpy.init()</span></code>方法来启动ROS2框架。然后我们创建一个<code class="docutils literal notranslate"><span class="pre">HelloWorldNode</span></code>的实例。接着我们通过<code class="docutils literal notranslate"><span class="pre">rclpy.spin()</span></code>方法将这个实例加入到运行的ROS2框架中去，让其参与ROS2的事件循环并正确运行。<code class="docutils literal notranslate"><span class="pre">rclpy.spin()</span></code>是一个阻碍方法，它会一直运行一直到被阻止（例如ROS2框架停止运行）。这时候我们就会摧毁我们的节点，并且确保关闭ROS2框架。如果我们忘记了摧毁不再使用的节点，不用慌，garbage
+collector也会帮忙摧毁这个节点。</p>
+<p>到此，我们创建了第一个ROS2节点！</p>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">17.3.2.4. </span>第一次编译和运行<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>让我们尝试编译新编写的这个库。这里，我们并不是真的要编译一个Python项目，而是将我们写的Python库安装到一个ROS2能找到的地方。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># cd &lt;workspace&gt;</span>
+<span class="nb">cd</span> openmlsys-ros2
+colcon build --symlink-install
+</pre></div>
+</div>
+<p>通过在运行这个编译命令，我们会编译工作区内<code class="docutils literal notranslate"><span class="pre">src</span></code>文件夹下所有的Python和C++库，并将编译好的C++库和Python库安装到<code class="docutils literal notranslate"><span class="pre">install</span></code>文件夹下。
+通过指定<code class="docutils literal notranslate"><span class="pre">--symlink-install</span></code>这个选项，我们要求<code class="docutils literal notranslate"><span class="pre">colcon</span></code>对于Python库用生成symlink的方式来代替复制安装。这样一来，我们在<code class="docutils literal notranslate"><span class="pre">src</span></code>中做的后续改动都会直接反应到<code class="docutils literal notranslate"><span class="pre">install</span></code>中去，而不用一直反复执行编译命令。</p>
+<p>在编译成功之后，编译好的库还不能直接使用。例如你现在执行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">my_hello_world</span> <span class="pre">hello_world_node</span></code>的话很有可能会得到<code class="docutils literal notranslate"><span class="pre">Package</span> <span class="pre">'my_hello_world'</span> <span class="pre">not</span> <span class="pre">found</span></code>这样一个结果。</p>
+<p>为了使用编译好的库，我们需要让ROS2知道<code class="docutils literal notranslate"><span class="pre">install</span></code>文件夹。具体来说，我们需要<code class="docutils literal notranslate"><span class="pre">source</span></code>在<code class="docutils literal notranslate"><span class="pre">install</span></code>文件夹下的<code class="docutils literal notranslate"><span class="pre">local_setup.bash</span></code>文件。即：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> install/local_setup.bash
+</pre></div>
+</div>
+<p>有些机敏的读者可能会想到我们可以像之前添加那个<code class="docutils literal notranslate"><span class="pre">setup.bash</span></code>一样将这个<code class="docutils literal notranslate"><span class="pre">install/local_setup.bash</span></code>也加入到虚拟环境的<code class="docutils literal notranslate"><span class="pre">activate</span></code>脚本中去，这样我们就不用每次都单独<code class="docutils literal notranslate"><span class="pre">source</span></code>这个文件了。很可惜，这样会带来一些问题。</p>
+<p>具体来说，一方面我们需要将这两个文件都<code class="docutils literal notranslate"><span class="pre">source</span></code>了（不管是通过<code class="docutils literal notranslate"><span class="pre">activate</span></code>脚本还是手动输入）才能顺利运行编译好的ROS2程序，但另一方面我们必须只<code class="docutils literal notranslate"><span class="pre">source</span></code>第一个<code class="docutils literal notranslate"><span class="pre">setup.bash</span></code>而不<code class="docutils literal notranslate"><span class="pre">source</span></code>第二个<code class="docutils literal notranslate"><span class="pre">local_setup.bash</span></code>才能顺利编译带有C++依赖项的纯Python的ROS2库。
+在稍后面一点的案例中我们会看到，对于一个使用了自定义消息接口库（自己编写的C++库）的纯Python的ROS2程序库来说，必须只<code class="docutils literal notranslate"><span class="pre">source</span></code>第一个<code class="docutils literal notranslate"><span class="pre">setup.bash</span></code>而不<code class="docutils literal notranslate"><span class="pre">source</span></code>第二个<code class="docutils literal notranslate"><span class="pre">local_setup.bash</span></code>才能顺利编译。</p>
+<p>在成功<code class="docutils literal notranslate"><span class="pre">source</span></code>了<code class="docutils literal notranslate"><span class="pre">install/local_setup.bash</span></code>之后，我们就可以尝试调用写好的节点了。</p>
+<p>从现在开始，除非特殊说明，<strong>新开一个终端窗口</strong>都是指<em>新开一个确保``setup.bash``和``install/local_setup.bash``都已经被``source``了的终端窗口</em>，而在<strong>工作区执行``colcon build``命令</strong>则都是<em>在一个只``source``了``setup.bash``而忽略了``install/local_setup.bash``的终端窗口中执行此编译命令</em>。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run my_hello_world hello_world_node
+</pre></div>
+</div>
+<p>我们应该会看到类似下面这样的信息：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653270247</span>.805815900<span class="o">]</span> <span class="o">[</span>my_hello_world_node<span class="o">]</span>: Publishing: <span class="s2">&quot;Hello World: 0&quot;</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653270248</span>.798165800<span class="o">]</span> <span class="o">[</span>my_hello_world_node<span class="o">]</span>: Publishing: <span class="s2">&quot;Hello World: 1&quot;</span>
+</pre></div>
+</div>
+<p>我们还可以再新开一个终端窗口，然后执行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">echo</span> <span class="pre">/hello_world_topic</span></code>。我们应该能看到类似下面的信息：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>data: <span class="s1">&#39;Hello World: 23&#39;</span>
+---
+data: <span class="s1">&#39;Hello World: 24&#39;</span>
+---
+</pre></div>
+</div>
+<p>这代表着我们的信息确实被发布到了目标主题上。因为<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">echo</span> <span class="pre">&lt;topic_name&gt;</span></code>这条命令输出的就是给定名字的主题所接收到的信息。</p>
+<p>恭喜！您已成功运行了您的第一个ROS2节点！</p>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">17.3.2.5. </span>一个消息订阅者节点<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>只是发布消息并不能组成一个完整的流程，我们还需要一个消息订阅者来消费我们发布的信息。</p>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">message_subscriber.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
+
+
+<span class="k">class</span> <span class="nc">MessageSubscriber</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;my_hello_world_subscriber&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_subscriber</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
+            <span class="n">String</span><span class="p">,</span> <span class="s1">&#39;hello_world_topic&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subscriber_callback</span><span class="p">,</span> <span class="mi">10</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">subscriber_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received &quot;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">message_subscriber</span> <span class="o">=</span> <span class="n">MessageSubscriber</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">message_subscriber</span><span class="p">)</span>
+    <span class="n">message_subscriber</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这个新添加的文件以及其中的消息订阅者节点类和上面的HelloWorld节点类十分相似，甚至更为简单些。我们只需要在初始化时通过基类初始化方法赋予节点<code class="docutils literal notranslate"><span class="pre">my_hello_world_subscriber</span></code>这个名字，然后创建一个消息订阅者来订阅<code class="docutils literal notranslate"><span class="pre">hello_world_topic</span></code>主题下的消息，并指定<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>方法来处理接收到的消息。而在<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>中，我们将接收到的消息记录进日志。<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法则和HelloWorld节点类的基本一样。</p>
+<p>在能正式使用这个新节点之前，我们需要将其添加成为一个entry
+point。为此，我们只需在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>的对应位置添加下面这行：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;message_subscriber = my_hello_world.message_subscriber:main&#39;</span>
+</pre></div>
+</div>
+<p>但是，添加完成之后在终端窗口运行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">my_hello_world</span> <span class="pre">message_subscriber</span></code>还是会得到<code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">executable</span> <span class="pre">found</span></code>这样的错误反馈。这是因为我们新增了一个entry
+point，必须重新编译整个ROS2项目才能让ROS2知道这个新增点。</p>
+<p>让我们再次在工作区目录执行<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--symlink-install</span></code>。在成功编译后，让我们新建两个终端窗口，都分别确保<code class="docutils literal notranslate"><span class="pre">source</span></code>好了两个<code class="docutils literal notranslate"><span class="pre">setup</span></code>文件。然后分别用<code class="docutils literal notranslate"><span class="pre">ros2</span></code>命令调用它们：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 1</span>
+ros2 run my_hello_world hello_world_node
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 2</span>
+ros2 run my_hello_world message_subscriber
+</pre></div>
+</div>
+<p>我们应该可以看到终端窗口1中会不断显示发布了第N号Hello
+World消息，而终端窗口2中则不断显示收到了第N号Hello World消息。</p>
+<p>恭喜！你完成了一对ROS2节点，一个负责发送信息，一个负责订阅接受信息。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">17.3.3. </span>ROS2参数<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>顺利完成上面的消息发布者和消息订阅者是个很好的开始，但是实际项目的节点不会这么简单。
+至少，实际项目的节点会是参数化的。下面，就让我们一起看看怎样让一个节点读取一个参数。</p>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">parametrised_hello_world_node.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
+
+
+<span class="k">class</span> <span class="nc">ParametrisedHelloWorldNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;parametrised_hello_world_node&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_publisher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="s1">&#39;hello_world_topic&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">timer_period</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span><span class="n">timer_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer_callback</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">timer_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg_publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Publishing: &quot;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">hello_world_node</span> <span class="o">=</span> <span class="n">ParametrisedHelloWorldNode</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">hello_world_node</span><span class="p">)</span>
+    <span class="n">hello_world_node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我们可以看到，这个新的参数化HelloWorld节点类和之前的HelloWorld节点类基本相同。
+唯二的区别在于：1）这个新类在初始化方法中额外通过<code class="docutils literal notranslate"><span class="pre">self.declare_parameter()</span></code>方法来向ROS2框架声明新的节点实例会有一个名为<code class="docutils literal notranslate"><span class="pre">name</span></code>的参数，并且这个参数的初始值为<code class="docutils literal notranslate"><span class="pre">world</span></code>；2）这个新类在<code class="docutils literal notranslate"><span class="pre">timer_callback()</span></code>回调函数中尝试获取这个<code class="docutils literal notranslate"><span class="pre">name</span></code>参数的实际值，并以这个实际值来组成要发送的信息的内容。</p>
+<p>让我们先将这个新文件的<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法注册为一个新的entry point。
+同样的，在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的相应位置加入下面这行即可。
+然后别忘了在工作区根目录下执行<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--symlink-install</span></code>来重新编译项目。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;parametrised_hello_world_node = my_hello_world.parametrised_hello_world_node:main&#39;</span>
+</pre></div>
+</div>
+<p>在编译完成之后，如果我们在终端中执行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">my_hello_world</span> <span class="pre">parametrised_hello_world_node</span></code>，我们将看到这个参数化HelloWorld节点将正常运行，并持续发布“<em>Hello
+World: N</em>”这样的信息。此时节点使用的是<code class="docutils literal notranslate"><span class="pre">world</span></code>这个初始值。</p>
+<p>让我们在一个新的终端中执行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">param</span> <span class="pre">list</span></code>，我们将看到下面的信息：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/parametrised_hello_world_node:
+  name
+  use_sim_time
+</pre></div>
+</div>
+<p>这个信息表示<code class="docutils literal notranslate"><span class="pre">parametrised_hello_world_node</span></code>这个节点的确申明并使用一个<code class="docutils literal notranslate"><span class="pre">name</span></code>参数。
+另外一个名为<code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code>的参数是ROS2默认给与的一个参数，用来表示这个节点是否使用ROS2框架内部的模拟时间，而不是电脑的系统时间。</p>
+<p>我们可以继续在这个终端中输入下面这个命令来将值<code class="docutils literal notranslate"><span class="pre">ROS2</span></code>赋予给<code class="docutils literal notranslate"><span class="pre">name</span></code>这个参数。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 param <span class="nb">set</span> /parametrised_hello_world_node name <span class="s2">&quot;ROS2&quot;</span>
+</pre></div>
+</div>
+<p>如果赋值成功的话，这个命令会返回<code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">parameter</span> <span class="pre">successful</span></code>，并且我们可以在持续运行参数化HelloWorld节点的那个终端窗口内看到其发布的信息变为了“<em>Hello
+ROS2: N</em>”。</p>
+<p>恭喜！你现在掌握了如何让ROS2节点（和其它类型的ROS2程序）使用参数的方法。</p>
+</div>
+<div class="section" id="id9">
+<h2><span class="section-number">17.3.4. </span>ROS2服务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>在上一章节中我们知道了ROS2框架除了发布者-订阅者这种通信模式，还有服务端-客户端这种模式。
+在这一小节中，我们将通过一个简单的串联两个字符串的服务来演示如何使用这种模式。</p>
+<div class="section" id="id10">
+<h3><span class="section-number">17.3.4.1. </span>自定义的服务接口<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>在正式开始编写服务端和客户端的代码之前，我们需要先定义好它们之间进行沟通的信息接口。</p>
+<p>ROS2框架内有三种类型的信息接口：</p>
+<ul class="simple">
+<li><p>发布者-订阅者模式下的节点所用的<strong>消息</strong>类型接口（message/msg）：这种接口只负责单向的消息传递，也只用定义单向传递的信息的格式。</p></li>
+<li><p>服务端-客户端模式下的服务节点所用的<strong>服务</strong>类型接口（service/srv）：这种接口需要负责双向的消息传递，即需要定义客户端发给服务端的请求的格式和服务端发给客户端的响应的格式。</p></li>
+<li><p>动作模式下的动作节点所用的<strong>动作</strong>类型接口（action）：这种接口需要负责双向的消息传递以及中间的进展反馈，即需要定义动作发起节点发给动作节点的请求的格式，动作节点发给发起节点的结果的格式，以及动作节点发给发起节点的中间进展反馈的格式。</p></li>
+</ul>
+<p>对于前面定义的那些HelloWorld节点，我们使用的是已经预定义好的<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>库内的<code class="docutils literal notranslate"><span class="pre">std_msgs.msg.String</span></code>类型的消息类型接口。
+实际上，因为消息类型接口只负责定义单向的信息格式，我们很容易找到现成的符合我们需求的类型。
+但是对于服务（service）和动作（action）来说，因为涉及到定义双向沟通的格式，很多时候我们需要自己定义一个接口类型。接下来，就让我们自行定义我们的字符串串联服务将要使用的服务类型接口。</p>
+<p>首先，让我们在工作区的<code class="docutils literal notranslate"><span class="pre">src</span></code>文件夹内新建一个库来专门维护自定义的消息，服务和动作类型接口。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2/src
+ros2 pkg create --build-type ament_cmake my_interfaces
+</pre></div>
+</div>
+<p>这个新建的库是一个C++库，而不是Python库。这是因为ROS2的自定义接口类型只能以C++库的方式存在。新建好库之后，记得更新<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>中的相关项。</p>
+<p>下面，让我们在新建的<code class="docutils literal notranslate"><span class="pre">src/my_interfaces</span></code>文件夹内新建三个子文件夹：<code class="docutils literal notranslate"><span class="pre">msg</span></code>，<code class="docutils literal notranslate"><span class="pre">srv</span></code>和<code class="docutils literal notranslate"><span class="pre">action</span></code>。这是因为一般会将自定义的接口放到相对应的子文件夹中去，以方便维护。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> my_interfaces
+mkdir msg srv action
+</pre></div>
+</div>
+<p>接着，让我们在<code class="docutils literal notranslate"><span class="pre">srv</span></code>子目录下创建我们想要定义的服务类型接口。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> srv
+touch ConcatTwoStr.srv
+</pre></div>
+</div>
+<p>然后，让我们将以下内容添加到<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr.srv</span></code>中去：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">str1</span>
+<span class="n">string</span> <span class="n">str2</span>
+<span class="o">---</span>
+<span class="n">string</span> <span class="n">ret</span>
+</pre></div>
+</div>
+<p>其中，<code class="docutils literal notranslate"><span class="pre">---</span></code>之上的是客户端发给服务端的请求的格式，而之下的是服务端发给客户端的响应的格式。</p>
+<p>定义好了接口后，我们还需要更改<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>以便让编译器知道有自定义接口需要编译并能找到它们。让我们打开<code class="docutils literal notranslate"><span class="pre">my_interfaces/CMakeLists.txt</span></code>并在<code class="docutils literal notranslate"><span class="pre">if(BUILD_TESTING)</span></code>这行之前添加下面的内容。</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span>find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  &quot;srv/ConcatTwoStr.srv&quot;
+)
+</pre></div>
+</div>
+<p>上面这两段代码的主要作用是告诉编译器需要<code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code>这个库并生成我们指明的自定义接口。</p>
+<p>在更新好<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>之后，我们还需要把<code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code>添加到<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>中作为自定义接口库的依赖项。打开<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>，在<code class="docutils literal notranslate"><span class="pre">&lt;test_depend&gt;ament_lint_auto&lt;/test_depend&gt;</span></code>这行前添加下面内容。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;build_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/build_depend&gt;</span>
+<span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
+<span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
+</pre></div>
+</div>
+<p>更新好<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>后，我们就可以编译这个自定义接口库了。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
+colcon build --packages-select my_interfaces
+</pre></div>
+</div>
+<p>上述命令中我们通过<code class="docutils literal notranslate"><span class="pre">--packages-select</span></code>选项指定了只编译<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>这一个库从而节省时间，因为<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>这个库目前并没有任何更改。另外，我们没有使用<code class="docutils literal notranslate"><span class="pre">--symlink-install</span></code>选项是因为这个自定义接口库是一个C++库，每次更改后必须重新编译。</p>
+<p>在运行这次的编译命令时，读者有可能会遇到<code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'XXX'</span></code>这类的错误（<code class="docutils literal notranslate"><span class="pre">XXX</span></code>可以是<code class="docutils literal notranslate"><span class="pre">em</span></code>，<code class="docutils literal notranslate"><span class="pre">catkin_pkg</span></code>，<code class="docutils literal notranslate"><span class="pre">lark</span></code>，<code class="docutils literal notranslate"><span class="pre">numpy</span></code>或其它Python库）。
+遇到这类错误多半是因为所使用的Python虚拟环境并不是指向Ubuntu系统Python3或<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>并没有被包含在虚拟环境中。
+读者可能需要删除当前的虚拟环境并按照本章节开头所讲解的那样重新创建一个符合要求的虚拟环境。</p>
+<p>我们可以通过在新的终端窗口运行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">my_interfaces/srv/ConcatTwoStr</span></code>来验证是否已经编译成功了。成功的话终端会显示自定义服务接口<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr</span></code>的具体定义。</p>
+<p>现在，我们定义好了需要使用的服务接口，下面可以开始编写我们的服务段和客户端了。</p>
+</div>
+<div class="section" id="id11">
+<h3><span class="section-number">17.3.4.2. </span>ROS2服务端<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">concat_two_str_service.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">my_interfaces.srv</span> <span class="kn">import</span> <span class="n">ConcatTwoStr</span>
+
+<span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+
+<span class="k">class</span> <span class="nc">ConcatTwoStrService</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;concat_two_str_service&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">srv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_service</span><span class="p">(</span><span class="n">ConcatTwoStr</span><span class="p">,</span> <span class="s1">&#39;concat_two_str&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">concat_two_str_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">concat_two_str_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">ret</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">str1</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">str2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incoming request</span><span class="se">\n</span><span class="s1">str1: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">str1</span><span class="si">}</span><span class="se">\n</span><span class="s1">str2: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">str2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">concat_two_str_service</span> <span class="o">=</span> <span class="n">ConcatTwoStrService</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">concat_two_str_service</span><span class="p">)</span>
+    <span class="n">concat_two_str_service</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我们可以发现，编写一个服务（Service）和编写一个一般的节点（Node）很相似，甚至它们都是继承自同一个基类<code class="docutils literal notranslate"><span class="pre">rclpy.node.Node</span></code>。在这个文件中，我们先从编译好的<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>库中引入自定义的服务接口<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr</span></code>。然后在服务端节点的初始化方法中通过<code class="docutils literal notranslate"><span class="pre">self.create_service()</span></code>创建一个服务器对象，并指明服务接口类型是<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr</span></code>，服务名字是<code class="docutils literal notranslate"><span class="pre">concat_two_str</span></code>，处理服务请求的回调函数是<code class="docutils literal notranslate"><span class="pre">self.concat_two_str_callback</span></code>。而在回调函数<code class="docutils literal notranslate"><span class="pre">self.concat_two_str_callback()</span></code>中，我们通过<code class="docutils literal notranslate"><span class="pre">request</span></code>对象取得请求的<code class="docutils literal notranslate"><span class="pre">str1</span></code>和<code class="docutils literal notranslate"><span class="pre">str2</span></code>，计算出结果并赋值到<code class="docutils literal notranslate"><span class="pre">response</span></code>对象的<code class="docutils literal notranslate"><span class="pre">ret</span></code>上，并进行日志记录。我们可以看到，<code class="docutils literal notranslate"><span class="pre">request</span></code>和<code class="docutils literal notranslate"><span class="pre">response</span></code>对象的结构符合我们在<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr.srv</span></code>中的定义。</p>
+<p>另外别忘记了将此文件的<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法作为一个entry
+point添加到<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中去。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;concat_two_str_service = my_hello_world.concat_two_str_service:main&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3><span class="section-number">17.3.4.3. </span>ROS2客户端<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">concat_two_str_client_async.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">my_interfaces.srv</span> <span class="kn">import</span> <span class="n">ConcatTwoStr</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+
+<span class="k">class</span> <span class="nc">ConcatTwoStrClientAsync</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;concat_two_str_client_async&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">ConcatTwoStr</span><span class="p">,</span> <span class="s1">&#39;concat_two_str&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;service not available, waiting again...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">req</span> <span class="o">=</span> <span class="n">ConcatTwoStr</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">req</span><span class="o">.</span><span class="n">str1</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">req</span><span class="o">.</span><span class="n">str2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">req</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">concat_two_str_client_async</span> <span class="o">=</span> <span class="n">ConcatTwoStrClientAsync</span><span class="p">()</span>
+    <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">send_request</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">(</span><span class="n">concat_two_str_client_async</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s1">&#39;Service call failed </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">,))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s1">&#39;Result of concat_two_str: (</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">) -&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">req</span><span class="o">.</span><span class="n">str1</span><span class="p">,</span> <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">req</span><span class="o">.</span><span class="n">str2</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">ret</span><span class="p">))</span>
+            <span class="k">break</span>
+
+    <span class="n">concat_two_str_client_async</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>相比于服务端，这个客户端较为复杂一点。在客户端节点的初始化方法中，我们先创建一个客户端对象，并指明服务接口类型是<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr</span></code>，服务名字为<code class="docutils literal notranslate"><span class="pre">concat_two_str</span></code>。然后通过一个<code class="docutils literal notranslate"><span class="pre">while</span></code>循环，这个客户端将一直等待知道对应服务上线才会进行下一步。这个循环等待的技巧是很多客户端都会使用的。当服务端上线以后，初始化方法将创建一个服务请求对象的模板并暂存于客户端节点的<code class="docutils literal notranslate"><span class="pre">req</span></code>属性上。除了初始化方法，客户端节点还定义了另一个方法<code class="docutils literal notranslate"><span class="pre">send_request()</span></code>来读取程序启动时命令行的前两个参数，然后存入服务请求对象并异步发送给服务端。</p>
+<p>而在<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法中，我们先创建一个客户端并发送服务请求，然后通过一个<code class="docutils literal notranslate"><span class="pre">while</span></code>循环来等待服务返回结果并记录进日志。其中，<code class="docutils literal notranslate"><span class="pre">rclpy.ok()</span></code>是用来检测ROS2是否还在正常运行，以保证当ROS2在服务结束前就停止运行了的话，客户端这边不会陷入死循环。而<code class="docutils literal notranslate"><span class="pre">rclpy.spin_once()</span></code>和<code class="docutils literal notranslate"><span class="pre">rclpy.spin()</span></code>略有不同，后者会不断执行事件循环直到ROS2停止，而前者则只会执行一次事件循环。这也是为什么前者更适合用在这里，因为我们已经有了一个while循环了。另外我们可以看到，<code class="docutils literal notranslate"><span class="pre">concat_two_str_client.future</span></code>对象提供了很多方法来帮助我们确定目前服务请求的状态。</p>
+<p>同样的，别忘记了将此文件的<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法作为一个entry
+point添加到<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中去。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;concat_two_str_client_async = my_hello_world.concat_two_str_client_async:main&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3><span class="section-number">17.3.4.4. </span>确认正常运行<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>我们现在编写好了我们的服务端和客户端，让我们在工作区根目录下重新编译一边<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>库。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
+colcon build --packages-select my_hello_world --symlink-install
+</pre></div>
+</div>
+<p>然后让我们在两个新的终端窗口中分别运行以下命令。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 1</span>
+ros2 run my_hello_world concat_two_str_client_async Hello World
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 2</span>
+ros2 run my_hello_world concat_two_str_service
+</pre></div>
+</div>
+<p>如果一切正常的话，我们应该看到类似以下的信息。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 1</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653525569</span>.843701600<span class="o">]</span> <span class="o">[</span>concat_two_str_client_async<span class="o">]</span>: Result of concat_two_str: <span class="o">(</span>Hello, World<span class="o">)</span> -&gt; HelloWorld
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 2</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653516701</span>.306543500<span class="o">]</span> <span class="o">[</span>concat_two_str_service<span class="o">]</span>: Incoming request
+str1: Hello
+str2: World
+</pre></div>
+</div>
+<p>恭喜！您现在已经了解如何在ROS2框架中新建自定义的接口类型和创建服务端节点和客户端节点了！</p>
+</div>
+</div>
+<div class="section" id="id14">
+<span id="id15"></span><h2><span class="section-number">17.3.5. </span>ROS2动作<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>在上一章节中我们了解了ROS2框架内的服务端-客户端模式。这样一来，我们只剩下动作（action）这一种模式了。
+在这一小节中，我们将通过一个简单的逐个累加一个数列的每项元素来求和的动作来演示如何使用这种模式。</p>
+<div class="section" id="id16">
+<h3><span class="section-number">17.3.5.1. </span>自定义的动作接口<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>在正式开始编写动作相关的节点代码之前，我们需要先定义好动作的信息接口。</p>
+<p>我们可以继续使用之前建好的<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>库。
+让我们在<code class="docutils literal notranslate"><span class="pre">my_interfaces/action</span></code>中新建一个<code class="docutils literal notranslate"><span class="pre">MySum.action</span></code>文件，并添加以下内容。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Request</span>
+<span class="n">int32</span><span class="p">[]</span> <span class="nb">list</span>
+<span class="o">---</span>
+<span class="c1"># Result</span>
+<span class="n">int32</span> <span class="nb">sum</span>
+<span class="o">---</span>
+<span class="c1"># Feedback</span>
+<span class="n">int32</span> <span class="n">sum_so_far</span>
+</pre></div>
+</div>
+<p>可以看到，整个信息接口十分简单。动作的请求信息只有一项类型为整数数列的项<code class="docutils literal notranslate"><span class="pre">list</span></code>，动作的最终结果信息只有一项类型为整数的项<code class="docutils literal notranslate"><span class="pre">sum`</span></code>，而中间反馈信息则只有一项类型同为整数的项`sum_so_far`，用以计算到目前位置累加的和。</p>
+<p>接下来，让我们在<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>中添加这个新的信息接口。具体来说只用将<code class="docutils literal notranslate"><span class="pre">&quot;action/MySum.action&quot;</span></code>添加到<code class="docutils literal notranslate"><span class="pre">rosidl_generate_interfaces()</span></code>方法内的<code class="docutils literal notranslate"><span class="pre">&quot;srv/ConcatTwoStr.srv&quot;</span></code>之后即可。</p>
+<p>最后别忘了编译所做的更改：在工作区根目录中运行<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--packages-select</span> <span class="pre">my_interface</span></code>。</p>
+</div>
+<div class="section" id="id17">
+<h3><span class="section-number">17.3.5.2. </span>ROS2动作服务器<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">my_sum_action_server.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionServer</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">my_interfaces.action</span> <span class="kn">import</span> <span class="n">MySum</span>
+
+
+<span class="k">class</span> <span class="nc">MySumActionServer</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;my_sum_action_server&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_server</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">MySum</span><span class="p">,</span> <span class="s1">&#39;my_sum&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute_callback</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Executing goal...&#39;</span><span class="p">)</span>
+        <span class="n">feedback_msg</span> <span class="o">=</span> <span class="n">MySum</span><span class="o">.</span><span class="n">Feedback</span><span class="p">()</span>
+        <span class="n">feedback_msg</span><span class="o">.</span><span class="n">sum_so_far</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">elm</span> <span class="ow">in</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">list</span><span class="p">:</span>
+            <span class="n">feedback_msg</span><span class="o">.</span><span class="n">sum_so_far</span> <span class="o">+=</span> <span class="n">elm</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Feedback: </span><span class="si">{</span><span class="n">feedback_msg</span><span class="o">.</span><span class="n">sum_so_far</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">goal_handle</span><span class="o">.</span><span class="n">publish_feedback</span><span class="p">(</span><span class="n">feedback_msg</span><span class="p">)</span>
+        <span class="n">goal_handle</span><span class="o">.</span><span class="n">succeed</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">MySum</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">sum</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">sum_so_far</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">my_sum_action_server</span> <span class="o">=</span> <span class="n">MySumActionServer</span><span class="p">()</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">my_sum_action_server</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>对于这个动作服务器节点类，类似的，我们还是在其初始化方法中新建一个动作服务器对象，并指定了之前定义的<code class="docutils literal notranslate"><span class="pre">MySum</span></code>作为信息接口类型，<code class="docutils literal notranslate"><span class="pre">my_sum</span></code>是动作名字，<code class="docutils literal notranslate"><span class="pre">self.execute_callback</span></code>方法则作为动作执行的回调函数。</p>
+<p>紧接着，我们在<code class="docutils literal notranslate"><span class="pre">self.execute_callback()</span></code>方法中定义了当接收到了一个新目标是应做什么处理。在这里，我们可以把一个目标当作之前定义的<code class="docutils literal notranslate"><span class="pre">MySum</span></code>信息接口里的<code class="docutils literal notranslate"><span class="pre">request</span></code>部分来处理，因为这里的目标就是包含了动作请求的目的的相关信息的结构体，即<code class="docutils literal notranslate"><span class="pre">request</span></code>部分所定义的部分。</p>
+<p>当我们接收到一个目标后，我们先从<code class="docutils literal notranslate"><span class="pre">MySum</span></code>创建一个反馈消息对象<code class="docutils literal notranslate"><span class="pre">feedback_msg</span></code>，并将其<code class="docutils literal notranslate"><span class="pre">sum_so_far</span></code>项用作一个累加器。然后我们遍历目标请求中的<code class="docutils literal notranslate"><span class="pre">list</span></code>项里面的数据，并这些数据逐项进行累加。每当我们累加一项后，我们都会通过<code class="docutils literal notranslate"><span class="pre">goal_handle.publish_feedback()</span></code>方法发送一次反馈消息。最后，当全部计算完成后，我们通过<code class="docutils literal notranslate"><span class="pre">goal_handle.succeed()</span></code>来标记此次动作已经成功完成，并且通过<code class="docutils literal notranslate"><span class="pre">MySum</span></code>新建一个结果对象，填充结果值并返回。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">main()</span></code>函数中，我们只需要新建一个动作服务器节点类的新实例，并调用<code class="docutils literal notranslate"><span class="pre">rclpy.spin()</span></code>将其加入事件循环即可。</p>
+<p>最后别忘了将<code class="docutils literal notranslate"><span class="pre">main()</span></code>也添加成为一个entry
+point。我们只需在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中适当位置添加下面行即可。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;my_sum_action_server = my_hello_world.my_sum_action_server:main&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3><span class="section-number">17.3.5.3. </span>ROS2动作客户端<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">my_sum_action_client.py</span></code>的文件，并添加以下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">my_interfaces.action</span> <span class="kn">import</span> <span class="n">MySum</span>
+
+
+<span class="k">class</span> <span class="nc">MySumActionClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;my_sum_action_client&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MySum</span><span class="p">,</span> <span class="s1">&#39;my_sum&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">MySum</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="nb">list</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span>
+            <span class="n">goal_msg</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal rejected...&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal accepted.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">sum</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
+        <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received feedback: </span><span class="si">{</span><span class="n">feedback</span><span class="o">.</span><span class="n">sum_so_far</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">action_client</span> <span class="o">=</span> <span class="n">MySumActionClient</span><span class="p">()</span>
+
+    <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">elm</span><span class="p">)</span> <span class="k">for</span> <span class="n">elm</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我们可以看到，这个动作客户端节点类比上面的服务器节点类要稍许复杂些，这是因为我们要适当的处理发送请求，接受反馈和处理结果这三件事。</p>
+<p>首先，还是类似的，我们在这个动作客户端节点类的初始化方法中新建一个动作客户端对象，并指定<code class="docutils literal notranslate"><span class="pre">MySum</span></code>作为消息接口类型和<code class="docutils literal notranslate"><span class="pre">my_sum</span></code>作为动作名称。</p>
+<p>然后，我们申明<code class="docutils literal notranslate"><span class="pre">self.send_goal()</span></code>方法来负责生成并发送一个目标/请求。具体来说，我们先从<code class="docutils literal notranslate"><span class="pre">MySum</span></code>新建一个目标对象并将接收到的<code class="docutils literal notranslate"><span class="pre">list</span></code>参数赋值到目标对象的<code class="docutils literal notranslate"><span class="pre">list</span></code>属性上去。紧接着，让我们等待动作服务器准备就绪。当动作服务器准备就绪后，让我们异步发送目标并指定<code class="docutils literal notranslate"><span class="pre">self.feedback_callback</span></code>作为反馈信息回调函数。最后，我们设定<code class="docutils literal notranslate"><span class="pre">self.goal_response_callback</span></code>作为发送目标信息这个异步操作的回调函数。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">self.goal_response_callback()</span></code>这个异步发送目标信息的回调函数中，我们先检查目标请求是否被接受了，并日志记录相关结果。如果目标请求被接受了的话，我们就通过<code class="docutils literal notranslate"><span class="pre">goal_handle.get_result_async()</span></code>来得到处理结果这个异步操作的<code class="docutils literal notranslate"><span class="pre">future</span></code>对象，并通过这个<code class="docutils literal notranslate"><span class="pre">future</span></code>对象将<code class="docutils literal notranslate"><span class="pre">self.get_result_callback</span></code>设定为最终结果的回调函数。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">self.get_result_callback()</span></code>这个最终结果的回调函数中，我们就简单的获取累加结果并记录进日志。最后我们调用<code class="docutils literal notranslate"><span class="pre">rclpy.shutdown()</span></code>来结束当前节点。</p>
+<p>相对的，在<code class="docutils literal notranslate"><span class="pre">self.feedback_callback()</span></code>这个反馈消息的回调函数中。我们仅仅简单的获取反馈信息的内容并记录进日志。值得注意的是，反馈消息的回调函数可能被执行多次，所以最好不要在其中写入太多的处理逻辑，而是尽量让其轻量化。</p>
+<p>最后，在<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法中，我们创建一个动作客户端节点类的实例，将命令行的参数转化为需要被求和的目标数列，最后调用动作客户端节点类实例的<code class="docutils literal notranslate"><span class="pre">send_goal()</span></code>方法并传入目标求和数列来发起求和请求。</p>
+<p>同样的，别忘了将<code class="docutils literal notranslate"><span class="pre">main()</span></code>也添加成为一个entry
+point。我们只需在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中适当位置添加下面行即可。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;my_sum_action_client = my_hello_world.my_sum_action_client:main&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3><span class="section-number">17.3.5.4. </span>确认正常运行<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>我们现在编写好了我们的动作服务器和动作客户端，让我们在工作区根目录下重新编译一边<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>库。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
+colcon build --packages-select my_hello_world --symlink-install
+</pre></div>
+</div>
+<p>然后让我们在两个新的终端窗口中分别运行以下命令。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 1</span>
+ros2 run my_hello_world my_sum_action_client <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 2</span>
+ros2 run my_hello_world my_sum_action_server
+</pre></div>
+</div>
+<p>如果一切正常的话，我们应该看到类似以下的信息。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 1</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561740</span>.000499500<span class="o">]</span> <span class="o">[</span>my_sum_action_client<span class="o">]</span>: Goal accepted.
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561740</span>.001171900<span class="o">]</span> <span class="o">[</span>my_sum_action_client<span class="o">]</span>: Received feedback: <span class="m">1</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561740</span>.001644000<span class="o">]</span> <span class="o">[</span>my_sum_action_client<span class="o">]</span>: Received feedback: <span class="m">3</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561740</span>.002327500<span class="o">]</span> <span class="o">[</span>my_sum_action_client<span class="o">]</span>: Received feedback: <span class="m">6</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561740</span>.002761600<span class="o">]</span> <span class="o">[</span>my_sum_action_client<span class="o">]</span>: Result: <span class="m">6</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># in terminal 2</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561739</span>.988907200<span class="o">]</span> <span class="o">[</span>my_sum_action_server<span class="o">]</span>: Executing goal...
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561739</span>.989213900<span class="o">]</span> <span class="o">[</span>my_sum_action_server<span class="o">]</span>: Feedback: <span class="m">1</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561739</span>.989549000<span class="o">]</span> <span class="o">[</span>my_sum_action_server<span class="o">]</span>: Feedback: <span class="m">3</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1653561739</span>.989855400<span class="o">]</span> <span class="o">[</span>my_sum_action_server<span class="o">]</span>: Feedback: <span class="m">6</span>
+</pre></div>
+</div>
+<p>恭喜！您现在已经了解如何在ROS2框架中新建自定义的接口类型和创建动作服务端节点和动作客户端节点了！</p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><span class="section-number">17.3.6. </span>小结<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>在本章节中，我们了解了怎样安装ROS2和在Python虚拟环境中进行ROS2项目的开发。然后我们通过一些案例来更加深入的了解了ROS2的一些核心概念，即节点，主题，参数，服务，和动作。</p>
+<p>本章节所有的代码都托管在本章节相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">GitHub库</a>中。欢迎大家使用！</p>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a><ul>
+<li><a class="reference internal" href="#ros2-foxy-fitzroy">17.3.1. 安装ROS2 Foxy Fitzroy</a><ul>
+<li><a class="reference internal" href="#locale-utf-8">17.3.1.1. 系统区域（locale）需要支持UTF-8</a></li>
+<li><a class="reference internal" href="#id1">17.3.1.2. 设置软件源</a></li>
+<li><a class="reference internal" href="#ros2">17.3.1.3. 安装ROS2</a></li>
+<li><a class="reference internal" href="#id2">17.3.1.4. 环境设置</a></li>
+<li><a class="reference internal" href="#id3">17.3.1.5. 测试安装成功</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ros2hello-world">17.3.2. ROS2节点和Hello World</a><ul>
+<li><a class="reference internal" href="#id4">17.3.2.1. 新建一个ROS2项目</a></li>
+<li><a class="reference internal" href="#ros2python">17.3.2.2. 新建一个ROS2框架下的Python库</a></li>
+<li><a class="reference internal" href="#id5">17.3.2.3. 第一个ROS2节点</a></li>
+<li><a class="reference internal" href="#id6">17.3.2.4. 第一次编译和运行</a></li>
+<li><a class="reference internal" href="#id7">17.3.2.5. 一个消息订阅者节点</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">17.3.3. ROS2参数</a></li>
+<li><a class="reference internal" href="#id9">17.3.4. ROS2服务</a><ul>
+<li><a class="reference internal" href="#id10">17.3.4.1. 自定义的服务接口</a></li>
+<li><a class="reference internal" href="#id11">17.3.4.2. ROS2服务端</a></li>
+<li><a class="reference internal" href="#id12">17.3.4.3. ROS2客户端</a></li>
+<li><a class="reference internal" href="#id13">17.3.4.4. 确认正常运行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14">17.3.5. ROS2动作</a><ul>
+<li><a class="reference internal" href="#id16">17.3.5.1. 自定义的动作接口</a></li>
+<li><a class="reference internal" href="#id17">17.3.5.2. ROS2动作服务器</a></li>
+<li><a class="reference internal" href="#id18">17.3.5.3. ROS2动作客户端</a></li>
+<li><a class="reference internal" href="#id19">17.3.5.4. 确认正常运行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20">17.3.6. 小结</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="ros.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>17.2. 通用机器人操作系统</div>
+         </div>
+     </a>
+     <a id="button-next" href="perception.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>17.4. 感知系统</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

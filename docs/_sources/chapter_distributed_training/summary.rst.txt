@@ -4,7 +4,7 @@
 
 -  大型机器学习模型的出现带来了对于算力和内存需求的快速增长，催生了分布式训练系统的出现。
 
--  分布式训练系统的设计往往遵循"分而治之"的设计思路。
+-  分布式训练系统的设计往往遵循“分而治之”的设计思路。
 
 -  利用分布式训练系统，人们可以显著提升性能，经济性，并且帮助抵御硬件故障。
 
@@ -43,14 +43,14 @@
 -  最后，在讨论集合通信时，经常可以看到一些关于底层通信接口的专业术语，例如以太网，Infiniband
    等。这里给出一些常见术语的具体定义：
 
--  `以太网（Ethernet) <https://web.archive.org/web/20181222184046/http://www.mef.net/Assets/White_Papers/Metro-Ethernet-Services.pdf>`__
--  `NVLink <https://devblogs.nvidia.com/parallelforall/how-nvlink-will-enable-faster-easier-multi-gpu-computing/>`__
--  `AWS Elastic Fabric Adapter
-   (EFA) <https://aws.amazon.com/cn/hpc/efa/>`__
--  `Infiniband <https://www.infinibandta.org/about-infiniband/>`__
--  `RDMA <http://reports.ias.ac.in/report/12829/understanding-the-concepts-and-mechanisms-of-rdma>`__
--  `RoCE <https://www.roceinitiative.org/about-overview/>`__
--  `IPoIB <https://www.ibm.com/docs/en/aix/7.2?topic=protocol-internet-over-infiniband-ipoib>`__
+   -  `以太网（Ethernet) <https://web.archive.org/web/20181222184046/http://www.mef.net/Assets/White_Papers/Metro-Ethernet-Services.pdf>`__
+   -  `NVLink <https://devblogs.nvidia.com/parallelforall/how-nvlink-will-enable-faster-easier-multi-gpu-computing/>`__
+   -  `AWS Elastic Fabric Adapter
+      (EFA) <https://aws.amazon.com/cn/hpc/efa/>`__
+   -  `Infiniband <https://www.infinibandta.org/about-infiniband/>`__
+   -  `RDMA <http://reports.ias.ac.in/report/12829/understanding-the-concepts-and-mechanisms-of-rdma>`__
+   -  `RoCE <https://www.roceinitiative.org/about-overview/>`__
+   -  `IPoIB <https://www.ibm.com/docs/en/aix/7.2?topic=protocol-internet-over-infiniband-ipoib>`__
 
 参考文献
 --------

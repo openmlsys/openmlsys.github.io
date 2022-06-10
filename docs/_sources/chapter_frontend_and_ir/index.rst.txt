@@ -27,11 +27,11 @@ Representation, IR）。
 -  了解编译器优化的主要手段和常见优化方法
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    overview_of_frontend
-    intermediate_representation
-    ad
-    type_system_and_static_analysis
-    common_frontend_optimization_pass
-    summary
+   overview_of_frontend
+   intermediate_representation
+   ad
+   type_system_and_static_analysis
+   common_frontend_optimization_pass
+   summary

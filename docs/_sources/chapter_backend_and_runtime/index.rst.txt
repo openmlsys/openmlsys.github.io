@@ -20,11 +20,11 @@
 -  掌握计算图调度和执行的常用方法
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    overview
-    graph_optimizer
-    kernel_selecter
-    memory_allocator
-    compute_schedule_and_execute
-    summary
+   overview
+   graph_optimizer
+   kernel_selecter
+   memory_allocator
+   compute_schedule_and_execute
+   summary

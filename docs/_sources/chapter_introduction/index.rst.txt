@@ -7,9 +7,9 @@
 本章最后部分介绍机器学习系统的组成原理，让读者对系统整体的实现有一个初步的、宏观的理解。
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    machine_learning_applications
-    requirements_for_machine_learning_systems
-    components_of_machine_learning_systems
-    applicable_readers
+   machine_learning_applications
+   requirements_for_machine_learning_systems
+   components_of_machine_learning_systems
+   applicable_readers

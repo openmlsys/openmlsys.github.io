@@ -25,7 +25,7 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.3. 感知系统" href="perception.html" />
+    <link rel="next" title="17.3. 机器人操作系统（ROS）的入门案例" href="ros_code_ex.html" />
     <link rel="prev" title="17.1. 概述" href="rl_sys_intro.html" /> 
   </head>
 <body>
@@ -143,9 +143,10 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.4. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.5. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.6. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
@@ -213,19 +214,20 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id12">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id13">16.6. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.3. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.4. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.5. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.6. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.7. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -237,7 +239,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -316,9 +317,10 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.4. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.5. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.6. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
@@ -386,19 +388,20 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id8">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id12">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id13">16.6. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.3. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.4. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.5. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.6. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.7. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -410,7 +413,6 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_references/index.html">参考文献</a></li>
 </ul>
 
             </nav>
@@ -433,7 +435,7 @@ Jetson和TensorRT。NVIDIA
 Jetson是NVIDIA为自主机器开发的一个嵌入式系统，包括CPU、GPU、PMIC、DRAM
 和闪存的一个模组化系统，可以将自主机器软件运作系统运行速率提升。TensorRT
 是由 Nvidia 发布的机器学习框架，用于在其硬件上运行机器学习推理。</p>
-<p>作为一个适用于机器人编程的框架，ROS把原本松散的零部件耦合在了一起，为他们提供了通信架构。虽然叫做”操作系统”，ROS更像是一个中间件，给各种基于ROS的应用程序建立起了沟通的桥梁，通过这个中间件，机器人的感知、决策、控制算法可以组织和运行。ROS采用了分布式的设计思想，支持C++、Pyhton等多种编程语言，方便移植。对ROS来讲，最小的进程单元是节点，由节点管理器来管理。参数配置存储在参数服务器中。ROS的通信方式包含：主题（Topic）、服务（Service）、参数服务器（Parameter
+<p>作为一个适用于机器人编程的框架，ROS把原本松散的零部件耦合在了一起，为他们提供了通信架构。虽然叫做“操作系统”，ROS更像是一个中间件，给各种基于ROS的应用程序建立起了沟通的桥梁，通过这个中间件，机器人的感知、决策、控制算法可以组织和运行。ROS采用了分布式的设计思想，支持C++、Pyhton等多种编程语言，方便移植。对ROS来讲，最小的进程单元是节点，由节点管理器来管理。参数配置存储在参数服务器中。ROS的通信方式包含：主题（Topic）、服务（Service）、参数服务器（Parameter
 Server）、动作库（ActionLib）这四种。</p>
 <p>ROS提供了很多内置工具，比如三维可视化器rviz，用于可视化机器人、它们工作的环境和传感器数据。它是一个高度可配置的工具，具有许多不同类型的可视化和插件。catkin是ROS
 构建系统（类似于Linux下的CMake），Catkin
@@ -446,11 +448,23 @@ Format）文件，URDF使用XML格式描述机器人文件。ROS也有一些需�
 2还加入了实时控制的支持，可以提高控制的时效性和整体机器人的性能。ROS
 2的通信系统基于DDS（Data Distribution Service），即数据分发服务,如
 <a class="reference internal" href="#ros2-arch"><span class="std std-numref">图17.2.1</span></a>所示。</p>
-<p>ROS2依赖于使用shell环境组合工作区。”工作区”（Workspace）是一个ROS术语，表示使用ROS2进行开发的系统位置。核心ROS2
+<p>ROS2依赖于使用shell环境组合工作区。“工作区”（Workspace）是一个ROS术语，表示使用ROS2进行开发的系统位置。核心ROS2
 工作区称为Underlay。随后的工作区称为Overlays。使用ROS2
-进行开发时，通常会同时有多个工作区处于活动状态。接下来我们详细介绍一下ROS2的核心概念（这一部分我们参考了文献  <a class="footnote-reference brackets" href="#id5" id="id3">1</a>）。</p>
+进行开发时，通常会同时有多个工作区处于活动状态。</p>
+<div class="section" id="rosros2">
+<h2><span class="section-number">17.2.1. </span>ROS还是ROS2<a class="headerlink" href="#rosros2" title="Permalink to this headline">¶</a></h2>
+<p>简单来说，除非你的项目已经搭建于ROS之上，或者你需要使用某个只在ROS框架下存在的功能库，否则大多数情况下都应该直接选择ROS2。</p>
+<p>ROS是一个很好的框架。它有着成熟活跃的社区，种类繁多的功能库，同时也有十分成熟的商业项目（例如Mobile
+Industrial Robots公司的MiR robot）。
+但是，ROS也有很多缺陷，例如工业项目中ROS的稳定性一直是个问题，必须进行额外的系统设计来增强到能够接受的程度。
+这也是为什么ROS2会对框架的很多部分都进行重新设计的原因，因此ROS2也能更好的支持工业机器人项目。
+除此之外，ROS的社区也在积极拥抱ROS2。官方和社区都提供了详细的教程来帮助开发者将ROS的库迁移到ROS2的框架内。
+同时，官方也宣布了ROS Noetic
+Ninjemys是最后一版ROS，并且预计于2025年五月停止官方支持（End of Life
+date）。</p>
+<p>本书将跟随官方的建议，使用ROS2作为讲解的框架。接下来我们详细介绍一下ROS2的核心概念（这一部分我们参考了文献  <a class="footnote-reference brackets" href="#id5" id="id3">1</a>）。</p>
 <div class="section" id="ros2-nodes">
-<h2><span class="section-number">17.2.1. </span>ROS2 Nodes<a class="headerlink" href="#ros2-nodes" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">17.2.1.1. </span>ROS2 Nodes<a class="headerlink" href="#ros2-nodes" title="Permalink to this headline">¶</a></h3>
 <p>ROS
 Graph是一个由ROS2元素组成的网络，在同一时间一起处理数据。它包括所有的可执行文件和它们之间的联系。ROS2
 中的每个节点都应负责一个单一的模块用途（例如，一个节点用于控制车轮马达，一个节点用于控制激光测距仪等）。每个节点都可以通过主题、服务、动作或参数向其他节点发送和接收数据。一个完整的机器人系统由许多协同工作的节点组成。在
@@ -473,10 +487,9 @@ ROS 2 中，单个可执行文件（C++ 程序、Python
 </ul>
 </div>
 <div class="section" id="ros2-topics">
-<h2><span class="section-number">17.2.2. </span>ROS2 Topics<a class="headerlink" href="#ros2-topics" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">17.2.1.2. </span>ROS2 Topics<a class="headerlink" href="#ros2-topics" title="Permalink to this headline">¶</a></h3>
 <p>ROS2将复杂系统分解为许多模块化节点。主题（Topics）是 ROS
-Graph的重要元素，它充当节点交换消息的总线。一个节点可以向任意数量的主题发布数据，同时订阅任意数量的主题，如
-<a class="reference internal" href="#id4"><span class="std std-numref">图17.2.3</span></a>所示。主题是数据在节点之间以及因此在系统的不同部分之间移动的主要方式之一。</p>
+Graph的重要元素，它充当节点交换消息的总线。一个节点可以向任意数量的主题发布数据，同时订阅任意数量的主题，如图:numref:<cite>ros2_topics</cite>所示。主题是数据在节点之间以及因此在系统的不同部分之间移动的主要方式之一，例如，移动机器人的激光测距仪的相关节点可以将读数发布到lidar这个主题上，然后导航模块和安全模块的相关节点都可以订阅这个主题从而持续的获得想要的信息。</p>
 <p>rqt是ROS的一个软件框架，以插件的形式实现了各种 GUI 工具。可以在 rqt
 中将所有现有的GUI工具作为可停靠窗口运行。这些工具仍然可以以传统的独立方法运行，但rqt可以更轻松地同时管理屏幕上的所有各种窗口。</p>
 <div class="figure align-default" id="id8">
@@ -485,23 +498,24 @@ Graph的重要元素，它充当节点交换消息的总线。一个节点可以
 </div>
 </div>
 <div class="section" id="ros-2-services">
-<h2><span class="section-number">17.2.3. </span>ROS 2 Services<a class="headerlink" href="#ros-2-services" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">17.2.1.3. </span>ROS 2 Services<a class="headerlink" href="#ros-2-services" title="Permalink to this headline">¶</a></h3>
 <p>服务（Services）是 ROS
 图中节点的另一种通信方式。服务基于调用和响应模型，而不是主题的发布者-订阅者模型。虽然主题允许节点订阅数据流并获得持续更新，但服务仅在客户端专门调用它们时才提供数据。节点可以使用ROS2中的服务进行通信。与主题那种单向通信模式，节点发布可由一个或多个订阅者使用的信息的方式不同
 服务是客户端向节点发出请求的请求/响应模式提供服务，服务处理请求并生成响应。</p>
+<p>例如，当一个服务机器人想要尝试识别一个条形码时，控制模块的相关节点（Service客户端）可以发送照相机截图到条形码识别节点（Service服务端），后者尝试识别并返回结果给控制模块。</p>
 <div class="figure align-default" id="id9">
 <span id="ros2-services"></span><a class="reference internal image-reference" href="../_images/ros2_services.png"><img alt="../_images/ros2_services.png" src="../_images/ros2_services.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图17.2.4 </span><span class="caption-text">ROS2服务</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="ros-2-parameters">
-<h2><span class="section-number">17.2.4. </span>ROS 2 Parameters<a class="headerlink" href="#ros-2-parameters" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">17.2.1.4. </span>ROS 2 Parameters<a class="headerlink" href="#ros-2-parameters" title="Permalink to this headline">¶</a></h3>
 <p>参数（Parameters）是节点的配置值。您可以将参数视为节点设置。节点可以将参数存储为整数、浮点数、布尔值、字符串和列表。在ROS2
 中，每个节点都维护自己的参数。</p>
 </div>
 <div class="section" id="ros-2-actions">
-<h2><span class="section-number">17.2.5. </span>ROS 2 Actions<a class="headerlink" href="#ros-2-actions" title="Permalink to this headline">¶</a></h2>
-<p>动作（Actions）是ROS2中的一种通信类型，适用于长时间运行的任务。它们由三个部分组成：目标、反馈和结果。动作建立在主题和服务之上。它们的功能类似于服务，除了可以取消动作。它们还提供稳定的反馈，而不是返回单一响应的服务。动作使用客户端-服务器模型，类似于发布者-订阅者模型（在主题教程中描述）。”动作客户端”节点将目标发送到”动作服务器”节点，该节点确认目标并返回反馈流和结果。动作类似于允许您执行长时间运行的任务、提供定期反馈并且可以取消的服务。机器人系统可能会使用动作进行导航。动作目标可以告诉机器人前往某个位置。当机器人导航到该位置时，它可以沿途发送更新（即反馈），然后在到达目的地后发送最终结果消息。</p>
+<h3><span class="section-number">17.2.1.5. </span>ROS 2 Actions<a class="headerlink" href="#ros-2-actions" title="Permalink to this headline">¶</a></h3>
+<p>动作（Actions）是ROS2中的一种通信类型，适用于长时间运行的任务。它们由三个部分组成：目标、反馈和结果。动作建立在主题和服务之上。它们的功能类似于服务，除了可以取消动作。它们还提供稳定的反馈，而不是返回单一响应的服务。动作使用客户端-服务器模型，类似于发布者-订阅者模型（在主题教程中描述）。“动作客户端”节点将目标发送到“动作服务器”节点，该节点确认目标并返回反馈流和结果。动作类似于允许您执行长时间运行的任务、提供定期反馈并且可以取消的服务。机器人系统可能会使用动作进行导航。动作目标可以告诉机器人前往某个位置。当机器人导航到该位置时，它可以沿途发送更新（即反馈），然后在到达目的地后发送最终结果消息。</p>
 <div class="figure align-default" id="id10">
 <span id="ros2-actions"></span><a class="reference internal image-reference" href="../_images/ros2_actions.png"><img alt="../_images/ros2_actions.png" src="../_images/ros2_actions.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图17.2.5 </span><span class="caption-text">ROS2动作</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
@@ -511,6 +525,7 @@ Graph的重要元素，它充当节点交换消息的总线。一个节点可以
 <dd><p><a class="reference external" href="https://docs.ros.org/en/foxy/Tutorials/Understanding-ROS2-Nodes.html">https://docs.ros.org/en/foxy/Tutorials/Understanding-ROS2-Nodes.html</a></p>
 </dd>
 </dl>
+</div>
 </div>
 </div>
 
@@ -524,11 +539,14 @@ Graph的重要元素，它充当节点交换消息的总线。一个节点可以
     </p>
     <ul>
 <li><a class="reference internal" href="#">17.2. 通用机器人操作系统</a><ul>
-<li><a class="reference internal" href="#ros2-nodes">17.2.1. ROS2 Nodes</a></li>
-<li><a class="reference internal" href="#ros2-topics">17.2.2. ROS2 Topics</a></li>
-<li><a class="reference internal" href="#ros-2-services">17.2.3. ROS 2 Services</a></li>
-<li><a class="reference internal" href="#ros-2-parameters">17.2.4. ROS 2 Parameters</a></li>
-<li><a class="reference internal" href="#ros-2-actions">17.2.5. ROS 2 Actions</a></li>
+<li><a class="reference internal" href="#rosros2">17.2.1. ROS还是ROS2</a><ul>
+<li><a class="reference internal" href="#ros2-nodes">17.2.1.1. ROS2 Nodes</a></li>
+<li><a class="reference internal" href="#ros2-topics">17.2.1.2. ROS2 Topics</a></li>
+<li><a class="reference internal" href="#ros-2-services">17.2.1.3. ROS 2 Services</a></li>
+<li><a class="reference internal" href="#ros-2-parameters">17.2.1.4. ROS 2 Parameters</a></li>
+<li><a class="reference internal" href="#ros-2-actions">17.2.1.5. ROS 2 Actions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -546,11 +564,11 @@ Graph的重要元素，它充当节点交换消息的总线。一个节点可以
             <div>17.1. 概述</div>
          </div>
      </a>
-     <a id="button-next" href="perception.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+     <a id="button-next" href="ros_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>17.3. 感知系统</div>
+            <div>17.3. 机器人操作系统（ROS）的入门案例</div>
         </div>
      </a>
   </div>

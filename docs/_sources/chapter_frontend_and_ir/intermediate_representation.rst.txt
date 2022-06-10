@@ -30,12 +30,17 @@
 上一节介绍了中间表示的基本概念，初步阐述了中间表示的重要作用和发展历程。接下来从组织结构的角度出发，介绍通用编译器的中间表示的类型以及各自特点
 :cite:`2020MLIR`\ ，如下表所示。中间表示组织结构的设计，对编译阶段的分析优化、代码生成等有着重要影响。编译器的设计需求不同，采用的中间表示组织结构也有所不同。
 
-::: {#tab:ch04/ch04-categorize} 组织结构 特点 举例 --------------
----------------------- ---------------------------------- Linear IR
-基于线性代码 堆栈机代码、三地址代码 Graphical IR 基于图
-抽象语法树、有向无环图、控制流图 Hybrid IR 基于图与线性代码混合 LLVM IR
+.. container:: {#tab:ch04/ch04-categorize}
 
-: 中间表示的分类 :::
+   .. table:: 中间表示的分类
+
+      ============= ============================ ==========================
+      组织结构 特点 举例                         
+      ============= ============================ ==========================
+      Linear IR     基于线性代码 堆栈机代码、    三地址代码
+      Graphical IR  基于图 抽象语                法树、有向无环图、控制流图
+      Hybrid IR     基于图与线性代码混合 LLVM IR 
+      ============= ============================ ==========================
 
 1) 线性中间表示
 
@@ -43,7 +48,7 @@
 
 常用线性中间表示有堆栈机代码(Stack-Machine Code)和三地址代码(Three
 Address Code) :cite:`2007Compilers`
-。堆栈机代码是一种单地址代码，提供了简单紧凑的表示。堆栈机代码的指令通常只有一个操作码，其操作数存在一个栈中。大多数操作指令从栈获得操作数，并将其结果推入栈中。三地址代码，简称为3AC，模拟了现代RISC机器的指令格式。它通过一组四元组实现，每个四元组包括一个运算符和三个地址(两个操作数、一个目标)。对于表达式a-b\*5，堆栈机代码和三地址代码如
+。堆栈机代码是一种单地址代码，提供了简单紧凑的表示。堆栈机代码的指令通常只有一个操作码，其操作数存在一个栈中。大多数操作指令从栈获得操作数，并将其结果推入栈中。三地址代码，简称为3AC，模拟了现代RISC机器的指令格式。它通过一组四元组实现，每个四元组包括一个运算符和三个地址(两个操作数、一个目标)。对于表达式a-b*5，堆栈机代码和三地址代码如
 :numref:`linear_ir`\ 所示。
 
 .. _linear_ir:
@@ -131,35 +136,35 @@ IR。如下Python代码使用了Scripting方法并打印其对应的中间表示
 
 .. code:: python
 
-    import torch
+   import torch
 
-    @torch.jit.script
-    def test_func(input):
-        rv = 10.0
-        for i in range(5):
-            rv = rv + input
-            rv = rv/2
-        return rv
+   @torch.jit.script
+   def test_func(input):
+       rv = 10.0
+       for i in range(5):
+           rv = rv + input
+           rv = rv/2
+       return rv
 
-    print(test_func.graph)
+   print(test_func.graph)
 
 该中间表示图的结构为：
 
 ::
 
-    graph(%input.1 : Tensor):
-      %9 : int = prim::Constant[value=1]()
-      %5 : bool = prim::Constant[value=1]() # test.py:6:1
-      %rv.1 : float = prim::Constant[value=10.]() # test.py:5:6
-      %2 : int = prim::Constant[value=5]() # test.py:6:16
-      %14 : int = prim::Constant[value=2]() # test.py:8:10
-      %rv : float = prim::Loop(%2, %5, %rv.1) # test.py:6:1
-        block0(%i : int, %rv.9 : float):
-          %rv.3 : Tensor = aten::add(%input.1, %rv.9, %9) # <string>:5:9
-          %12 : float = aten::FloatImplicit(%rv.3) # test.py:7:2
-          %rv.6 : float = aten::div(%12, %14) # test.py:8:7
-          -> (%5, %rv.6)
-      return (%rv)
+   graph(%input.1 : Tensor):
+     %9 : int = prim::Constant[value=1]()
+     %5 : bool = prim::Constant[value=1]() # test.py:6:1
+     %rv.1 : float = prim::Constant[value=10.]() # test.py:5:6
+     %2 : int = prim::Constant[value=5]() # test.py:6:16
+     %14 : int = prim::Constant[value=2]() # test.py:8:10
+     %rv : float = prim::Loop(%2, %5, %rv.1) # test.py:6:1
+       block0(%i : int, %rv.9 : float):
+         %rv.3 : Tensor = aten::add(%input.1, %rv.9, %9) # <string>:5:9
+         %12 : float = aten::FloatImplicit(%rv.3) # test.py:7:2
+         %rv.6 : float = aten::div(%12, %14) # test.py:8:7
+         -> (%5, %rv.6)
+     return (%rv)
 
 TorchScript是PyTorch的JIT实现，支持使用Python训练模型，然后通过JIT转换为语言无关的模块，从而提升模型部署能力，提高编译性能。同时，TorchScript
 IR显著改善了Pytorch框架的模型可视化效果。
@@ -174,35 +179,35 @@ Jaxpr IR的表达采用ANF(A-norm Form)函数式表达形式，ANF文法如下�
 
 ::
 
-    <aexp> ::=  NUMBER | STRING | VAR | BOOLEAN | PRIMOP
-               |  (lambda (VAR ...) <exp>)
-    <cexp> ::=  (<aexp> <aexp> ...)
-               ｜ (if <aexp> <exp> <exp>)
-    <exp> ::=  (let ([VAR <cexp>]) <exp>) | <cexp> | <aexp>
+   <aexp> ::=  NUMBER | STRING | VAR | BOOLEAN | PRIMOP
+              |  (lambda (VAR ...) <exp>)
+   <cexp> ::=  (<aexp> <aexp> ...)
+              ｜ (if <aexp> <exp> <exp>)
+   <exp> ::=  (let ([VAR <cexp>]) <exp>) | <cexp> | <aexp>
 
 ANF形式将表达式划分为两类：原子表达式(aexp)和复合表达式(cexp)。原子表达式用于表示常数、变量、原语、匿名函数，复合表达式由多个原子表达式组成，可看作一个匿名函数或原语函数调用，组合的第一个输入是调用的函数，其余输入是调用的参数。如下代码打印了一个函数对应的JaxPr：
 
 .. code:: python
 
-    from jax import make_jaxpr
-    import jax.numpy as jnp
+   from jax import make_jaxpr
+   import jax.numpy as jnp
 
-    def test_func(x, y):
-        ret = x + jnp.sin(y) * 3
-        return jnp.sum(ret)
+   def test_func(x, y):
+       ret = x + jnp.sin(y) * 3
+       return jnp.sum(ret)
 
-    print(make_jaxpr(test_func)(jnp.zeros(8), jnp.ones(8)))
+   print(make_jaxpr(test_func)(jnp.zeros(8), jnp.ones(8)))
 
 其对应的JaxPr为：
 
 ::
 
-    { lambda ; a:f32[8] b:f32[8]. let
-        c:f32[8] = sin b
-        d:f32[8] = mul c 3.0
-        e:f32[8] = add a d
-        f:f32[] = reduce_sum[axes=(0,)] e
-      in (f,) }
+   { lambda ; a:f32[8] b:f32[8]. let
+       c:f32[8] = sin b
+       d:f32[8] = mul c 3.0
+       e:f32[8] = add a d
+       f:f32[] = reduce_sum[axes=(0,)] e
+     in (f,) }
 
 Jax框架结合了Autograd 和 JIT，基于Jaxpr
 IR，支持循环、分支、递归、闭包函数求导以及三阶求导，并且支持自动微分的反向传播和前向传播。
@@ -241,11 +246,11 @@ Dialect在特定的命名空间下为抽象提供了分组机制，分别为每�
 
 ::
 
-    %tensor = "toy.transpose"(%tensor) {inplace = true} : (tensor<2x3xf64>) -> tensor<3x2xf64> loc("example/file/path":12:1)
+   %tensor = "toy.transpose"(%tensor) {inplace = true} : (tensor<2x3xf64>) -> tensor<3x2xf64> loc("example/file/path":12:1)
 
 -  % tensor: Operation定义的结果的名字，
    :math:`\%`\ 是为了避免冲突统一加入的。一个Operation可以定义0或者多个结果，它们是SSA值。
--  "toy.transpose":
+-  “toy.transpose”:
    Operation的名字。它是一个唯一的字符串，其中Dialect为Toy。因此它可以理解为Toy
    Dialect 中的transpose Operation。
 -  (%tensor)：输入操作数（或参数）的列表，它们是由其它操作定义或引用块参数的
@@ -256,7 +261,7 @@ Dialect在特定的命名空间下为抽象提供了分组机制，分别为每�
 -  (tensor<2x3xf64>)->tensor<3x2xf64>：函数形式表示的操作类型，前者是输入，后者是输出。尖括号内代表输入与输出的数据类型以及形状，
    例如\ :math:`<2x3xf64>`\ 代表一个形状位2X3，
    数据类型为float64的张量。
--  loc("example/file/path":12:1)：此操作的源代码中的位置。
+-  loc(“example/file/path”:12:1)：此操作的源代码中的位置。
 
 由于各层中间表示都遵循如上的样式进行定义，所以各个层级的中间表示之间可以更加方便的进行转换，
 提高了中间表示转换的效率。各个不同层级的中间表示还可以协同进行优化。
@@ -274,7 +279,7 @@ IR。MindIR没有采用多层中间表示的结构，而是通过统一的中间
 MindIR最核心的目的是服务于自动微分变换，而自动微分采用的是基于函数式编程框架的变换方法，因此MindIR采用了接近于ANF函数式的语义。MindIR具有以下特点：
 
 （1）基于图的（Graph
-based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是"一等公民"。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
+based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是“一等公民”。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
 
 （2）纯函数的（Purely functional）。
 
@@ -305,29 +310,29 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
 
 .. code:: python
 
-    def func(x, y):
-        return x / y
+   def func(x, y):
+       return x / y
 
-    @ms_function
-    def test_f(x, y):
-        a = x - 1
-        b = a + y
-        c = b * func(a, b)
-        return c
+   @ms_function
+   def test_f(x, y):
+       a = x - 1
+       b = a + y
+       c = b * func(a, b)
+       return c
 
 该函数对应的ANF表达式为：
 
 ::
 
-    lambda (x, y)
-        let a = x - 1 in
-        let b = a + y in
-        let func = lambda (x, y)
-            let ret = x / y in
-            ret end in
-        let %1 = func(a, b) in
-        let c = b * %1 in
-        c end
+   lambda (x, y)
+       let a = x - 1 in
+       let b = a + y in
+       let func = lambda (x, y)
+           let ret = x / y in
+           ret end in
+       let %1 = func(a, b) in
+       let c = b * %1 in
+       c end
 
 在ANF中，每个表达式都用let表达式绑定为一个变量，通过对变量的引用来表示对表达式输出的依赖，而在MindIR中，每个表达式都绑定为一个节点，通过节点与节点之间的有向边表示依赖关系。该函数对应的MindIR的可视化表示如
 :numref:`MindIR_graph`\ 所示。

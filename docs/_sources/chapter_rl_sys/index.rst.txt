@@ -11,11 +11,12 @@
 -  掌握感知系统、规划系统、控制系统。
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    rl_sys_intro
-    ros
-    perception
-    planning
-    control
-    summary
+   rl_sys_intro
+   ros
+   ros_code_ex
+   perception
+   planning
+   control
+   summary

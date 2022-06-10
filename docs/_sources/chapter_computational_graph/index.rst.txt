@@ -12,10 +12,10 @@ graph)这一技术。在本章中，我们详细讨论计算图的基本组成�
 -  掌握计算图的常用执行方法。
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    background_and_functionality
-    components_of_computational_graph
-    generation_of_computational_graph
-    schedule_of_computational_graph
-    summary
+   background_and_functionality
+   components_of_computational_graph
+   generation_of_computational_graph
+   schedule_of_computational_graph
+   summary

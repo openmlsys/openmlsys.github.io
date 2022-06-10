@@ -16,10 +16,13 @@ Device内存概念
 
 .. _host-device-memory:
 
+.. _内存分配-1:
+
 .. figure:: ../img/ch05/host-device-memory.png
    :width: 800px
 
    主机内存和设备内存
+
 
 
 
@@ -30,7 +33,6 @@ Device内存概念
 Type）、格式（Format）等信息，根据这些信息我们可以计算出算子输入、输出Tensor的尺寸大小。基本的计算方法为：
 
 .. math:: size=\left (\prod_{i=0}^{dimension}shape_i\right ) * sizeof\left ( data type \right )
-
 
 得到Tensor的尺寸大小后，往往还需要对内存大小进行对齐操作。内存通常以4字节、8字节或16字节为一组进行访问，如果被搬运的内存大小不是这些值的倍数，内存后面会填充相应数量的空数据以使得内存长度达到这些值的倍数。因此，访问非对齐的内存可能会更加耗时。
 
@@ -109,14 +111,14 @@ Solver）。SOMAS将计算图并行流与数据依赖进行聚合分析，得到
 In-Place算子
 ^^^^^^^^^^^^
 
-在前面的内存分配流程中，我们会为每个算子的输入和输出都分配不同的内存。然而对很多算子而言，为其分配不同的输入和输出地址，会浪费内存并且影响计算性能。例如优化器算子，其计算的目的就是更新神经网络的权重；例如Python语法中的'+='和'\*='操作符，将计算结果更新到符号左边的变量中；例如'a[0]=b'语法，将'a[0]'的值更新为'b'。诸如此类计算有一个特点，都是为了更新输入的值。下面以Tensor的'a[0]=b'操作为例介绍In-Place的优点。
+在前面的内存分配流程中，我们会为每个算子的输入和输出都分配不同的内存。然而对很多算子而言，为其分配不同的输入和输出地址，会浪费内存并且影响计算性能。例如优化器算子，其计算的目的就是更新神经网络的权重；例如Python语法中的’+=‘和’\*=‘操作符，将计算结果更新到符号左边的变量中；例如’a[0]=b’语法，将’a[0]’的值更新为’b’。诸如此类计算有一个特点，都是为了更新输入的值。下面以Tensor的’a[0]=b’操作为例介绍In-Place的优点。
 :numref:`inplace-op`\ 左边是非In-Place操作的实现，step1将Tensor
-a拷贝到Tensor a'，step2将Tensor b赋值给Tensor a'，step3将Tensor
-a'拷贝到Tensor a。
+a拷贝到Tensor a’，step2将Tensor b赋值给Tensor a’，step3将Tensor
+a’拷贝到Tensor a。
 :numref:`inplace-op`\ 右边是算子In-Place操作的实现，仅用一个步骤将Tensor
 b拷贝到Tensor
 a对于的位置上。对比两种实现，可以发现In-Place操作节省了两次拷贝的耗时，并且省去了Tensor
-a'内存的申请。
+a’内存的申请。
 
 .. _inplace-op:
 
