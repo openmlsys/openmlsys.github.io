@@ -225,10 +225,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -399,10 +403,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -629,9 +637,8 @@ make first_attempt
 <div class="section" id="id5">
 <h3><span class="section-number">8.4.2.1. </span>使用封装结构代替指针<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>在上面的实现中，由于二维矩阵的数据是使用一维数组进行存储，所以在访问数据时需要使用行坐标与二维矩阵宽度的乘积和列坐标的和来索引到具体位置的元素，这样的访问方式并不直观且在后续逐渐复杂的实现中容易出错。因此，我们可以自定义一个结构体，通过重载
-<code class="docutils literal notranslate"><span class="pre">()</span></code>
-运算符，实现对矩阵元素的二维索引。而且在后续的实现中，在访问数据块内的数据时，我们可能使用大量重复的坐标索引偏移，为了简化代码，我们提供
-<code class="docutils literal notranslate"><span class="pre">addOffset</span></code> 方法用于加入一个固定的偏移，具体实现如下：</p>
+<code class="docutils literal notranslate"><span class="pre">()</span></code> 运算符，实现对矩阵元素的二维索引，同时我们提供 <code class="docutils literal notranslate"><span class="pre">addOffset</span></code>
+方法用于加入一个固定的偏移，具体实现如下：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">__device_builtin__</span> <span class="n">Tensor2D</span> <span class="p">{</span>
   <span class="n">T</span> <span class="o">*</span><span class="k">const</span> <span class="n">__restrict__</span> <span class="n">ptr</span><span class="p">;</span>
@@ -708,7 +715,7 @@ Intensity）指计算指令数量与访存指令数量的比值，在现代GPU�
 指针完成的，具体到硬件指令集上实际是使用指令 <code class="docutils literal notranslate"><span class="pre">LDG.E</span></code> 与 <code class="docutils literal notranslate"><span class="pre">STG.E</span></code>
 完成的。我们可以使用128位宽指令<code class="docutils literal notranslate"><span class="pre">LDG.E.128</span></code> 与 <code class="docutils literal notranslate"><span class="pre">STG.E.128</span></code>
 一次读取多个 <code class="docutils literal notranslate"><span class="pre">float</span></code>
-数。使用宽指令的好处一方面有简化了指令序列，使用一个宽指令代替四个标准指令可以节省十几个指令的发射周期，这可以为计算指令的发射争取到额外的时间；此外128比特正好等于一个cache
+数。使用宽指令的好处是一方面简化了指令序列，使用一个宽指令代替四个标准指令可以节省十几个指令的发射周期，这可以为计算指令的发射争取到额外的时间；另一方面128比特正好等于一个cache
 line的长度，使用宽指令也有助于提高cache
 line的命中率。但我们并不提倡在一切代码中过度追求宽指令的使用，开发者应当将更多的时间关注并行性设计和局部数据复用等更直接的优化手段。</p>
 <p>具体的实现如下，由于每个 <code class="docutils literal notranslate"><span class="pre">float</span></code> 类型大小为32个比特，我们可以将4个
@@ -785,9 +792,11 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>我们首先在第6到14行计算每个线程需要处理的数据块在矩阵中的起始行列坐标<code class="docutils literal notranslate"><span class="pre">m,n</span></code>，即图2中矩阵<span class="math notranslate nohighlight">\(C\)</span>中绿色数据块的左上角坐标，然后使用<code class="docutils literal notranslate"><span class="pre">Tensor2D</span></code>中的<code class="docutils literal notranslate"><span class="pre">addOffset</span></code>方法，为每个线程定位到它要处理的数据块的起始位置上，并且利用<code class="docutils literal notranslate"><span class="pre">validOffset</span></code>方法判断线程是否越界。然后就可以沿着K方向循环，在第18到23行每个线程分别读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中连续的4行和矩阵<span class="math notranslate nohighlight">\(B\)</span>中连续的四列组成两个
-<code class="docutils literal notranslate"><span class="pre">float4</span></code>
-，即图2中粉色与黄色的4维向量。之后在第25到27行计算线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的<span class="math notranslate nohighlight">\(4 \times 4\)</span>个元素。最后在第30到40行对结果使用参数
+<p>我们首先在第6到14行计算每个线程需要处理的数据块在矩阵中的起始行列坐标<code class="docutils literal notranslate"><span class="pre">m,n</span></code>，即
+<a class="reference internal" href="#use-float4"><span class="std std-numref">图8.4.2</span></a>
+中矩阵<span class="math notranslate nohighlight">\(C\)</span>中浅绿色数据块的左上角坐标，然后使用<code class="docutils literal notranslate"><span class="pre">Tensor2D</span></code>中的<code class="docutils literal notranslate"><span class="pre">addOffset</span></code>方法，为每个线程定位到它要处理的数据块的起始位置上，并且利用<code class="docutils literal notranslate"><span class="pre">validOffset</span></code>方法判断线程是否越界。然后就可以沿着K方向循环，在第18到23行每个线程分别读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中连续的4行和矩阵<span class="math notranslate nohighlight">\(B\)</span>中连续的四列组成两个
+<code class="docutils literal notranslate"><span class="pre">float4</span></code> ，即 <a class="reference internal" href="#use-float4"><span class="std std-numref">图8.4.2</span></a>
+中粉色与黄色的四个元素。之后在第25到27行计算线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的<span class="math notranslate nohighlight">\(4 \times 4\)</span>个元素。最后在第30到40行对结果使用参数
 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> 和 <code class="docutils literal notranslate"><span class="pre">beta</span></code> 进行放缩并写回矩阵<span class="math notranslate nohighlight">\(C\)</span>的内存。</p>
 <div class="figure align-default" id="id27">
 <span id="use-float4"></span><a class="reference internal image-reference" href="../_images/use_float4.svg"><img alt="../_images/use_float4.svg" src="../_images/use_float4.svg" width="800px" /></a>
@@ -854,8 +863,8 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </div>
 <div class="section" id="id8">
 <h2><span class="section-number">8.4.4. </span>进一步提升计算强度<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<p>我们可以通过使每个线程负责处理更多的矩阵<span class="math notranslate nohighlight">\(C\)</span>中的数据块从而实现更高的计算强度，即如下图3右侧所示，使
-<code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
+<p>我们可以通过使每个线程负责处理更多的矩阵<span class="math notranslate nohighlight">\(C\)</span>中的数据块从而实现更高的计算强度，即如
+<a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a> 右侧所示，使 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
 扩大为4个<span class="math notranslate nohighlight">\(4 \times 4\)</span>矩阵的规模。我们对核函数进行以下修改，首先我们用<code class="docutils literal notranslate"><span class="pre">LayoutTile</span></code>
 来描述每个线程块处理数据 <code class="docutils literal notranslate"><span class="pre">tile</span></code>的布局 ，其中 <code class="docutils literal notranslate"><span class="pre">LayoutTile::m</span></code> 和
 <code class="docutils literal notranslate"><span class="pre">LayoutTile::n</span></code> 等于 <a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a>
@@ -896,8 +905,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 在行方向上迭代的次数。<code class="docutils literal notranslate"><span class="pre">intervalA</span></code> 是 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
 子矩阵在行方向的间隔。同理 <code class="docutils literal notranslate"><span class="pre">iterationB</span></code> 与 <code class="docutils literal notranslate"><span class="pre">intervalB</span></code>
 是在列方向上数据块的数量与数据块的间隔。 因为 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
-扩大为若干个矩阵块，我们每个线程在读取数据前需要判断地址是否越界。
-我们使用以下代码用来记录每个矩阵块是否越界：</p>
+扩大为若干个矩阵块，我们使用以下代码用来记录每个矩阵块是否越界：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">iterationA</span><span class="p">];</span>
 <span class="kt">bool</span> <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">iterationB</span><span class="p">];</span>
 <span class="cp">#pragma unroll</span>
@@ -937,7 +945,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </pre></div>
 </div>
 <p>注意到我们此时使用了编译器指令 <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">unroll</span></code>
-用于将循环展开，即如果循环次数是可以在编译时确定的话，编译器将会把带有判断和跳转的循环代码展开成串行代码。这样做的好处主要是减少了判断语句，此外还可以便于编译器发现数据依赖从而更好地分配寄存器。缺点是会增加寄存器的使用，有潜在的降低GPU占用率的风险。
+用于将循环展开，即如果循环次数是可以在编译时确定的话，编译器将会把带有判断和跳转的循环代码展开成串行代码。这样做的好处主要是减少了判断语句，此外还有利于编译器发现数据依赖从而更好地分配寄存器。缺点是可能会增加寄存器的使用，有潜在的降低GPU占用率的风险。
 最后对于结果使用 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> 和 <code class="docutils literal notranslate"><span class="pre">beta</span></code>
 的放缩以及写回也相应的加上数据块的循环：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma unroll</span>
@@ -982,14 +990,14 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </div>
 <div class="section" id="sec-accelerator-use-smem">
 <span id="id11"></span><h2><span class="section-number">8.4.5. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this headline">¶</a></h2>
-<p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种设计会导致由于单个线程处理数据的增多导致开启总的线程数量减少，进而导致并行度下降，因此我们需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，我们开启若干个线程块，每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个或多个矩阵块。在
+<p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此我们需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，我们开启若干个线程块，每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个或多个矩阵块。在
 <a class="reference internal" href="#duplicated-data"><span class="std std-numref">图8.4.4</span></a>
 中，我们可以观察到，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>同一行的线程<span class="math notranslate nohighlight">\(x, y\)</span>会读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中相同的数据，我们可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
 <div class="figure align-default" id="id29">
 <span id="duplicated-data"></span><a class="reference internal image-reference" href="../_images/duplicated_data.svg"><img alt="../_images/duplicated_data.svg" src="../_images/duplicated_data.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </div>
-<p>具体地，我们需要对代码进行如下改造：首先此前代码在计算内积过程是分<span class="math notranslate nohighlight">\(K\)</span>次循环读取数据并累加计算，在此设定下每次循环中处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同行的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同列的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据。我们可以通过将此<span class="math notranslate nohighlight">\(K\)</span>次循环拆解成两层循环，外层循环<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次，每次外循环的迭代读取一整块数据，内层循环<span class="math notranslate nohighlight">\(tileK\)</span>次进行累加数据。直观来看，外层循环如
+<p>具体地，我们需要对代码进行如下改造：首先此前代码在计算内积过程是进行<span class="math notranslate nohighlight">\(K\)</span>次循环读取数据并累加计算，在此设定下每次循环中处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同行的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同列的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据。我们可以通过将此<span class="math notranslate nohighlight">\(K\)</span>次循环拆解成两层循环，外层循环<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次，每次外循环的迭代读取一整块数据，内层循环<span class="math notranslate nohighlight">\(tileK\)</span>次进行累加数据。直观来看，外层循环如
 <a class="reference internal" href="#use-smem-store"><span class="std std-numref">图8.4.5</span></a>
 所示，每次循环将矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中一整个 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
 读取到共享内存中；内层循环如 <a class="reference internal" href="#use-smem-load"><span class="std std-numref">图8.4.6</span></a>
@@ -1002,7 +1010,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <span id="id12"></span><span id="use-smem-load"></span><a class="reference internal image-reference" href="../_images/use_smem_load.svg"><img alt="../_images/use_smem_load.svg" src="../_images/use_smem_load.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
 </div>
-<p>下面我们将实现使用共享内存的GPU核函数。首先，我们可以计算每个线程块在外层循环的每次迭代中从矩阵<span class="math notranslate nohighlight">\(A\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileM \times tileK\)</span>的数据块，在矩阵<span class="math notranslate nohighlight">\(B\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileK \times tileN\)</span>的数据块。假设每个线程块中一共含有<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，那么就可以使用这<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，每个线程循环<span class="math notranslate nohighlight">\(\frac{tileM * tileK}{blockSize * 4}\)</span>次将矩阵<span class="math notranslate nohighlight">\(A\)</span>中的矩阵块
+<p>下面我们将实现使用共享内存的GPU核函数。首先，我们定义每个线程块在外层循环的每次迭代中从矩阵<span class="math notranslate nohighlight">\(A\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileM \times tileK\)</span>的数据块，在矩阵<span class="math notranslate nohighlight">\(B\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileK \times tileN\)</span>的数据块。假设每个线程块中一共含有<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，那么就可以使用这<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，每个线程循环<span class="math notranslate nohighlight">\(\frac{tileM * tileK}{blockSize * 4}\)</span>次将矩阵<span class="math notranslate nohighlight">\(A\)</span>中的矩阵块
 <code class="docutils literal notranslate"><span class="pre">tileA</span></code>
 读取进共享内存中，同理每个线程循环<span class="math notranslate nohighlight">\(\frac{tileM * tileK}{blockSize * 4}\)</span>次将矩阵<span class="math notranslate nohighlight">\(B\)</span>中的矩阵块
 <code class="docutils literal notranslate"><span class="pre">tileB</span></code> 读取进共享内存中。</p>
@@ -1030,7 +1038,8 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileIterationsB</span> <span class="o">=</span> <span class="n">tileSizeB</span> <span class="o">/</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileGlobalIntervalB</span> <span class="o">=</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileComputeIterationsB</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
-<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSharedIntervalBT</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">tileComputeIterationsB</span><span class="p">;</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="n">nInTileB</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">%</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
+<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSharedIntervalBT</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">tileComputeIterationsB</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">nInTileB</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">%</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 <span class="k">const</span> <span class="kt">unsigned</span> <span class="n">kinTileB</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -1208,12 +1217,12 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </div>
 <div class="section" id="id17">
 <h2><span class="section-number">8.4.7. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
-<p>在GPU中读取数据共享内存中的数据使用指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖
+<p>在GPU中使用指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
+读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖
 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-指令读取的数据的指令时才会等待读取的完成。而在上一小节中，我们在内层<span class="math notranslate nohighlight">\(tileK\)</span>次循环中，每次循环迭代对共享内存发射完读取指令之后就会立即执行依赖于读取数据的数学运算，这样就会导致计算单元等待数据从共享内存的读取，如
+指令读取的数据的指令时才会等待读取的完成。而在上一小节中，我们在内层<span class="math notranslate nohighlight">\(tileK\)</span>次循环中，每次发射完读取共享内存的指令之后就会立即执行依赖于读取数据的数学运算，这样就会导致计算单元等待数据从共享内存的读取，如
 <a class="reference internal" href="#use-smem-pipeline"><span class="std std-numref">图8.4.7</span></a>
-所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。我们可以重新优化流水线隐藏一定的数据读取延迟。具体地，我们可以在内层的<span class="math notranslate nohighlight">\(tileK\)</span>次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令，具体见下
+所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。我们可以重新优化流水线隐藏一定的数据读取延迟。具体地，我们可以在内层的<span class="math notranslate nohighlight">\(tileK\)</span>次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令，具体见
 <a class="reference internal" href="#hide-smem-latency"><span class="std std-numref">图8.4.8</span></a> 。</p>
 <div class="figure align-default" id="id32">
 <span id="use-smem-pipeline"></span><a class="reference internal image-reference" href="../_images/use_smem_pipeline.svg"><img alt="../_images/use_smem_pipeline.svg" src="../_images/use_smem_pipeline.svg" width="800px" /></a>
@@ -1278,7 +1287,7 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </div>
 <p>使用Nsight Compute观察发现：相比上一个GPU核函数，指标
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
-减少了67%。Scoreboard的功能是由于此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。这里<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
+减少了67%。而此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。所以这里<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
 的减少充分说明了内存延迟是有效的。</p>
 </div>
 </div>
@@ -1287,7 +1296,7 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <p>上一小节中我们介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令
 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 也有与共享内存读取指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
 类似的行为特性。因此我们类似的在<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次外层循环中每次循环开始时发出下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见
-<a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> ：</p>
+<a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> 。</p>
 <div class="figure align-default" id="id34">
 <span id="id21"></span><span id="hide-global-latency"></span><a class="reference internal image-reference" href="../_images/hide_global_latency.svg"><img alt="../_images/hide_global_latency.svg" src="../_images/hide_global_latency.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
@@ -1390,8 +1399,8 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </div>
 </div>
 <div class="section" id="cublas">
-<span id="id23"></span><h2><span class="section-number">8.4.9. </span>与cuBlas对比<a class="headerlink" href="#cublas" title="Permalink to this headline">¶</a></h2>
-<p>前一节中介绍了cuBlas的接口，我们可以很容易地写出以下代码使用cuBlas完成矩阵乘法：</p>
+<span id="id23"></span><h2><span class="section-number">8.4.9. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this headline">¶</a></h2>
+<p>前一节中介绍了cuBLAS的接口，我们可以很容易地写出以下代码使用cuBLAS完成矩阵乘法：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">cublasGemm</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">C</span><span class="p">,</span> <span class="kt">float</span> <span class="n">alf</span><span class="p">,</span> <span class="kt">float</span> <span class="n">bet</span><span class="p">,</span> <span class="kt">int</span> <span class="n">M</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="kt">int</span> <span class="n">K</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">lda</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">ldb</span> <span class="o">=</span> <span class="n">K</span><span class="p">,</span> <span class="n">ldc</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
   <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">alpha</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">alf</span><span class="p">;</span>
@@ -1415,11 +1424,11 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 等指令使用较多，导致指令发射压力较大，具体体现在 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Wait</span></code> 与
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Dispatch</span> <span class="pre">Stall</span></code> 指标相比我们较差。但其他指标诸如
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code> 等优于我们，但总体上我们略胜一筹。
-尽管我们的代码相比cuBlas已经取得了一定的性能提升，但是需要强调的是cuBlas内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
+尽管我们的代码相比cuBLAS已经取得了一定的性能提升，但是需要强调的是cuBLAS内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
 <ol class="arabic simple">
 <li><p><strong>并行资源映射——提高并行性</strong>：将多层级的并行资源（<code class="docutils literal notranslate"><span class="pre">block</span></code>
 、<code class="docutils literal notranslate"><span class="pre">warp</span></code> 、<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于GEMM实例，在朴素实现的例子中
+）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于一般矩阵乘法实例，在朴素实现的例子中
 <a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a> ，我们令每个<code class="docutils literal notranslate"><span class="pre">block</span></code>
 与矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个矩阵块建立映射关系，每个<code class="docutils literal notranslate"><span class="pre">thread</span></code>
 与矩阵块中的一个元素建立映射关系。</p></li>
@@ -1428,7 +1437,7 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <a class="reference internal" href="#sec-accelerator-use-smem"><span class="std std-numref">8.4.5节</span></a>
 中我们将矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>中会被同一个<code class="docutils literal notranslate"><span class="pre">block</span></code>
 内不同<code class="docutils literal notranslate"><span class="pre">thread</span></code> 共同访问的数据缓存到共享内存中。</p></li>
-<li><p><strong>优化指令执行——减小指令发射开销</strong>：使用#unroll功能进行循环展开来提升指令级并行，减少逻辑判断；使用向量化加载指令以提高带宽等，对于Ampere架构，最大向量化加载指令为ldg128，即128比特带宽，可以采用<code class="docutils literal notranslate"><span class="pre">float4</span></code>
+<li><p><strong>优化指令执行——减小指令发射开销</strong>：使用#unroll功能进行循环展开来提升指令级并行，减少逻辑判断；使用向量化加载指令以提高带宽等，对于Ampere架构，最大向量化加载指令为<code class="docutils literal notranslate"><span class="pre">LDG.E.128</span></code>，可以采用<code class="docutils literal notranslate"><span class="pre">float4</span></code>
 类型的数据进行读取。</p></li>
 <li><p><strong>优化访存流水线——隐藏访存延迟</strong>：在进行内存结构变化（矩阵数据搬移）时，可以优化访存流水线，在数据搬移的间隔执行计算操作以隐藏数据搬移的延迟。</p></li>
 </ol>
@@ -1448,9 +1457,9 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <code class="docutils literal notranslate"><span class="pre">mma.m8n8k4</span></code>
 相关功能，但用户仍然可以在代码中直接使用此PTX指令，但在汇编过程会被实现为等价的非
 <code class="docutils literal notranslate"><span class="pre">mma</span></code> 指令，进而导致性能不如预期。</p>
-<p>相关的PTX指令主要有 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 和 <code class="docutils literal notranslate"><span class="pre">mma</span></code> 。 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 是相对 <code class="docutils literal notranslate"><span class="pre">mma</span></code>
-高一层的指令，它可以提供若干修饰符如 <code class="docutils literal notranslate"><span class="pre">load</span></code> 用于读取数据， <code class="docutils literal notranslate"><span class="pre">store</span></code>
-用于储存数据， <code class="docutils literal notranslate"><span class="pre">mma</span></code> 用于计算等操作。</p>
+<p>与一般矩阵乘法相关的PTX指令主要有 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 和 <code class="docutils literal notranslate"><span class="pre">mma</span></code> 。 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 是相对
+<code class="docutils literal notranslate"><span class="pre">mma</span></code> 高一层的指令，它可以提供若干修饰符如 <code class="docutils literal notranslate"><span class="pre">load</span></code> 用于读取数据，
+<code class="docutils literal notranslate"><span class="pre">store</span></code> 用于储存数据， <code class="docutils literal notranslate"><span class="pre">mma</span></code> 用于计算等操作。</p>
 <p>修饰符的使用可以类似于以下形式
 <code class="docutils literal notranslate"><span class="pre">wmma.load.a.sync.aligned.m16n16k16.global.row.f16</span></code> 。 <code class="docutils literal notranslate"><span class="pre">a</span></code>
 代表目标为矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据；<code class="docutils literal notranslate"><span class="pre">sync</span></code>
@@ -1563,7 +1572,7 @@ PTX指令嵌入到我们的CUDA代码中，下面给出了一个例子：</p>
 <li><a class="reference internal" href="#id22">8.4.8.1. 测试及分析</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#cublas">8.4.9. 与cuBlas对比</a><ul>
+<li><a class="reference internal" href="#cublas">8.4.9. 与cuBLAS对比</a><ul>
 <li><a class="reference internal" href="#id24">8.4.9.1. 测试及分析</a></li>
 </ul>
 </li>

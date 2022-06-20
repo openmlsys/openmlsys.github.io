@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>17.5. 感知系统案例 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="17.6. 规划系统" href="planning.html" />
+    <link rel="prev" title="17.4. 感知系统" href="perception.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.5. </span>感知系统案例</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_rl_sys/perception_code_ex.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/components_of_machine_learning_systems.html">2.3. 基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applicable_readers.html">2.4. 适用读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="id1">
+<h1><span class="section-number">17.5. </span>感知系统案例<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>在之前<a class="reference external" href="./ros_code_ex.md">机器人操作系统（ROS）的入门案例</a>这一章节中，我们学习了怎样创建一个ROS2项目以及怎样使用ROS2框架下的节点，服务，动作等。然后，我们又在上一章节中初步了解了机器人的感知系统。
+在这一章节中，我们将通过一个简单的案例来演示怎样结合ROS2和深度学习框架PyTorch来完成一个我们设想的感知系统中的一个基本功能。</p>
+<div class="section" id="id2">
+<h2><span class="section-number">17.5.1. </span>案例背景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>假设我们想要帮某果园设计一款全自动摘菠萝机器人。
+这个机器人可能需要有一个智能移动底盘来负责在果园中移动，若干传感器（包括一个RGB摄像头）来检测菠萝，以及一个机械臂来负责摘取动作。
+在这个机器人需要完成的一长列各种功能中，它的感知系统必然需要能检测摄像头传感器的画面中央是否有一个菠萝。
+检测到了菠萝才会进入到摘取的环节。</p>
+<p>这个检测在图像中央是否有菠萝存在的功能，就是我们机器人的感知系统中基础但必要的一个基本功能。
+幸运的是，随着现代卷积神经网络的发展，我们可以利用已存在的深度学习框架，如PyTorch，来快速的完成这个功能。
+而且一个简单的使用ImageNet进行预训练的AlexNet就以及足够了。</p>
+<p>在之前的案例中，我们都是使用的ROS2框架下的程序库。在这个例子中，我们将开始了解如何在ROS2中使用框架外的Python库。</p>
+<p>和之前的案例类似，本章节的案例所使用的代码可以在本书相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">ROS2案例代码库</a>中的<code class="docutils literal notranslate"><span class="pre">src/object_detector</span></code>文件夹内找到。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">17.5.2. </span>项目搭建<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>让我们沿用之前已经搭建好的ROS2项目框架。
+我们只需在其中增加一个ROS2的Python库来实现我们想要的功能即可。
+因此，让我们回到<code class="docutils literal notranslate"><span class="pre">src</span></code>目录下并创建此Python库。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2/src
+ros2 pkg create --build-type ament_python --node-name object_detector_node object_detector --dependencies rclpy std_msgs sensor_msgs cv_bridge opencv-python torch torchvision torchaudio
+</pre></div>
+</div>
+<p>在创建好Python库后，别忘了将<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>和<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的<code class="docutils literal notranslate"><span class="pre">version</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer_email</span></code>，<code class="docutils literal notranslate"><span class="pre">description</span></code>和<code class="docutils literal notranslate"><span class="pre">license</span></code>项都更新好。</p>
+<p>紧接着，我们需要安装ROS2框架下的<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库。
+这个库能帮助我们将一张图片模拟成像摄像头视频一样的图片流。
+在开发真是机器人时，我们可能可以在实机上检测我们的程序，但是对于这个案例，我们只能使用这个<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库和若干选择好的图片来测试我们的程序。
+实际上，就算是开发实际机器人的功能，也最好在实际测试之前使用图片来做这个功能的单元测试。</p>
+<p>我们只需通过ubuntu的<code class="docutils literal notranslate"><span class="pre">apt</span></code>来安装这个<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库，因为作为一个常用的ROS2框架下的程序库，它已经被打包好以便通过ubuntu的包管理器来安装。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt install ros-foxy-image-publisher
+</pre></div>
+</div>
+<p>关于<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>这个库更多的信息和使用方法，可以查看<a class="reference external" href="http://wiki.ros.org/image_publisher">它的文档</a>。这是个针对早期ROS1版本的文档，但是因为这个库之后没有任何变化，文档中所有的功能都和我们所使用的ROS2版本中的一样。</p>
+<p>接下来，让我们在ROS2项目的Python虚拟环境中安装<code class="docutils literal notranslate"><span class="pre">opencv-python</span></code>，<code class="docutils literal notranslate"><span class="pre">torch</span></code>，<code class="docutils literal notranslate"><span class="pre">torchvision</span></code>和<code class="docutils literal notranslate"><span class="pre">torchaudio</span></code>。
+例如使用<code class="docutils literal notranslate"><span class="pre">pipenv</span></code>的用户可能会执行<code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">opencv-python</span> <span class="pre">torch</span> <span class="pre">torchvision</span> <span class="pre">torchaudio</span></code>这条命令。</p>
+<p>最后，让我们把下面这两张菠萝和苹果的图片保存在<code class="docutils literal notranslate"><span class="pre">openmlsys-ros2/data</span></code>下。
+我们将使用这两张图片来检测我们的程序可以检测到菠萝并且不会把菠萝当成苹果。</p>
+<div class="figure align-default" id="id7">
+<span id="ros2-pineapple"></span><a class="reference internal image-reference" href="../_images/ros-pineapple.jpg"><img alt="../_images/ros-pineapple.jpg" src="../_images/ros-pineapple.jpg" style="width: 256px;" /></a>
+<p class="caption"><span class="caption-number">图17.5.1 </span><span class="caption-text">菠萝图片</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id8">
+<span id="ros2-apple"></span><a class="reference internal image-reference" href="../_images/ros-apple.jpg"><img alt="../_images/ros-apple.jpg" src="../_images/ros-apple.jpg" style="width: 256px;" /></a>
+<p class="caption"><span class="caption-number">图17.5.2 </span><span class="caption-text">苹果图片</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">17.5.3. </span>添加代码<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>之前创建Python库的命令应该已经帮我们创建好了<code class="docutils literal notranslate"><span class="pre">src/object_detector/object_detector/object_detector_node.py</span></code>这个文件。现在让我们用以下内容来替换掉此文件中已有的内容。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">Bool</span>
+<span class="kn">from</span> <span class="nn">sensor_msgs.msg</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">cv_bridge</span> <span class="kn">import</span> <span class="n">CvBridge</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torchvision.models</span> <span class="k">as</span> <span class="nn">models</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+
+
+<span class="k">class</span> <span class="nc">ObjectDetectorNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="n">PINEAPPLE_CLASS_ID</span> <span class="o">=</span> <span class="mi">953</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;object_detector_node&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detection_publisher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Bool</span><span class="p">,</span> <span class="s1">&#39;object_detected&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_subscriber</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
+            <span class="n">Image</span><span class="p">,</span> <span class="s1">&#39;camera_topic&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_callback</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alex_net</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">alexnet</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alex_net</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToPILImage</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cv_bridge</span> <span class="o">=</span> <span class="n">CvBridge</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;detection_class_id&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">PINEAPPLE_CLASS_ID</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Detector node is ready.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">camera_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Image</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received an image, ready to detect!&#39;</span><span class="p">)</span>
+        <span class="n">detection_class_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;detection_class_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">()</span><span class="o">.</span><span class="n">integer_value</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cv_bridge</span><span class="o">.</span><span class="n">imgmsg_to_cv2</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">input_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">img_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alex_net</span><span class="p">(</span><span class="n">input_batch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">detection</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">()</span>
+        <span class="n">detection</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">img_output</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">==</span> <span class="n">detection_class_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detection_publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">detection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Detected: &quot;</span><span class="si">{</span><span class="n">detection</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&quot;, target class id: </span><span class="si">{</span><span class="n">detection_class_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">object_detector_node</span> <span class="o">=</span> <span class="n">ObjectDetectorNode</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">object_detector_node</span><span class="p">)</span>
+    <span class="n">object_detector_node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>可能有些细心的读者已经发现了，这段代码和我们之前创建ROS2节点的代码非常像。
+实际上这段代码就是创建了一个新的节点类来完成我们的功能。</p>
+<p>这个节点类的实例将被赋予名字<code class="docutils literal notranslate"><span class="pre">object_detector_node</span></code>，同时它将订阅<code class="docutils literal notranslate"><span class="pre">camera_topic</span></code>这个主题并发布<code class="docutils literal notranslate"><span class="pre">Bool</span></code>类型的信息至<code class="docutils literal notranslate"><span class="pre">object_detected</span></code>主题。
+其中，<code class="docutils literal notranslate"><span class="pre">camera_topic</span></code>主题的内容是机器人的摄像头传感器所接收到的视频流，而我们将用<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库和之前的图片来模拟这个视频流。
+而<code class="docutils literal notranslate"><span class="pre">object_detected</span></code>主题则将包含我们的检测结果以供机器人逻辑链的后续节点使用。
+如果我们检测到菠萝，则我们将发布<code class="docutils literal notranslate"><span class="pre">True</span></code>信息，否则就发布<code class="docutils literal notranslate"><span class="pre">False</span></code>信息。</p>
+<p>下面，让我们关注这个新节点类中的一些新细节。</p>
+<p>首先，我们引入了<code class="docutils literal notranslate"><span class="pre">cv_bridge.CvBridge</span></code>这个类。
+这个类是ROS2框架内的一个功能类，主要帮我们把图片在<code class="docutils literal notranslate"><span class="pre">opencv</span></code>/<code class="docutils literal notranslate"><span class="pre">numpy</span></code>格式和ROS2自己的<code class="docutils literal notranslate"><span class="pre">sensor_msgs.msg.Image</span></code>信息格式之间进行转换。
+在我们新的节点类中我们可以看到它的具体用法（即<code class="docutils literal notranslate"><span class="pre">self.cv_bridge</span> <span class="pre">=</span> <span class="pre">CvBridge()</span></code>和<code class="docutils literal notranslate"><span class="pre">img</span> <span class="pre">=</span> <span class="pre">self.cv_bridge.imgmsg_to_cv2(msg)</span></code>）。</p>
+<p>然后，在新的节点类<code class="docutils literal notranslate"><span class="pre">ObjectDetectorNode</span></code>中，我们使用了<code class="docutils literal notranslate"><span class="pre">PINEAPPLE_CLASS_ID</span></code>这个类成员变量来保存我们想要识别的物体在ImageNet中的类别ID（class
+id）。这里<code class="docutils literal notranslate"><span class="pre">953</span></code>是菠萝在ImageNet中的具体类别ID。</p>
+<p>再之后，我们通过PyTorch实例化了一个预训练好的AlexNet，并将其设置到<code class="docutils literal notranslate"><span class="pre">eval</span></code>状态。
+同时，我们声明了<code class="docutils literal notranslate"><span class="pre">detection_class_id</span></code>这个参数，以方便再运行时修改需要识别物体的类别ID（虽然这并不常用）。</p>
+<p>最后，在<code class="docutils literal notranslate"><span class="pre">camera_topic</span></code>主题的回调函数<code class="docutils literal notranslate"><span class="pre">camera_callback</span></code>中，我们将收到的<code class="docutils literal notranslate"><span class="pre">Image</span></code>类型信息传换成<code class="docutils literal notranslate"><span class="pre">numpy</span></code>格式，然后调用AlexNet来进行物体识别，最后将识别结果以<code class="docutils literal notranslate"><span class="pre">Bool</span></code>的形式发布到<code class="docutils literal notranslate"><span class="pre">object_detected</span></code>主题上去，并进行日志记录。</p>
+<p>至此，一个使用PyTorch和AlexNet来识别摄像头中是否有菠萝的节点类就完成了。</p>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">17.5.4. </span>运行及检测<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>下面，让我们尝试运行我们新写好的节点类并用菠萝和苹果的图片来检测这个节点类是否运行正常。</p>
+<p>首先，让我们编译这个新写的Python库。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
+colcon build --symlink-install
+</pre></div>
+</div>
+<p>在成功编译之后，我们可以新开一个终端窗口并执行下面的命令来运行一个节点类实例。
+记住，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run object_detector object_detector_node --ros-args -r camera_topic:<span class="o">=</span>image_raw
+</pre></div>
+</div>
+<p>如果你遇到<code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'cv2'</span></code>这之类的问题，则代表ROS2命令没有成功识别你Python虚拟环境中的程序库。这时候你可以尝试进入你所用的虚拟环境后执行下面这个命令。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run object_detector object_detector_node --ros-args -r camera_topic:<span class="o">=</span>image_raw
+</pre></div>
+</div>
+<p>这个命令前面<code class="docutils literal notranslate"><span class="pre">PYTHONPATH=&quot;$(dirname</span> <span class="pre">$(which</span> <span class="pre">python))/../lib/python3.8/site-packages:$PYTHONPATH&quot;</span></code>这一串的作用是将你目前Python环境的库添加到<code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>，这样ROS2命令的Python就可以找到你目前Python环境（即ROS2项目所对应的Python虚拟环境）中的Python库了。</p>
+<p>当这个ROS2命令成功运行时，你应该能看到这行信息：<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655172977.491378700]</span> <span class="pre">[object_detector_node]:</span> <span class="pre">Detector</span> <span class="pre">node</span> <span class="pre">is</span> <span class="pre">ready.</span></code>。</p>
+<p>另外，在这个ROS2命令中，我们使用了<code class="docutils literal notranslate"><span class="pre">--ros-args</span> <span class="pre">-r</span> <span class="pre">camera_topic:=image_raw</span></code>这一系列参数。
+这些参数是用来告诉ROS2将我们新节点类所使用的<code class="docutils literal notranslate"><span class="pre">camera_topic</span></code>主题重映射（remap）到<code class="docutils literal notranslate"><span class="pre">image_raw</span></code>这个主题上。
+这样一来，我们新节点类所有使用<code class="docutils literal notranslate"><span class="pre">camera_topic</span></code>主题的场合实际上都是在使用<code class="docutils literal notranslate"><span class="pre">image_raw</span></code>这个主题。
+使用主题名字重映射的好处是在于解耦合。
+对于每个新的ROS2程序库或者每个新的节点类，我们都可以自由的命名我们要使用的主题的名字，然后当它需要和其它组件组合起来发挥作用时，只需要使用重映射将两个不同组件所使用的不同主题名字连接起来，就可以达到数据在两个组件之间正常流通的效果。
+这实际上是ROS2框架的一个很实用的特性。</p>
+<p>如果你想更深入的了解重映射相关的细节，可以阅读<a class="reference external" href="https://design.ros2.org/articles/static_remapping.html">这篇官方介绍</a>。</p>
+<p>在我们成功运行新节点后，让我们在一个新终端窗口中运行下面这行命令来测试它是否能检测到菠萝。同样的，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run image_publisher image_publisher_node data/ros-pineapple.jpg --ros-args -p publish_rate:<span class="o">=</span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p>上面这行命令将会使用<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库和它的节点来以1Hz的频率将之前准备好的菠萝图片发布到<code class="docutils literal notranslate"><span class="pre">image_raw</span></code>这个主题上去。
+当这个<code class="docutils literal notranslate"><span class="pre">image_publisher_node</span></code>节点成功运行后，我们应当能在<code class="docutils literal notranslate"><span class="pre">object_detector_node</span></code>节点运行的终端窗口中看到类似<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655174212.930385900]</span> <span class="pre">[object_detector_node]:</span> <span class="pre">Detected:</span> <span class="pre">&quot;True&quot;,</span> <span class="pre">target</span> <span class="pre">class</span> <span class="pre">id:</span> <span class="pre">953</span></code>这样的信息来证明我们的节点类能够检测到菠萝。</p>
+<p>接着让我们在<code class="docutils literal notranslate"><span class="pre">image_publisher_node</span></code>节点的窗口中使用<code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code>结束掉节点，然后使用下面这行命令来发布准备好的苹果图片。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run image_publisher image_publisher_node data/ros-apple.jpg --ros-args -p publish_rate:<span class="o">=</span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p>现在，在<code class="docutils literal notranslate"><span class="pre">object_detector_node</span></code>节点运行的终端窗口中我们应该看到的是类似<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655171989.912783400]</span> <span class="pre">[object_detector_node]:</span> <span class="pre">Detected:</span> <span class="pre">&quot;False&quot;,</span> <span class="pre">target</span> <span class="pre">class</span> <span class="pre">id:</span> <span class="pre">953</span></code>这样的信息来证明我们的节点类不会把苹果识别成菠萝。</p>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">17.5.5. </span>小结<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>恭喜，你已经成功了解如何在ROS2项目中使用ROS2框架外的Python库了！
+如果你使用Python虚拟环境，你可能需要额外的设置<code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>环境变量。
+另外，主题名字重映射（Name Remapping）是一个很有用的ROS2特性。
+你在以后的项目中很可能会经常用到它。</p>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">17.5. 感知系统案例</a><ul>
+<li><a class="reference internal" href="#id2">17.5.1. 案例背景</a></li>
+<li><a class="reference internal" href="#id3">17.5.2. 项目搭建</a></li>
+<li><a class="reference internal" href="#id4">17.5.3. 添加代码</a></li>
+<li><a class="reference internal" href="#id5">17.5.4. 运行及检测</a></li>
+<li><a class="reference internal" href="#id6">17.5.5. 小结</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="perception.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>17.4. 感知系统</div>
+         </div>
+     </a>
+     <a id="button-next" href="planning.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>17.6. 规划系统</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

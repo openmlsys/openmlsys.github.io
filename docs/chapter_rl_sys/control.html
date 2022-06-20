@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>17.6. 控制系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>17.8. 控制系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.7. 小结" href="summary.html" />
-    <link rel="prev" title="17.5. 规划系统" href="planning.html" /> 
+    <link rel="next" title="17.9. 控制系统案例" href="control_code_ex.html" />
+    <link rel="prev" title="17.7. 规划系统案例" href="planning_code_ex.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
@@ -34,7 +34,7 @@
         
         <nav class="mdl-navigation breadcrumb">
             <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.6. </span>控制系统</a>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.8. </span>控制系统</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -224,10 +224,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -398,10 +402,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -425,14 +433,14 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">17.6. </span>控制系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">17.8. </span>控制系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>虽然控制理论已牢牢植根于基于模型（Model-based）的设计传统，但丰富的数据和机器学习给控制理论带来了新的机遇。控制理论和机器学习的交叉点涵盖了广泛的研究方向，包括但不限于动态系统的学习、在线学习和控制、深度学习的控制理论观点、强化学习以及在各种现实世界系统中的应用。
 从机器学习的角度来看，未来的主要挑战之一是超越模式识别并解决数据驱动控制和动态过程优化方面的问题。</p>
 <p>理论方面，线性二次控制（Linear-Quadratic
 Control）是经典的控制方法，最近有关于图神经网络在分布式线性二次控制的研究。作者称将线性二次问题转换为自监督学习问题，能够找到基于图神经网络（Graph
 Neural
 Networks，GNN）的最佳分布式控制器，他们还推导出了所得闭环系统稳定的充分条件。随着基于数据和学习的机器人控制方法不断得到重视，研究人员必须了解何时以及如何在现实世界中最好地利用这些方法，因为安全是至关重要的，有的研究通过学习不确定的动力学来安全地提高性能，鼓励安全或稳健的强化学习方法，以及可以正式认证所学控制策略的安全性的方法。
-<a class="reference internal" href="#safe-learning-control"><span class="std std-numref">图17.6.1</span></a>展示了安全学习控制（Safe Learning
+<a class="reference internal" href="#safe-learning-control"><span class="std std-numref">图17.8.1</span></a>展示了安全学习控制（Safe Learning
 Control）系统的框架图，用数据驱动的方法来学习控制策略，兼顾安全性。Lyapunov
 函数是评估非线性动力系统稳定性的有效工具，最近有人提出Neural
 Lyapunov来将安全性纳入考虑。</p>
@@ -440,7 +448,7 @@ Lyapunov来将安全性纳入考虑。</p>
 神经网络和传统控制理论结合，特别是和运动学算法相结合，将会是一个有趣的方向。</p>
 <div class="figure align-default" id="id3">
 <span id="safe-learning-control"></span><a class="reference internal image-reference" href="../_images/safe_learning_control.png"><img alt="../_images/safe_learning_control.png" src="../_images/safe_learning_control.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.6.1 </span><span class="caption-text">安全学习控制系统，数据被用来更新控制策略或或安全滤波器
+<p class="caption"><span class="caption-number">图17.8.1 </span><span class="caption-text">安全学习控制系统，数据被用来更新控制策略或或安全滤波器
 <a class="bibtex reference internal" href="summary.html#brunke2021safe" id="id2">[Brunke et al., 2021]</a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -454,18 +462,18 @@ Lyapunov来将安全性纳入考虑。</p>
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="planning.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="planning_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>17.5. 规划系统</div>
+            <div>17.7. 规划系统案例</div>
          </div>
      </a>
-     <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+     <a id="button-next" href="control_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>17.7. 小结</div>
+            <div>17.9. 控制系统案例</div>
         </div>
      </a>
   </div>

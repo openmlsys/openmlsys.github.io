@@ -224,10 +224,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -398,10 +402,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -445,6 +453,7 @@ env）的话，也必须指定使用Ubuntu系统所带的Python解释器（inter
 <p>在本章节以及本章后续的案例章节中，我们在合适的场合将用ROS2，Ubuntu和Python来分别指代ROS2
 Foxy Fitzroy，Ubuntu Focal和Ubuntu Focal所带的Python 3.8。</p>
 <p>本章节中的案例有参考ROS2的<a class="reference external" href="https://docs.ros.org/en/foxy/Tutorials.html">官方教程</a>。这个官方教程讲解的非常详细，非常适合初学者入门ROS2。如果读者对英文有自信的话，可以尝试阅读官方教程来了解更多ROS2的细节。</p>
+<p>另外，本章节的案例所使用的代码可以在本书相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">ROS2案例代码库</a>中的<code class="docutils literal notranslate"><span class="pre">src/my_hello_world</span></code>和<code class="docutils literal notranslate"><span class="pre">src/my_interfaces</span></code>文件夹内找到。</p>
 <div class="section" id="ros2-foxy-fitzroy">
 <h2><span class="section-number">17.3.1. </span>安装ROS2 Foxy Fitzroy<a class="headerlink" href="#ros2-foxy-fitzroy" title="Permalink to this headline">¶</a></h2>
 <p>在Ubuntu上安装ROS2相对简单，绝大多数情况跟随官方教程安装即可。
@@ -1191,7 +1200,6 @@ ros2 run my_hello_world my_sum_action_server
 <div class="section" id="id20">
 <h2><span class="section-number">17.3.6. </span>小结<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
 <p>在本章节中，我们了解了怎样安装ROS2和在Python虚拟环境中进行ROS2项目的开发。然后我们通过一些案例来更加深入的了解了ROS2的一些核心概念，即节点，主题，参数，服务，和动作。</p>
-<p>本章节所有的代码都托管在本章节相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">GitHub库</a>中。欢迎大家使用！</p>
 </div>
 </div>
 

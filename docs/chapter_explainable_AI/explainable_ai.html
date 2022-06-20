@@ -225,10 +225,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -399,10 +403,14 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.5. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.6. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.7. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -444,7 +452,7 @@ Show Source
 </div>
 <div class="section" id="ai">
 <h1><span class="section-number">16.2. </span>可解释AI定义<a class="headerlink" href="#ai" title="Permalink to this headline">¶</a></h1>
-<p>按DARPA（美国国防部先进研究项目局）的描述，如图
+<p>按DARPA（美国国防部先进研究项目局）的描述，如
 <a class="reference internal" href="#xai-concept"><span class="std std-numref">图16.2.1</span></a>所示，
 可解释AI的概念在于：区别于现有的AI系统，可解释AI系统可以解决用户面对黑盒模型时遇到的问题，使得用户知其然并知其所以然。</p>
 <div class="figure align-default" id="id23">
@@ -464,7 +472,7 @@ AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大�
 <div class="section" id="id2">
 <h1><span class="section-number">16.3. </span>可解释AI算法现状介绍<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考
-<a class="bibtex reference internal" href="#tkde-li" id="id3">[Li et al., 2020]</a>总结归纳了可解释AI的算法类型，如图
+<a class="bibtex reference internal" href="#tkde-li" id="id3">[Li et al., 2020]</a>总结归纳了可解释AI的算法类型，如
 <a class="reference internal" href="#xai-methods"><span class="std std-numref">图16.3.1</span></a>所示。</p>
 <div class="figure align-default" id="id24">
 <span id="xai-methods"></span><a class="reference internal image-reference" href="../_images/XAI_methods.PNG"><img alt="../_images/XAI_methods.PNG" src="../_images/XAI_methods.PNG" style="width: 800px;" /></a>
@@ -479,7 +487,7 @@ AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大�
 模型提取——从原始黑盒模型中提取出一个可解释的模型，比如通过模型蒸馏的方式将原有黑盒模型蒸馏到可解释的决策树
 <a class="bibtex reference internal" href="#frosst2017distilling" id="id5">[Frosst &amp; Hinton, 2017]</a>
 <a class="bibtex reference internal" href="#zhang2019interpreting" id="id6">[Zhang et al., 2019]</a>，从而使用决策树中的规则解释该原始模型；
-(ii) 基于特征的方法——估计特征的重要性或相关性，如图
+(ii) 基于特征的方法——估计特征的重要性或相关性，如
 <a class="reference internal" href="#xai-global-feature-importance"><span class="std std-numref">图16.3.2</span></a>所示,
 该类型解释可提供如“信用逾期记录是模型依赖的最重要特征”的解释，从而协助判定模型是否存在偏见.
 一种典型的全局特征解释方法是SHAP（其仅能针对树模型输出全局解释）:cite:<cite>lundberg2017unified</cite>。
@@ -493,14 +501,14 @@ AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大�
 <p class="caption"><span class="caption-number">图16.3.2 </span><span class="caption-text">全局特征重要性解释</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </div>
 <p>全局解释可以提供黑盒模型的整体认知。但由于黑盒模型的高复杂性，在实践中往往很难通过模型提取/设计得到与原模型行为相近的简单透明模型，也往往很难对整个数据集抽象出统一的特征重要性。此外，在为单个观察生成解释时，全局解释也缺乏局部保真度，因为全局重要的特征可能无法准确解释单个样例的决定。因此，局部方法成为了近些年领域内重要的研究方向。局部方法尝试为单个实例或一组实例检验模型行为的合理性。当仅关注局部行为时，复杂模型也可以变得简单，因此即使是简单的函数也有可以为局部区域提供可信度高的解释。基于获得解释的过程，局部方法可以分为两类：局部近似和基于传播的方法。</p>
-<p>局部近似是通过在样本近邻区域模拟黑盒模型的行为生成可理解的子模型。相比于全局方法中的模型提取，局部近似仅需关注样本临近区域，因此更容易获得精确描述局部行为的子模型。如图
+<p>局部近似是通过在样本近邻区域模拟黑盒模型的行为生成可理解的子模型。相比于全局方法中的模型提取，局部近似仅需关注样本临近区域，因此更容易获得精确描述局部行为的子模型。如
 <a class="reference internal" href="#xai-lime"><span class="std std-numref">图16.3.3</span></a>所示，通过在关注数据点<span class="math notranslate nohighlight">\(x\)</span>附近生成<span class="math notranslate nohighlight">\(m\)</span>个数据点<span class="math notranslate nohighlight">\((x_i^\prime, f(x_i^\prime)), for\  i=1,2, ...m\)</span>（这里<span class="math notranslate nohighlight">\(f\)</span>为黑盒模型决策函数）,用线性拟合这些数据点，可以得到一个线性模型<span class="math notranslate nohighlight">\(g=\sum_i^k w_ix^i\)</span>，这里<span class="math notranslate nohighlight">\(k\)</span>表示数据的特征维度。那么线性模型中的权重<span class="math notranslate nohighlight">\(w_i\)</span>即可用于表示数据<span class="math notranslate nohighlight">\(x\)</span>中第<span class="math notranslate nohighlight">\(i\)</span>个特征对于模型<span class="math notranslate nohighlight">\(f\)</span>的重要性。</p>
 <div class="figure align-default" id="id26">
 <span id="xai-lime"></span><a class="reference internal image-reference" href="../_images/xai_lime.png"><img alt="../_images/xai_lime.png" src="../_images/xai_lime.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图16.3.3 </span><span class="caption-text">局部近似方法示例</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </div>
-<p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如图
-<a class="reference internal" href="#xai-gradient-based"><span class="std std-numref">图16.3.4</span></a>所示,通过梯度回传，计算模型输出对输入的梯度<span class="math notranslate nohighlight">\(\frac{d(f(x)}{dx}\)</span>
+<p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如
+<a class="reference internal" href="#xai-gradient-based"><span class="std std-numref">图16.3.4</span></a>所示,通过梯度回传，计算模型输出对输入的梯度<span class="math notranslate nohighlight">\(\frac{d(f(x))}{dx}\)</span>
 作为模型解释。常见的基于梯度传播的方法有基本Gradient方法，GuidedBackprop
 <a class="bibtex reference internal" href="#zeiler2014visualizing" id="id10">[Zeiler &amp; Fergus, 2014]</a>, GradCAM
 <a class="bibtex reference internal" href="#selvaraju2017grad" id="id11">[Selvaraju et al., 2017]</a>等. 而基于前向传播的方法通过扰动特征后,
@@ -542,9 +550,9 @@ TCAV就可以通过计算类<span class="math notranslate nohighlight">\(k\)</sp
 <span id="tb-net"></span><a class="reference internal image-reference" href="../_images/tb_net.png"><img alt="../_images/tb_net.png" src="../_images/tb_net.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图16.3.6 </span><span class="caption-text">TB-Net网络训练框架</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </div>
-<p>TB-Net的框架如图
+<p>TB-Net的框架如
 <a class="reference internal" href="#tb-net"><span class="std std-numref">图16.3.6</span></a>所示：其中，<span class="math notranslate nohighlight">\(i_c\)</span>代表待推荐物品，<span class="math notranslate nohighlight">\(h_n\)</span>代表历史记录中用户交互的物品，<span class="math notranslate nohighlight">\(r\)</span>和<span class="math notranslate nohighlight">\(e\)</span>代表图谱中的关系（relation）和实体（entity），它们的向量化表达拼接在一起形成关系矩阵和实体矩阵。首先，TB-Net通过<span class="math notranslate nohighlight">\(i_c\)</span>和<span class="math notranslate nohighlight">\(h_n\)</span>的相同特征值来构建用户<span class="math notranslate nohighlight">\(u\)</span>的子图谱，每一对<span class="math notranslate nohighlight">\(i_c\)</span>和<span class="math notranslate nohighlight">\(h_n\)</span>都由关系和实体所组成的路径来连接。然后，TB-Net的路径双向传导方法将物品、实体和关系向量的计算从路径的左侧和右侧分别传播到中间节点，即计算左右两个流向的向量汇集到同一中间实体的概率。该概率用于表示用户对中间实体的喜好程度，并作为解释的依据。最后，TB-Net识别子图谱中关键路径（即关键实体和关系），输出推荐结果和具有语义级别的解释。</p>
-<p>以游戏推荐为场景，随机对一个用户推荐新的游戏，如图
+<p>以游戏推荐为场景，随机对一个用户推荐新的游戏，如
 <a class="reference internal" href="#xai-kg-recommendation"><span class="std std-numref">图16.3.7</span></a>所示，其中Half-Life, DOTA 2, Team
 Fortress 2等为游戏名称。关系属性中，game.year
 代表游戏发行年份，game.genres代表游戏属性，game.developer代表游戏的开发商，game.categories代表游戏分类。属性节点中，MOBA代表多人在线战术竞技游戏，Valve代表威尔乌游戏公司，Action代表动作类，Multi-player代表多人游戏，Valve
@@ -558,7 +566,7 @@ Fortress 2”。</p>
 Action, free-to-play; game.developer: Valve; game.categories:
 Multiplayer, MOBA.）</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
 </div>
-<p>在图
+<p>在
 <a class="reference internal" href="#xai-kg-recommendation"><span class="std std-numref">图16.3.7</span></a>中，有两个突出显示的相关概率（38.6%,
 21.1%），它们是在推荐过程中模型计算的关键路径被激活的概率。红色箭头突出显示从“Team
 Fortress
@@ -605,7 +613,7 @@ XAI的<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-C
 <p>下面结合MindSpore XAI1.8版本中已支持的显着图可视方法 GradCAM
 作为一个代码演示例子。读者可参阅<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-CN/1.8/using_cv_explainers.html">官方教程</a>以取得演示用的数据集,
 模型和完整脚本代码。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rom</span> <span class="n">mindspore_xai</span><span class="o">.</span><span class="n">explainer</span> <span class="kn">import</span> <span class="nn">GradCAM</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindspore_xai.explainer</span> <span class="kn">import</span> <span class="n">GradCAM</span>
 
 <span class="c1"># 通常指定最后一层的卷积层</span>
 <span class="n">grad_cam</span> <span class="o">=</span> <span class="n">GradCAM</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;layer4&quot;</span><span class="p">)</span>
