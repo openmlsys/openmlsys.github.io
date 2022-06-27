@@ -92,7 +92,7 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
@@ -270,7 +270,7 @@ Show Source
             
             <nav class="mdl-navigation">
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 序言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/machine_learning_applications.html">2.1. 机器学习应用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/requirements_for_machine_learning_systems.html">2.2. 设计目标</a></li>
@@ -454,7 +454,7 @@ Damas）对HM类型推导方法进行了详尽的分析和证明
 <p>静态分析模块基于抽象释义对中间表示进行类型推导、常量传播、泛型特化等操作，这些专业术语的含义分别为：</p>
 <p>抽象释义：通过抽象解释器将语言的实际语义近似为抽象语义，只获取后续优化需要的属性，进行不确定性的解释执行。抽象值一般包括变量的类型和维度。</p>
 <p>类型推导：在抽象释义的基础上，编译器推断出程序中变量或表达式的抽象类型，方便后续利用类型信息进行编译优化。</p>
-<p>泛型特化：泛型特化的前提是编译器在编译期间可以进行类型推导，提供类型的上下文。在编译期间，编译器通过类型推导确定调用函数函数时的类型，然后，编译器会通过泛型特化，进行类型取代，为每个类型生成一个对应的函数方法。</p>
+<p>泛型特化：泛型特化的前提是编译器在编译期间可以进行类型推导，提供类型的上下文。在编译期间，编译器通过类型推导确定调用函数时的类型，然后，编译器会通过泛型特化，进行类型取代，为每个类型生成一个对应的函数方法。</p>
 <p>接下来以MindSpore框架为例，简要介绍一下静态分析模块的具体实现。MindSpore采用抽象释义的方法，对抽象值做不确定的抽象语义的解释执行，函数图中每个节点的抽象值是所期望得到的程序静态信息。基本的抽象释义方法流程可以理解为，从MindIR的顶层函数图入口开始解释执行，将函数图中所有节点进行拓扑排序，根据节点的语义递归推导各节点的抽象值。当遇到函数子图时，递归进入函数子图进行解释执行，最后返回顶层函数输出节点的抽象值。根据抽象释义方法流程，MindSpore的静态分析模块主要分为抽象域模块、缓存模块、语义推导模块和控制流处理模块。</p>
 <div class="figure align-default" id="id7">
 <span id="static-analysis-module"></span><a class="reference internal image-reference" href="../_images/静态分析-静态分析模块.png"><img alt="../_images/静态分析-静态分析模块.png" src="../_images/静态分析-静态分析模块.png" style="width: 850px;" /></a>
