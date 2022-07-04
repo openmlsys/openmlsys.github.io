@@ -435,9 +435,8 @@ Show Source
         
   <div class="section" id="id1">
 <h1><span class="section-number">8.4. </span>加速器实践<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>上一节中介绍了调用第三方库或算子优化器的外部接口从而利用硬件加速器加速计算，这种方法要求我们算法的算子全部被第三方库或是算法优化器所支持，对于一些特殊的自定义算子很有可能不被支持，因此能自行实现高性能算子是实现定制化分布式系统的一个极为重要的能力。本节将会以广义矩阵乘法为例，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现，同时介绍若干性能优化的关键技术。选择广义矩阵乘法的原因是在深度学习中全连接网络的重要组件就是广义矩阵乘法，事实上，卷积操作也往往是通过im2col等方法将其转化为广义矩阵乘法；此外实现一个高性能的广义矩阵乘法算子相比其他算子（如矩阵转置）对开发者的编程能力和底层硬件架构要求更高。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">8.4.1. </span>环境<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在本节中，我们会通过具体的CUDA代码向读者介绍如何编写一个并行计算的广义矩阵乘法程序，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现。虽然在以上章节介绍了TensorCore相关的内容，但由于篇幅限制，我们在本节中不使用此硬件结构。通过使用更为基本的CUDA代码实现FP32的广义矩阵乘法，与此同时并讲解若干实用优化策略。
+### 环境</p>
 <p>本节的实践有以下的软件环境依赖：</p>
 <ul class="simple">
 <li><p>Eigen：Eigen是一个线性代数C++模板库，用户可以只使用几条语句完成多线程线性代数运算。</p></li>
@@ -447,18 +446,16 @@ Toolkit是英伟达发布的CUDA工具包，其包含了CUDA编译器（NVCC）�
 本节的实践都是在CPU Intex Xeon E5-2650 v3，GPU Nvidia Geforce RTX
 3080；系统Ubuntu 18.04版本，CUDA Toolkit 11.1进行的。</p></li>
 </ul>
-<div class="section" id="id3">
-<h3><span class="section-number">8.4.1.1. </span>安装<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h2><span class="section-number">8.4.1. </span>安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Eigen：Eigen的安装可以通过使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libeigen3-dev</span></code>），也可以从<a class="reference external" href="https://eigen.tuxfamily.org/index.php?title=Main_Page">官网</a>下载。</p></li>
 <li><p>OpenMP（可选）：通常会被大多数编译器默认支持，如果没有被支持的话可以使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libomp-dev</span></code>）。</p></li>
 <li><p>CUDA Toolkit：CUDA
 Toolkit的安装建议按照<a class="reference external" href="https://developer.nvidia.com/cuda-downloads">官方的提示</a>安装，也可以通过使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">cuda</span></code>）。</p></li>
 </ul>
-</div>
-</div>
 <div class="section" id="sec-accelerator-naive">
-<span id="id4"></span><h2><span class="section-number">8.4.2. </span>广义矩阵乘法的朴素实现<a class="headerlink" href="#sec-accelerator-naive" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h3><span class="section-number">8.4.1.1. </span>广义矩阵乘法的朴素实现<a class="headerlink" href="#sec-accelerator-naive" title="Permalink to this headline">¶</a></h3>
 <p>广义矩阵乘法指GEMM（General Matrix
 Multiplication），即<span class="math notranslate nohighlight">\(C = \alpha A\times B + \beta C\)</span>，其中<span class="math notranslate nohighlight">\(A\in\mathbb{R}^{M\times K}, B\in\mathbb{R}^{K\times N}, C\in\mathbb{R}^{M\times N}\)</span>。</p>
 <p>矩阵<span class="math notranslate nohighlight">\(C\)</span>
@@ -480,7 +477,7 @@ Multiplication），即<span class="math notranslate nohighlight">\(C = \alpha A
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>因此可以看到，矩阵<span class="math notranslate nohighlight">\(C\)</span>
+<p>可以看到，矩阵<span class="math notranslate nohighlight">\(C\)</span>
 中各个元素的计算是独立的。我们可以利用GPU的大量线程去分别计算矩阵<span class="math notranslate nohighlight">\(C\)</span>
 中相应的元素，以达到并行计算的目的，GPU核函数将如下所示：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">gemmKernel</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span> <span class="n">A</span><span class="p">,</span>
@@ -507,9 +504,9 @@ Multiplication），即<span class="math notranslate nohighlight">\(C = \alpha A
 <p>其可视化结构如
 <a class="reference internal" href="#cuda-naive-gemm"><span class="std std-numref">图8.4.1</span></a>所示，矩阵<span class="math notranslate nohighlight">\(C\)</span>中每一个元素由一个线程计算，在GPU
 Kernel的第5和6行计算该线程对应矩阵<span class="math notranslate nohighlight">\(C\)</span>中的元素行号<span class="math notranslate nohighlight">\(m\)</span>及列号<span class="math notranslate nohighlight">\(n\)</span>，然后在第9到11行该线程利用行号与列号读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中相应的行列向量元素并计算向量内积，最后在第17行将结果写回<span class="math notranslate nohighlight">\(C\)</span>矩阵。</p>
-<div class="figure align-default" id="id26">
+<div class="figure align-default" id="id24">
 <span id="cuda-naive-gemm"></span><a class="reference internal image-reference" href="../_images/naive.svg"><img alt="../_images/naive.svg" src="../_images/naive.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.1 </span><span class="caption-text">矩阵乘法的朴素实现</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.1 </span><span class="caption-text">矩阵乘法的朴素实现</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </div>
 <p>使用以下代码启动核函数：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">gemmNaive</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">C</span><span class="p">,</span>
@@ -634,8 +631,10 @@ make first_attempt
 </pre></div>
 </div>
 <p>可以发现目前的代码距离设备峰值性能仍有较大的差距。在整个计算过程中计算密集最大的过程为矩阵乘法<span class="math notranslate nohighlight">\(A\times B\)</span>，其时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K)\)</span>，而整个计算过程时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K+2*M*N)\)</span>，因此对矩阵乘法的优化是提升性能的关键。</p>
-<div class="section" id="id5">
-<h3><span class="section-number">8.4.2.1. </span>使用封装结构代替指针<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">8.4.2. </span>使用封装结构代替指针<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>在上面的实现中，由于二维矩阵的数据是使用一维数组进行存储，所以在访问数据时需要使用行坐标与二维矩阵宽度的乘积和列坐标的和来索引到具体位置的元素，这样的访问方式并不直观且在后续逐渐复杂的实现中容易出错。因此，我们可以自定义一个结构体，通过重载
 <code class="docutils literal notranslate"><span class="pre">()</span></code> 运算符，实现对矩阵元素的二维索引，同时我们提供 <code class="docutils literal notranslate"><span class="pre">addOffset</span></code>
 方法用于加入一个固定的偏移，具体实现如下：</p>
@@ -705,10 +704,8 @@ make first_attempt
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">8.4.3. </span>提高计算强度<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3><span class="section-number">8.4.2.1. </span>提高计算强度<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>计算强度（Compute
 Intensity）指计算指令数量与访存指令数量的比值，在现代GPU中往往有大量计算单元但只有有限的访存带宽，程序很容易出现计算单元等待数据读取的问题，因此提高计算强度是提升程序性能的一条切实有限的指导思路。对于之前实现的GPU核函数，我们可以粗略计算其计算强度：在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中，对矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>的每次读取会计算一次浮点乘法与浮点加法，因此计算强度为1——两次浮点运算除以两次数据读取。之前的版本是每个线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>的一个元素——计算矩阵﻿﻿<span class="math notranslate nohighlight">\(A\)</span>的一行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的一列的内积，我们可以通过使每个线程计算<span class="math notranslate nohighlight">\(C\)</span>更多的元素——计算矩阵<span class="math notranslate nohighlight">\(A\)</span>的多行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的多列的内积——从而提升计算强度。具体地，如果在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中一次读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中的<span class="math notranslate nohighlight">\(m\)</span>个元素和矩阵<span class="math notranslate nohighlight">\(B\)</span>中的<span class="math notranslate nohighlight">\(n\)</span>个元素，那么访存指令为<span class="math notranslate nohighlight">\(m+n\)</span>条，而计算指令为<span class="math notranslate nohighlight">\(2mn\)</span>条，所以计算强度为<span class="math notranslate nohighlight">\(\frac{2mn}{m+n}\)</span>，因此可以很容易发现提高<span class="math notranslate nohighlight">\(m\)</span>和<span class="math notranslate nohighlight">\(n\)</span>会带来计算强度的提升。</p>
 <p>我们在上一个代码例子中对全局内存的访问与存储都是借助 <code class="docutils literal notranslate"><span class="pre">float</span></code>
@@ -753,27 +750,27 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
                            <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">__restrict__</span> <span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">__restrict__</span> <span class="n">C</span><span class="p">,</span>
                            <span class="kt">float</span> <span class="n">alpha</span><span class="p">,</span> <span class="kt">float</span> <span class="n">beta</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">M</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">N</span><span class="p">,</span>
                            <span class="kt">unsigned</span> <span class="n">K</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">ratio</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">float4</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span><span class="p">;</span>
+  <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">kCount</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">float4</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">kCount</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">kCount</span><span class="p">;</span>
   <span class="n">Tensor2D</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">tensorA</span><span class="p">{</span><span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">};</span>
   <span class="n">tensorA</span><span class="p">.</span><span class="n">addOffset</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="n">Tensor2D</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">float4</span><span class="o">&gt;</span> <span class="n">tensorB</span><span class="p">{</span><span class="n">B</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">};</span>
-  <span class="n">tensorB</span><span class="p">.</span><span class="n">addOffset</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">);</span>
-  <span class="n">Tensor2D</span><span class="o">&lt;</span><span class="n">float4</span><span class="o">&gt;</span> <span class="n">tensorC</span><span class="p">{</span><span class="n">C</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">};</span>
-  <span class="n">tensorC</span><span class="p">.</span><span class="n">addOffset</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">);</span>
+  <span class="n">Tensor2D</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">float4</span><span class="o">&gt;</span> <span class="n">tensorB</span><span class="p">{</span><span class="n">B</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">};</span>
+  <span class="n">tensorB</span><span class="p">.</span><span class="n">addOffset</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">);</span>
+  <span class="n">Tensor2D</span><span class="o">&lt;</span><span class="n">float4</span><span class="o">&gt;</span> <span class="n">tensorC</span><span class="p">{</span><span class="n">C</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">};</span>
+  <span class="n">tensorC</span><span class="p">.</span><span class="n">addOffset</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tensorC</span><span class="p">.</span><span class="n">validOffset</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
 
   <span class="n">float4</span> <span class="n">c</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
   <span class="n">memset</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">K</span><span class="p">;</span> <span class="o">++</span><span class="n">k</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">float4</span> <span class="n">fragmentA</span><span class="p">{};</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">fragmentA</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensorA</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="n">float4</span> <span class="n">fragmentB</span> <span class="o">=</span> <span class="n">tensorB</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">fragmentB</span> <span class="o">*</span> <span class="n">fragmentA</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
   <span class="p">}</span>
@@ -782,7 +779,7 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
     <span class="n">term</span> <span class="o">=</span> <span class="n">term</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">float4</span> <span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">beta</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">tensorC</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
@@ -798,9 +795,9 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
 <code class="docutils literal notranslate"><span class="pre">float4</span></code> ，即 <a class="reference internal" href="#use-float4"><span class="std std-numref">图8.4.2</span></a>
 中粉色与黄色的四个元素。之后在第25到27行计算线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的<span class="math notranslate nohighlight">\(4 \times 4\)</span>个元素。最后在第30到40行对结果使用参数
 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> 和 <code class="docutils literal notranslate"><span class="pre">beta</span></code> 进行放缩并写回矩阵<span class="math notranslate nohighlight">\(C\)</span>的内存。</p>
-<div class="figure align-default" id="id27">
+<div class="figure align-default" id="id25">
 <span id="use-float4"></span><a class="reference internal image-reference" href="../_images/use_float4.svg"><img alt="../_images/use_float4.svg" src="../_images/use_float4.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.2 </span><span class="caption-text">提高计算强度</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.2 </span><span class="caption-text">提高计算强度</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </div>
 <p>为了将尺寸数据在编译期确定，减少执行期的额外数据读取开销，我们引入一个新的模板类
 <code class="docutils literal notranslate"><span class="pre">Layout</span></code> ，这个类保存各种尺寸数据。其实现代码如下：</p>
@@ -818,9 +815,9 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
                            <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">__restrict__</span> <span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">__restrict__</span> <span class="n">C</span><span class="p">,</span>
                            <span class="kt">float</span> <span class="n">alpha</span><span class="p">,</span> <span class="kt">float</span> <span class="n">beta</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">M</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">N</span><span class="p">,</span>
                            <span class="kt">unsigned</span> <span class="n">K</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">ratio</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">float4</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span><span class="p">;</span>
+  <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">kCount</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">float4</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">kCount</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">kCount</span><span class="p">;</span>
   <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
@@ -833,8 +830,10 @@ line的命中率。但我们并不提倡在一切代码中过度追求宽指令�
 </pre></div>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。</p>
-<div class="section" id="id7">
-<h3><span class="section-number">8.4.3.1. </span>测试及分析<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">8.4.3. </span>测试及分析<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">6.232</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">1378.317</span> <span class="n">GFLOPS</span>
@@ -859,10 +858,8 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <p>首先 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 指令数量下降了84%，且指标 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">LG</span> <span class="pre">Throttle</span></code>
 下降33%，说明使用宽指令增加计算密度确实可以通过减少全局内存访问的指令数目而减少发射等待时间。最后指标
 <code class="docutils literal notranslate"><span class="pre">Arithmetic</span> <span class="pre">Intensity</span></code> 的提升也和我们之前的关于计算强度的分析相吻合。</p>
-</div>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">8.4.4. </span>进一步提升计算强度<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3><span class="section-number">8.4.3.1. </span>进一步提升计算强度<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>我们可以通过使每个线程负责处理更多的矩阵<span class="math notranslate nohighlight">\(C\)</span>中的数据块从而实现更高的计算强度，即如
 <a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a> 右侧所示，使 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
 扩大为4个<span class="math notranslate nohighlight">\(4 \times 4\)</span>矩阵的规模。我们对核函数进行以下修改，首先我们用<code class="docutils literal notranslate"><span class="pre">LayoutTile</span></code>
@@ -874,9 +871,9 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code> 中子矩阵的布局 ，其中<code class="docutils literal notranslate"><span class="pre">LayoutThread::m</span></code> 和
 <code class="docutils literal notranslate"><span class="pre">LayoutThread::n</span></code> 等于 <a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a>
 右图中深绿色矩阵块的高度和宽度 。</p>
-<div class="figure align-default" id="id28">
-<span id="id9"></span><span id="use-tile"></span><a class="reference internal image-reference" href="../_images/use_tile.svg"><img alt="../_images/use_tile.svg" src="../_images/use_tile.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.3 </span><span class="caption-text">通过提高线程所处理矩阵块的数量来进一步提高计算强度</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id26">
+<span id="id8"></span><span id="use-tile"></span><a class="reference internal image-reference" href="../_images/use_tile.svg"><img alt="../_images/use_tile.svg" src="../_images/use_tile.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图8.4.3 </span><span class="caption-text">通过提高线程所处理矩阵块的数量来进一步提高计算强度</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </div>
 <p>首先修改核函数签名：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">LayoutTile</span><span class="p">,</span> <span class="k">typename</span> <span class="n">LayoutBlock</span><span class="p">,</span> <span class="k">typename</span> <span class="n">LayoutThread</span><span class="o">&gt;</span>
@@ -895,26 +892,26 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </pre></div>
 </div>
 <p>由于每个线程从原来的处理一个数据块变为多个数据块，我们需要以下几个变量：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">unsigned</span> <span class="n">iterationA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">iterationB</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">intervalA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">iterationA</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">intervalB</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">iterationB</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">unsigned</span> <span class="n">itekCountnA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">itekCountnB</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">intervalA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">itekCountnA</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="n">intervalB</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">itekCountnB</span><span class="p">;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">iterationA</span></code> 是每个线程处理 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
+<p><code class="docutils literal notranslate"><span class="pre">itekCountnA</span></code> 是每个线程处理 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
 在行方向上迭代的次数。<code class="docutils literal notranslate"><span class="pre">intervalA</span></code> 是 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
-子矩阵在行方向的间隔。同理 <code class="docutils literal notranslate"><span class="pre">iterationB</span></code> 与 <code class="docutils literal notranslate"><span class="pre">intervalB</span></code>
+子矩阵在行方向的间隔。同理 <code class="docutils literal notranslate"><span class="pre">itekCountnB</span></code> 与 <code class="docutils literal notranslate"><span class="pre">intervalB</span></code>
 是在列方向上数据块的数量与数据块的间隔。 因为 <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
 扩大为若干个矩阵块，我们使用以下代码用来记录每个矩阵块是否越界：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">iterationA</span><span class="p">];</span>
-<span class="kt">bool</span> <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">iterationB</span><span class="p">];</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">itekCountnA</span><span class="p">];</span>
+<span class="kt">bool</span> <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">itekCountnB</span><span class="p">];</span>
 <span class="cp">#pragma unroll</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">iterationA</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">itekCountnA</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pA</span><span class="p">.</span><span class="n">validRowOffset</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="cp">#pragma unroll</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">iterationB</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pB</span><span class="p">.</span><span class="n">validColOffset</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">itekCountnB</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pB</span><span class="p">.</span><span class="n">validColOffset</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -922,21 +919,21 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span> <span class="n">float4</span> <span class="n">float4Zero</span><span class="p">{</span><span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">};</span>
 <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">K</span><span class="p">;</span> <span class="o">++</span><span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterA</span> <span class="o">&lt;</span> <span class="n">iterationA</span><span class="p">;</span> <span class="o">++</span><span class="n">iterA</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterA</span> <span class="o">&lt;</span> <span class="n">itekCountnA</span><span class="p">;</span> <span class="o">++</span><span class="n">iterA</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">float4</span> <span class="n">fragmentA</span><span class="p">{};</span>
     <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">iterA</span><span class="p">]</span> <span class="o">&amp;=</span> <span class="n">pA</span><span class="p">.</span><span class="n">validColOffset</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
 <span class="cp">#pragma unroll</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">fragmentA</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">validLoadTileA</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">?</span> <span class="n">pA</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">iterA</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="cp">#pragma unroll</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterB</span> <span class="o">&lt;</span> <span class="n">iterationB</span><span class="p">;</span> <span class="o">++</span><span class="n">iterB</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterB</span> <span class="o">&lt;</span> <span class="n">itekCountnB</span><span class="p">;</span> <span class="o">++</span><span class="n">iterB</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">iterB</span><span class="p">]</span> <span class="o">&amp;=</span> <span class="n">pB</span><span class="p">.</span><span class="n">validRowOffset</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
       <span class="n">float4</span> <span class="n">fragmentB</span> <span class="o">=</span> <span class="n">validLoadTileB</span><span class="p">[</span><span class="n">iterB</span><span class="p">]</span>
-                             <span class="o">?</span> <span class="n">pB</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">)</span>
+                             <span class="o">?</span> <span class="n">pB</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">)</span>
                              <span class="o">:</span> <span class="n">float4Zero</span><span class="p">;</span>
 <span class="cp">#pragma unroll</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">c</span><span class="p">[</span><span class="n">iterA</span><span class="p">][</span><span class="n">iterB</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">iterA</span><span class="p">][</span><span class="n">iterB</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">fragmentB</span> <span class="o">*</span> <span class="n">fragmentA</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -960,25 +957,27 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <span class="p">}</span>
 
 <span class="cp">#pragma unroll</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterA</span> <span class="o">&lt;</span> <span class="n">iterationA</span><span class="p">;</span> <span class="o">++</span><span class="n">iterA</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterA</span> <span class="o">&lt;</span> <span class="n">itekCountnA</span><span class="p">;</span> <span class="o">++</span><span class="n">iterA</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
- <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterB</span> <span class="o">&lt;</span> <span class="n">iterationB</span><span class="p">;</span> <span class="o">++</span><span class="n">iterB</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">iterB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iterB</span> <span class="o">&lt;</span> <span class="n">itekCountnB</span><span class="p">;</span> <span class="o">++</span><span class="n">iterB</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
-   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ratio</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
      <span class="n">float4</span> <span class="n">result</span><span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="n">iterA</span><span class="p">][</span><span class="n">iterB</span><span class="p">][</span><span class="n">i</span><span class="p">]};</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">beta</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span>
-                <span class="n">pC</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">iterA</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
+                <span class="n">pC</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">iterA</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
      <span class="p">}</span>
-     <span class="n">pC</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">iterA</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">)</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+     <span class="n">pC</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">iterA</span> <span class="o">*</span> <span class="n">intervalA</span><span class="p">,</span> <span class="n">iterB</span> <span class="o">*</span> <span class="n">intervalB</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">)</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
    <span class="p">}</span>
  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
-<div class="section" id="id10">
-<h3><span class="section-number">8.4.4.1. </span>测试及分析<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><span class="section-number">8.4.4. </span>测试及分析<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">3.188</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">2694.440</span> <span class="n">GFLOPS</span>
@@ -986,29 +985,27 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </div>
 <p>使用Nsight Compute分析发现：类似地，本次优化在<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">LG</span> <span class="pre">Throttle</span></code>
 等指标上取得了进一步的提升。</p>
-</div>
-</div>
 <div class="section" id="sec-accelerator-use-smem">
-<span id="id11"></span><h2><span class="section-number">8.4.5. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this headline">¶</a></h2>
+<span id="id10"></span><h3><span class="section-number">8.4.4.1. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this headline">¶</a></h3>
 <p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此我们需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，我们开启若干个线程块，每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个或多个矩阵块。在
 <a class="reference internal" href="#duplicated-data"><span class="std std-numref">图8.4.4</span></a>
 中，我们可以观察到，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>同一行的线程<span class="math notranslate nohighlight">\(x, y\)</span>会读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中相同的数据，我们可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
-<div class="figure align-default" id="id29">
+<div class="figure align-default" id="id27">
 <span id="duplicated-data"></span><a class="reference internal image-reference" href="../_images/duplicated_data.svg"><img alt="../_images/duplicated_data.svg" src="../_images/duplicated_data.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
 </div>
 <p>具体地，我们需要对代码进行如下改造：首先此前代码在计算内积过程是进行<span class="math notranslate nohighlight">\(K\)</span>次循环读取数据并累加计算，在此设定下每次循环中处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同行的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同列的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据。我们可以通过将此<span class="math notranslate nohighlight">\(K\)</span>次循环拆解成两层循环，外层循环<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次，每次外循环的迭代读取一整块数据，内层循环<span class="math notranslate nohighlight">\(tileK\)</span>次进行累加数据。直观来看，外层循环如
 <a class="reference internal" href="#use-smem-store"><span class="std std-numref">图8.4.5</span></a>
 所示，每次循环将矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中一整个 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
 读取到共享内存中；内层循环如 <a class="reference internal" href="#use-smem-load"><span class="std std-numref">图8.4.6</span></a>
 所示，每次循环从共享内存读取数据并计算。这种设计带来的好处是，我们可以让每个线程不必独自从全局内存读取所有需要的数据，整个线程块将共同需要的数据从全局内存中读取并写入到共享内存中，此后每个线程在计算过程中只需要从共享内存中读取所需要的数据即可。</p>
-<div class="figure align-default" id="id30">
+<div class="figure align-default" id="id28">
 <span id="use-smem-store"></span><a class="reference internal image-reference" href="../_images/use_smem_store.svg"><img alt="../_images/use_smem_store.svg" src="../_images/use_smem_store.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.5 </span><span class="caption-text">向共享内存中写入数据</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.5 </span><span class="caption-text">向共享内存中写入数据</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id31">
-<span id="id12"></span><span id="use-smem-load"></span><a class="reference internal image-reference" href="../_images/use_smem_load.svg"><img alt="../_images/use_smem_load.svg" src="../_images/use_smem_load.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id29">
+<span id="id11"></span><span id="use-smem-load"></span><a class="reference internal image-reference" href="../_images/use_smem_load.svg"><img alt="../_images/use_smem_load.svg" src="../_images/use_smem_load.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </div>
 <p>下面我们将实现使用共享内存的GPU核函数。首先，我们定义每个线程块在外层循环的每次迭代中从矩阵<span class="math notranslate nohighlight">\(A\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileM \times tileK\)</span>的数据块，在矩阵<span class="math notranslate nohighlight">\(B\)</span>中读取大小为<span class="math notranslate nohighlight">\(tileK \times tileN\)</span>的数据块。假设每个线程块中一共含有<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，那么就可以使用这<span class="math notranslate nohighlight">\(blockSize\)</span>个线程，每个线程循环<span class="math notranslate nohighlight">\(\frac{tileM * tileK}{blockSize * 4}\)</span>次将矩阵<span class="math notranslate nohighlight">\(A\)</span>中的矩阵块
 <code class="docutils literal notranslate"><span class="pre">tileA</span></code>
@@ -1016,10 +1013,10 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <code class="docutils literal notranslate"><span class="pre">tileB</span></code> 读取进共享内存中。</p>
 <p>首先需要定义若干变量：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">LayoutTileT</span> <span class="o">=</span>
-     <span class="n">Layout</span><span class="o">&lt;</span><span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">,</span>
-                               <span class="n">LayoutTile</span><span class="o">::</span><span class="n">k</span> <span class="o">/</span> <span class="n">ratio</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">Layout</span><span class="o">&lt;</span><span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">,</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">,</span>
+                               <span class="n">LayoutTile</span><span class="o">::</span><span class="n">k</span> <span class="o">/</span> <span class="n">kCount</span><span class="o">&gt;</span><span class="p">;</span>
  <span class="k">using</span> <span class="n">LayoutThreadT</span> <span class="o">=</span>
-     <span class="n">Layout</span><span class="o">&lt;</span><span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">ratio</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">Layout</span><span class="o">&lt;</span><span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">,</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">kCount</span><span class="o">&gt;</span><span class="p">;</span>
 
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">m</span> <span class="o">*</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 
@@ -1027,7 +1024,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <span class="k">const</span> <span class="kt">unsigned</span> <span class="n">mInTileC</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>
 
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSizeA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">*</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">k</span><span class="p">;</span>
-<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileIterationsA</span> <span class="o">=</span> <span class="n">tileSizeA</span> <span class="o">/</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">;</span>
+<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileIterationsA</span> <span class="o">=</span> <span class="n">tileSizeA</span> <span class="o">/</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileGlobalIntervalA</span> <span class="o">=</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">k</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileComputeIterationsA</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSharedIntervalA</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">m</span> <span class="o">/</span> <span class="n">tileComputeIterationsA</span><span class="p">;</span>
@@ -1035,7 +1032,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <span class="k">const</span> <span class="kt">unsigned</span> <span class="n">mInTileA</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">k</span><span class="p">;</span>
 
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSizeB</span> <span class="o">=</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">n</span> <span class="o">*</span> <span class="n">LayoutTile</span><span class="o">::</span><span class="n">k</span><span class="p">;</span>
-<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileIterationsB</span> <span class="o">=</span> <span class="n">tileSizeB</span> <span class="o">/</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">;</span>
+<span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileIterationsB</span> <span class="o">=</span> <span class="n">tileSizeB</span> <span class="o">/</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileGlobalIntervalB</span> <span class="o">=</span> <span class="n">blockSize</span> <span class="o">/</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileComputeIterationsB</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">LayoutBlock</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
 <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">tileSharedIntervalBT</span> <span class="o">=</span> <span class="n">LayoutTileT</span><span class="o">::</span><span class="n">n</span> <span class="o">/</span> <span class="n">tileComputeIterationsB</span><span class="p">;</span>
@@ -1051,9 +1048,9 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 <code class="docutils literal notranslate"><span class="pre">mInTileC</span></code> 与 <code class="docutils literal notranslate"><span class="pre">nInTileC</span></code> 表示在给定 <code class="docutils literal notranslate"><span class="pre">LayoutBlock</span></code>
 布局下的二维线程坐标。由于 <code class="docutils literal notranslate"><span class="pre">tileA</span></code>
 是<span class="math notranslate nohighlight">\(tileM \times timeK\)</span>的尺寸，因此我们可以确定其中数据数量<code class="docutils literal notranslate"><span class="pre">tileSizeA</span></code>
-，由于一个线程块内有 <code class="docutils literal notranslate"><span class="pre">blockSize</span></code> 个线程且每个线程一次读取 <code class="docutils literal notranslate"><span class="pre">ratio</span></code> 个
-<code class="docutils literal notranslate"><span class="pre">float</span></code> 数，因此整个 <code class="docutils literal notranslate"><span class="pre">tileA</span></code> 需要用
-<code class="docutils literal notranslate"><span class="pre">tileIterationsA</span> <span class="pre">=</span> <span class="pre">tileSizeA</span> <span class="pre">/</span> <span class="pre">blockSize</span> <span class="pre">/</span> <span class="pre">ratio</span></code>
+，由于一个线程块内有 <code class="docutils literal notranslate"><span class="pre">blockSize</span></code> 个线程且每个线程一次读取 <code class="docutils literal notranslate"><span class="pre">kCount</span></code>
+个 <code class="docutils literal notranslate"><span class="pre">float</span></code> 数，因此整个 <code class="docutils literal notranslate"><span class="pre">tileA</span></code> 需要用
+<code class="docutils literal notranslate"><span class="pre">tileIterationsA</span> <span class="pre">=</span> <span class="pre">tileSizeA</span> <span class="pre">/</span> <span class="pre">blockSize</span> <span class="pre">/</span> <span class="pre">kCount</span></code>
 次读取。每个线程在最开始时负责读取的 <code class="docutils literal notranslate"><span class="pre">tileA</span></code> 的位置使用变量
 <code class="docutils literal notranslate"><span class="pre">kInTileA</span></code> 和 <code class="docutils literal notranslate"><span class="pre">mInTileA</span></code> 表示。因为需要用<code class="docutils literal notranslate"><span class="pre">tileIterationsA</span></code>
 次读取 <code class="docutils literal notranslate"><span class="pre">tileA</span></code>
@@ -1110,7 +1107,7 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
      <span class="n">fragmentA</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span>
          <span class="n">tileA</span><span class="p">[</span><span class="n">a</span> <span class="o">*</span> <span class="n">tileSharedIntervalA</span> <span class="o">+</span> <span class="n">mInTileC</span> <span class="o">*</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span> <span class="o">+</span> <span class="n">b</span><span class="p">]</span>
-              <span class="p">[</span><span class="n">j</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">][</span><span class="n">j</span> <span class="o">%</span> <span class="n">ratio</span><span class="p">];</span>
+              <span class="p">[</span><span class="n">j</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">][</span><span class="n">j</span> <span class="o">%</span> <span class="n">kCount</span><span class="p">];</span>
    <span class="p">}</span>
  <span class="p">}</span>
 <span class="cp">#pragma unroll</span>
@@ -1159,8 +1156,10 @@ Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它�
 </pre></div>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_smem.cu">gemm_use_smem.cu</a>。</p>
-<div class="section" id="id13">
-<h3><span class="section-number">8.4.5.1. </span>测试及分析<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><span class="section-number">8.4.5. </span>测试及分析<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.617</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">13925.168</span> <span class="n">GFLOPS</span>
@@ -1173,10 +1172,8 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 提升了218%也可以侧面证实我们使用共享内存减少了内存访问延迟从而提升了利用率，此外我们观察到各项指标如
 <code class="docutils literal notranslate"><span class="pre">Pipe</span> <span class="pre">Fma</span> <span class="pre">Cycles</span> <span class="pre">Active</span></code>
 等都有显著提升，这都能充分解释了我们使用共享内存的改进是合理且有效的。</p>
-</div>
-</div>
-<div class="section" id="id14">
-<span id="id15"></span><h2><span class="section-number">8.4.6. </span>减少寄存器使用<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<span id="id14"></span><h3><span class="section-number">8.4.5.1. </span>减少寄存器使用<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>我们注意到在我们向共享内存中存储矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块是按照行优先的数据排布进行的，而我们对此共享内存的读取是按列逐行读取的。我们可以将矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块在共享内存中数据按照列优先的形式排布，这样我们可以减少循环及循环变量从而带来寄存器使用数量减少进而带来性能提升。</p>
 <p>需要对代码做如下修改，首先将 <code class="docutils literal notranslate"><span class="pre">tileA</span></code> 修改为列优先矩阵：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__shared__</span> <span class="n">float4</span> <span class="n">tileA</span><span class="p">[</span><span class="n">LayoutTile</span><span class="o">::</span><span class="n">k</span><span class="p">][</span><span class="n">LayoutTileT</span><span class="o">::</span><span class="n">m</span><span class="p">];</span>
@@ -1187,9 +1184,9 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">tileIterationsA</span><span class="p">;</span> <span class="o">++</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-     <span class="n">tileA</span><span class="p">[</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">ratio</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
-          <span class="p">[(</span><span class="n">a</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">]</span>
-          <span class="p">[(</span><span class="n">a</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">ratio</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+     <span class="n">tileA</span><span class="p">[</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">kCount</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+          <span class="p">[(</span><span class="n">a</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">]</span>
+          <span class="p">[(</span><span class="n">a</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">kCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
    <span class="p">}</span>
  <span class="p">}</span>
 </pre></div>
@@ -1202,8 +1199,10 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </pre></div>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_transpose_smem.cu">gemm_transpose_smem.cu</a>。</p>
-<div class="section" id="id16">
-<h3><span class="section-number">8.4.6.1. </span>测试及分析<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><span class="section-number">8.4.6. </span>测试及分析<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.610</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14083.116</span> <span class="n">GFLOPS</span>
@@ -1213,10 +1212,8 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 提升1.3%，而带来此提升的原因是寄存器使用111个，相比上一个GPU核函数使用128个寄存器减少了17个，从而带来了性能提升。但这个变化会因为GPU架构不同导致有不同的变化，同时我们观察到
 <code class="docutils literal notranslate"><span class="pre">STS</span></code> 指令数量提升且带来一些 <code class="docutils literal notranslate"><span class="pre">bank</span> <span class="pre">confilct</span></code>
 ，因此在其他GPU架构上此改动可能不会带来正面影响。</p>
-</div>
-</div>
-<div class="section" id="id17">
-<h2><span class="section-number">8.4.7. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h3><span class="section-number">8.4.6.1. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>在GPU中使用指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
 读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖
 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
@@ -1224,13 +1221,13 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <a class="reference internal" href="#use-smem-pipeline"><span class="std std-numref">图8.4.7</span></a>
 所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。我们可以重新优化流水线隐藏一定的数据读取延迟。具体地，我们可以在内层的<span class="math notranslate nohighlight">\(tileK\)</span>次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令，具体见
 <a class="reference internal" href="#hide-smem-latency"><span class="std std-numref">图8.4.8</span></a> 。</p>
-<div class="figure align-default" id="id32">
+<div class="figure align-default" id="id30">
 <span id="use-smem-pipeline"></span><a class="reference internal image-reference" href="../_images/use_smem_pipeline.svg"><img alt="../_images/use_smem_pipeline.svg" src="../_images/use_smem_pipeline.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.7 </span><span class="caption-text">上一个GPU核函数的流水线</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.7 </span><span class="caption-text">上一个GPU核函数的流水线</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id33">
-<span id="id18"></span><span id="hide-smem-latency"></span><a class="reference internal image-reference" href="../_images/hide_smem_latency.svg"><img alt="../_images/hide_smem_latency.svg" src="../_images/hide_smem_latency.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.8 </span><span class="caption-text">隐藏共享内存读取延迟的流水线</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id31">
+<span id="id17"></span><span id="hide-smem-latency"></span><a class="reference internal image-reference" href="../_images/hide_smem_latency.svg"><img alt="../_images/hide_smem_latency.svg" src="../_images/hide_smem_latency.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图8.4.8 </span><span class="caption-text">隐藏共享内存读取延迟的流水线</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
 </div>
 <p>我们对代码需要做如下修改，首先需要将<code class="docutils literal notranslate"><span class="pre">fragment</span></code>
 的数量加倍用于存储下一次内循环读取的数据：</p>
@@ -1278,8 +1275,10 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </div>
 <p>其中 <code class="docutils literal notranslate"><span class="pre">j</span></code> 为内层循环的次数。
 完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_hide_smem_latency.cu">gemm_hide_smem_latency.cu</a>。</p>
-<div class="section" id="id19">
-<h3><span class="section-number">8.4.7.1. </span>测试及分析<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id18">
+<h2><span class="section-number">8.4.7. </span>测试及分析<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.585</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14686.179</span> <span class="n">GFLOPS</span>
@@ -1289,17 +1288,15 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
 减少了67%。而此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。所以这里<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
 的减少充分说明了内存延迟是有效的。</p>
-</div>
-</div>
-<div class="section" id="id20">
-<h2><span class="section-number">8.4.8. </span>隐藏全局内存读取延迟<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h3><span class="section-number">8.4.7.1. </span>隐藏全局内存读取延迟<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>上一小节中我们介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令
 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 也有与共享内存读取指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
 类似的行为特性。因此我们类似的在<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次外层循环中每次循环开始时发出下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见
 <a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> 。</p>
-<div class="figure align-default" id="id34">
-<span id="id21"></span><span id="hide-global-latency"></span><a class="reference internal image-reference" href="../_images/hide_global_latency.svg"><img alt="../_images/hide_global_latency.svg" src="../_images/hide_global_latency.svg" width="800px" /></a>
-<p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id32">
+<span id="id20"></span><span id="hide-global-latency"></span><a class="reference internal image-reference" href="../_images/hide_global_latency.svg"><img alt="../_images/hide_global_latency.svg" src="../_images/hide_global_latency.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
 </div>
 <p>我们将对代码进行以下修改，首先需要将 <code class="docutils literal notranslate"><span class="pre">tile</span></code> 加倍并加入一个决定向哪个
 <code class="docutils literal notranslate"><span class="pre">tile</span></code> 写入的符号 <code class="docutils literal notranslate"><span class="pre">writeStageIdx</span></code> ：</p>
@@ -1313,9 +1310,9 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tileIterationsA</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">tileA</span><span class="p">[</span><span class="n">writeStageIdx</span><span class="p">][</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">ratio</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
-         <span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">]</span>
-         <span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">ratio</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+    <span class="n">tileA</span><span class="p">[</span><span class="n">writeStageIdx</span><span class="p">][</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">kCount</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+         <span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">]</span>
+         <span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">kCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -1367,9 +1364,9 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">tileIterationsA</span><span class="p">;</span> <span class="o">++</span><span class="n">d</span><span class="p">)</span> <span class="p">{</span>
 <span class="cp">#pragma unroll</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">e</span> <span class="o">&lt;</span> <span class="n">LayoutThread</span><span class="o">::</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">tileA</span><span class="p">[</span><span class="n">writeStageIdx</span><span class="p">][</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">ratio</span> <span class="o">+</span> <span class="n">e</span><span class="p">]</span>
-         <span class="p">[(</span><span class="n">d</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">]</span>
-         <span class="p">[(</span><span class="n">d</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">ratio</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">e</span><span class="p">];</span>
+    <span class="n">tileA</span><span class="p">[</span><span class="n">writeStageIdx</span><span class="p">][</span><span class="n">kInTileA</span> <span class="o">*</span> <span class="n">kCount</span> <span class="o">+</span> <span class="n">e</span><span class="p">]</span>
+         <span class="p">[(</span><span class="n">d</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">/</span> <span class="n">kCount</span><span class="p">]</span>
+         <span class="p">[(</span><span class="n">d</span> <span class="o">*</span> <span class="n">tileGlobalIntervalA</span> <span class="o">+</span> <span class="n">mInTileA</span><span class="p">)</span> <span class="o">%</span> <span class="n">kCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">bufferA</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">e</span><span class="p">];</span>
   <span class="p">}</span>
 <span class="p">}</span>
 <span class="cp">#pragma unroll</span>
@@ -1385,8 +1382,10 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 ，其后再执行内层循环的最后一次迭代，这样能更进一步隐藏向 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
 写入的内存延迟。</p>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_final.cu">gemm_final.cu</a>。</p>
-<div class="section" id="id22">
-<h3><span class="section-number">8.4.8.1. </span>测试及分析<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id21">
+<h2><span class="section-number">8.4.8. </span>测试及分析<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.542</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">15838.302</span> <span class="n">GFLOPS</span>
@@ -1396,10 +1395,8 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 减少了67%，与上一小结的 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
 概念相对应，<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code>
 主要是针对全局内存的指标。该指标的显著减少充分说明我们可以在一定程度上隐藏全局内存的读取。</p>
-</div>
-</div>
 <div class="section" id="cublas">
-<span id="id23"></span><h2><span class="section-number">8.4.9. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this headline">¶</a></h2>
+<span id="id22"></span><h3><span class="section-number">8.4.8.1. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this headline">¶</a></h3>
 <p>前一节中介绍了cuBLAS的接口，我们可以很容易地写出以下代码使用cuBLAS完成矩阵乘法：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">cublasGemm</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">C</span><span class="p">,</span> <span class="kt">float</span> <span class="n">alf</span><span class="p">,</span> <span class="kt">float</span> <span class="n">bet</span><span class="p">,</span> <span class="kt">int</span> <span class="n">M</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="kt">int</span> <span class="n">K</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">lda</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">ldb</span> <span class="o">=</span> <span class="n">K</span><span class="p">,</span> <span class="n">ldc</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
@@ -1413,8 +1410,10 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 </pre></div>
 </div>
 <p>需要注意的是cuBLAS默认矩阵在GPU中是按列优先存储的，而我们的矩阵是按行优先存储的，而两者可以通过转置相互转换，所以<span class="math notranslate nohighlight">\(A\times B = (B^T\times A^T)^T\)</span>，因此在输入时需要调整矩阵的顺序，即可保证输出结果仍是行优先矩阵。</p>
-<div class="section" id="id24">
-<h3><span class="section-number">8.4.9.1. </span>测试及分析<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id23">
+<h2><span class="section-number">8.4.9. </span>测试及分析<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
 <span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.613</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14002.600</span> <span class="n">GFLOPS</span>
@@ -1425,108 +1424,6 @@ Compute对核函数分析并与上一个核函数进行对比，我们观察到�
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Dispatch</span> <span class="pre">Stall</span></code> 指标相比我们较差。但其他指标诸如
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code> 等优于我们，但总体上我们略胜一筹。
 尽管我们的代码相比cuBLAS已经取得了一定的性能提升，但是需要强调的是cuBLAS内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
-<ol class="arabic simple">
-<li><p><strong>并行资源映射——提高并行性</strong>：将多层级的并行资源（<code class="docutils literal notranslate"><span class="pre">block</span></code>
-、<code class="docutils literal notranslate"><span class="pre">warp</span></code> 、<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-）与对应需要计算/搬移的数据建立映射关系，提高程序并行性。将可并行的计算/数据搬移操作映射到并行资源上，对于一般矩阵乘法实例，在朴素实现的例子中
-<a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a> ，我们令每个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-与矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个矩阵块建立映射关系，每个<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-与矩阵块中的一个元素建立映射关系。</p></li>
-<li><p><strong>优化内存结构——减小访存延迟</strong>：观察计算过程中同一个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-中数据复用的情况，将复用的数据被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。如在
-<a class="reference internal" href="#sec-accelerator-use-smem"><span class="std std-numref">8.4.5节</span></a>
-中我们将矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>中会被同一个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-内不同<code class="docutils literal notranslate"><span class="pre">thread</span></code> 共同访问的数据缓存到共享内存中。</p></li>
-<li><p><strong>优化指令执行——减小指令发射开销</strong>：使用#unroll功能进行循环展开来提升指令级并行，减少逻辑判断；使用向量化加载指令以提高带宽等，对于Ampere架构，最大向量化加载指令为<code class="docutils literal notranslate"><span class="pre">LDG.E.128</span></code>，可以采用<code class="docutils literal notranslate"><span class="pre">float4</span></code>
-类型的数据进行读取。</p></li>
-<li><p><strong>优化访存流水线——隐藏访存延迟</strong>：在进行内存结构变化（矩阵数据搬移）时，可以优化访存流水线，在数据搬移的间隔执行计算操作以隐藏数据搬移的延迟。</p></li>
-</ol>
-</div>
-</div>
-<div class="section" id="id25">
-<h2><span class="section-number">8.4.10. </span>扩展<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
-<p>张量核是在从Volta架构加入的新硬件电路，此电路能对半精度（FP16）、双精度（FP64）、低比特整型（INT8等）和特殊格式（TF16等）数据格式加速。其提供了新的数据读取与计算指令集并使用CUDA代码对部分指令封装以允许用户使用此结构。</p>
-<p>在 <code class="docutils literal notranslate"><span class="pre">mma.h</span></code> 中定义了若干C++接口，主要有的几个结构在命名空间
-<code class="docutils literal notranslate"><span class="pre">nvcuda::wmma</span></code> 下，他们分有 <code class="docutils literal notranslate"><span class="pre">row_major</span></code> 与 <code class="docutils literal notranslate"><span class="pre">col_major</span></code>
-用于表示数据布局； <code class="docutils literal notranslate"><span class="pre">matrix_a</span></code> 、 <code class="docutils literal notranslate"><span class="pre">matrix_b</span></code> 和<code class="docutils literal notranslate"><span class="pre">accumulator</span></code>
-用于区别矩阵类型； <code class="docutils literal notranslate"><span class="pre">fragment</span></code> 用于表示数据存储的类； <code class="docutils literal notranslate"><span class="pre">fill_fragment</span></code>
-、 <code class="docutils literal notranslate"><span class="pre">load_matrix_sync</span></code> 和 <code class="docutils literal notranslate"><span class="pre">store_matrix_sync</span></code> 用于对 <code class="docutils literal notranslate"><span class="pre">fragment</span></code>
-进行设置、加载以及向全局内存操作； <code class="docutils literal notranslate"><span class="pre">mma_sync</span></code>
-用于计算。但是由于其灵活性较差，且实际只是底层指令的封装，实际实践中主要是使用英伟达提供的PTX指令集内嵌到C++代码中进行编程。</p>
-<p>PTX指令集是英伟达推出的一种CUDA指令集中间表示，其并不是直接由二进制反汇编得来的汇编语言，事实上它更像是Java语言中的ByteCode概念。PTX给用户更细粒度的编程的可能，但是要注意的是由于它并不是直接的汇编语言，所以最后被CUDA汇编器汇编得到的二进制文件可能会用其他等价语句实现。例如，在安培设备中不支持
-<code class="docutils literal notranslate"><span class="pre">mma.m8n8k4</span></code>
-相关功能，但用户仍然可以在代码中直接使用此PTX指令，但在汇编过程会被实现为等价的非
-<code class="docutils literal notranslate"><span class="pre">mma</span></code> 指令，进而导致性能不如预期。</p>
-<p>与一般矩阵乘法相关的PTX指令主要有 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 和 <code class="docutils literal notranslate"><span class="pre">mma</span></code> 。 <code class="docutils literal notranslate"><span class="pre">wmma</span></code> 是相对
-<code class="docutils literal notranslate"><span class="pre">mma</span></code> 高一层的指令，它可以提供若干修饰符如 <code class="docutils literal notranslate"><span class="pre">load</span></code> 用于读取数据，
-<code class="docutils literal notranslate"><span class="pre">store</span></code> 用于储存数据， <code class="docutils literal notranslate"><span class="pre">mma</span></code> 用于计算等操作。</p>
-<p>修饰符的使用可以类似于以下形式
-<code class="docutils literal notranslate"><span class="pre">wmma.load.a.sync.aligned.m16n16k16.global.row.f16</span></code> 。 <code class="docutils literal notranslate"><span class="pre">a</span></code>
-代表目标为矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据；<code class="docutils literal notranslate"><span class="pre">sync</span></code>
-代表线程束内线程在执行这条指令之前会进行同步； <code class="docutils literal notranslate"><span class="pre">aligned</span></code>
-代表要求线程束内所有线程都执行相同的指令； <code class="docutils literal notranslate"><span class="pre">m16n16k16</span></code>
-代表一个线程束的线程共同完成数据处理的规模； <code class="docutils literal notranslate"><span class="pre">global</span></code>
-代表是从全局内存读取； <code class="docutils literal notranslate"><span class="pre">row</span></code> 代表数据是行优先的布局储存的； <code class="docutils literal notranslate"><span class="pre">f16</span></code>
-代表数据类型为半精度。其他可能的修饰符可以在官方文档中查阅。 <code class="docutils literal notranslate"><span class="pre">mma</span></code>
-指令相比 <code class="docutils literal notranslate"><span class="pre">wmma.mma</span></code> 功能更加丰富，使用也更加灵活，其使用可类似以下形式
-<code class="docutils literal notranslate"><span class="pre">mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16</span></code> 。 <code class="docutils literal notranslate"><span class="pre">sync</span></code>
-代表线程束内线程在执行这条指令之前会进行同步； <code class="docutils literal notranslate"><span class="pre">aligned</span></code>
-代表要求线程束内所有线程都执行相同的指令； <code class="docutils literal notranslate"><span class="pre">m16n8k16</span></code>
-代表一个线程束的线程共同完成数据处理的规模； <code class="docutils literal notranslate"><span class="pre">row.col</span></code>
-代表从矩阵<span class="math notranslate nohighlight">\(A\)</span>读入的矩阵块布局是行优先，从矩阵<span class="math notranslate nohighlight">\(B\)</span>读入的数据块布局是列优先；<code class="docutils literal notranslate"><span class="pre">f16.f16.f16.f16</span></code>
-分别代表累加结果的矩阵块、从矩阵<span class="math notranslate nohighlight">\(A\)</span>读入的矩阵块、从矩阵<span class="math notranslate nohighlight">\(B\)</span>读入的矩阵块、累加输入的矩阵块的数据类型都是半精度浮点数。</p>
-<p>通常我们并不会直接写PTX代码而是将一段或多段PTX指令内联嵌入到CUDA代码中，下面提供了一个例子。假设我们对一个向量的数值乘2，我们可以实现以下代码：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">times2</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">unsigned</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">data</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">tid</span><span class="p">];</span>
-  <span class="n">data</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="n">arr</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>如果我们希望第三行读取数据使用PTX指令 <code class="docutils literal notranslate"><span class="pre">ld.global.u32</span></code>
-，我们可以实现以下的代码：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">times2UsePTX</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">unsigned</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-  <span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span>
-      <span class="s">&quot;{</span><span class="se">\n</span><span class="s">&quot;</span>
-      <span class="s">&quot;  ld.global.u32 %0, [%1];</span><span class="se">\n</span><span class="s">&quot;</span>
-      <span class="s">&quot;}</span><span class="se">\n</span><span class="s">&quot;</span>
-      <span class="o">:</span> <span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-      <span class="o">:</span> <span class="s">&quot;l&quot;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">tid</span><span class="p">]));</span>
-  <span class="n">data</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="n">arr</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>第一个冒号后面应当是会被赋值的变量，第二个冒号后面是会被读取的变量；
-<code class="docutils literal notranslate"><span class="pre">r</span></code> 代表32位无符号整型寄存器， <code class="docutils literal notranslate"><span class="pre">l</span></code>
-代表64位无符号整型寄存器，除此之外还可能是 <code class="docutils literal notranslate"><span class="pre">h</span></code>
-代表16位无符号整型寄存器， <code class="docutils literal notranslate"><span class="pre">f</span></code> 代表32位浮点寄存器， <code class="docutils literal notranslate"><span class="pre">d</span></code>
-代表64位浮点寄存器。类似的，我们也可以用类似的方式将 <code class="docutils literal notranslate"><span class="pre">mma</span></code>
-PTX指令嵌入到我们的CUDA代码中，下面给出了一个例子：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="n">half_t</span> <span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
-<span class="n">half_t</span> <span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-<span class="n">half_t</span> <span class="n">c</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-<span class="n">half_t</span> <span class="n">d</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-
-<span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*</span><span class="n">A</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*</span><span class="n">B</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*</span><span class="n">C</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span> <span class="k">const</span> <span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="o">*</span><span class="n">D</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span> <span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
-
-<span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span><span class="s">&quot;mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16 {%0,%1}, {%2,%3,%4,%5}, {%6,%7}, {%8,%9};</span><span class="se">\n</span><span class="s">&quot;</span>
-   <span class="o">:</span> <span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-   <span class="o">:</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
-     <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-     <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">);</span>
-<span class="c1">//...</span>
-</pre></div>
-</div>
-<p>由于篇幅限制，我们在本节中不会过多的介绍张量核的实践，感兴趣的读者可以自行尝试实现。</p>
 </div>
 </div>
 
@@ -1540,43 +1437,39 @@ PTX指令嵌入到我们的CUDA代码中，下面给出了一个例子：</p>
     </p>
     <ul>
 <li><a class="reference internal" href="#">8.4. 加速器实践</a><ul>
-<li><a class="reference internal" href="#id2">8.4.1. 环境</a><ul>
-<li><a class="reference internal" href="#id3">8.4.1.1. 安装</a></li>
+<li><a class="reference internal" href="#id2">8.4.1. 安装</a><ul>
+<li><a class="reference internal" href="#sec-accelerator-naive">8.4.1.1. 广义矩阵乘法的朴素实现</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#sec-accelerator-naive">8.4.2. 广义矩阵乘法的朴素实现</a><ul>
-<li><a class="reference internal" href="#id5">8.4.2.1. 使用封装结构代替指针</a></li>
+<li><a class="reference internal" href="#id4">8.4.2. 使用封装结构代替指针</a><ul>
+<li><a class="reference internal" href="#id5">8.4.2.1. 提高计算强度</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">8.4.3. 提高计算强度</a><ul>
-<li><a class="reference internal" href="#id7">8.4.3.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id6">8.4.3. 测试及分析</a><ul>
+<li><a class="reference internal" href="#id7">8.4.3.1. 进一步提升计算强度</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">8.4.4. 进一步提升计算强度</a><ul>
-<li><a class="reference internal" href="#id10">8.4.4.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id9">8.4.4. 测试及分析</a><ul>
+<li><a class="reference internal" href="#sec-accelerator-use-smem">8.4.4.1. 使用共享内存缓存复用数据</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#sec-accelerator-use-smem">8.4.5. 使用共享内存缓存复用数据</a><ul>
-<li><a class="reference internal" href="#id13">8.4.5.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id12">8.4.5. 测试及分析</a><ul>
+<li><a class="reference internal" href="#id13">8.4.5.1. 减少寄存器使用</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14">8.4.6. 减少寄存器使用</a><ul>
-<li><a class="reference internal" href="#id16">8.4.6.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id15">8.4.6. 测试及分析</a><ul>
+<li><a class="reference internal" href="#id16">8.4.6.1. 隐藏共享内存读取延迟</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17">8.4.7. 隐藏共享内存读取延迟</a><ul>
-<li><a class="reference internal" href="#id19">8.4.7.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id18">8.4.7. 测试及分析</a><ul>
+<li><a class="reference internal" href="#id19">8.4.7.1. 隐藏全局内存读取延迟</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id20">8.4.8. 隐藏全局内存读取延迟</a><ul>
-<li><a class="reference internal" href="#id22">8.4.8.1. 测试及分析</a></li>
+<li><a class="reference internal" href="#id21">8.4.8. 测试及分析</a><ul>
+<li><a class="reference internal" href="#cublas">8.4.8.1. 与cuBLAS对比</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#cublas">8.4.9. 与cuBLAS对比</a><ul>
-<li><a class="reference internal" href="#id24">8.4.9.1. 测试及分析</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id25">8.4.10. 扩展</a></li>
+<li><a class="reference internal" href="#id23">8.4.9. 测试及分析</a></li>
 </ul>
 </li>
 </ul>
