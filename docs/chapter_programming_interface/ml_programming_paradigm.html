@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>3.5. 机器学习框架的编程范式 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.6. 总结" href="summary.html" />
+    <link rel="prev" title="3.4. C/C++编程接口" href="c_python_interaction.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">3. </span>编程接口</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">3.5. </span>机器学习框架的编程范式</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_programming_interface/ml_programming_paradigm.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. 编程接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.5. 机器学习框架的编程范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">3.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">3.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. 编程接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.5. 机器学习框架的编程范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">3.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">3.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/distributed_node_rl.html">15.3. 分布式强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.4. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.5. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.6. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="id1">
+<h1><span class="section-number">3.5. </span>机器学习框架的编程范式<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">3.5.1. </span>机器学习框架编程需求<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>机器学习的训练是其任务中最为关键的一步，训练依赖于优化器算法来描述。目前大部分机器学习任务都使用一阶优化器，因为一阶方法简单易用。随着机器学习的高速发展，软硬件也随之升级，越来越多的研究者开始探索收敛性能更好的高阶优化器。常见的二阶优化器如牛顿法、拟牛顿法、AdaHessians，均需要计算含有二阶导数信息的Hessian矩阵，Hessian矩阵的计算带来两方面的问题，一方面是计算量巨大如何才能高效计算，另一方面是高阶导数的编程表达。</p>
+<p>同时，近年来，工业界发布了非常多的大模型，从2020年OpenAI GTP-3
+175B参数开始，到2021年盘古大模型100B、鹏程盘古-<span class="math notranslate nohighlight">\(\alpha\)</span>
+200B、谷歌switch transformer 1.6T、智源悟道
+1.75T参数，再到2022年百度ERNIE3.0 280M、Facebook NLLB-200
+54B，越来越多的超大规模模型训练需求使得单纯的数据并行难以满足，而模型并行需要靠人工来模型切分耗时耗力，如何自动并行成为未来机器学习框架所面临的挑战。最后，构建机器学习模型本质上是数学模型的表示，如何简洁表示机器学习模型也成为机器学习框架编程范式的设计的重点。</p>
+<p>为了解决机器学习框架在实际应用中的一些困难，研究人员发现函数式编程能很好地提供解决方案。在计算机科学中，函数式编程是一种编程范式，它将计算视为数学函数的求值，并避免状态变化和数据可变，这是一种更接近于数学思维的编程模式。神经网络由连接的节点组成，每个节点执行简单的数学运算。通过使用函数式编程语言，开发人员能够用一种更接近运算本身的语言来描述这些数学运算，使得程序的读取和维护更加容易。同时，函数式语言的函数都是相互隔离的，使得并发性和并行性更容易管理。</p>
+<p>因此，机器学习框架使用函数式编程设计具有以下优势： -
+支持高效的科学计算和机器学习场景。 - 易于开发并行。 -
+简洁的代码表示能力。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">3.5.2. </span>机器学习框架编程范式现状<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>本小节将从目前主流机器学习框架发展历程来看机器学习框架对函数式编程的支持现状。谷歌在2015年发布了TensorFlow1.0其代表的编程特点包括计算图(Computational
+Graphs)、会话（Session）、张量(Tensor)它是一种声明式编程风格。2017年Facebook发布了PyTorch其编程特点为即时执行，它是一种命令式编程风格。2018年谷歌发布了JAX它不是存粹为了机器学习而编写的框架，而是针对GPU和TPU做高性能数据并行计算的框架；与传统的机器学习框架相比其核心能力是神经网络计算和数值计算的融合，在接口上兼容了NumPy、Scipy等Python原生的数据科学接口，而且在此基础上扩展分布式、向量化、高阶求导、硬件加速，其编程风格是函数式，主要体现在无副作用、Lambda闭包等。2020年华为发布了MindSpore，其函数式可微分编程架构可以让用户聚焦机器学习模型数学的原生表达。2022年PyTorch推出functorch，受到谷歌JAX的极大启发，functorch是一个向PyTorch添加可组合函数转换的库，包括可组合的vmap（向量化）和autodiff转换，可与PyTorch模块和PyTorch
+autograd一起使用，并具有良好的渴望模式（Eager-Mode）性能，functorch可以说是弥补了PyTorch静态图的分布式并行需求。</p>
+<p>从主流的机器学习框架发展历程来看，未来机器学习框架函数式编程风格将会日益得到应用，因为函数式编程能更直观地表达机器学习模型，同时对于自动微分、高阶求导、分布式实现也更加方便。另一方面，未来的机器学习框架在前端接口层次也趋向于分层解耦，其设计不直接为了机器学习场景，而是只提供高性能的科学计算和自动微分算子，更高层次的应用如机器学习模型开发则是通过封装这些高性能算子实现。</p>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">3.5.3. </span>函数式编程案例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>在上一小节介绍了机器学习框架编程范式的现状，不管是JAX、MindSpore还是functorch都提到了函数式编程,其在科学计算、分布式方面有着独特的优势。然而在实际应用中纯函数式编程几乎没有能够成为主流开发范式，而现代编程语言几乎不约而同的选择了接纳函数式编程特性。以MindSpore为例，MindSpore选择将函数式和面向对象编程融合，兼顾用户习惯，提供易用性最好，编程体验最佳的混合编程范式。MindSpore采用混合编程范式道理也很简单，纯函数式会让学习曲线陡增，易用性变差；面向对象构造神经网络的编程范式深入人心。</p>
+<p>下面中提供了使用MindSpore编写机器学习模型训练的全流程。其网络构造，满足面向对象编程习惯，函数式编程主要体现在模型训练的反向传播部分；MindSpore使用函数式，将前向计算构造成function，然后通过函数变换，获得grad
+function，最后通过执行grad function获得权重对应的梯度。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Class definition</span>
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Cell</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">......</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="o">......</span>
+
+<span class="c1"># Object instantiation</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span> <span class="c1"># network</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span> <span class="c1"># loss function</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">trainable_params</span><span class="p">(),</span> <span class="n">lr</span><span class="p">)</span> <span class="c1"># optimizer</span>
+
+<span class="c1"># define forward function</span>
+<span class="k">def</span> <span class="nf">forword_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">logits</span>
+
+<span class="c1"># get grad function</span>
+<span class="n">grad_fn</span> <span class="o">=</span> <span class="n">value_and_grad</span><span class="p">(</span><span class="n">forward_fn</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">optim</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">has_aux</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># define train step function</span>
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">logits</span><span class="p">),</span> <span class="n">grads</span> <span class="o">=</span> <span class="n">grad_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span> <span class="c1"># get values and gradients</span>
+    <span class="n">optimizer</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span> <span class="c1"># update gradient</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">logits</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">():</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">3.5. 机器学习框架的编程范式</a><ul>
+<li><a class="reference internal" href="#id2">3.5.1. 机器学习框架编程需求</a></li>
+<li><a class="reference internal" href="#id3">3.5.2. 机器学习框架编程范式现状</a></li>
+<li><a class="reference internal" href="#id4">3.5.3. 函数式编程案例</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="c_python_interaction.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>3.4. C/C++编程接口</div>
+         </div>
+     </a>
+     <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>3.6. 总结</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>
