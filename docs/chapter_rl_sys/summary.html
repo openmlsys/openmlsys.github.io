@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>17.11. 小结 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>17.4. 总结 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="附录：机器学习介绍" href="../appendix_machine_learning_introduction/index.html" />
-    <link rel="prev" title="17.10. 在机器人项目中安全的应用机器学习" href="robot_safety.html" /> 
+    <link rel="prev" title="17.3. 案例分析：使用机器人操作系统" href="ros_code_ex.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
@@ -34,7 +34,7 @@
         
         <nav class="mdl-navigation breadcrumb">
             <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.11. </span>小结</a>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.4. </span>总结</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -121,14 +121,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -137,8 +138,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -222,18 +224,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -301,14 +295,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -317,8 +312,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -402,18 +398,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -437,11 +425,10 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">17.11. </span>小结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>在这一章，我们简单介绍了机器人系统的基本概念，包括通用机器人操作系统、感知系统、规划系统和控制系统等，给读者对机器人问题的基本认识。当前，机器人许多实际问题都有可能通过算法的进一步发展得到解决。另一方面，由于机器人问题设置的特殊性，也使得相应系统与相关硬件的耦合程度更高、更复杂：如何更好地平衡各种传感器负载？如何在计算资源有限的情况下最大化计算效率（实时性）？等等，都需要对计算机系统的设计和使用有更好的理解。</p>
-</div>
+<h1><span class="section-number">17.4. </span>总结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>在这一章，我们简单介绍了机器人系统的基本概念，包括通用机器人操作系统、感知系统、规划系统和控制系统等，给读者对机器人问题的基本认识。对通用机器人操作系统部分，我们回顾了其中的基本概念，并通过代码实例让读者对ROS能有直接的体验，体会到搭建一个简单机器人系统的乐趣。当前，机器人是一个快速发展的人工智能分支，许多实际问题都需要通过机器人算法和系统设计的进一步发展得到解决。</p>
 <div class="section" id="id2">
-<h1><span class="section-number">17.12. </span>参考文献<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">17.4.1. </span>参考文献<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-chapter_rl_sys/summary-0"><dl class="citation">
 <dt class="bibtex label" id="aradi2020survey"><span class="brackets">Aradi, 2020</span></dt>
 <dd><p>Aradi, S. (2020). Survey of deep reinforcement learning for motion planning of autonomous vehicles. <em>IEEE Transactions on Intelligent Transportation Systems</em>.</p>
@@ -482,7 +469,13 @@ Show Source
 <dt class="bibtex label" id="peng2021safe"><span class="brackets">Peng et al., 2021b</span></dt>
 <dd><p>Peng, Z., Li, Q., Liu, C., &amp; Zhou, B. (2021). Safe driving via expert guided policy optimization. <em>5th Annual Conference on Robot Learning</em>.</p>
 </dd>
-<dt class="bibtex label" id="id5"><span class="brackets">Sun et al., 2022a</span></dt>
+<dt class="bibtex label" id="id5"><span class="brackets">Qiu et al., 2022</span></dt>
+<dd><p>Qiu, J., Chen, L., Gu, X., Lo, F. P.-W., Tsai, Y.-Y., Sun, J., … Lo, B. (2022). Egocentric human trajectory forecasting with a wearable camera and multi-modal fusion. <em>IEEE Robotics and Automation Letters</em>, (), 1-8. <a class="reference external" href="https://doi.org/10.1109/LRA.2022.3188101">doi:10.1109/LRA.2022.3188101</a></p>
+</dd>
+<dt class="bibtex label" id="megba"><span class="brackets">Ren et al., 2022</span></dt>
+<dd><p>Ren, J., Liang, W., Yan, R., Mai, L., Liu, S., &amp; Liu, X. (2022). Megba: a high-performance and distributed library for large-scale bundle adjustment. <em>European Conference on Computer Vision</em>.</p>
+</dd>
+<dt class="bibtex label" id="id6"><span class="brackets">Sun et al., 2022a</span></dt>
 <dd><p>Sun, J., Huang, D.-A., Lu, B., Liu, Y.-H., Zhou, B., &amp; Garg, A. (2022). Plate: visually-grounded planning with transformers in procedural tasks. <em>IEEE Robotics and Automation Letters</em>, <em>7</em>(2), 4924-4930. <a class="reference external" href="https://doi.org/10.1109/LRA.2022.3150855">doi:10.1109/LRA.2022.3150855</a></p>
 </dd>
 <dt class="bibtex label" id="sun2022selfsupervisedta"><span class="brackets">Sun et al., 2022b</span></dt>
@@ -494,6 +487,9 @@ Show Source
 <dt class="bibtex label" id="sun2021adversarial"><span class="brackets">Sun et al., 2021b</span></dt>
 <dd><p>Sun, J., Yu, L., Dong, P., Lu, B., &amp; Zhou, B. (2021). Adversarial inverse reinforcement learning with self-attention dynamics model. <em>IEEE Robotics and Automation Letters</em>, <em>6</em>(2), 1880–1886.</p>
 </dd>
+<dt class="bibtex label" id="wang2023mimicplay"><span class="brackets">Wang et al., 2023</span></dt>
+<dd><p>Wang, C., Fan, L., Sun, J., Zhang, R., Fei-Fei, L., Xu, D., … Anandkumar, A. (2023). Mimicplay: long-horizon imitation learning by watching human play. <em>arXiv preprint arXiv:2302.12422</em>.</p>
+</dd>
 <dt class="bibtex label" id="xu2019depth"><span class="brackets">Xu et al., 2019</span></dt>
 <dd><p>Xu, Y., Zhu, X., Shi, J., Zhang, G., Bao, H., &amp; Li, H. (2019). Depth completion from sparse lidar data with depth-normal constraints. <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em> (pp. 2811–2820).</p>
 </dd>
@@ -502,6 +498,7 @@ Show Source
 </dd>
 </dl>
 </p>
+</div>
 </div>
 
 
@@ -513,8 +510,10 @@ Show Source
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">17.11. 小结</a></li>
-<li><a class="reference internal" href="#id2">17.12. 参考文献</a></li>
+<li><a class="reference internal" href="#">17.4. 总结</a><ul>
+<li><a class="reference internal" href="#id2">17.4.1. 参考文献</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -523,11 +522,11 @@ Show Source
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="robot_safety.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="ros_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>17.10. 在机器人项目中安全的应用机器学习</div>
+            <div>17.3. 案例分析：使用机器人操作系统</div>
          </div>
      </a>
      <a id="button-next" href="../appendix_machine_learning_introduction/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>17.3. 机器人操作系统（ROS）的入门案例 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>17.3. 案例分析：使用机器人操作系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -25,7 +25,7 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.4. 感知系统" href="perception.html" />
+    <link rel="next" title="17.4. 总结" href="summary.html" />
     <link rel="prev" title="17.2. 通用机器人操作系统" href="ros.html" /> 
   </head>
 <body>
@@ -34,7 +34,7 @@
         
         <nav class="mdl-navigation breadcrumb">
             <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.3. </span>机器人操作系统（ROS）的入门案例</a>
+            <a class="mdl-navigation__link is-active"><span class="section-number">17.3. </span>案例分析：使用机器人操作系统</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -121,14 +121,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -137,8 +138,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -222,18 +224,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -301,14 +295,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -317,8 +312,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -402,18 +398,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -436,8 +424,8 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="ros">
-<h1><span class="section-number">17.3. </span>机器人操作系统（ROS）的入门案例<a class="headerlink" href="#ros" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="id1">
+<h1><span class="section-number">17.3. </span>案例分析：使用机器人操作系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在这一章节中，我们将带领大家安装ROS2并配置好使用环境，然后再通过一些简单的代码示例来让大家更深入的了解如何使用ROS2和上一章节所介绍的概念。</p>
 <p>在本章节以及本章后续的案例章节中，我们将使用ROS2 Foxy
 Fitzroy（笔者撰写时的最新的ROS2 LTS版本），Ubuntu Focal（20.04）和Ubuntu
@@ -447,7 +435,7 @@ Focal是官方的搭配，而如果你采用debian安装的方式（官方推荐
 这是因为debian安装方式会将很多ROS2的Python依赖库以<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>（而非<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>）的方式安装到Ubuntu自带的Python3路径中去。
 这也就是说，当你选定ROS2版本后，你所需的Ubuntu版本和Python版本也就随之确定了。</p>
 <p>如果想要使用Python虚拟环境（virtual
-env）的话，也必须指定使用Ubuntu系统所带的Python解释器（interpreter），并在创建时加上<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>选项。添加这个选项是因为我们需要那些安装在系统Python3路径中的ROS2的依赖库。如果读者感兴趣的话，可以阅读这篇<a class="reference external" href="https://docs.ros.org/en/foxy/How-To-Guides/Using-Python-Packages.html">英文教程</a>来了解更多细节。</p>
+env）的话，也必须指定使用Ubuntu系统所带的Python解释器（interpreter），并在创建时加上<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>选项。添加这个选项是因为我们需要那些安装在系统Python3路径中的ROS2的依赖库。</p>
 <p>举例来说，对于<code class="docutils literal notranslate"><span class="pre">pipenv</span></code>用户，可以通过下面这条命令来创建一个使用系统Python3并添加了<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>的虚拟环境。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pipenv --python <span class="k">$(</span>/usr/bin/python3 -V <span class="p">|</span> cut -d<span class="s2">&quot; &quot;</span> -f2<span class="k">)</span> --site-packages
 </pre></div>
@@ -456,14 +444,10 @@ env）的话，也必须指定使用Ubuntu系统所带的Python解释器（inter
 <p>对于其它版本的ROS2，安装过程和使用方式基本相同。</p>
 <p>在本章节以及本章后续的案例章节中，我们在合适的场合将用ROS2，Ubuntu和Python来分别指代ROS2
 Foxy Fitzroy，Ubuntu Focal和Ubuntu Focal所带的Python 3.8。</p>
-<p>本章节中的案例有参考ROS2的<a class="reference external" href="https://docs.ros.org/en/foxy/Tutorials.html">官方教程</a>。这个官方教程讲解的非常详细，非常适合初学者入门ROS2。如果读者对英文有自信的话，可以尝试阅读官方教程来了解更多ROS2的细节。</p>
-<p>另外，本章节的案例所使用的代码可以在本书相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">ROS2案例代码库</a>中的<code class="docutils literal notranslate"><span class="pre">src/my_hello_world</span></code>和<code class="docutils literal notranslate"><span class="pre">src/my_interfaces</span></code>文件夹内找到。</p>
+<p>本章节中的案例有参考ROS2的官方教程。这个官方教程讲解的非常详细，非常适合初学者入门ROS2。</p>
 <div class="section" id="ros2-foxy-fitzroy">
 <h2><span class="section-number">17.3.1. </span>安装ROS2 Foxy Fitzroy<a class="headerlink" href="#ros2-foxy-fitzroy" title="Permalink to this headline">¶</a></h2>
-<p>在Ubuntu上安装ROS2相对简单，绝大多数情况跟随官方教程安装即可。
-例如对于ROS2 Foxy Fitzroy和Ubuntu
-Focal，对自己英文水平较为自信的读者也可以跟随<a class="reference external" href="https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html">这篇官方教程</a>。
-本章节关于ROS2的安装的部分主要也是这篇教程相关部分的转述。</p>
+<p>在Ubuntu上安装ROS2相对简单，绝大多数情况跟随官方教程安装即可。</p>
 <div class="section" id="locale-utf-8">
 <h3><span class="section-number">17.3.1.1. </span>系统区域（locale）需要支持UTF-8<a class="headerlink" href="#locale-utf-8" title="Permalink to this headline">¶</a></h3>
 <p>在开始安装之前，我们需要先确保我们Ubuntu系统的区域（locale）已经设置成了支持UTF-8的值。
@@ -478,8 +462,8 @@ sudo update-locale <span class="nv">LC_ALL</span><span class="o">=</span>en_US.U
 </pre></div>
 </div>
 </div>
-<div class="section" id="id1">
-<h3><span class="section-number">17.3.1.2. </span>设置软件源<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3><span class="section-number">17.3.1.2. </span>设置软件源<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>我们还需要将ROS2的软件源加入到系统中。我们可以通过下面这些命令完成这点。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt update <span class="o">&amp;&amp;</span> sudo apt install curl gnupg2 lsb-release
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -502,8 +486,8 @@ sudo apt install ros-foxy-desktop
 </div>
 <p>到此，我们已经安装好了ROS2。但是，如果想要使用它，我们还需要一个额外的环境设置步骤。</p>
 </div>
-<div class="section" id="id2">
-<h3><span class="section-number">17.3.1.4. </span>环境设置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3><span class="section-number">17.3.1.4. </span>环境设置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>对于任意安装好的ROS2（和ROS）版本，我们需要source对应的setup脚本来为对应的版本设置好所需环境，然后才能开始使用其版本。</p>
 <p>例如，对于刚安装好的ROS2 Foxy
 Fitzroy，我们可以在终端中执行下面的命令来设置好ROS2所需的环境。</p>
@@ -529,8 +513,8 @@ No action taken to avoid nested environments.
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3><span class="section-number">17.3.1.5. </span>测试安装成功<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><span class="section-number">17.3.1.5. </span>测试安装成功<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>当我们执行了上述的<code class="docutils literal notranslate"><span class="pre">source</span></code>命令之后，我们可以测试ROS2的安装以及环境设置时成功的。</p>
 <p>我们只需在执行了<code class="docutils literal notranslate"><span class="pre">source</span></code>命令的命令行中执行<code class="docutils literal notranslate"><span class="pre">printenv</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">^ROS</span></code>。输出的结果应该包含以下三个环境变量。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">ROS_VERSION</span><span class="o">=</span><span class="m">2</span>
@@ -555,8 +539,8 @@ No action taken to avoid nested environments.
 <h2><span class="section-number">17.3.2. </span>ROS2节点和Hello World<a class="headerlink" href="#ros2hello-world" title="Permalink to this headline">¶</a></h2>
 <p>在这一小节中，我们将会创建一个ROS2项目，并使用Python来编写一个Hello
 World案例，以便展示ROS2 Node的基本结构。</p>
-<div class="section" id="id4">
-<h3><span class="section-number">17.3.2.1. </span>新建一个ROS2项目<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">17.3.2.1. </span>新建一个ROS2项目<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>首先，在一个合适的位置新建一个文件夹。这个文件夹将是我们ROS2项目的根目录，同时也是上一章节中介绍过的“工作区”（Workspace）。这个工作区是我们自己创建的，所以它是一个Overlay
 Workspace。相对的，我们之前执行的<code class="docutils literal notranslate"><span class="pre">source</span></code>命令会帮我们准备好这个Overlay所基于的核心工作区（Underlay
 Workspace）。</p>
@@ -582,7 +566,7 @@ World案例。</p>
 ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs --node-name hello_world_node my_hello_world
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ros2</span></code>命令的<code class="docutils literal notranslate"><span class="pre">pkg</span> <span class="pre">create</span></code>子项可以帮助我们快速的创建一个ROS2程序库的框架。<code class="docutils literal notranslate"><span class="pre">build-type</span></code>参数指明了这是一个纯Python库，<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>参数指明了这个库将会使用<code class="docutils literal notranslate"><span class="pre">rclpy</span></code>和<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>这两个依赖库，<code class="docutils literal notranslate"><span class="pre">node-name</span></code>参数指明了我们创建的程序库中会有一个名为hello_world_node的ROS2节点，而最后的my_hello_world则是新建程序库的名字。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ros2</span></code>命令的<code class="docutils literal notranslate"><span class="pre">pkg</span> <span class="pre">create</span></code>子项可以帮助我们快速的创建一个ROS2程序库的框架。<code class="docutils literal notranslate"><span class="pre">build-type</span></code>参数指明了这是一个纯Python库，<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>参数指明了这个库将会使用<code class="docutils literal notranslate"><span class="pre">rclpy</span></code>和<code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>这两个依赖库，<code class="docutils literal notranslate"><span class="pre">node-name</span></code>参数指明了我们创建的程序库中会有一个名为hello_world_node的ROS2节点，而最后的<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>则是新建程序库的名字。</p>
 <p>进入新建好的程序库文件夹<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>，我们可以看到刚运行的命令已经帮我们建好一个Python库文件夹<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>。其与程序库同名，且内含<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>文件和<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>文件。后者的存在是由于我们使用了<code class="docutils literal notranslate"><span class="pre">node_name</span></code>参数的原因。我们将在这个Python库文件夹内编写我们的Python代码。</p>
 <p>除此之外，还有<code class="docutils literal notranslate"><span class="pre">resource</span></code>和<code class="docutils literal notranslate"><span class="pre">test</span></code>这两个文件夹。前者帮助ROS2来定位Python程序库，因此我们不需要管它。后者用来包含所有的测试代码，并且我们可以看到里面已经有了三个测试文件。</p>
 <p>除了这三个文件夹外，还有三个文件，<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>，<code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>和<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>。</p>
@@ -598,8 +582,8 @@ ros2 run my_hello_world hello_world_node
 <p>除了entry
 point需要关注之外，我们也需要及时将<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的<code class="docutils literal notranslate"><span class="pre">version</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer_email</span></code>，<code class="docutils literal notranslate"><span class="pre">description</span></code>和<code class="docutils literal notranslate"><span class="pre">license</span></code>项都更新好。</p>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">17.3.2.3. </span>第一个ROS2节点<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">17.3.2.3. </span>第一个ROS2节点<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>让我们打开<code class="docutils literal notranslate"><span class="pre">my_hello_world/hello_world_node.py</span></code>这个Python文件，清空里面全部内容，以便于编写我们需要的代码。</p>
 <p>首先，让我们引入必要的库：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
@@ -633,8 +617,7 @@ Class），我们的节点类也需要继承这个基类。<code class="docutils
 <p>在<code class="docutils literal notranslate"><span class="pre">__init__()</span></code>方法中，我们先调用基类的初始化方法，并通过这个调用将我们的节点命名为<code class="docutils literal notranslate"><span class="pre">my_hello_world_node</span></code>。接着我们创建一个信息发布者，它可以将字符串类型的信息发布到<code class="docutils literal notranslate"><span class="pre">hello_world_topic</span></code>这个主题上，并且会维持一个大小为10的缓冲区。再接着我们创建一个计时器，它会每秒钟调用一次<code class="docutils literal notranslate"><span class="pre">timer_callback()</span></code>方法。最后，我们初始化一个计数器，来统计总共有多少条信息被发布了。</p>
 <p>在<code class="docutils literal notranslate"><span class="pre">timer_callback()</span></code>方法中，我们简单的创建一条带计数器的Hello
 World信息，并通过信息发布者发送出去。然后我们在日志中记录这次操作并将计数器加一。</p>
-<p>定义好我们的Hello
-World节点类后，我们可以开始定义<code class="docutils literal notranslate"><span class="pre">main()</span></code>函数。这个函数就是我们之前在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中看到的那个entry
+<p>定义好我们的HelloWorldNode类后，我们可以开始定义<code class="docutils literal notranslate"><span class="pre">main()</span></code>函数。这个函数就是我们之前在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中看到的那个entry
 point。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
@@ -652,8 +635,8 @@ point。</p>
 collector也会帮忙摧毁这个节点。</p>
 <p>到此，我们创建了第一个ROS2节点！</p>
 </div>
-<div class="section" id="id6">
-<h3><span class="section-number">17.3.2.4. </span>第一次编译和运行<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><span class="section-number">17.3.2.4. </span>第一次编译和运行<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>让我们尝试编译新编写的这个库。这里，我们并不是真的要编译一个Python项目，而是将我们写的Python库安装到一个ROS2能找到的地方。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># cd &lt;workspace&gt;</span>
 <span class="nb">cd</span> openmlsys-ros2
@@ -690,8 +673,8 @@ data: <span class="s1">&#39;Hello World: 24&#39;</span>
 <p>这代表着我们的信息确实被发布到了目标主题上。因为<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">echo</span> <span class="pre">&lt;topic_name&gt;</span></code>这条命令输出的就是给定名字的主题所接收到的信息。</p>
 <p>恭喜！您已成功运行了您的第一个ROS2节点！</p>
 </div>
-<div class="section" id="id7">
-<h3><span class="section-number">17.3.2.5. </span>一个消息订阅者节点<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><span class="section-number">17.3.2.5. </span>一个消息订阅者节点<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>只是发布消息并不能组成一个完整的流程，我们还需要一个消息订阅者来消费我们发布的信息。</p>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">message_subscriber.py</span></code>的文件，并添加以下内容：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
@@ -724,7 +707,7 @@ data: <span class="s1">&#39;Hello World: 24&#39;</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>这个新添加的文件以及其中的消息订阅者节点类和上面的HelloWorld节点类十分相似，甚至更为简单些。我们只需要在初始化时通过基类初始化方法赋予节点<code class="docutils literal notranslate"><span class="pre">my_hello_world_subscriber</span></code>这个名字，然后创建一个消息订阅者来订阅<code class="docutils literal notranslate"><span class="pre">hello_world_topic</span></code>主题下的消息，并指定<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>方法来处理接收到的消息。而在<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>中，我们将接收到的消息记录进日志。<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法则和HelloWorld节点类的基本一样。</p>
+<p>这个新添加的文件以及其中的消息订阅者节点类和上面的HelloWorldNode类十分相似，甚至更为简单些。我们只需要在初始化时通过基类初始化方法赋予节点<code class="docutils literal notranslate"><span class="pre">my_hello_world_subscriber</span></code>这个名字，然后创建一个消息订阅者来订阅<code class="docutils literal notranslate"><span class="pre">hello_world_topic</span></code>主题下的消息，并指定<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>方法来处理接收到的消息。而在<code class="docutils literal notranslate"><span class="pre">subscriber_callback()</span></code>中，我们将接收到的消息记录进日志。<code class="docutils literal notranslate"><span class="pre">main()</span></code>方法则和HelloWorld节点类的基本一样。</p>
 <p>在能正式使用这个新节点之前，我们需要将其添加成为一个entry
 point。为此，我们只需在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>的对应位置添加下面这行：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;message_subscriber = my_hello_world.message_subscriber:main&#39;</span>
@@ -746,8 +729,8 @@ World消息，而终端窗口2中则不断显示收到了第N号Hello World消�
 <p>恭喜！你完成了一对ROS2节点，一个负责发送信息，一个负责订阅接受信息。</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><span class="section-number">17.3.3. </span>ROS2参数<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2><span class="section-number">17.3.3. </span>ROS2参数<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>顺利完成上面的消息发布者和消息订阅者是个很好的开始，但是实际项目的节点不会这么简单。
 至少，实际项目的节点会是参数化的。下面，就让我们一起看看怎样让一个节点读取一个参数。</p>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">parametrised_hello_world_node.py</span></code>的文件，并添加以下内容：</p>
@@ -814,12 +797,12 @@ World: N</em>”这样的信息。此时节点使用的是<code class="docutils 
 ROS2: N</em>”。</p>
 <p>恭喜！你现在掌握了如何让ROS2节点（和其它类型的ROS2程序）使用参数的方法。</p>
 </div>
-<div class="section" id="id9">
-<h2><span class="section-number">17.3.4. </span>ROS2服务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2><span class="section-number">17.3.4. </span>服务端-客户端服务模式<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>在上一章节中我们知道了ROS2框架除了发布者-订阅者这种通信模式，还有服务端-客户端这种模式。
 在这一小节中，我们将通过一个简单的串联两个字符串的服务来演示如何使用这种模式。</p>
-<div class="section" id="id10">
-<h3><span class="section-number">17.3.4.1. </span>自定义的服务接口<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">17.3.4.1. </span>自定义的服务接口<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>在正式开始编写服务端和客户端的代码之前，我们需要先定义好它们之间进行沟通的信息接口。</p>
 <p>ROS2框架内有三种类型的信息接口：</p>
 <ul class="simple">
@@ -879,10 +862,10 @@ colcon build --packages-select my_interfaces
 遇到这类错误多半是因为所使用的Python虚拟环境并不是指向Ubuntu系统Python3或<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>并没有被包含在虚拟环境中。
 读者可能需要删除当前的虚拟环境并按照本章节开头所讲解的那样重新创建一个符合要求的虚拟环境。</p>
 <p>我们可以通过在新的终端窗口运行<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">my_interfaces/srv/ConcatTwoStr</span></code>来验证是否已经编译成功了。成功的话终端会显示自定义服务接口<code class="docutils literal notranslate"><span class="pre">ConcatTwoStr</span></code>的具体定义。</p>
-<p>现在，我们定义好了需要使用的服务接口，下面可以开始编写我们的服务段和客户端了。</p>
+<p>现在，我们定义好了需要使用的服务接口，下面可以开始编写我们的服务端和客户端了。</p>
 </div>
-<div class="section" id="id11">
-<h3><span class="section-number">17.3.4.2. </span>ROS2服务端<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">17.3.4.2. </span>ROS2服务端<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">concat_two_str_service.py</span></code>的文件，并添加以下内容：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">my_interfaces.srv</span> <span class="kn">import</span> <span class="n">ConcatTwoStr</span>
 
@@ -922,8 +905,8 @@ point添加到<code class="docutils literal notranslate"><span class="pre">setup
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">17.3.4.3. </span>ROS2客户端<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3><span class="section-number">17.3.4.3. </span>ROS2客户端<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">concat_two_str_client_async.py</span></code>的文件，并添加以下内容：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
@@ -982,9 +965,6 @@ point添加到<code class="docutils literal notranslate"><span class="pre">setup
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;concat_two_str_client_async = my_hello_world.concat_two_str_client_async:main&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id13">
-<h3><span class="section-number">17.3.4.4. </span>确认正常运行<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>我们现在编写好了我们的服务端和客户端，让我们在工作区根目录下重新编译一边<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>库。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
 colcon build --packages-select my_hello_world --symlink-install
@@ -1014,11 +994,11 @@ str2: World
 </div>
 </div>
 <div class="section" id="id14">
-<span id="id15"></span><h2><span class="section-number">17.3.5. </span>ROS2动作<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">17.3.5. </span>动作模式<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <p>在上一章节中我们了解了ROS2框架内的服务端-客户端模式。这样一来，我们只剩下动作（action）这一种模式了。
 在这一小节中，我们将通过一个简单的逐个累加一个数列的每项元素来求和的动作来演示如何使用这种模式。</p>
-<div class="section" id="id16">
-<h3><span class="section-number">17.3.5.1. </span>自定义的动作接口<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3><span class="section-number">17.3.5.1. </span>自定义的动作接口<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>在正式开始编写动作相关的节点代码之前，我们需要先定义好动作的信息接口。</p>
 <p>我们可以继续使用之前建好的<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>库。
 让我们在<code class="docutils literal notranslate"><span class="pre">my_interfaces/action</span></code>中新建一个<code class="docutils literal notranslate"><span class="pre">MySum.action</span></code>文件，并添加以下内容。</p>
@@ -1036,8 +1016,8 @@ str2: World
 <p>接下来，让我们在<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>中添加这个新的信息接口。具体来说只用将<code class="docutils literal notranslate"><span class="pre">&quot;action/MySum.action&quot;</span></code>添加到<code class="docutils literal notranslate"><span class="pre">rosidl_generate_interfaces()</span></code>方法内的<code class="docutils literal notranslate"><span class="pre">&quot;srv/ConcatTwoStr.srv&quot;</span></code>之后即可。</p>
 <p>最后别忘了编译所做的更改：在工作区根目录中运行<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--packages-select</span> <span class="pre">my_interface</span></code>。</p>
 </div>
-<div class="section" id="id17">
-<h3><span class="section-number">17.3.5.2. </span>ROS2动作服务器<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3><span class="section-number">17.3.5.2. </span>ROS2动作服务器<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">my_sum_action_server.py</span></code>的文件，并添加以下内容：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionServer</span>
@@ -1090,8 +1070,8 @@ point。我们只需在<code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 </div>
-<div class="section" id="id18">
-<h3><span class="section-number">17.3.5.3. </span>ROS2动作客户端<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3><span class="section-number">17.3.5.3. </span>ROS2动作客户端<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>让我们在<code class="docutils literal notranslate"><span class="pre">hello_world_node.py</span></code>所在的文件夹内新建一个名为<code class="docutils literal notranslate"><span class="pre">my_sum_action_client.py</span></code>的文件，并添加以下内容：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">rclpy</span>
@@ -1165,10 +1145,7 @@ point。我们只需在<code class="docutils literal notranslate"><span class="p
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;my_sum_action_client = my_hello_world.my_sum_action_client:main&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id19">
-<h3><span class="section-number">17.3.5.4. </span>确认正常运行<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
-<p>我们现在编写好了我们的动作服务器和动作客户端，让我们在工作区根目录下重新编译一边<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>库。</p>
+<p>我们现在编写好了我们的动作服务器和动作客户端，让我们在工作区根目录下重新编译一遍<code class="docutils literal notranslate"><span class="pre">my_hello_world</span></code>库。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
 colcon build --packages-select my_hello_world --symlink-install
 </pre></div>
@@ -1201,10 +1178,6 @@ ros2 run my_hello_world my_sum_action_server
 <p>恭喜！您现在已经了解如何在ROS2框架中新建自定义的接口类型和创建动作服务端节点和动作客户端节点了！</p>
 </div>
 </div>
-<div class="section" id="id20">
-<h2><span class="section-number">17.3.6. </span>小结<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
-<p>在本章节中，我们了解了怎样安装ROS2和在Python虚拟环境中进行ROS2项目的开发。然后我们通过一些案例来更加深入的了解了ROS2的一些核心概念，即节点，主题，参数，服务，和动作。</p>
-</div>
 </div>
 
 
@@ -1216,39 +1189,36 @@ ros2 run my_hello_world my_sum_action_server
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">17.3. 机器人操作系统（ROS）的入门案例</a><ul>
+<li><a class="reference internal" href="#">17.3. 案例分析：使用机器人操作系统</a><ul>
 <li><a class="reference internal" href="#ros2-foxy-fitzroy">17.3.1. 安装ROS2 Foxy Fitzroy</a><ul>
 <li><a class="reference internal" href="#locale-utf-8">17.3.1.1. 系统区域（locale）需要支持UTF-8</a></li>
-<li><a class="reference internal" href="#id1">17.3.1.2. 设置软件源</a></li>
+<li><a class="reference internal" href="#id2">17.3.1.2. 设置软件源</a></li>
 <li><a class="reference internal" href="#ros2">17.3.1.3. 安装ROS2</a></li>
-<li><a class="reference internal" href="#id2">17.3.1.4. 环境设置</a></li>
-<li><a class="reference internal" href="#id3">17.3.1.5. 测试安装成功</a></li>
+<li><a class="reference internal" href="#id3">17.3.1.4. 环境设置</a></li>
+<li><a class="reference internal" href="#id4">17.3.1.5. 测试安装成功</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ros2hello-world">17.3.2. ROS2节点和Hello World</a><ul>
-<li><a class="reference internal" href="#id4">17.3.2.1. 新建一个ROS2项目</a></li>
+<li><a class="reference internal" href="#id5">17.3.2.1. 新建一个ROS2项目</a></li>
 <li><a class="reference internal" href="#ros2python">17.3.2.2. 新建一个ROS2框架下的Python库</a></li>
-<li><a class="reference internal" href="#id5">17.3.2.3. 第一个ROS2节点</a></li>
-<li><a class="reference internal" href="#id6">17.3.2.4. 第一次编译和运行</a></li>
-<li><a class="reference internal" href="#id7">17.3.2.5. 一个消息订阅者节点</a></li>
+<li><a class="reference internal" href="#id6">17.3.2.3. 第一个ROS2节点</a></li>
+<li><a class="reference internal" href="#id7">17.3.2.4. 第一次编译和运行</a></li>
+<li><a class="reference internal" href="#id8">17.3.2.5. 一个消息订阅者节点</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">17.3.3. ROS2参数</a></li>
-<li><a class="reference internal" href="#id9">17.3.4. ROS2服务</a><ul>
-<li><a class="reference internal" href="#id10">17.3.4.1. 自定义的服务接口</a></li>
-<li><a class="reference internal" href="#id11">17.3.4.2. ROS2服务端</a></li>
-<li><a class="reference internal" href="#id12">17.3.4.3. ROS2客户端</a></li>
-<li><a class="reference internal" href="#id13">17.3.4.4. 确认正常运行</a></li>
+<li><a class="reference internal" href="#id9">17.3.3. ROS2参数</a></li>
+<li><a class="reference internal" href="#id10">17.3.4. 服务端-客户端服务模式</a><ul>
+<li><a class="reference internal" href="#id11">17.3.4.1. 自定义的服务接口</a></li>
+<li><a class="reference internal" href="#id12">17.3.4.2. ROS2服务端</a></li>
+<li><a class="reference internal" href="#id13">17.3.4.3. ROS2客户端</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14">17.3.5. ROS2动作</a><ul>
-<li><a class="reference internal" href="#id16">17.3.5.1. 自定义的动作接口</a></li>
-<li><a class="reference internal" href="#id17">17.3.5.2. ROS2动作服务器</a></li>
-<li><a class="reference internal" href="#id18">17.3.5.3. ROS2动作客户端</a></li>
-<li><a class="reference internal" href="#id19">17.3.5.4. 确认正常运行</a></li>
+<li><a class="reference internal" href="#id14">17.3.5. 动作模式</a><ul>
+<li><a class="reference internal" href="#id15">17.3.5.1. 自定义的动作接口</a></li>
+<li><a class="reference internal" href="#id16">17.3.5.2. ROS2动作服务器</a></li>
+<li><a class="reference internal" href="#id17">17.3.5.3. ROS2动作客户端</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id20">17.3.6. 小结</a></li>
 </ul>
 </li>
 </ul>
@@ -1266,11 +1236,11 @@ ros2 run my_hello_world my_sum_action_server
             <div>17.2. 通用机器人操作系统</div>
          </div>
      </a>
-     <a id="button-next" href="perception.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+     <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>17.4. 感知系统</div>
+            <div>17.4. 总结</div>
         </div>
      </a>
   </div>

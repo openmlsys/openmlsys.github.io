@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>6.1. 概述 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>6.2. AI编译器前端技术概述 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -25,16 +25,16 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.2. 中间表示" href="intermediate_representation.html" />
-    <link rel="prev" title="6. 编译器前端" href="index.html" /> 
+    <link rel="next" title="6.3. 中间表示" href="intermediate_representation.html" />
+    <link rel="prev" title="6.1. AI编译器设计原理" href="ai_compiler_design_principle.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">6. </span>编译器前端</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">6.1. </span>概述</a>
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">6. </span>AI编译器和前端技术</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">6.2. </span>AI编译器前端技术概述</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -121,14 +121,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. 编译器前端</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. AI编译器和前端技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -137,8 +138,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -222,18 +224,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -301,14 +295,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. 编译器前端</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. AI编译器和前端技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -317,8 +312,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -402,18 +398,10 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -436,26 +424,30 @@ Show Source
     <div class="document">
         <div class="page-content" role="main">
         
-  <div class="section" id="id1">
-<h1><span class="section-number">6.1. </span>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>本章节将讨论重点放在中间表示与自动微分章节。自动微分作为机器学习框架的编译器的独有功能，其实现需要满足其需求的中间表示的支持。在讨论完这两部分后，我们会简要介绍类型系统，静态分析和前端编译优化等编译器基础概念。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">6.1.1. </span>中间表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="ai">
+<h1><span class="section-number">6.2. </span>AI编译器前端技术概述<a class="headerlink" href="#ai" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#compiler-frontend-struc"><span class="std std-numref">图6.2.1</span></a>展示了机器学习编译器前端的基础结构。其中，对源程序的解析过程与传统编译器是大致相同的，本章节不对这部分进行更细致的讨论。机器学习框架的编译器前端的独特之处主要在于对自动微分功能的支持。为了满足自动微分功能带来的新需求，机器学习框架需要在传统中间表示的基础上设计新的中间表示结构。因此，本章节的介绍重点会放在中间表示和自动微分这两个部分，随后会简要探讨类型系统、静态分析和前端优化等编译器的基础概念。</p>
+<div class="figure align-default" id="id5">
+<span id="compiler-frontend-struc"></span><a class="reference internal image-reference" href="../_images/编译器前端基础架构.svg"><img alt="../_images/编译器前端基础架构.svg" src="../_images/编译器前端基础架构.svg" width="800px" /></a>
+<p class="caption"><span class="caption-number">图6.2.1 </span><span class="caption-text">译器前端基础结构</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">6.2.1. </span>中间表示<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>中间表示是编译器用于表示源代码的数据结构或代码，是程序编译过程中介于源语言和目标语言之间的程序表示。传统机器学习框架的中间表示分为三大类，分别是线性中间表示，图中间表示以及混合中间表示。然而，传统编译器的中间表示难以完全满足机器学习框架对于中间表示的一系列需求。因此，机器学习框架的开发者在传统中间表示的设计基础上不断扩展，提出了很多适用于机器学习框架的中间表示。</p>
 </div>
-<div class="section" id="id3">
-<h2><span class="section-number">6.1.2. </span>自动微分<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><span class="section-number">6.2.2. </span>自动微分<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>自动微分（Automatic Differentiation，
 AD）是一种介于符号微分和数值微分之间的针对计算图进行符号解析的求导方法，用于计算函数梯度值。深度学习等现代AI算法通过使用大量数据来学习拟合出一个优化后带参模型，其中使用的学习算法多是基于现实数据在模型中的经验误差，通过梯度下降的方法来更新模型的参数。因此，自动微分在深度学习中处于非常重要的地位，是整个训练算法的核心组件之一。自动微分通常在编译器前端优化中实现，通过对中间表示的符号解析来生成带有梯度函数的中间表示。</p>
 </div>
-<div class="section" id="id4">
-<h2><span class="section-number">6.1.3. </span>类型系统与静态分析<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><span class="section-number">6.2.3. </span>类型系统与静态分析<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>为了有效减少程序在运行时可能出现的错误，编译器的前端引入了类型系统（Type
 System）和静态分析（Static
 Analysis）系统。类型系统可以防止程序在运行时发生类型错误，而静态分析能够为编译优化提供线索和信息，有效减少代码中存在的结构性错误、安全漏洞等问题。</p>
 </div>
-<div class="section" id="id5">
-<h2><span class="section-number">6.1.4. </span>前端编译优化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">6.2.4. </span>前端编译优化<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>编译优化意在解决代码的低效性，无论是在传统编译器还是在机器学习框架中都起着很重要的作用。前端的编译优化与硬件无关。</p>
 </div>
 </div>
@@ -469,11 +461,11 @@ Analysis）系统。类型系统可以防止程序在运行时发生类型错误
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">6.1. 概述</a><ul>
-<li><a class="reference internal" href="#id2">6.1.1. 中间表示</a></li>
-<li><a class="reference internal" href="#id3">6.1.2. 自动微分</a></li>
-<li><a class="reference internal" href="#id4">6.1.3. 类型系统与静态分析</a></li>
-<li><a class="reference internal" href="#id5">6.1.4. 前端编译优化</a></li>
+<li><a class="reference internal" href="#">6.2. AI编译器前端技术概述</a><ul>
+<li><a class="reference internal" href="#id1">6.2.1. 中间表示</a></li>
+<li><a class="reference internal" href="#id2">6.2.2. 自动微分</a></li>
+<li><a class="reference internal" href="#id3">6.2.3. 类型系统与静态分析</a></li>
+<li><a class="reference internal" href="#id4">6.2.4. 前端编译优化</a></li>
 </ul>
 </li>
 </ul>
@@ -484,18 +476,18 @@ Analysis）系统。类型系统可以防止程序在运行时发生类型错误
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="ai_compiler_design_principle.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>6. 编译器前端</div>
+            <div>6.1. AI编译器设计原理</div>
          </div>
      </a>
      <a id="button-next" href="intermediate_representation.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
          <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
         <div class="pagenation-text">
             <span class="pagenation-direction">Next</span>
-            <div>6.2. 中间表示</div>
+            <div>6.3. 中间表示</div>
         </div>
      </a>
   </div>

@@ -27,7 +27,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
-依照算法.. _algo-accelerator-gemm:\ ，编写CPU代码如代码如下。
+依照算法.. _algo-accelerator-gemm:\ ，编写CPU代码如下所示：
 
 .. code:: cpp
 

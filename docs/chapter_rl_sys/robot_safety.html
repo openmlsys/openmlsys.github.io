@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>17.10. 在机器人项目中安全的应用机器学习 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>在机器人项目中安全的应用机器学习 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -24,17 +24,14 @@
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.11. 小结" href="summary.html" />
-    <link rel="prev" title="17.9. 控制系统案例" href="control_code_ex.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.10. </span>在机器人项目中安全的应用机器学习</a>
+            <a class="mdl-navigation__link is-active">在机器人项目中安全的应用机器学习</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -91,7 +88,7 @@ Show Source
         
             
             <nav class="mdl-navigation">
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
@@ -121,14 +118,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -137,8 +135,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -221,19 +220,11 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -271,7 +262,7 @@ Show Source
         
             
             <nav class="mdl-navigation">
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
@@ -301,14 +292,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -317,8 +309,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -401,19 +394,11 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception.html">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -437,7 +422,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">17.10. </span>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>机器人和机器学习都是有广阔前景和令人兴奋的前沿领域，而当它们结合在一起后，会变得更加迷人，并且有远大于1+1&gt;2的效果。
 因此，当我们在机器人项目中应用机器学习时，我们很容易过于兴奋，尝试着用机器学习去做很多之前只能幻想的成果。
 然而，在机器人中应用机器学习和直接使用机器学习有着很多不同。
@@ -445,8 +430,8 @@ Show Source
 因此，<strong>当我们在机器人项目中应用机器学习时，我们必须时刻关注系统的安全性</strong>，保证无论是在产品开发时还是在产品上市后的使用期，开发者和用户的安全性都能得到可靠的保证。
 而且不仅商业项目要考虑安全性，开发个人项目是也需要确保安全性。
 没有人想因为安全性上的疏忽而对自己或朋友/同事造成无法挽回的遗憾。</p>
-<p>以上这些并不是危言耸听，让我们设想以下这些情况。</p>
-<p>假设你正在为你们公司开发一个物流仓库内使用的移动货运机器人，它被设计为和工人在同一工作环境内运行，以便在需要时及时帮工人搬运货物至目的地。
+<p>以上这些并不是危言耸听，让我们设想以下这些情况：
+假设你正在为你们公司开发一个物流仓库内使用的移动货运机器人，它被设计为和工人在同一工作环境内运行，以便在需要时及时帮工人搬运货物至目的地。
 这个机器人有一个视觉的行人识别系统，以便识别前方是否有人。
 当机器人在前进的过程中遇到障碍物的话，这个行人识别系统会参与决定机器人的行为。
 如果有人的话，机器人会选择绕大弯来避开行进道路上的行人障碍物；而如果没人的话，机器人可以绕小弯来避障。
@@ -460,25 +445,25 @@ Show Source
 我相信，没有人会想遇到这类突发事件。</p>
 <p>因此，无论是在怎样的机器人项目中应用机器学习，我们都必须时刻关注和确保系统的安全性。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">17.10.1. </span>确保安全性的办法：谨慎的风险评估和独立的安全系统<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h3><span class="section-number">17.10.1.1. </span>谨慎的风险评估<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>风险评估<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>为了能够确保机器人和机器学习系统的安全性，我们首先要知道可能有哪些危险。
-我们可以通过风险评估（risk assessment）来做到这一点。</p>
-<p>怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。
-我们想要强调的是，对于发现的风险，我们需要尽可能的给出一个避免风险的方案（risk
-mitigation）。
+我们可以通过风险评估（Risk Assessment）来做到这一点。
+怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。
+我们想要强调的是，对于发现的风险，我们需要尽可能的给出一个避免风险的方案（Risk
+Mitigation）。
 更重要的时，我们需要确保这些方案的具体执行，而不仅仅是流于表面的给出方案就完事。
 一份没有执行的方案等于没有方案。</p>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">17.10.1.2. </span>独立的安全系统<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>在了解了可能有哪些风险之后，我们可以通过设计一个独立的安全系统来规避掉风险中和机器人系统相关的那一部分。</p>
-<p>具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。
+<h3>独立的安全系统<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>在了解了可能有哪些风险之后，我们可以通过设计一个独立的安全系统来规避掉风险中和机器人系统相关的那一部分。
+具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。
 实际上，这个安全系统不应该只针对机器学习系统，而是应该针对整个机器人的方方面面。
 或者换句话来说，当开发机器人项目时，必须要有一个足够安全且独立的安全系统。
-而针对于机器学习系统的安全性只是这个独立安全系统“足够安全”的部分体现罢了。</p>
-<p>还是以之前的那个物流仓库移动货运机器人为例。
+而针对于机器学习系统的安全性只是这个独立安全系统“足够安全”的部分体现罢了。
+还是以之前的那个物流仓库移动货运机器人为例。
 如果机器人的轮子是有独立安全回路并且断电自动刹车的轮子，而机器人又有一个严格符合安全标准且也有安全回路的激光雷达来检测障碍物，同时这个激光雷达的安全回路直接连接至轮子的安全回路。
 这样一来，不管机器人是否检测到前方有人或突然有一个人闯入机器人行进路线，激光雷达都会检测到有异物，直接通过独立的安全回路将轮子断电并刹车，以确保不会发生碰撞。
 这样一个配置完全独立于任何控制逻辑，从而不受任何上层系统的影响。
@@ -486,7 +471,7 @@ mitigation）。
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">17.10.2. </span>机器学习系统的伦理问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>机器学习系统的伦理问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>除了上述讨论到的最根本的安全性问题，机器学习系统的伦理问题也会对机器人的使用造成影响。</p>
 <p>例如训练数据集中人种类型不平衡这一类经典的伦理问题。
 让我们还是以之前的那个物流仓库移动货运机器人为例。
@@ -494,10 +479,6 @@ mitigation）。
 虽然独立的安全系统可以避免事故的发生，但是急停在工人面前肯定不是一个很好的用户体验。
 我们机器人的海外销量也会受到影响。</p>
 <p>机器学习系统的伦理问题是目前比较火热的一个讨论领域。作为行业相关人员，我们需要了解这个方向上的最新进展。一方面是在系统设计的初期就把这些问题考虑进去，另一方面也是希望我们的成果能够给更多人带来幸福，而不是带去困扰。</p>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">17.10.3. </span>小结<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>在这一章节中，我们稍微讨论了下怎样在机器人项目中安全的应用机器学习。我们确认了执行一份谨慎的风险检测和设计一个独立的安全系统是一个不错的办法。最后我们也稍微探讨了下机器学习系统的伦理问题。希望大家都能安全的在机器人项目中运用最新的机器学习技术！</p>
 </div>
 </div>
 
@@ -510,14 +491,13 @@ mitigation）。
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">17.10. 在机器人项目中安全的应用机器学习</a><ul>
-<li><a class="reference internal" href="#id2">17.10.1. 确保安全性的办法：谨慎的风险评估和独立的安全系统</a><ul>
-<li><a class="reference internal" href="#id3">17.10.1.1. 谨慎的风险评估</a></li>
-<li><a class="reference internal" href="#id4">17.10.1.2. 独立的安全系统</a></li>
+<li><a class="reference internal" href="#">在机器人项目中安全的应用机器学习</a><ul>
+<li><a class="reference internal" href="#id2">确保安全性的办法：风险评估和独立的安全系统</a><ul>
+<li><a class="reference internal" href="#id3">风险评估</a></li>
+<li><a class="reference internal" href="#id4">独立的安全系统</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">17.10.2. 机器学习系统的伦理问题</a></li>
-<li><a class="reference internal" href="#id6">17.10.3. 小结</a></li>
+<li><a class="reference internal" href="#id5">机器学习系统的伦理问题</a></li>
 </ul>
 </li>
 </ul>
@@ -528,20 +508,6 @@ mitigation）。
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="control_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
-         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
-         <div class="pagenation-text">
-            <span class="pagenation-direction">Previous</span>
-            <div>17.9. 控制系统案例</div>
-         </div>
-     </a>
-     <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
-         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
-        <div class="pagenation-text">
-            <span class="pagenation-direction">Next</span>
-            <div>17.11. 小结</div>
-        </div>
-     </a>
   </div>
         
         </main>

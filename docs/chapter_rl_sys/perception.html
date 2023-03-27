@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>17.4. 感知系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>感知系统 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -24,17 +24,14 @@
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.5. 感知系统案例" href="perception_code_ex.html" />
-    <link rel="prev" title="17.3. 机器人操作系统（ROS）的入门案例" href="ros_code_ex.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
     <div class="mdl-layout__header-row">
         
         <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.4. </span>感知系统</a>
+            <a class="mdl-navigation__link is-active">感知系统</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -91,7 +88,7 @@ Show Source
         
             
             <nav class="mdl-navigation">
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
@@ -121,14 +118,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -137,8 +135,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -221,19 +220,11 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -271,7 +262,7 @@ Show Source
         
             
             <nav class="mdl-navigation">
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
@@ -301,14 +292,15 @@ Show Source
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. 编译器前端</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.2. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.3. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.4. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.5. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.7. 扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
@@ -317,8 +309,9 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.7. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
@@ -401,19 +394,11 @@ Show Source
 <li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rl_sys_intro.html">17.1. 机器人系统概述</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 机器人操作系统（ROS）的入门案例</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.4. 感知系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perception_code_ex.html">17.5. 感知系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning.html">17.6. 规划系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="planning_code_ex.html">17.7. 规划系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control.html">17.8. 控制系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_code_ex.html">17.9. 控制系统案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robot_safety.html">17.10. 在机器人项目中安全的应用机器学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.11. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">17.12. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
 </ul>
 </li>
 </ul>
@@ -437,15 +422,15 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">17.4. </span>感知系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>感知系统不仅可以包括视觉，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（例如通过相机重定位
-<a class="bibtex reference internal" href="summary.html#ding2019camnet" id="id2">[Ding et al., 2019]</a>），周围什么情况（例如通过3D物体检测
-<a class="bibtex reference internal" href="summary.html#yi2020segvoxelnet" id="id3">[Yi et al., 2020]</a>或语义分割），这些要依靠感知系统来实现
-<a class="bibtex reference internal" href="summary.html#xu2019depth" id="id4">[Xu et al., 2019]</a>。
+<h1>感知系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
+<a class="bibtex reference internal" href="summary.html#ding2019camnet" id="id2">[Ding et al., 2019]</a>），周围什么情况（通过3D物体检测
+<a class="bibtex reference internal" href="summary.html#yi2020segvoxelnet" id="id3">[Yi et al., 2020]</a>或语义分割），预测相机在空间的轨迹
+<a class="bibtex reference internal" href="summary.html#id5" id="id4">[Qiu et al., 2022]</a>，这些要依靠感知系统来实现 <a class="bibtex reference internal" href="summary.html#xu2019depth" id="id5">[Xu et al., 2019]</a>。
 一提到感知系统，不得不提的就是即时定位与建图（Simultaneous Localization
 and
 Mapping，SLAM)系统。SLAM大致过程包括地标提取、数据关联、状态估计、状态更新以及地标更新等。视觉里程计Visual
-Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动（Ego-motion）。ORB-SLAM系列是视觉SLAM中有代表性的工作， <a class="reference internal" href="#orbslam3"><span class="std std-numref">图17.4.1</span></a>
+Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动（Ego-motion）。ORB-SLAM系列是视觉SLAM中有代表性的工作， <a class="reference internal" href="rl_sys_intro.html#orbslam3"><span class="std std-numref">图17.1.3</span></a>
 展示了最新的ORB-SLAM3的主要系统组件。香港科技大学开源的基于单目视觉与惯导融合的SLAM技术VINS-Mono也很值得关注。多传感器融合、优化数据关联与回环检测、与前端异构处理器集成、提升鲁棒性和重定位精度都是SLAM技术接下来的发展方向。</p>
 <p>最近，随着机器学习的兴起，基于学习的SLAM框架也被提了出来。TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可以推广到多个数据集和现实世界场景，并优于传统基于几何的方法。
 UnDeepVO是一个无监督深度学习方案，能够通过使用深度神经网络估计单目相机的
@@ -455,9 +440,35 @@ Adjustment层对相机位姿和像素深度的反复迭代更新，具有很强�
 RGB-D 视频在测试时提高性能。其中，Bundle Adjustment
 (BA)与机器学习的结合被广泛研究。CMU提出通过主动神经 SLAM
 的模块化系统帮助智能机器人在未知环境中的高效探索。</p>
-<div class="figure align-default" id="id6">
+<div class="section" id="id6">
+<h2>物体检测与语义分割<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
+<a class="bibtex reference internal" href="summary.html#ding2019camnet" id="id7">[Ding et al., 2019]</a>），周围什么情况（通过3D物体检测
+<a class="bibtex reference internal" href="summary.html#yi2020segvoxelnet" id="id8">[Yi et al., 2020]</a>或语义分割），预测相机在空间的轨迹
+<a class="bibtex reference internal" href="summary.html#id5" id="id9">[Qiu et al., 2022]</a>，这些要依靠感知系统来实现 <a class="bibtex reference internal" href="summary.html#xu2019depth" id="id10">[Xu et al., 2019]</a>。</p>
+<p>图像语义分割作为一项常用而又经典的感知技术，经过多年不停的迭代，传统的2D技术已经渐渐的趋于成熟，提升空间较小。同时传统的2D语义分割有一定的局限性，很难从2D图像中直接获知物体的空间位置、以及其在整体空间中的布局，要知道整体空间的位置信息还是需要更多的三维信息。为了让机器人从单纯的2D图像出发，得到空间中物体三维的坐标、语义和边界信息，跨视角语义分割
+<a class="bibtex reference internal" href="summary.html#id4" id="id11">[Pan et al., 2020]</a>吸引了众多研究者的关注。</p>
+</div>
+<div class="section" id="slam">
+<h2>即时定位与建图（SLAM）<a class="headerlink" href="#slam" title="Permalink to this headline">¶</a></h2>
+<p>将一个机器人放到未知的环境中，如何能让它明白自己的位置和周围环境？这要靠即时定位与建图（Simultaneous
+Localization and Mapping，SLAM）系统来实现。</p>
+<p>图:numref:<cite>orbslam3</cite> 展示了最新的ORB-SLAM3的主要系统组件。
+SLAM大致过程包括地标提取、数据关联、状态估计、状态更新以及地标更新等。SLAM系统在机器人运动过程中通过重复观测到的地图特征（比如，墙角，柱子等）定位自身位置和姿态，再根据自身位置增量式的构建地图，从而达到同时定位和地图构建的目的。</p>
+<p>DROID-SLAM是用于单目、立体和 RGB-D 相机的深度视觉 SLAM，它通过Bundle
+Adjustment层对相机位姿和像素深度的反复迭代更新，具有很强的鲁棒性，故障大大减少，尽管对单目视频进行了训练，但它可以利用立体声或
+RGB-D 视频在测试时提高性能。 其中，Bundle Adjustment
+(BA)描述了像素坐标和重投影坐标之间误差的和，重投影坐标通常使用3D坐标点和相机参数计算得到。BA计算量较大较为耗时，爱丁堡大学提出通过分布式多GPU系统
+<a class="bibtex reference internal" href="summary.html#megba" id="id12">[Ren et al., 2022]</a>
+对BA计算进行加速。随着机器学习的发展，BA与机器学习的结合被广泛研究。</p>
+<p>视觉里程计Visual
+Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动。
+最近，随着机器学习的兴起，基于学习的VO框架也被提了出来。
+TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可以推广到多个数据集和现实世界场景，并优于传统基于几何的方法。</p>
+<div class="figure align-default" id="id14">
 <span id="orbslam3"></span><a class="reference internal image-reference" href="../_images/orbslam3.png"><img alt="../_images/orbslam3.png" src="../_images/orbslam3.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.4.1 </span><span class="caption-text">ORB-SLAM3主要系统组件 <a class="bibtex reference internal" href="summary.html#campos2021orb" id="id5">[Campos et al., 2021]</a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">ORB-SLAM3主要系统组件 <a class="bibtex reference internal" href="summary.html#campos2021orb" id="id13">[Campos et al., 2021]</a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 
@@ -465,25 +476,24 @@ RGB-D 视频在测试时提高性能。其中，Bundle Adjustment
         </div>
         <div class="side-doc-outline">
             <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">感知系统</a><ul>
+<li><a class="reference internal" href="#id6">物体检测与语义分割</a></li>
+<li><a class="reference internal" href="#slam">即时定位与建图（SLAM）</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
             </div>
         </div>
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="ros_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
-         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
-         <div class="pagenation-text">
-            <span class="pagenation-direction">Previous</span>
-            <div>17.3. 机器人操作系统（ROS）的入门案例</div>
-         </div>
-     </a>
-     <a id="button-next" href="perception_code_ex.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
-         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
-        <div class="pagenation-text">
-            <span class="pagenation-direction">Next</span>
-            <div>17.5. 感知系统案例</div>
-        </div>
-     </a>
   </div>
         
         </main>
