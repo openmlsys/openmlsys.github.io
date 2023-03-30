@@ -1955,14 +1955,14 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          </em>
          的导数即为：
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-0">
+        <div class="math notranslate nohighlight" id="equation-ch04-1">
          <span class="eqno">
           (4.2.1)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-0" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-1" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dx}~~~~~~~~~~~(3.1)\]
+         \[\frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dx}\]
         </div>
         <p>
          神经网络的反向传播是根据反向计算图的特定运算顺序来执行链式法则的算法。由于神经网络的输入通常为三维张量，输出为一维向量。因此将上述复合函数关于标量的梯度法则进行推广和扩展。假设
@@ -2003,26 +2003,26 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          </span>
          每一个元素的偏导数即为：
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-1">
+        <div class="math notranslate nohighlight" id="equation-ch04-2">
          <span class="eqno">
           (4.2.2)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-1" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-2" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{\partial z}{\partial x_i}=\sum_j\frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i}~~~~~~~~~~~(3.2)\]
+         \[\frac{\partial z}{\partial x_i}=\sum_j\frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i}\]
         </div>
         <p>
          上述公式可以等价的表示为：
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-2">
+        <div class="math notranslate nohighlight" id="equation-ch04-3">
          <span class="eqno">
           (4.2.3)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-2" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-3" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\nabla_{\boldsymbol{X}}\boldsymbol{z} = (\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}})^{\top}\nabla_{\boldsymbol{Y}}\boldsymbol{z}~~~~~~~~~~~(3.3)\]
+         \[\nabla_{\boldsymbol{X}}\boldsymbol{z} = (\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}})^{\top}\nabla_{\boldsymbol{Y}}\boldsymbol{z}\]
         </div>
         <p>
          其中
@@ -2040,10 +2040,12 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          的梯度矩阵。
         </p>
         <p>
-         为了便于理解链式法则在神经网络模型中的运用，给出如:numref:
-         <cite>
-          chain
-         </cite>
+         为了便于理解链式法则在神经网络模型中的运用，给出如
+         <a class="reference internal" href="#chain">
+          <span class="std std-numref">
+           图4.2.9
+          </span>
+         </a>
          所示前向和反向结合的简单计算图。这个神经网络模型经过两次矩阵相乘得到预测值
          <span class="math notranslate nohighlight">
           \(\boldsymbol{Y}\)
@@ -2117,7 +2119,15 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
 此处Label即为标签值。
         </p>
         <p>
-         得到损失函数之后，目的是最小化预测值和标签值间的差异。为此根据链式法则利用公式3.4和公式3.5来进行反向传播，来求解损失函数关于参数
+         得到损失函数之后，目的是最小化预测值和标签值间的差异。为此根据链式法则利用公式
+         <a class="reference internal" href="#equation-ch04-4">
+          (4.2.4)
+         </a>
+         和公式
+         <a class="reference internal" href="#equation-ch04-5">
+          (4.2.5)
+         </a>
+         来进行反向传播，来求解损失函数关于参数
          <span class="math notranslate nohighlight">
           \(\boldsymbol{W}\)
          </span>
@@ -2127,41 +2137,61 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          </span>
          的梯度值：
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-3">
+        <div class="math notranslate nohighlight" id="equation-ch04-4">
          <span class="eqno">
           (4.2.4)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-3" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-4" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W_1}}=\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{W_1}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}  ~~~~~~~~~~~(3.4)\]
+         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W_1}}=\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{W_1}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\]
         </div>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-4">
+        <div class="math notranslate nohighlight" id="equation-ch04-5">
          <span class="eqno">
           (4.2.5)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-4" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-5" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W}}=\frac{\partial \boldsymbol{X_1}}{\partial \boldsymbol{W}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X_1}}  ~~~~~~~~~~~(3.5)\]
+         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W}}=\frac{\partial \boldsymbol{X_1}}{\partial \boldsymbol{W}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X_1}}\]
         </div>
         <p>
-         可以看出公式3.4和公式3.5都计算了
+         可以看出公式
+         <a class="reference internal" href="#equation-ch04-4">
+          (4.2.4)
+         </a>
+         和公式
+         <a class="reference internal" href="#equation-ch04-5">
+          (4.2.5)
+         </a>
+         都计算了
          <span class="math notranslate nohighlight">
           \(\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\)
          </span>
-         对应图3.10中的grad
+         对应
+         <a class="reference internal" href="#chain">
+          <span class="std std-numref">
+           图4.2.9
+          </span>
+         </a>
+         中的grad
          <span class="math notranslate nohighlight">
           \(\boldsymbol{Y}\)
          </span>
-         。公式3.5中的
+         。公式
+         <a class="reference internal" href="#equation-ch04-5">
+          (4.2.5)
+         </a>
+         中的
          <span class="math notranslate nohighlight">
           \(\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X_1}}\)
          </span>
-         对应:numref:
-         <cite>
-          chain
-         </cite>
+         对应
+         <a class="reference internal" href="#chain">
+          <span class="std std-numref">
+           图4.2.9
+          </span>
+         </a>
          中的grad
          <span class="math notranslate nohighlight">
           \(\boldsymbol{X_1}\)
@@ -2197,29 +2227,48 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          <span class="math notranslate nohighlight">
           \(^2\)
          </span>
-         代入公式3.4和公式3.5展开为公
-式3.6和公式3.7，可以分析机器学习框架在利用链式法则构建反向计算图时，变量是如何具体参与到梯度计算中的。
+         代入公式
+         <a class="reference internal" href="#equation-ch04-4">
+          (4.2.4)
+         </a>
+         和公式
+         <a class="reference internal" href="#equation-ch04-5">
+          (4.2.5)
+         </a>
+         展开为公式
+         <a class="reference internal" href="#equation-ch04-6">
+          (4.2.6)
+         </a>
+         和公式
+         <a class="reference internal" href="#equation-ch04-7">
+          (4.2.7)
+         </a>
+         ，可以分析机器学习框架在利用链式法则构建反向计算图时，变量是如何具体参与到梯度计算中的。
         </p>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-5">
+        <div class="math notranslate nohighlight" id="equation-ch04-6">
          <span class="eqno">
           (4.2.6)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-5" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-6" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W_1}}=\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{W_1}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}=\boldsymbol{X_1}^\top(\boldsymbol{Y}-{\rm Label})     ~~~~~~~~~~~(3.6)\]
+         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W_1}}=\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{W_1}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}=\boldsymbol{X_1}^\top(\boldsymbol{Y}-{\rm Label})\]
         </div>
-        <div class="math notranslate nohighlight" id="equation-chapter-computational-graph-components-of-computational-graph-6">
+        <div class="math notranslate nohighlight" id="equation-ch04-7">
          <span class="eqno">
           (4.2.7)
-          <a class="headerlink" href="#equation-chapter-computational-graph-components-of-computational-graph-6" title="Permalink to this equation">
+          <a class="headerlink" href="#equation-ch04-7" title="Permalink to this equation">
            ¶
           </a>
          </span>
-         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W}}=\frac{\partial \boldsymbol{X_1}}{\partial \boldsymbol{W}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X_1}}=\boldsymbol{X}^\top(\boldsymbol{Y}-{\rm Label})\boldsymbol{W_1}^\top    ~~~~~~~~~~~(3.7)\]
+         \[\frac{\partial {\rm Loss}}{\partial \boldsymbol{W}}=\frac{\partial \boldsymbol{X_1}}{\partial \boldsymbol{W}}\frac{\partial {\rm Loss}}{\partial \boldsymbol{Y}}\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X_1}}=\boldsymbol{X}^\top(\boldsymbol{Y}-{\rm Label})\boldsymbol{W_1}^\top\]
         </div>
         <p>
-         公式3.6在计算
+         公式
+         <a class="reference internal" href="#equation-ch04-6">
+          (4.2.6)
+         </a>
+         在计算
          <span class="math notranslate nohighlight">
           \(\boldsymbol{W_1}\)
          </span>
@@ -2227,7 +2276,11 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          <span class="math notranslate nohighlight">
           \(\boldsymbol{X_1}\)
          </span>
-         。公式3.7中不仅使用输入数据
+         。公式
+         <a class="reference internal" href="#equation-ch04-7">
+          (4.2.7)
+         </a>
+         中不仅使用输入数据
          <span class="math notranslate nohighlight">
           \(\boldsymbol{X}\)
          </span>
@@ -2242,52 +2295,33 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
          的梯度值计算。因此可以回答第一个疑问，参与计算图中参数的梯度信息计算过程的不仅有后序网络层传递而来的梯度信息，还包含有前向计算中的中间结果和参数数值。
         </p>
         <p>
-         通过分析:numref:
-         <cite>
-          chain
-         </cite>
-         和公式3.4、3.5、3.6、3.7解决了两个疑问后，可以发现计算图在利用链式法则构建反向计算图时，会对计算过程进行分析保存模型中的中间结果和梯度传递状态，通过占用部分内存复用计算结果达到提高反向传播计算效率的目的。
+         通过分析
+         <a class="reference internal" href="#chain">
+          <span class="std std-numref">
+           图4.2.9
+          </span>
+         </a>
+         和公式
+         <a class="reference internal" href="#equation-ch04-4">
+          (4.2.4)
+         </a>
+         、
+         <a class="reference internal" href="#equation-ch04-5">
+          (4.2.5)
+         </a>
+         、
+         <a class="reference internal" href="#equation-ch04-6">
+          (4.2.6)
+         </a>
+         、
+         <a class="reference internal" href="#equation-ch04-7">
+          (4.2.7)
+         </a>
+         解决了两个疑问后，可以发现计算图在利用链式法则构建反向计算图时，会对计算过程进行分析保存模型中的中间结果和梯度传递状态，通过占用部分内存复用计算结果达到提高反向传播计算效率的目的。
         </p>
         <p>
          将上述的链式法则推导推广到更加一般的情况，结合控制流的灵活构造，机器学习框架均可以利用计算图快速分析出前向数据流和反向梯度流的计算过程，正确的管理中间结果内存周期，更加高效的完成计算任务。
         </p>
-        <!-- 上一小节中简单的循环控制模型前向传播可以表示为$\boldsymbol{Y}=\boldsymbol{W_2}(\boldsymbol{W_1}(\boldsymbol{W}(\boldsymbol{X})))$。在反向传播的过程中可以将前向计算等价为$\boldsymbol{Y}=\boldsymbol{W_2}\boldsymbol{X_2}$，首先得到参数$\boldsymbol{W_2}$的梯度表示。再接着根据$\boldsymbol{X_2}=\boldsymbol{W_1}\boldsymbol{X_1}$得到$\boldsymbol{W_1}$的梯度表示，按照层级即可推导得出$\boldsymbol{W}$的梯度表示：
-
-$$
-\begin{aligned}
-\nabla\boldsymbol{X_2} &= \nabla\boldsymbol{Y}\boldsymbol{W_2}^\top  \\
-\nabla\boldsymbol{W_2} &= \boldsymbol{X_2}^\top\nabla\boldsymbol{Y}   \\
-\nabla\boldsymbol{X_1} &= \nabla\boldsymbol{X_2}\boldsymbol{W_1}^\top = (\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top   \\
-\nabla\boldsymbol{W_1} &= \boldsymbol{X_1}^\top\nabla\boldsymbol{X_2} = \boldsymbol{X_1}^\top(\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)  \\
-\nabla\boldsymbol{X} &= \nabla\boldsymbol{X_1}\boldsymbol{W}^\top = ((\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top)\boldsymbol{W}^\top   \\
-\nabla\boldsymbol{W} &= \boldsymbol{X}^\top\nabla\boldsymbol{X_1} = \boldsymbol{X}^\top((\nabla\boldsymbol{Y}\boldsymbol{W_2}^\top)\boldsymbol{W_1}^\top)
-\end{aligned}
-$$
-
-根据链式法则，相应位置的导数乘积即可将网络得到的损失函数梯度信息传播到每一个权重参数，应用优化器的参数权重更新规则，即可达到神经网络模型参数训练迭代的目的。
-
-根据上述公式我们可以得出循环控制的反向梯度计算过程如下，在下面代码中变量的前缀*grad*代表变量梯度变量，*transpose*代表矩阵转置算子。
-
-```python
-grad_X2 = matmul(grad_Y, transpose(W2))
-grad_W2 = matmul(transpose(X2), grad_Y)
-grad_X1 = matmul(grad_X2, transpose(W1))
-grad_W1 = matmul(transpose(X1), grad_X2)
-grad_X = matmul(grad_X1, transpose(W))
-grad_W = matmul(transpose(X), grad_X1)
-```
-
-结合公式、代码以及 :numref:`chain`我们可以看出，在反向传播过程中使用到前向传播的中间变量。因此保存网络中间层输出状态和中间变量，尽管占用了部分内存但能够复用计算结果，达到了提高反向传播计算效率的目的。
-
-![反向传播局部计算图](../img/ch03/chain.svg)
-
-:width:`600px`
-
-
-:label:`chain`
-
-
-在深度学习计算框架中，控制流可以进行嵌套，比如多重循环和循环条件控制，计算图会对复杂控制流进行准确的描述，以便于执行正确的计算调度与执行任务。可以通过[代码示例](https://github.com/openmlsys/openmlsys-pytorch/blob/master/chapter_computational_graph/control_flow.py)查看在条件控制和循环控制下，前向和反向计算的数据流。 -->
        </div>
       </div>
      </div>
