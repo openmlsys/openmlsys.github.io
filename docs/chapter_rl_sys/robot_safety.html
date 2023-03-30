@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -172,21 +174,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -346,21 +348,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -422,7 +424,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>机器人和机器学习都是有广阔前景和令人兴奋的前沿领域，而当它们结合在一起后，会变得更加迷人，并且有远大于1+1&gt;2的效果。
 因此，当我们在机器人项目中应用机器学习时，我们很容易过于兴奋，尝试着用机器学习去做很多之前只能幻想的成果。
 然而，在机器人中应用机器学习和直接使用机器学习有着很多不同。
@@ -445,9 +447,9 @@ Show Source
 我相信，没有人会想遇到这类突发事件。</p>
 <p>因此，无论是在怎样的机器人项目中应用机器学习，我们都必须时刻关注和确保系统的安全性。</p>
 <div class="section" id="id2">
-<h2>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="id3">
-<h3>风险评估<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>风险评估<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>为了能够确保机器人和机器学习系统的安全性，我们首先要知道可能有哪些危险。
 我们可以通过风险评估（Risk Assessment）来做到这一点。
 怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。
@@ -457,7 +459,7 @@ Mitigation）。
 一份没有执行的方案等于没有方案。</p>
 </div>
 <div class="section" id="id4">
-<h3>独立的安全系统<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>独立的安全系统<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>在了解了可能有哪些风险之后，我们可以通过设计一个独立的安全系统来规避掉风险中和机器人系统相关的那一部分。
 具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。
 实际上，这个安全系统不应该只针对机器学习系统，而是应该针对整个机器人的方方面面。
@@ -471,7 +473,7 @@ Mitigation）。
 </div>
 </div>
 <div class="section" id="id5">
-<h2>机器学习系统的伦理问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>机器学习系统的伦理问题<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>除了上述讨论到的最根本的安全性问题，机器学习系统的伦理问题也会对机器人的使用造成影响。</p>
 <p>例如训练数据集中人种类型不平衡这一类经典的伦理问题。
 让我们还是以之前的那个物流仓库移动货运机器人为例。

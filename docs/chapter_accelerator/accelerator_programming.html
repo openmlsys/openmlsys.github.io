@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -176,21 +178,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -350,21 +352,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -426,13 +428,13 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="accelerator-program-title">
-<span id="id1"></span><h1><span class="section-number">8.3. </span>加速器基本编程原理<a class="headerlink" href="#accelerator-program-title" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">8.3. </span>加速器基本编程原理<a class="headerlink" href="#accelerator-program-title" title="Permalink to this heading">¶</a></h1>
 <p>本章前两节主要介绍了这些硬件加速器设计的意义、思路以及基本组成原理。软硬件协同优化作为构建高效AI系统的一个重要指导思想，需要软件算法/软件栈和硬件架构在神经网络应用中互相影响、紧密耦合。为了最大限度地发挥加速器的优势，要求能够基于硬件系统架构设计出一套较为匹配的指令或编程方法。因此，本节将着重介绍加速器的可编程性，以及如何通过编程使能加速器，提升神经网络算子的计算效率。</p>
 <div class="section" id="accelerator-programable-title">
-<span id="id2"></span><h2><span class="section-number">8.3.1. </span>硬件加速器的可编程性<a class="headerlink" href="#accelerator-programable-title" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><span class="section-number">8.3.1. </span>硬件加速器的可编程性<a class="headerlink" href="#accelerator-programable-title" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="accelerator_introduction.html#accelerator-design-title"><span class="std std-numref">8.1.2节</span></a>节中列出的硬件加速器均具有一定的可编程性，程序员可以通过软件编程，有效的使能上述加速器进行计算加速。现有硬件加速器常见的两类编程方式主要有编程接口调用以及算子编译器优化。</p>
 <div class="section" id="id3">
-<h3><span class="section-number">8.3.1.1. </span>编程接口使能加速器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.1.1. </span>编程接口使能加速器<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>硬件加速器出于计算效率和易用性等方面考虑，将编程使能方式分为不同等级，一般包括：算子库层级，编程原语层级，以及指令层级。为了更具象的解释上述层级的区别，仍以Volta架构的张量计算核心为例，由高层至底层对比介绍这三种不同编程方式：</p>
 <ul class="simple">
 <li><p><strong>算子库层级</strong>：如cuBLAS基本矩阵与向量运算库，cuDNN深度学习加速库，均通过Host端调用算子库提供的核函数使能张量计算核心；</p></li>
@@ -444,7 +446,7 @@ Device端内联编程使能张量计算核心。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">8.3.1.2. </span>算子编译器使能加速器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.1.2. </span>算子编译器使能加速器<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>DSA架构的多维度AI加速器通常提供了更多的指令选择（三维向量计算指令、二维向量计算指令、一维向量计算指令），以及更加复杂的数据流处理，通过提供接口调用的方式对程序开发人员带来较大的挑战。此外，由于调度、切分的复杂度增加，直接提供算子库的方式由于缺少根据目标形状（Shape）调优的能力，往往无法在所有形状下均得到最优的性能。因此，对于DSA加速器，业界通常采用算子编译器的解决方案。</p>
 <p>随着深度学习模型的迭代更新及各类AI芯片的层出不穷，基于人工优化算子的方式给算子开发团队带来沉重的负担。因此，开发一种能够将High-level的算子表示编译成目标硬件可执行代码的算子编译器，逐渐成为学术界及工业界的共识。算子编译器前端通常提供了特定领域描述语言（DSL），用于定义算子的计算范式；类似于传统编译器，算子编译器也会将算子计算表示转换为中间表示，如HalideIR
 <a class="bibtex reference internal" href="summary.html#ragan2013halide" id="id5">[Ragan-Kelley et al., 2013]</a>、TVM <a class="bibtex reference internal" href="summary.html#chen2018tvm" id="id6">[Chen et al., 2018]</a>的TIR、Schedule
@@ -500,7 +502,7 @@ DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合�
 </div>
 </div>
 <div class="section" id="diversified-programming-title">
-<span id="id13"></span><h2><span class="section-number">8.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#diversified-programming-title" title="Permalink to this headline">¶</a></h2>
+<span id="id13"></span><h2><span class="section-number">8.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#diversified-programming-title" title="Permalink to this heading">¶</a></h2>
 <p>矩阵乘法运算作为深度学习网络中占比最大的计算，对其进行优化是十分必要的。因此本节将统一以广义矩阵乘法为实例，对比介绍如何通过不同编程方式使能加速器。广义矩阵乘法指GEMM（General
 Matrix
 Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \alpha \bm{A}\times \bm{B} + \beta \bm{C}\)</span>，其中<span class="math notranslate nohighlight">\(\bm{A}\in\mathbb{R}^{M\times K}, \bm{B}\in\mathbb{R}^{K\times N}, \bm{C}\in\mathbb{R}^{M\times N}\)</span>。</p>
@@ -509,7 +511,7 @@ Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \al
 <p class="caption"><span class="caption-number">图8.3.5 </span><span class="caption-text">矩阵乘法GEMM运算</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="id15">
-<h3><span class="section-number">8.3.2.1. </span>编程接口使能加速器<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.2.1. </span>编程接口使能加速器<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><strong>算子库层级</strong></p></li>
 </ul>
@@ -519,32 +521,32 @@ Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \al
 <ol class="arabic simple">
 <li><p>创建cuBLAS对象句柄且设置对应数学计算模式</p></li>
 </ol>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasHandle_t</span> <span class="n">handle</span><span class="p">;</span>
-<span class="n">cublasStatus_t</span> <span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cublasCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
-<span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cublasSetMathMode</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">CUBLAS_TENSOR_OP_MATH</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasHandle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
+<span class="n">cublasStatus_t</span><span class="w"> </span><span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cublasCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+<span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cublasSetMathMode</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">CUBLAS_TENSOR_OP_MATH</span><span class="p">);</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>分配和初始化矩阵内存空间及内容元素</p></li>
 </ol>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">matrixSizeA</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">M</span> <span class="o">*</span> <span class="n">K</span><span class="p">;</span>
-<span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">devPtrA</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">matrixSizeA</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">devPtrA</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
-<span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cublasSetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">devPtrA</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">M</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="n">matrixSizeA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">M</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">K</span><span class="p">;</span>
+<span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">devPtrA</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">matrixSizeA</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">devPtrA</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
+<span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cublasSetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">devPtrA</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">M</span><span class="p">);</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>调用对应计算函数接口</p></li>
 </ol>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cublasGemmEx</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">transa</span><span class="p">,</span> <span class="n">transb</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span>
-                          <span class="n">A</span><span class="p">,</span> <span class="n">CUDA_R_16F</span><span class="p">,</span> <span class="n">lda</span><span class="p">,</span>
-                          <span class="n">B</span><span class="p">,</span> <span class="n">CUDA_R_16F</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span>
-                          <span class="n">beta</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">CUDA_R_16F</span><span class="p">,</span> <span class="n">ldc</span><span class="p">,</span> <span class="n">CUDA_R_32F</span><span class="p">,</span> <span class="n">algo</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cublasGemmEx</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">transa</span><span class="p">,</span><span class="w"> </span><span class="n">transb</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">CUDA_R_16F</span><span class="p">,</span><span class="w"> </span><span class="n">lda</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">CUDA_R_16F</span><span class="p">,</span><span class="w"> </span><span class="n">ldb</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">CUDA_R_16F</span><span class="p">,</span><span class="w"> </span><span class="n">ldc</span><span class="p">,</span><span class="w"> </span><span class="n">CUDA_R_32F</span><span class="p">,</span><span class="w"> </span><span class="n">algo</span><span class="p">);</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
 <li><p>传回结果数据</p></li>
 </ol>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasStat</span> <span class="o">=</span> <span class="n">cublasGetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">devPtrD</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">M</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">M</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cublasStat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cublasGetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="n">devPtrD</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">);</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
@@ -565,10 +567,10 @@ Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \al
 API接口。以线程束（即{Warp}，是调度的基本单位）为操纵对象，使能多个张量计算核心。该方式在CUDA
 9.0中被公开，程序员可通过添加API头文件的引用和命名空间定义来使用上述API接口。基于软硬件协同设计的基本思想，该层级编程API的设计多与架构绑定，如在Volta架构中WMMA操纵的总是<span class="math notranslate nohighlight">\(16\times16\)</span>大小的矩阵块，并且操作一次跨两张量计算核心进行处理，本质是与张量计算核心如何集成进SM中强相关的。在Volta架构下，针对FP16输入数据类型，NVIDIA官方提供了三种不同矩阵规模的WMMA乘累加计算接口，分别为<span class="math notranslate nohighlight">\(16\times16\times16\)</span>，<span class="math notranslate nohighlight">\(32\times8\times16\)</span>，<span class="math notranslate nohighlight">\(8\times32\times16\)</span>。
 该API接口操纵的基本单位为Fragment，是一种指明了矩阵含义（乘法器/累加器）、矩阵形状（<span class="math notranslate nohighlight">\(WMMA\_M, WMMA\_N, WMMA\_K\)</span>）、数据类型（FP16/FP32）、排布方式（<span class="math notranslate nohighlight">\(row\_major/ col\_major\)</span>）等信息的模板类型，包括如下：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">matrix_a</span><span class="p">,</span> <span class="n">WMMA_M</span><span class="p">,</span> <span class="n">WMMA_N</span><span class="p">,</span> <span class="n">WMMA_K</span><span class="p">,</span> <span class="n">half</span><span class="p">,</span> <span class="n">wmma</span><span class="o">::</span><span class="n">row_major</span><span class="o">&gt;</span> <span class="n">a_frag</span><span class="p">;</span>
-<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">matrix_b</span><span class="p">,</span> <span class="n">WMMA_M</span><span class="p">,</span> <span class="n">WMMA_N</span><span class="p">,</span> <span class="n">WMMA_K</span><span class="p">,</span> <span class="n">half</span><span class="p">,</span> <span class="n">wmma</span><span class="o">::</span><span class="n">col_major</span><span class="o">&gt;</span> <span class="n">b_frag</span><span class="p">;</span>
-<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">accumulator</span><span class="p">,</span> <span class="n">WMMA_M</span><span class="p">,</span> <span class="n">WMMA_N</span><span class="p">,</span> <span class="n">WMMA_K</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">acc_frag</span><span class="p">;</span>
-<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">accumulator</span><span class="p">,</span> <span class="n">WMMA_M</span><span class="p">,</span> <span class="n">WMMA_N</span><span class="p">,</span> <span class="n">WMMA_K</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">c_frag</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">matrix_a</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_M</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_N</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_K</span><span class="p">,</span><span class="w"> </span><span class="n">half</span><span class="p">,</span><span class="w"> </span><span class="n">wmma</span><span class="o">::</span><span class="n">row_major</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a_frag</span><span class="p">;</span>
+<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">matrix_b</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_M</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_N</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_K</span><span class="p">,</span><span class="w"> </span><span class="n">half</span><span class="p">,</span><span class="w"> </span><span class="n">wmma</span><span class="o">::</span><span class="n">col_major</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b_frag</span><span class="p">;</span>
+<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">accumulator</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_M</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_N</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_K</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">acc_frag</span><span class="p">;</span>
+<span class="n">wmma</span><span class="o">::</span><span class="n">fragment</span><span class="o">&lt;</span><span class="n">wmma</span><span class="o">::</span><span class="n">accumulator</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_M</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_N</span><span class="p">,</span><span class="w"> </span><span class="n">WMMA_K</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c_frag</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>使用时，需要将待执行乘法操作矩阵块的数据加载到寄存器，作为Fragment，在将累加Fragment初始化/清零操作后，通过张量计算核心执行乘累加运算，最后将运算结果的Fragment存回到内存。与上述操作对应的，NVIDIA提供了<span class="math notranslate nohighlight">\(wmma.load\_matrix\_sync(), wmma.store\_matrix\_sync()\)</span>接口用于将参与计算的子矩阵块写入/载出Fragment片段；<span class="math notranslate nohighlight">\(wmma.fill\_fragment()\)</span>接口用于初始化对应Fragment的数据；<span class="math notranslate nohighlight">\(wmma.mma\_sync()\)</span>接口用于对Fragment进行乘累加运算。</p>
@@ -577,20 +579,20 @@ API接口。以线程束（即{Warp}，是调度的基本单位）为操纵对�
 </ul>
 <p>在NVIDIA PTX ISA (Instruction Set
 Architecture)中提供了另一个编程接口，如Volta架构中的<span class="math notranslate nohighlight">\(mma.sync.m8n8k4\)</span>指令，它使用<span class="math notranslate nohighlight">\(M=8, N=8, K=4\)</span>的形状配置执行乘累加操作。该API接口操纵的基本单位为数据元素，除了需要指明矩阵尺寸（即修饰符<span class="math notranslate nohighlight">\(.m8n8k4\)</span>），还需要指明数据的排布类型（用修饰符<span class="math notranslate nohighlight">\(.row\)</span>或<span class="math notranslate nohighlight">\(.col\)</span>）以及输入累加器D、矩阵A、矩阵B及输出累加器C的数据格式（使用修饰符<span class="math notranslate nohighlight">\(.f32\)</span>或<span class="math notranslate nohighlight">\(.f16\)</span>等）。如要使用PTX指令集，还需要参考官方文档按照相应的语法规则编写，如代码所示。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">half_t</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
-<span class="kt">float</span> <span class="o">*</span><span class="n">C</span><span class="p">,</span> <span class="o">*</span><span class="n">D</span><span class="p">;</span>
-<span class="kt">unsigned</span> <span class="k">const</span><span class="o">*</span> <span class="n">A</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="kt">unsigned</span> <span class="k">const</span><span class="o">*</span> <span class="n">B</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">half_t</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">D</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
 
-<span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span>
-        <span class="s">&quot;mma.sync.aligned.m8n8k4.row.row.f32.f16.f16.f32 &quot;</span>
-        <span class="s">&quot;{%0,%1,%2,%3,%4,%5,%6,%7}, {%8,%9}, {%10,%11}, &quot;</span>
-        <span class="s">&quot;{%12,%13,%14,%15,%16,%17,%18,%19};</span><span class="se">\n</span><span class="s">&quot;</span>
-        <span class="o">:</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
-          <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span> <span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-        <span class="o">:</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-          <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
-          <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span> <span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">7</span><span class="p">]));</span>
+<span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;mma.sync.aligned.m8n8k4.row.row.f32.f16.f16.f32 &quot;</span>
+<span class="w">        </span><span class="s">&quot;{%0,%1,%2,%3,%4,%5,%6,%7}, {%8,%9}, {%10,%11}, &quot;</span>
+<span class="w">        </span><span class="s">&quot;{%12,%13,%14,%15,%16,%17,%18,%19};</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+<span class="w">          </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+<span class="w">          </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+<span class="w">          </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">7</span><span class="p">]));</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -600,7 +602,7 @@ API接口，可以控制线程束内线程与数据的映射关系，并允许AI
 API具有更好的灵活性。</p>
 </div>
 <div class="section" id="id16">
-<h3><span class="section-number">8.3.2.2. </span>算子编译器编程使能加速器<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">8.3.2.2. </span>算子编译器编程使能加速器<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <p>基于算子编译器使能加速器实现矩阵乘的流程则对用户更加友好。以在Ascend中使用TBE为例，用户只需基于python定义矩阵乘的tensor信息（数据类型及形状等），调用对应TBE接口即可。如代码所示：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
 <span class="n">b_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>

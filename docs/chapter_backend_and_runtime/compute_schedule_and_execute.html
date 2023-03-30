@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -22,7 +22,11 @@
   </script>
   <script src="../_static/underscore.js">
   </script>
+  <script src="../_static/_sphinx_javascript_frameworks_compat.js">
+  </script>
   <script src="../_static/doctools.js">
+  </script>
+  <script src="../_static/sphinx_highlight.js">
   </script>
   <script src="../_static/d2l.js">
   </script>
@@ -461,37 +465,37 @@
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/methods.html">
-           11.2. 分布式方法
+           11.2. 实现方法
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+          <a class="reference internal" href="../chapter_distributed_training/methods.html#id6">
            11.3. 流水线并行
           </a>
          </li>
          <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/cluster.html">
+           11.4. 机器学习集群架构
+          </a>
+         </li>
+         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/collective.html">
-           11.4. 集合通信
+           11.5. 集合通信
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-           11.5. 参数服务器
+           11.6. 参数服务器
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/summary.html">
-           11.6. 总结
+           11.7. 总结
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
-           11.7. 扩展阅读
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/summary.html#id3">
-           11.8. 参考文献
+           11.8. 拓展阅读
           </a>
          </li>
         </ul>
@@ -507,23 +511,23 @@
         </a>
         <ul>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/overview.html">
-           13.1. 背景
-          </a>
-         </li>
-         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-           13.2. 主流系统架构
+           13.1. 系统基本组成
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-           13.3. 现有解决方案及其存在的问题
+          <a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">
+           13.2. 多阶段推荐系统
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/future.html">
-           13.4. 未来可以探索的方向
+          <a class="reference internal" href="../chapter_recommender_system/model_update.html">
+           13.3. 模型更新
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_recommender_system/case_study.html">
+           13.4. 案例分析：支持在线模型更新的大型推荐系统
           </a>
          </li>
          <li class="toctree-l2">
@@ -1088,37 +1092,37 @@
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/methods.html">
-            11.2. 分布式方法
+            11.2. 实现方法
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+           <a class="reference internal" href="../chapter_distributed_training/methods.html#id6">
             11.3. 流水线并行
            </a>
           </li>
           <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/cluster.html">
+            11.4. 机器学习集群架构
+           </a>
+          </li>
+          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/collective.html">
-            11.4. 集合通信
+            11.5. 集合通信
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-            11.5. 参数服务器
+            11.6. 参数服务器
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/summary.html">
-            11.6. 总结
+            11.7. 总结
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
-            11.7. 扩展阅读
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/summary.html#id3">
-            11.8. 参考文献
+            11.8. 拓展阅读
            </a>
           </li>
          </ul>
@@ -1134,23 +1138,23 @@
          </a>
          <ul>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/overview.html">
-            13.1. 背景
-           </a>
-          </li>
-          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-            13.2. 主流系统架构
+            13.1. 系统基本组成
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-            13.3. 现有解决方案及其存在的问题
+           <a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">
+            13.2. 多阶段推荐系统
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/future.html">
-            13.4. 未来可以探索的方向
+           <a class="reference internal" href="../chapter_recommender_system/model_update.html">
+            13.3. 模型更新
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_recommender_system/case_study.html">
+            13.4. 案例分析：支持在线模型更新的大型推荐系统
            </a>
           </li>
           <li class="toctree-l2">
@@ -1354,7 +1358,7 @@
          7.5.
         </span>
         计算调度与执行
-        <a class="headerlink" href="#id1" title="Permalink to this headline">
+        <a class="headerlink" href="#id1" title="Permalink to this heading">
          ¶
         </a>
        </h1>
@@ -1367,7 +1371,7 @@
           7.5.1.
          </span>
          单算子调度
-         <a class="headerlink" href="#id2" title="Permalink to this headline">
+         <a class="headerlink" href="#id2" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -1437,7 +1441,7 @@
           7.5.2.
          </span>
          计算图调度
-         <a class="headerlink" href="#id3" title="Permalink to this headline">
+         <a class="headerlink" href="#id3" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -1685,7 +1689,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
           7.5.3.
          </span>
          交互式执行
-         <a class="headerlink" href="#id4" title="Permalink to this headline">
+         <a class="headerlink" href="#id4" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -2151,7 +2155,7 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
           7.5.4.
          </span>
          下沉式执行
-         <a class="headerlink" href="#id5" title="Permalink to this headline">
+         <a class="headerlink" href="#id5" title="Permalink to this heading">
           ¶
          </a>
         </h2>

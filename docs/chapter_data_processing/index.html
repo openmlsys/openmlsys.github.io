@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -174,21 +176,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -348,21 +350,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -424,7 +426,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">9. </span>数据处理框架<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9. </span>数据处理框架<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>在前两个章节中，我们介绍了编译器前后端的相关内容，详细地阐述了源程序到目标程序的转换优化过程。除了让芯片在训练/推理过程中高性能地运行，我们还需要将数据高效地发送给芯片，以实现全流程的性能最优。机器学习模型训练和推理需要从存储设备（如本地磁盘和内存、远端的存储系统等）中加载数据集，对数据集进行一系列处理变换，将处理结果发送到GPU或者华为昇腾Ascend等加速器中完成模型计算，该流程的任何一个步骤出现性能问题都会对训练和推理的吞吐率造成负面影响。本章我们将核心介绍如何设计、并实现一个面向机器学习场景的数据系统，以帮助用户轻松构建各种复杂的数据处理流水线(Data
 Pipeline)，同时我们的数据系统要有足够高的执行性能，以确保数据预处理步骤不会成为模型训练和推理的性能瓶颈。</p>
 <p>本章主要从易用性、高效性和保序性三个维度展开介绍机器学习系统中的数据模块。在前两个小节中，我们首先讨论如何构建一个易用的数据模块。包括如何设计编程抽象，使得用户通过短短几行代码便可以描述一个复杂的预处理过程；以及如何做到既内置丰富算子提升易用性，又可以灵活支持用户使用自定义算子覆盖长尾需求。用户构建好数据处理流程后，数据模块需要负责高效的调度执行数据流水线，以达到最优的数据处理吞吐率。高效的执行数据流水线是一个具有挑战性的任务，我们既要面临数据读取部分的I/O性能问题，又要解决数据处理部分的计算性能问题。针对上述挑战，我们将分别介绍面向高吞吐率读取性能的数据文件格式设计，以及能够充分发挥多核CPU算力的并行架构设计。不仅如此，和常规数据并行计算任务不同的是，大部分机器学习场景对于数据的输入输出顺序有着特殊的<code class="docutils literal notranslate"><span class="pre">保序性</span></code>的要求，我们将会使用一节的内容来介绍什么是保序性，以及如何在数据模块的并行架构中设计相应组件计来满足该特性需求。学习了上述的内容后，读者将会对如何构建一个面向机器学习场景高效易用的数据模块有深刻的理解。最后，作为拓展内容，我们将以目前学术界和业界的一些实践经验来介绍当单机处理性能达不到要求时，该如何去扩展我们的数据处理模块以满足训练性能需求。本章学习目标包括：</p>

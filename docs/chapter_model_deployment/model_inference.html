@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -176,21 +178,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -350,21 +352,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -426,7 +428,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">10.4. </span>模型推理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">10.4. </span>模型推理<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>训练模型经过前面的转换、压缩等流程后，需要部署在计算硬件上进行推理。执行推理主要包含以下步骤：</p>
 <ul class="simple">
 <li><p>前处理：将原始数据处理成适合网络输入的数据。</p></li>
@@ -434,9 +436,9 @@ Show Source
 <li><p>后处理：模型的输出结果做进一步的加工处理，如筛选阈值。</p></li>
 </ul>
 <div class="section" id="id2">
-<h2><span class="section-number">10.4.1. </span>前处理与后处理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">10.4.1. </span>前处理与后处理<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="id3">
-<h3><span class="section-number">10.4.1.1. </span>前处理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.4.1.1. </span>前处理<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>前处理主要完成数据预处理，在现实问题中，原始数据往往非常混乱，机器学习模型无法识别并从中提取信息。数据预处理的目的是将原始数据例如图片、语音、文本等，处理成适合网络输入的tensor数据，并消除其中无关的信息，恢复有用的真实信息，增强有关信息的可检测性，最大限度地简化数据，从而改进模型的特征抽取、图像分割、匹配和识别等可靠性。</p>
 <p>常见的数据预处理手段有：</p>
 <ul class="simple">
@@ -447,7 +449,7 @@ Show Source
 </ul>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">10.4.1.2. </span>后处理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.4.1.2. </span>后处理<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>通常，模型推理结束后，需要把推理的输出数据传递给用户完成后处理，常见的数据后处理手段有：</p>
 <ul class="simple">
 <li><p>连续数据离散化：模型实际用于预测离散数据，例如商品数量时，用回归模型预测得到的是连续值，需要四取五入、取上下限阈值等得到实际结果；</p></li>
@@ -457,7 +459,7 @@ Show Source
 </div>
 </div>
 <div class="section" id="ch08-sec-parallel-inference">
-<span id="id5"></span><h2><span class="section-number">10.4.2. </span>并行计算<a class="headerlink" href="#ch08-sec-parallel-inference" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2><span class="section-number">10.4.2. </span>并行计算<a class="headerlink" href="#ch08-sec-parallel-inference" title="Permalink to this heading">¶</a></h2>
 <p>为提升推理的性能，需要重复利用多核的能力，所以一般推理框架会引入多线程机制。主要的思路是将算子的输入数据进行切分，通过多线程去执行不同数据切片，实现算子并行计算，从而成倍提升算子计算性能。</p>
 <div class="figure align-default" id="id17">
 <span id="ch08-fig-parallel"></span><a class="reference internal image-reference" href="../_images/parallel.png"><img alt="../_images/parallel.png" src="../_images/parallel.png" style="width: 800px;" /></a>
@@ -473,10 +475,10 @@ for”，实现for循环体的代码被多线程并行执行。</p></li>
 </ul>
 </div>
 <div class="section" id="ch08-sec-kernel-optimization">
-<span id="id6"></span><h2><span class="section-number">10.4.3. </span>算子优化<a class="headerlink" href="#ch08-sec-kernel-optimization" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2><span class="section-number">10.4.3. </span>算子优化<a class="headerlink" href="#ch08-sec-kernel-optimization" title="Permalink to this heading">¶</a></h2>
 <p>在部署AI模型时，用户通常期望模型执行训练或推理的时间尽可能地短，以获得更优越的性能。对于深度学习网络，框架调度的时间占比往往很小，性能的瓶颈就在算子的执行。下面从硬件指令和算法角度介绍一些算子优化的方法。</p>
 <div class="section" id="id7">
-<h3><span class="section-number">10.4.3.1. </span>硬件指令优化<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.4.3.1. </span>硬件指令优化<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>绝大多数的设备上都有CPU，因此算子在CPU上的时间尤为重要，下面介绍一下在ARM
 CPU硬件指令优化的方法。</p>
 <ol class="arabic simple">
@@ -515,7 +517,7 @@ v0.4s, v1.4s, v2.4s，如图
 <p>（5）使用预取指令：将要使用到的数据从主存提前载入缓存，减少访问延迟。</p>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">10.4.3.2. </span>算法优化<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.4.3.2. </span>算法优化<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>多数AI模型的推理时间主要耗费在卷积、矩阵乘算子的计算上，占到了整网百分之九十甚至更多的时间。本小节主要介绍卷积算子算法方面的优化手段，可以应用到各种硬件设备上。</p>
 <p>卷积的计算可以转换为两个矩阵相乘，在前述
 <a class="reference internal" href="#ch08-sec-parallel-inference"><span class="std std-numref">10.4.2节</span></a>小节中，已经详细介绍了矩阵乘运算的优化。对于不同的硬件，确定合适的矩阵分块，优化数据访存与指令并行，可以最大限度的发挥硬件的算力，提升推理性能。</p>

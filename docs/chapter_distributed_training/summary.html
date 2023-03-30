@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-    <title>11.6. 总结 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+    <title>11.7. 总结 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
     <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
@@ -20,13 +20,15 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="12. 第三部分：拓展篇" href="../chapter_preface_extension/index.html" />
-    <link rel="prev" title="11.5. 参数服务器" href="parameter_servers.html" /> 
+    <link rel="prev" title="11.6. 参数服务器" href="parameter_servers.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
@@ -34,7 +36,7 @@
         
         <nav class="mdl-navigation breadcrumb">
             <a class="mdl-navigation__link" href="index.html"><span class="section-number">11. </span>分布式训练</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">11.6. </span>总结</a>
+            <a class="mdl-navigation__link is-active"><span class="section-number">11.7. </span>总结</a>
         </nav>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -175,21 +177,21 @@ Show Source
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 分布式训练</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -349,21 +351,21 @@ Show Source
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">11. 分布式训练</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -425,49 +427,29 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">11.6. </span>总结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11.7. </span>总结<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>大型机器学习模型的出现带来了对于算力和内存需求的快速增长，催生了分布式训练系统的出现。</p></li>
 <li><p>分布式训练系统的设计往往遵循“分而治之”的设计思路。</p></li>
-<li><p>利用分布式训练系统，人们可以显著提升性能，经济性，并且帮助抵御硬件故障。</p></li>
+<li><p>利用分布式训练系统，人们可以显著提升训练性能，体现经济性，并且帮助防范硬件故障。</p></li>
 <li><p>分布式训练系统可以通过数据并行增加设备来提升算力。</p></li>
-<li><p>当单节点内存不足时，我们可以通过模型并行来解决单设备内存不足。模型并行有两种实现方式：算子内并行和算子间并行。</p></li>
-<li><p>大型模型并行系统容易出现设备使用空洞，而这种空洞可以通过流水线并行解决。</p></li>
-<li><p>分布式训练系统往往运行在商用数据中心之中，数据中心网络无法提供充足的网络带宽来传输大量训练中生成的梯度。</p></li>
-<li><p>为了提供海量的带宽，机器学习集群拥有异构的网络：以太网，机内网络（NVLink）和InfiniBand。</p></li>
-<li><p>为了解决单节点瓶颈，我们可以使用Allreduce来分摊梯度聚合过程中的计算和通讯开销。</p></li>
-<li><p>参数服务器可以帮助机器学习集群实现计算-存储的分离，从而更好的支持大型稀疏模型。</p></li>
-<li><p>参数服务器常用数据副本技术解决数据热点问题，同时它们也可以被用来解决同步训练系统中常见的掉队者问题。</p></li>
+<li><p>当单节点内存不足时，可以通过模型并行解决单设备内存不足。模型并行有两种实现方式：算子内并行和算子间并行。</p></li>
+<li><p>大型模型并行系统容易出现设备使用气泡，而这种气泡可以通过流水线并行解决。</p></li>
+<li><p>分布式训练系统往往运行在计算集群之中，集群网络无法提供充足的网络带宽来传输大量训练中生成的梯度。</p></li>
+<li><p>为了提供海量的通信带宽，机器学习集群拥有异构的高性能网络，包括以太网、加速器高速互连技术NVLink和高带宽网络InfiniBand。</p></li>
+<li><p>为了解决单节点瓶颈，可以使用AllReduce算法来分摊梯度聚合过程中产生的计算和通信操作，同时实现负载均衡。</p></li>
+<li><p>参数服务器可以帮助实现灵活的梯度同步和异步训练，从而防范集群中可能出现的落后者服务器。</p></li>
+<li><p>参数服务器常用数据副本技术解决数据热点问题和防范硬件故障。</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h1><span class="section-number">11.7. </span>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11.8. </span>拓展阅读<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
-<li><p>分布式机器学习系统：<a class="reference external" href="https://dl.acm.org/doi/abs/10.1145/3377454">综述</a></p></li>
-<li><p>利用集合通信支持并行训练的实践：<a class="reference external" href="https://arxiv.org/abs/1802.05799">Horovod</a></p></li>
-<li><p>AllReduce的工程实现细节：<a class="reference external" href="https://developer.nvidia.com/blog/massively-scale-deep-learning-training-nccl-2-4/">树形结构</a>，<a class="reference external" href="https://github.com/baidu-research/baidu-allreduce">环形结构</a>，<a class="reference external" href="https://arxiv.org/abs/1811.05233">二维环面结构</a>，以及<a class="reference external" href="https://github.com/NVIDIA/nccl/issues/320">CollNet算法</a></p></li>
-<li><p>流水线并行的实践：<a class="reference external" href="https://arxiv.org/abs/1811.06965">gPipe</a></p></li>
-<li><p>在大规模数据并行下的实践：<a class="reference external" href="https://arxiv.org/abs/1706.02677">Accurate, Large Minibatch SGD: Training
-ImageNet in 1 Hour</a></p></li>
-<li><p>模型并行在超大模型上的实践：<a class="reference external" href="https://arxiv.org/abs/1910.02054">ZeRO</a></p></li>
-<li><p>最后，在讨论集合通信时，经常可以看到一些关于底层通信接口的专业术语，例如以太网，Infiniband
-等。这里给出一些常见术语的具体定义：</p>
-<ul>
-<li><p><a class="reference external" href="https://web.archive.org/web/20181222184046/http://www.mef.net/Assets/White_Papers/Metro-Ethernet-Services.pdf">以太网（Ethernet)</a></p></li>
-<li><p><a class="reference external" href="https://devblogs.nvidia.com/parallelforall/how-nvlink-will-enable-faster-easier-multi-gpu-computing/">NVLink</a></p></li>
-<li><p><a class="reference external" href="https://aws.amazon.com/cn/hpc/efa/">AWS Elastic Fabric Adapter
-(EFA)</a></p></li>
-<li><p><a class="reference external" href="https://www.infinibandta.org/about-infiniband/">Infiniband</a></p></li>
-<li><p><a class="reference external" href="http://reports.ias.ac.in/report/12829/understanding-the-concepts-and-mechanisms-of-rdma">RDMA</a></p></li>
-<li><p><a class="reference external" href="https://www.roceinitiative.org/about-overview/">RoCE</a></p></li>
-<li><p><a class="reference external" href="https://www.ibm.com/docs/en/aix/7.2?topic=protocol-internet-over-infiniband-ipoib">IPoIB</a></p></li>
+<li><p><a class="reference external" href="https://dl.acm.org/doi/abs/10.1145/3377454">分布式机器学习系统综述</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1802.05799">利用集合通信支持并行训练的实践：Horovod</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1811.06965">流水线并行的实践：gPipe</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1706.02677">利用数据并行在大型数据集上高效训练深度学习模型</a></p></li>
 </ul>
-</li>
-</ul>
-</div>
-<div class="section" id="id3">
-<h1><span class="section-number">11.8. </span>参考文献<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
-<p id="bibtex-bibliography-chapter_distributed_training/summary-0"></p>
 </div>
 
 
@@ -479,9 +461,8 @@ ImageNet in 1 Hour</a></p></li>
       <span class="caption-text">Table Of Contents</span>
     </p>
     <ul>
-<li><a class="reference internal" href="#">11.6. 总结</a></li>
-<li><a class="reference internal" href="#id2">11.7. 扩展阅读</a></li>
-<li><a class="reference internal" href="#id3">11.8. 参考文献</a></li>
+<li><a class="reference internal" href="#">11.7. 总结</a></li>
+<li><a class="reference internal" href="#id2">11.8. 拓展阅读</a></li>
 </ul>
 
 </div>
@@ -494,7 +475,7 @@ ImageNet in 1 Hour</a></p></li>
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>11.5. 参数服务器</div>
+            <div>11.6. 参数服务器</div>
          </div>
      </a>
      <a id="button-next" href="../chapter_preface_extension/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">

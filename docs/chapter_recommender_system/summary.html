@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,13 +20,15 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="14. 联邦学习系统" href="../chapter_federated_learning/index.html" />
-    <link rel="prev" title="13.4. 未来可以探索的方向" href="future.html" /> 
+    <link rel="prev" title="13.4. 案例分析：支持在线模型更新的大型推荐系统" href="case_study.html" /> 
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
@@ -175,21 +177,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">13. 深度学习推荐系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">13.7. 参考文献</a></li>
@@ -349,21 +351,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">13. 深度学习推荐系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">13.7. 参考文献</a></li>
@@ -425,64 +427,46 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">13.5. </span>小结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>推荐系统作为深度学习在工业界最成功的落地成果之一，极大地提升了用户的在线服务体验，并且为各大公司创造了可观的利润，然而也带来了许多系统层面的挑战亟待解决。本节简单介绍了典型的工业界推荐系统架构及其面临的挑战，并给出了潜在的解决方案的方向。在实际生产环境中，具体的系统设计方案需要根据不同推荐场景的需求而变化，不存在一种万能的解决方案。</p>
+<h1><span class="section-number">13.5. </span>小结<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>推荐系统作为深度学习在工业界最成功的落地成果之一，极大地提升了用户的在线使用体验，并且为各大公司创造了可观的利润，从而促使各大公司持续加大对推荐系统的投入。过去两年推荐模型的规模成指数增长，带来了许多系统层面的挑战亟待解决。在实际的生产环境中面临的问题与挑战是本章区区几千字难以概括的，因此工业级推荐系统的架构必然十分复杂，本章只能抛砖引玉地简单介绍一种典型的推荐系统组成的基本架构和运行过程，并介绍了推荐系统面临的持续更新模型的挑战和一种前沿的解决方案。面对实际生产环境，具体的系统设计方案需要根据不同推荐场景的需求而变化，不存在一种万能的解决方案。</p>
 </div>
 <div class="section" id="id2">
-<h1><span class="section-number">13.6. </span>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">13.6. </span>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>推荐模型：<a class="reference external" href="https://arxiv.org/abs/1606.07792">Wide &amp; Deep</a></p></li>
-<li><p>开源推荐系统框架：<a class="reference external" href="https://irsworkshop.github.io/2020/publications/paper_21_Oldridge_Merlin.pdf">Merlin</a></p></li>
-<li><p>软硬件协同设计加速超大规模深度学习推荐系统训练：<a class="reference external" href="https://arxiv.org/abs/2104.05158v5">ZionEX</a></p></li>
-<li><p>利用多级缓存支持超大规模深度学习推荐系统训练：<a class="reference external" href="https://arxiv.org/abs/2003.05622">Distributed
-Hierarchical GPU Parameter Server for Massive Scale Deep Learning Ads
-Systems</a></p></li>
-<li><p>工业界机器学习系统的实践：<a class="reference external" href="https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html">Hidden Technical Debt in Machine
-Learning
-Systems</a></p></li>
+<li><p>消息队列介绍：<a class="reference external" href="https://aws.amazon.com/message-queue/">什么是消息队列</a></p></li>
+<li><p>特征存储介绍：<a class="reference external" href="https://www.featurestore.org/what-is-a-feature-store">什么是机器学习中的特征存储</a></p></li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h1><span class="section-number">13.7. </span>参考文献<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">13.7. </span>参考文献<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h1>
 <p id="bibtex-bibliography-chapter_recommender_system/summary-0"><dl class="citation">
-<dt class="bibtex label" id="id4"><span class="brackets">Cheng et al., 2016</span></dt>
-<dd><p>Cheng, H.-T., Koc, L., Harmsen, J., Shaked, T., Chandra, T., Aradhye, H., … Shah, H. (2016). Wide &amp; deep learning for recommender systems. <em>Proceedings of the 1st Workshop on Deep Learning for Recommender Systems</em> (pp. 7–10). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/2988450.2988454">https://doi.org/10.1145/2988450.2988454</a>, <a class="reference external" href="https://doi.org/10.1145/2988450.2988454">doi:10.1145/2988450.2988454</a></p>
+<dt class="bibtex label" id="projectadam-186212"><span class="brackets">Chilimbi et al., 2014</span></dt>
+<dd><p>Chilimbi, T., Suzue, Y., Apacible, J., &amp; Kalyanaraman, K. (2014 , October). Project adam: building an efficient and scalable deep learning training system. <em>11th USENIX Symposium on Operating Systems Design and Implementation (OSDI 14)</em> (pp. 571–582). Broomfield, CO: USENIX Association. URL: <a class="reference external" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/chilimbi">https://www.usenix.org/conference/osdi14/technical-sessions/presentation/chilimbi</a></p>
 </dd>
-<dt class="bibtex label" id="ginart2021mixed"><span class="brackets">Ginart et al., 2021</span></dt>
-<dd><p>Ginart, A., Naumov, M., Mudigere, D., Yang, J., &amp; Zou, J. (2021). <em>Mixed Dimension Embeddings with Application to Memory-Efficient Recommendation Systems</em>.</p>
+<dt class="bibtex label" id="id4"><span class="brackets">Li et al., 2014</span></dt>
+<dd><p>Li, M., Andersen, D. G., Park, J. W., Smola, A. J., Ahmed, A., Josifovski, V., … Su, B.-Y. (2014 , October). Scaling distributed machine learning with the parameter server. <em>11th USENIX Symposium on Operating Systems Design and Implementation (OSDI 14)</em> (pp. 583–598). Broomfield, CO: USENIX Association. URL: <a class="reference external" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/li_mu">https://www.usenix.org/conference/osdi14/technical-sessions/presentation/li_mu</a></p>
 </dd>
-<dt class="bibtex label" id="gong2020edgerec"><span class="brackets">Gong et al., 2020</span></dt>
-<dd><p>Gong, Y., Jiang, Z., Feng, Y., Hu, B., Zhao, K., Liu, Q., &amp; Ou, W. (2020). Edgerec: recommender system on edge in mobile taobao. <em>Proceedings of the 29th ACM International Conference on Information &amp; Knowledge Management</em> (pp. 2477–2484).</p>
+<dt class="bibtex label" id="vectorset-10-1145-1243418-1243427"><span class="brackets">Malkhi et al., 2007</span></dt>
+<dd><p>Malkhi, D., Novik, L., &amp; Purcell, C. (2007 , April). P2p replica synchronization with vector sets. <em>SIGOPS Oper. Syst. Rev.</em>, <em>41</em>(2), 68–74. URL: <a class="reference external" href="https://doi.org/10.1145/1243418.1243427">https://doi.org/10.1145/1243418.1243427</a>, <a class="reference external" href="https://doi.org/10.1145/1243418.1243427">doi:10.1145/1243418.1243427</a></p>
 </dd>
-<dt class="bibtex label" id="ijcai2017-239"><span class="brackets">Guo et al., 2017</span></dt>
-<dd><p>Guo, H., TANG, R., Ye, Y., Li, Z., &amp; He, X. (2017). Deepfm: a factorization-machine based neural network for ctr prediction. <em>Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence, IJCAI-17</em> (pp. 1725–1731). URL: <a class="reference external" href="https://doi.org/10.24963/ijcai.2017/239">https://doi.org/10.24963/ijcai.2017/239</a>, <a class="reference external" href="https://doi.org/10.24963/ijcai.2017/239">doi:10.24963/ijcai.2017/239</a></p>
+<dt class="bibtex label" id="concisevv-10-1007-11561927-25"><span class="brackets">Malkhi &amp; Terry, 2005</span></dt>
+<dd><p>Malkhi, D., &amp; Terry, D. (2005). Fraigniaud, P. (Ed.). Concise version vectors in winfs. <em>Distributed Computing</em> (pp. 339–353). Berlin, Heidelberg: Springer Berlin Heidelberg.</p>
 </dd>
-<dt class="bibtex label" id="neurips2020-a1d4c20b"><span class="brackets">He et al., 2020</span></dt>
-<dd><p>He, C., Annavaram, M., &amp; Avestimehr, S. (2020). Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M. F., &amp; Lin, H. (Eds.). Group knowledge transfer: federated learning of large cnns at the edge. <em>Advances in Neural Information Processing Systems</em> (pp. 14068–14080). Curran Associates, Inc. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/a1d4c20b182ad7137ab3606f0e3fc8a4-Paper.pdf">https://proceedings.neurips.cc/paper/2020/file/a1d4c20b182ad7137ab3606f0e3fc8a4-Paper.pdf</a></p>
-</dd>
-<dt class="bibtex label" id="mlsys2021-ec895663"><span class="brackets">Jiang et al., 2021</span></dt>
-<dd><p>Jiang, W., He, Z., Zhang, S., Preuß er, T. B., Zeng, K., Feng, L., … Alonso, G. (2021). Smola, A., Dimakis, A., &amp; Stoica, I. (Eds.). Microrec: efficient recommendation inference by hardware and data structure solutions. <em>Proceedings of Machine Learning and Systems</em> (pp. 845–859). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2021/file/ec8956637a99787bd197eacd77acce5e-Paper.pdf">https://proceedings.mlsys.org/paper/2021/file/ec8956637a99787bd197eacd77acce5e-Paper.pdf</a></p>
+<dt class="bibtex label" id="merity2016pointer"><span class="brackets">Merity et al., 2016</span></dt>
+<dd><p>Merity, S., Xiong, C., Bradbury, J., &amp; Socher, R. (2016). Pointer sentinel mixture models. <em>arXiv preprint arXiv:1609.07843</em>.</p>
 </dd>
 <dt class="bibtex label" id="naumov2019deep"><span class="brackets">Naumov et al., 2019</span></dt>
 <dd><p>Naumov, M., Mudigere, D., Shi, H.-J. M., Huang, J., Sundaraman, N., Park, J., … others. (2019). Deep learning recommendation model for personalization and recommendation systems. <em>arXiv preprint arXiv:1906.00091</em>.</p>
 </dd>
-<dt class="bibtex label" id="merlin"><span class="brackets">NVIDIA, 2022</span></dt>
-<dd><p>NVIDIA (2022). <em>NVIDIA Merlin</em>. Accessed on 2022-03-24.</p>
+<dt class="bibtex label" id="russakovsky2015imagenet"><span class="brackets">Russakovsky et al., 2015</span></dt>
+<dd><p>Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., … Bernstein, M. (2015). Imagenet Large Scale Visual Recognition Challenge. <em>International Journal of Computer Vision (IJCV)</em>, <em>115</em>(3), 211–252.</p>
 </dd>
-<dt class="bibtex label" id="id5"><span class="brackets">Shi et al., 2020</span></dt>
-<dd><p>Shi, H.-J. M., Mudigere, D., Naumov, M., &amp; Yang, J. (2020). Compositional embeddings using complementary partitions for memory-efficient recommendation systems. <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em> (pp. 165–175). New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3394486.3403059">https://doi.org/10.1145/3394486.3403059</a>, <a class="reference external" href="https://doi.org/10.1145/3394486.3403059">doi:10.1145/3394486.3403059</a></p>
+<dt class="bibtex label" id="id5"><span class="brackets">Sima et al., 2022</span></dt>
+<dd><p>Sima, C., Fu, Y., Sit, M.-K., Guo, L., Gong, X., Lin, F., … Mai, L. (2022 , July). Ekko: a Large-Scale deep learning recommender system with Low-Latency model update. <em>16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22)</em> (pp. 821–839). Carlsbad, CA: USENIX Association. URL: <a class="reference external" href="https://www.usenix.org/conference/osdi22/presentation/sima">https://www.usenix.org/conference/osdi22/presentation/sima</a></p>
 </dd>
-<dt class="bibtex label" id="id6"><span class="brackets">Wang et al., 2017</span></dt>
-<dd><p>Wang, R., Fu, B., Fu, G., &amp; Wang, M. (2017). Deep &amp; cross network for ad click predictions. <em>Proceedings of the ADKDD‘17</em>. New York, NY, USA: Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3124749.3124754">https://doi.org/10.1145/3124749.3124754</a>, <a class="reference external" href="https://doi.org/10.1145/3124749.3124754">doi:10.1145/3124749.3124754</a></p>
-</dd>
-<dt class="bibtex label" id="id7"><span class="brackets">Xie et al., 2020</span></dt>
-<dd><p>Xie, M., Ren, K., Lu, Y., Yang, G., Xu, Q., Wu, B., … Shu, J. (2020). Kraken: memory-efficient continual learning for large-scale real-time recommendations. <em>SC20: International Conference for High Performance Computing, Networking, Storage and Analysis</em> (pp. 1–17). <a class="reference external" href="https://doi.org/10.1109/SC41405.2020.00025">doi:10.1109/SC41405.2020.00025</a></p>
-</dd>
-<dt class="bibtex label" id="mlsys2021-979d472a"><span class="brackets">Yin et al., 2021</span></dt>
-<dd><p>Yin, C., Acun, B., Wu, C.-J., &amp; Liu, X. (2021). Smola, A., Dimakis, A., &amp; Stoica, I. (Eds.). Tt-rec: tensor train compression for deep learning recommendation models. <em>Proceedings of Machine Learning and Systems</em> (pp. 448–462). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2021/file/979d472a84804b9f647bc185a877a8b5-Paper.pdf">https://proceedings.mlsys.org/paper/2021/file/979d472a84804b9f647bc185a877a8b5-Paper.pdf</a></p>
-</dd>
-<dt class="bibtex label" id="mlsys2020-f7e6c855"><span class="brackets">Zhao et al., 2020</span></dt>
-<dd><p>Zhao, W., Xie, D., Jia, R., Qian, Y., Ding, R., Sun, M., &amp; Li, P. (2020). Dhillon, I., Papailiopoulos, D., &amp; Sze, V. (Eds.). Distributed hierarchical gpu parameter server for massive scale deep learning ads systems. <em>Proceedings of Machine Learning and Systems</em> (pp. 412–428). URL: <a class="reference external" href="https://proceedings.mlsys.org/paper/2020/file/f7e6c85504ce6e82442c770f7c8606f0-Paper.pdf">https://proceedings.mlsys.org/paper/2020/file/f7e6c85504ce6e82442c770f7c8606f0-Paper.pdf</a></p>
+<dt class="bibtex label" id="yi2019sampling"><span class="brackets">Yi et al., 2019</span></dt>
+<dd><p>Yi, X., Yang, J., Hong, L., Cheng, D. Z., Heldt, L., Kumthekar, A., … Chi, E. (2019). Sampling-bias-corrected neural modeling for large corpus item recommendations. <em>Proceedings of the 13th ACM Conference on Recommender Systems</em> (pp. 269–277).</p>
 </dd>
 </dl>
 </p>
@@ -508,11 +492,11 @@ Systems</a></p></li>
 
       <div class="clearer"></div>
     </div><div class="pagenation">
-     <a id="button-prev" href="future.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+     <a id="button-prev" href="case_study.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
          <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
          <div class="pagenation-text">
             <span class="pagenation-direction">Previous</span>
-            <div>13.4. 未来可以探索的方向</div>
+            <div>13.4. 案例分析：支持在线模型更新的大型推荐系统</div>
          </div>
      </a>
      <a id="button-next" href="../chapter_federated_learning/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">

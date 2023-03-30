@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -22,7 +22,11 @@
   </script>
   <script src="../_static/underscore.js">
   </script>
+  <script src="../_static/_sphinx_javascript_frameworks_compat.js">
+  </script>
   <script src="../_static/doctools.js">
+  </script>
+  <script src="../_static/sphinx_highlight.js">
   </script>
   <script src="../_static/d2l.js">
   </script>
@@ -463,37 +467,37 @@
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/methods.html">
-           11.2. 分布式方法
+           11.2. 实现方法
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+          <a class="reference internal" href="../chapter_distributed_training/methods.html#id6">
            11.3. 流水线并行
           </a>
          </li>
          <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_distributed_training/cluster.html">
+           11.4. 机器学习集群架构
+          </a>
+         </li>
+         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/collective.html">
-           11.4. 集合通信
+           11.5. 集合通信
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-           11.5. 参数服务器
+           11.6. 参数服务器
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/summary.html">
-           11.6. 总结
+           11.7. 总结
           </a>
          </li>
          <li class="toctree-l2">
           <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
-           11.7. 扩展阅读
-          </a>
-         </li>
-         <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_distributed_training/summary.html#id3">
-           11.8. 参考文献
+           11.8. 拓展阅读
           </a>
          </li>
         </ul>
@@ -509,23 +513,23 @@
         </a>
         <ul>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/overview.html">
-           13.1. 背景
-          </a>
-         </li>
-         <li class="toctree-l2">
           <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-           13.2. 主流系统架构
+           13.1. 系统基本组成
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-           13.3. 现有解决方案及其存在的问题
+          <a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">
+           13.2. 多阶段推荐系统
           </a>
          </li>
          <li class="toctree-l2">
-          <a class="reference internal" href="../chapter_recommender_system/future.html">
-           13.4. 未来可以探索的方向
+          <a class="reference internal" href="../chapter_recommender_system/model_update.html">
+           13.3. 模型更新
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../chapter_recommender_system/case_study.html">
+           13.4. 案例分析：支持在线模型更新的大型推荐系统
           </a>
          </li>
          <li class="toctree-l2">
@@ -1090,37 +1094,37 @@
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/methods.html">
-            11.2. 分布式方法
+            11.2. 实现方法
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/pipeline.html">
+           <a class="reference internal" href="../chapter_distributed_training/methods.html#id6">
             11.3. 流水线并行
            </a>
           </li>
           <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_distributed_training/cluster.html">
+            11.4. 机器学习集群架构
+           </a>
+          </li>
+          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/collective.html">
-            11.4. 集合通信
+            11.5. 集合通信
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">
-            11.5. 参数服务器
+            11.6. 参数服务器
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/summary.html">
-            11.6. 总结
+            11.7. 总结
            </a>
           </li>
           <li class="toctree-l2">
            <a class="reference internal" href="../chapter_distributed_training/summary.html#id2">
-            11.7. 扩展阅读
-           </a>
-          </li>
-          <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_distributed_training/summary.html#id3">
-            11.8. 参考文献
+            11.8. 拓展阅读
            </a>
           </li>
          </ul>
@@ -1136,23 +1140,23 @@
          </a>
          <ul>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/overview.html">
-            13.1. 背景
-           </a>
-          </li>
-          <li class="toctree-l2">
            <a class="reference internal" href="../chapter_recommender_system/system_architecture.html">
-            13.2. 主流系统架构
+            13.1. 系统基本组成
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/system_problem.html">
-            13.3. 现有解决方案及其存在的问题
+           <a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">
+            13.2. 多阶段推荐系统
            </a>
           </li>
           <li class="toctree-l2">
-           <a class="reference internal" href="../chapter_recommender_system/future.html">
-            13.4. 未来可以探索的方向
+           <a class="reference internal" href="../chapter_recommender_system/model_update.html">
+            13.3. 模型更新
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="../chapter_recommender_system/case_study.html">
+            13.4. 案例分析：支持在线模型更新的大型推荐系统
            </a>
           </li>
           <li class="toctree-l2">
@@ -1356,7 +1360,7 @@
          6.3.
         </span>
         中间表示
-        <a class="headerlink" href="#id1" title="Permalink to this headline">
+        <a class="headerlink" href="#id1" title="Permalink to this heading">
          ¶
         </a>
        </h1>
@@ -1370,7 +1374,7 @@
           6.3.1.
          </span>
          中间表示的基本概念
-         <a class="headerlink" href="#id2" title="Permalink to this headline">
+         <a class="headerlink" href="#id2" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -1390,7 +1394,7 @@
          <span id="intermediate-representation">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-中间表示结构.png">
-          <img alt="../_images/中间表示-中间表示结构.png" src="../_images/中间表示-中间表示结构.png" style="width: 850px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA%E7%BB%93%E6%9E%84.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA%E7%BB%93%E6%9E%84.png" style="width: 850px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -1414,7 +1418,7 @@
           6.3.2.
          </span>
          中间表示的种类
-         <a class="headerlink" href="#id3" title="Permalink to this headline">
+         <a class="headerlink" href="#id3" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -1440,22 +1444,25 @@
           </caption>
           <colgroup>
            <col style="width: 19%"/>
-           <col style="width: 42%"/>
-           <col style="width: 39%"/>
+           <col style="width: 31%"/>
+           <col style="width: 50%"/>
           </colgroup>
           <thead>
            <tr class="row-odd">
             <th class="head">
              <p>
-              组织结构 特点
+              组织结构
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              特点
              </p>
             </th>
             <th class="head">
              <p>
               举例
              </p>
-            </th>
-            <th class="head">
             </th>
            </tr>
           </thead>
@@ -1468,12 +1475,12 @@
             </td>
             <td>
              <p>
-              基于线性代码 堆栈机代码、
+              基于线性代码
              </p>
             </td>
             <td>
              <p>
-              三地址代码
+              堆栈机代码、三地址代码
              </p>
             </td>
            </tr>
@@ -1485,12 +1492,12 @@
             </td>
             <td>
              <p>
-              基于图 抽象语
+              基于图
              </p>
             </td>
             <td>
              <p>
-              法树、有向无环图、控制流图
+              抽象语法树、有向无环图、控制流图
              </p>
             </td>
            </tr>
@@ -1502,10 +1509,13 @@
             </td>
             <td>
              <p>
-              基于图与线性代码混合 LLVM IR
+              基于图与线性代码混合
              </p>
             </td>
             <td>
+             <p>
+              LLVM IR
+             </p>
             </td>
            </tr>
           </tbody>
@@ -1539,7 +1549,7 @@ Address Code)
          <span id="linear-ir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-线性中间表示.png">
-          <img alt="../_images/中间表示-线性中间表示.png" src="../_images/中间表示-线性中间表示.png" style="width: 800px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-%E7%BA%BF%E6%80%A7%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-%E7%BA%BF%E6%80%A7%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA.png" style="width: 800px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -1586,7 +1596,7 @@ Graph，DAG)、控制流图(Control-Flow Graph，CFG)等。
          <span id="ast-dag">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-ASTDAG.svg">
-          <img alt="../_images/中间表示-ASTDAG.svg" src="../_images/中间表示-ASTDAG.svg" width="400px"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-ASTDAG.svg" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-ASTDAG.svg" width="400px"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -1627,7 +1637,7 @@ Assignment， SSA)
          <span id="llvm-ir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-LLVMIR.png">
-          <img alt="../_images/中间表示-LLVMIR.png" src="../_images/中间表示-LLVMIR.png" style="width: 800px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-LLVMIR.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-LLVMIR.png" style="width: 800px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -1648,7 +1658,7 @@ Assignment， SSA)
           6.3.3.
          </span>
          机器学习框架的中间表示
-         <a class="headerlink" href="#id8" title="Permalink to this headline">
+         <a class="headerlink" href="#id8" title="Permalink to this heading">
           ¶
          </a>
         </h2>
@@ -1722,18 +1732,18 @@ IR。如下Python代码使用了Scripting方法并打印其对应的中间表示
         </p>
         <div class="highlight-default notranslate">
          <div class="highlight">
-          <pre><span></span><span class="n">graph</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+          <pre><span></span><span class="n">graph</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span><span class="mf">.1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
   <span class="o">%</span><span class="mi">9</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">]()</span>
   <span class="o">%</span><span class="mi">5</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">]()</span> <span class="c1"># test.py:6:1</span>
-  <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mf">10.</span><span class="p">]()</span> <span class="c1"># test.py:5:6</span>
+  <span class="o">%</span><span class="n">rv</span><span class="mf">.1</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mf">10.</span><span class="p">]()</span> <span class="c1"># test.py:5:6</span>
   <span class="o">%</span><span class="mi">2</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">]()</span> <span class="c1"># test.py:6:16</span>
   <span class="o">%</span><span class="mi">14</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">]()</span> <span class="c1"># test.py:8:10</span>
-  <span class="o">%</span><span class="n">rv</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Loop</span><span class="p">(</span><span class="o">%</span><span class="mi">2</span><span class="p">,</span> <span class="o">%</span><span class="mi">5</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># test.py:6:1</span>
-    <span class="n">block0</span><span class="p">(</span><span class="o">%</span><span class="n">i</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">9</span> <span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-      <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">3</span> <span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">add</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">%</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># &lt;string&gt;:5:9</span>
-      <span class="o">%</span><span class="mi">12</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">FloatImplicit</span><span class="p">(</span><span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># test.py:7:2</span>
-      <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">6</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">div</span><span class="p">(</span><span class="o">%</span><span class="mi">12</span><span class="p">,</span> <span class="o">%</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># test.py:8:7</span>
-      <span class="o">-&gt;</span> <span class="p">(</span><span class="o">%</span><span class="mi">5</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="o">.</span><span class="mi">6</span><span class="p">)</span>
+  <span class="o">%</span><span class="n">rv</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Loop</span><span class="p">(</span><span class="o">%</span><span class="mi">2</span><span class="p">,</span> <span class="o">%</span><span class="mi">5</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="mf">.1</span><span class="p">)</span> <span class="c1"># test.py:6:1</span>
+    <span class="n">block0</span><span class="p">(</span><span class="o">%</span><span class="n">i</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="mf">.9</span> <span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+      <span class="o">%</span><span class="n">rv</span><span class="mf">.3</span> <span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">add</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span><span class="mf">.1</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="mf">.9</span><span class="p">,</span> <span class="o">%</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># &lt;string&gt;:5:9</span>
+      <span class="o">%</span><span class="mi">12</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">FloatImplicit</span><span class="p">(</span><span class="o">%</span><span class="n">rv</span><span class="mf">.3</span><span class="p">)</span> <span class="c1"># test.py:7:2</span>
+      <span class="o">%</span><span class="n">rv</span><span class="mf">.6</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">div</span><span class="p">(</span><span class="o">%</span><span class="mi">12</span><span class="p">,</span> <span class="o">%</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># test.py:8:7</span>
+      <span class="o">-&gt;</span> <span class="p">(</span><span class="o">%</span><span class="mi">5</span><span class="p">,</span> <span class="o">%</span><span class="n">rv</span><span class="mf">.6</span><span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span><span class="o">%</span><span class="n">rv</span><span class="p">)</span>
 </pre>
          </div>
@@ -1817,7 +1827,7 @@ IR，支持循环、分支、递归、闭包函数求导以及三阶求导，并
          <span id="tfir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MLIR.png">
-          <img alt="../_images/中间表示-MLIR.png" src="../_images/中间表示-MLIR.png" style="width: 1000px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MLIR.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MLIR.png" style="width: 1000px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -1925,7 +1935,7 @@ IR。MindIR没有采用多层中间表示的结构，而是通过统一的中间
         </p>
         <p>
          （1）基于图的（Graph
-based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是“一等公民”。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
+based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是”一等公民”。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。
         </p>
         <p>
          （2）纯函数的（Purely functional）。
@@ -1961,7 +1971,7 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
          <span id="mindir">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MindIR.png">
-          <img alt="../_images/中间表示-MindIR.png" src="../_images/中间表示-MindIR.png" style="width: 1100px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MindIR.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MindIR.png" style="width: 1100px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">
@@ -2022,7 +2032,7 @@ typed）。每个节点需要有一个具体的类型，这个对于性能最大
          <span id="mindir-graph">
          </span>
          <a class="reference internal image-reference" href="../_images/中间表示-MindIR图.png">
-          <img alt="../_images/中间表示-MindIR图.png" src="../_images/中间表示-MindIR图.png" style="width: 800px;"/>
+          <img alt="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MindIR%E5%9B%BE.png" src="../_images/%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BA-MindIR%E5%9B%BE.png" style="width: 800px;"/>
          </a>
          <p class="caption">
           <span class="caption-number">

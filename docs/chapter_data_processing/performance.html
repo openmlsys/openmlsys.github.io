@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -175,21 +177,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -349,21 +351,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -425,7 +427,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">9.3. </span>高效性设计<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9.3. </span>高效性设计<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>在上一节中我们重点介绍了数据模块的编程抽象以及编程接口设计，确保用户可以方便的基于我们提供的API描述数据处理流程而不需要过多关注实现和执行细节。那么本节我们将进一步探究数据加载以及流水线调度执行等数据模块关键部分设计细节以确保用户能够拥有最优的数据处理性能。同时在本节内容中，我们也会贯穿现有主要机器学习系统的实践经验以帮助读者加深对这些关键设计方案的理解。</p>
 <p>如 <a class="reference internal" href="#async-data-process"><span class="std std-numref">图9.3.1</span></a>
 所示，深度学习模型训练需要借助数据模块首先从存储设备中加载数据集，在内存中进行一系列的预处理变换，最终将处理好的数据集发送到加速器芯片上执行模型的计算，目前有大量的工作都着重于研究如何通过设计新的硬件或者应用算子编译等技术加速芯片上的模型计算，而在数据处理流水的性能问题上鲜有涉及。但事实上很多情况下，数据预处理的执行时间往往在整个训练任务中占据着相当大的比例，导致GPU/华为昇腾Ascend等加速器无法被充分利用。研究数据表明，企业内数据中心的计算任务大约有30%的计算时间花费在数据预处理步骤
@@ -446,7 +448,7 @@ P)而使得芯片无法被充分利用。针对上述关键性能问题，我们
 </ul>
 <p>在本节的最后我们还会研究一个具有挑战性的问题，即如何利用我们在前几章学到的计算图的编译技术来优化用户的数据处理计算流图，以进一步达到最优的数据处理吞吐率性能。那么接下来，请读者和我们一起开启本节的头脑风暴旅程。</p>
 <div class="section" id="id4">
-<h2><span class="section-number">9.3.1. </span>数据读取的高效性<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.3.1. </span>数据读取的高效性<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>首先我们来研究如何解决数据读取的性能挑战。我们面临的第一个问题是数据类型繁多，存储格式不统一带来的I/O差异，如文本数据可能存储成txt数据格式，图像数据可能存储成原始格式或者如JPEG等压缩格式。我们显然无法去针对每一种存储情况都设计其最优的数据读取方案。但是我们可以通过提出一种统一的存储格式(我们称之为Unirecord格式)以屏蔽不同数据类型的I/O差异，并基于这种数据格式进行数据加载方案的设计与优化，而实际使用中用户只需要将其原始数据集转换存储为我们的统一数据格式便可以享受到高效的读取效率。</p>
 <div class="figure align-default" id="id13">
 <span id="unified-record-format"></span><a class="reference internal image-reference" href="../_images/uni_record.png"><img alt="../_images/uni_record.png" src="../_images/uni_record.png" style="width: 800px;" /></a>
@@ -463,7 +465,7 @@ P)而使得芯片无法被充分利用。针对上述关键性能问题，我们
 <p class="caption"><span class="caption-number">图9.3.3 </span><span class="caption-text">支持随机读取的文件格式设计</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="mindrecord">
-<h3><span class="section-number">9.3.1.1. </span>MindRecord介绍<a class="headerlink" href="#mindrecord" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.3.1.1. </span>MindRecord介绍<a class="headerlink" href="#mindrecord" title="Permalink to this heading">¶</a></h3>
 <p>MindRecord是MindSpore推出的统一数据格式，目标是归一化用户的数据集，优化训练数据的读取过程。该文件格式具备如下特征：</p>
 <ul class="simple">
 <li><p>实现多变的用户数据统一存储、访问，训练数据读取更加简便。</p></li>
@@ -496,7 +498,7 @@ shuffle结果是一致的，那么数据partition的结果就是正确的。</p>
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">9.3.2. </span>数据计算的高效性<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.3.2. </span>数据计算的高效性<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>解决了数据读取性能问题后，我们继续来研究数据计算的性能提升(即最大化上文中的数据处理速率P)。我们以上文提及的数据预处理流水为例子、来研究如何设计数据模块对用户计算图的调度执行以达到最优的性能。</p>
 <div class="figure align-default" id="id17">
 <span id="serialized-data-process"></span><a class="reference internal image-reference" href="../_images/single_pipeline.png"><img alt="../_images/single_pipeline.png" src="../_images/single_pipeline.png" style="width: 800px;" /></a>
@@ -505,7 +507,7 @@ shuffle结果是一致的，那么数据partition的结果就是正确的。</p>
 <p>由于深度学习芯片如GPU/华为昇腾Ascend等并不具备通用数据处理的能力，
 我们目前还是主要依赖CPU来完成预处理计算。主流的AI服务器大多具备多个多核CPU，数据模块需要设计合理的并行架构充分发挥多核算力，以提升数据预处理性能达到尽可能减少加速器由于等待数据而阻塞的目的。本节中我们将介绍流水线粒度并行以及算子粒度并行两种常见的并行架构。流水线并行的方式结构清晰，易于理解和实现，主要被Pytorch这样基于Python实现数据模块的机器学习系统所采用。受到经典数据并行系统调度执行架构设计的影响，其他如Google的TensorFlow以及华为的MindSpore等系统主要采用算子粒度并行做精细CPU算力分配以达到充分利用多核算力的目的。然而精细的分配意味着我们需要对所有数据处理流程中涉及的算子设置合理的并行参数，这对用户而言是一个较大的挑战。于是MindSpore等框架又提供数据流图中关键参数自动调优的功能，通过运行时的动态分析自动搜索得到最优的算子并行度等参数，极大的减少了用户的编程负担。接下来我们一一展开讨论。</p>
 <div class="section" id="id6">
-<h3><span class="section-number">9.3.2.1. </span>流水线并行<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.3.2.1. </span>流水线并行<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>第一种常见的并行方案为流水线粒度的并行，即我们把用户构建的计算流水在一个线程/进程内顺序串行执行，同时启动多个线程/进程并行执行多个流水线。假设用户总共需要处理N个数据样本，那么当流水线并行度为M时，每个进程/线程只需要执行处理(N/M)个样本。流水线并行架构结构简单，易于实现。整个并行架构中各个执行进程/线程只需要在数据执行的开始和结束进行跨进程/线程的通信即可，数据模块将待处理的数据任务分配给各个流水线进程/线程，并在最终进行结果汇总发送到芯片上进行模型计算。从用户的角度而言使用也相对方便，只需要指定关键的并行度参数即可。接下来我们以Pytorch为例子进行详细展开。</p>
 <div class="figure align-default" id="id18">
 <span id="pipeline-parallisim"></span><a class="reference internal image-reference" href="../_images/pipeline_parallisim.png"><img alt="../_images/pipeline_parallisim.png" src="../_images/pipeline_parallisim.png" style="width: 800px;" /></a>
@@ -547,7 +549,7 @@ GIL)导致在Python层面实现流水线并行时只能采用进程并行。为�
 <span class="bibtex" id="id7">[rmpygil]</span>，感兴趣的读者可以选择继续深入了解。</p>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">9.3.2.2. </span>算子并行<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.3.2.2. </span>算子并行<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>流水线并行中算力(CPU核心)的分配以流水线为粒度，相对而言，以算子为计算资源分配粒度的算子并行是一种追求更精细算力分配的并行方案。我们期望对计算耗时高的算子分配更高的并行度，计算耗时低的算子分配更低的并行度，以达到更加高效合理的CPU算力使用。算子并行想法和经典的数据并行计算系统的并行方式一脉相承，我们以经典的MapReduce计算执行为例子，我们发现这也可以认为是一种算子并行(map算子和reduce算子),其中map算子的并行度和reduce算子的并行度根据各个算子阶段的计算耗时而决定。</p>
 <div class="figure align-default" id="id20">
 <span id="mapreduce"></span><a class="reference internal image-reference" href="../_images/map_reduce.png"><img alt="../_images/map_reduce.png" src="../_images/map_reduce.png" style="width: 800px;" /></a>
@@ -591,7 +593,7 @@ GIL)导致在Python层面实现流水线并行时只能采用进程并行。为�
 <span class="bibtex" id="id10">[murray2021tf]</span>。</p>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">9.3.2.3. </span>数据处理计算图优化<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">9.3.2.3. </span>数据处理计算图优化<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>在前文中，我们专注于通过并行架构来高效执行用户构建的数据预处理计算图。但我们可以思考如下问题：用户给定的计算图是否是一个高效的计算图?
 如果不高效，我们是否能够在保证等价变换的前提下将用户的数据计算图进行优化重写得到执行性能预期更好的计算图？没错，这和我们在前几章中学习的模型计算图编译优化有着相同的思想，即通过分析变换计算图IR得到更优的IR表示来达到更好的执行性能。常用的数据图优化策略有算子融合以及map操作向量化两种。算子融合将map+map、map+batch、map+filter、filter+filter等算子组合融合成一个等价复合算子，将原先需要在两个线程组中执行的计算融合为在一个线程组中执行的复合计算，减少线程间的同步通信开销，达到了更优的性能。而map操作向量化则将常见的dataset.map(f).batch(b)操作组合变换调整为dataset.batch(b).map(parallel_for(f))，借助现代CPU的对并行操作更友好的SIMD指令集来加速数据预处理。</p>
 </div>

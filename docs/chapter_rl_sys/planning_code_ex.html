@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -172,21 +174,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -346,21 +348,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -422,12 +424,12 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1>规划系统案例<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>规划系统案例<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>在上一章节中，我们初步了解了机器人的规划系统。
 这一章节中，我们将通过一个简单的案例来演示怎样结合ROS2和机器学习框架scikit-learn来完成一个我们设想的规划系统中的一个基本功能。
 我们将使用和<a class="reference external" href="./perception_code_ex.md">感知系统案例</a>这一章节类似的方法和结构来讲解本章节。</p>
 <div class="section" id="id2">
-<h2>案例背景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>案例背景<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>假设我们想要帮某花园设计一款打理鸢尾花的园丁机器人。
 很“碰巧”的是，这个小花园里面正好只有经典的<a class="reference external" href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">鸢尾花数据集</a>中的那三种鸢尾花，而且已经有人帮我们完成了一个“魔术般的”ROS2感知组件来自动的检测目标鸢尾花的花萼长和宽以及花瓣长和宽（Sepal
 Length, Sepal Width, Petal Length and Petal
@@ -446,12 +448,12 @@ table）来查找出我们应该为机器人规划怎样的行为去执行。
 <p>和之前的案例类似，本章节的案例所使用的代码可以在本书相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">ROS2案例代码库</a>中的<code class="docutils literal notranslate"><span class="pre">src/action_decider</span></code>文件夹内找到。</p>
 </div>
 <div class="section" id="id3">
-<h2>项目搭建<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>项目搭建<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>让我们继续沿用之前已经搭建好的ROS2项目框架。
 和感知系统案例类似，我们只需在其中增加一个ROS2的Python库来实现我们想要的功能即可。
 因此，让我们回到<code class="docutils literal notranslate"><span class="pre">src</span></code>目录下并创建此Python库。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2/src
-ros2 pkg create --build-type ament_python --node-name action_decider_node action_decider --dependencies rclpy std_msgs scikit-learn my_interfaces
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>openmlsys-ros2/src
+ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--node-name<span class="w"> </span>action_decider_node<span class="w"> </span>action_decider<span class="w"> </span>--dependencies<span class="w"> </span>rclpy<span class="w"> </span>std_msgs<span class="w"> </span>scikit-learn<span class="w"> </span>my_interfaces
 </pre></div>
 </div>
 <p>我们将<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>添加为依赖项是因为我们需要为新的ROS2服务创建对应的消息类型接口。</p>
@@ -460,7 +462,7 @@ ros2 pkg create --build-type ament_python --node-name action_decider_node action
 例如使用<code class="docutils literal notranslate"><span class="pre">pipenv</span></code>的用户可能会执行<code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">scikit-learn</span></code>这条命令。</p>
 </div>
 <div class="section" id="id4">
-<h2>添加消息类型接口<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>添加消息类型接口<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>我们将要编写的新ROS2服务需要有它自己的服务消息接口。
 让我们借用已有的<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>库来放置这个新接口。</p>
 <p>首先，让我们在<code class="docutils literal notranslate"><span class="pre">openmlsys-ros2/src/my_interfaces/srv</span></code>中新建一个名为<code class="docutils literal notranslate"><span class="pre">IrisData.srv</span></code>的文件并用下面的内容填充它。</p>
@@ -483,7 +485,7 @@ string action
 <p>最后，别忘了在ROS2项目的根目录下执行<code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--packages-select</span> <span class="pre">my_interfaces</span></code>来重新编译<code class="docutils literal notranslate"><span class="pre">my_interfaces</span></code>这个库。</p>
 </div>
 <div class="section" id="id5">
-<h2>添加代码<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>添加代码<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>之前创建Python库的命令应该已经帮我们创建好了<code class="docutils literal notranslate"><span class="pre">src/action_decider/action_decider/action_decider_node.py</span></code>这个文件。现在让我们用以下内容来替换掉此文件中已有的内容。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -572,32 +574,32 @@ string action
 <p>至此，一个使用scikit-learn和决策树的简易“玩具级”规划组件就完成了。</p>
 </div>
 <div class="section" id="id6">
-<h2>运行及检测<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>运行及检测<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>下面，让我们尝试运行新写好的服务端节点类并检测它是否能正常运行。</p>
 <p>首先，让我们编译这个新写的Python库。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
-colcon build --symlink-install
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>openmlsys-ros2
+colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
 </pre></div>
 </div>
 <p>在成功编译之后，我们可以新开一个终端窗口并执行下面的命令来运行一个节点类实例。
 记住，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run action_decider action_decider_node
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>action_decider<span class="w"> </span>action_decider_node
 </pre></div>
 </div>
 <p>如果你使用了Python虚拟环境，则可以尝试下面这条命令，而不是上面那条。背后具体的原因已在之前的案例章节叙述过。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run action_decider action_decider_node
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>which<span class="w"> </span>python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span><span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>action_decider<span class="w"> </span>action_decider_node
 </pre></div>
 </div>
 <p>当这个ROS2命令成功运行时，你应该能看到这行信息：<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655253519.693893500]</span> <span class="pre">[iris_action_decider_service]:</span> <span class="pre">Iris</span> <span class="pre">action</span> <span class="pre">decider</span> <span class="pre">service</span> <span class="pre">is</span> <span class="pre">ready.</span></code>。</p>
 <p>在我们成功运行新的服务端节点后，让我们在一个新终端窗口中运行下面这行命令来测试新的服务是否能正常运行。同样的，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 service call /iris_action_decider my_interfaces/srv/IrisData <span class="s2">&quot;{sepal_length: 1.0, sepal_width: 2.0, petal_length: 3.0, petal_width: 4.0}&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/iris_action_decider<span class="w"> </span>my_interfaces/srv/IrisData<span class="w"> </span><span class="s2">&quot;{sepal_length: 1.0, sepal_width: 2.0, petal_length: 3.0, petal_width: 4.0}&quot;</span>
 </pre></div>
 </div>
 <p>这里，我们用的<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">call</span></code>命令是专门用来通过命令行调用一个ROS2服务的命令。其中服务请求的数据应该是字符串化的YAML格式数据。这个命令更多的信息可以通过<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">call</span> <span class="pre">-h</span></code>来查阅。</p>
 <p>一切顺利的话，执行完命令后不久，你应该就能在新窗口中很快看到类似这样的信息了：<code class="docutils literal notranslate"><span class="pre">response:</span> <span class="pre">my_interfaces.srv.IrisData_Response(action='prune')</span></code>。</p>
 </div>
 <div class="section" id="id7">
-<h2>小结<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>小结<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>恭喜，你已经成功了解如何在ROS2项目中使用scikit-learn这样库并训练一个模型了！</p>
 </div>
 </div>

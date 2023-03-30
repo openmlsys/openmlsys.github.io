@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -175,21 +177,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -349,21 +351,21 @@ Show Source
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 分布式方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/pipeline.html">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.4. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.5. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.7. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id3">11.8. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/overview.html">13.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.2. 主流系统架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_problem.html">13.3. 现有解决方案及其存在的问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/future.html">13.4. 未来可以探索的方向</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
@@ -425,9 +427,9 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">1. </span>前言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">1. </span>前言<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>缘起<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.1. </span>缘起<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>我在2020年来到了爱丁堡大学信息学院，爱丁堡大学是AI（Artificial
 Intelligence,
 人工智能）研究的发源地之一，很多学生慕名而来学习机器学习技术。爱丁堡大学拥有许多出色的机器学习课程（如自然语言处理、计算机视觉、计算神经学等），同时也拥有一系列关于计算机系统的基础课程（如操作系统、编程语言、编译器、计算机体系架构等）。但是当我在教学的过程中问起学生：机器学习是如何利用计算机系统实现计算加速和部署？许多学生会投来疑惑的眼神。这促使我思考在爱丁堡大学乃至于其他世界顶尖大学的教学大纲中，是不是缺一门衔接机器学习和计算机系统的课程。</p>
@@ -443,7 +445,7 @@ Systems课程。这门课程讲述了机器学习系统背后的设计理念。�
 <p>回首2020年，我们已经拥有了优秀的操作系统、数据库、分布式系统等基础性教材。同时，在机器学习相关算法方面也有了一系列教材。然而，无论是国内外，我很难找到一本系统性讲述机器学习系统的教材。因此，许多公司和高校实验室不得不花费大量的人力和物力从头培养学生和工程师，使他们加强对于机器学习底层基础设施的认识。这类教材的缺乏已经制约了高校的人才培养，不利于高校培养出符合业界学界和时代发展的人才了。因此，我开始思考：我们是不是应该推出一本机器学习系统的教科书了呢？</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">1.2. </span>开端<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.2. </span>开端<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>带着写书的构想，我开始和朋友沟通。大家都非常认可编写这类书的巨大价值，但是现实的情况是：很少有人愿意做这么一件费力的事情。我当时的博士后导师也劝我：你现在处在教职生涯的初期，追求高影响力的学术论文是当务之急，写一本书要耗费大量的时间和精力，最后可能也无法出版面世。而我和同行交流时也发现：他们更愿意改进市面上已经有的教科书，即做有迹可循的事情，而不是摸着石头过河，做从无到有的事情。特别是对于机器学习系统这个快速发展，频繁试错的领域，能不能写出经受时间检验的书也是一个未知数。</p>
 <p>考虑到写作的巨大挑战，我将写书的想法藏于心中，直到一次回国和MindSpore的架构师金雪锋聊天。和雪锋的相识大约是在2019年的圣诞节，雪锋来伦敦访问，他正在领导MindSpore的开发（当时MindSpore
 1.0还没有发布）。而对于机器学习系统的开发，我也有很深的兴趣。我在2018年也和好友一起从头搭建一个机器学习框架（类似于PyTorch），虽然最终资源不足无疾而终，不过许多的思考成就了我之后发表的多篇机器学习系统论文。和雪锋聊起来，我们都对AI系统开发之难深有同感。我们共同的感慨就是：找到懂机器学习系统开发的人太难了。现今的学生都一心学习机器学习算法，很多学生对于底层的运作原理理解得很浅。而当他们在实际中应用机器学习技术时才意识到系统的重要性，那时想去学习，却没有了充沛的学习时间。我对雪锋苦笑道：“我是准备写一本机器学习系统教材的，但是可能还要等3，4年才能完成。”
@@ -454,7 +456,7 @@ Learning</em>就是一个很好的例子啊。我因此马上找到当年一起�
 <p>经过几轮的讨论，我们将书名定为《机器学习系统：设计和实现》。我们希望通过教给学生机器学习系统设计原理，同时也为学生提供大量的系统实现经验分享，让他们在将来工作和科研中遇到实际问题知道该如何分析和解决。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">1.3. </span>社区的构建<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.3. </span>社区的构建<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>考虑到机器学习系统本身就是一个不断发展并且孕育细分领域的学科。我从一开始就在思考：如何设计一个可扩展（Scalable）的社区架构保证这本书的可持续发展呢？因为我专注于大规模软件系统，故决定借鉴几个分布式系统的设计要点构建社区：</p>
 <ul class="simple">
 <li><p><strong>预防单点故障和瓶颈</strong>：现代分布式系统往往采用控制层和数据层分离的设计避免单点故障和瓶颈。那么我们在设计高度可扩展的写作社区的时候也要如此。因此，我们设计了如下分布式机制：编辑决定花最多的时间来寻找优秀的、主动的、负责任的书稿章节负责人。章节负责人可以进一步寻找其他作者共同协作。章节负责人和章节作者进行密切的沟通，按照给定时间节点，全速异步推进。编辑和章节负责人设定了每周讨论同步写作的进展，确保并行完成的章节内容质量能够持续符合编辑和社区的整体预期。</p></li>
@@ -467,7 +469,7 @@ Gradient Descent）一样的结果最优性。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">1.4. </span>现状和未来<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.4. </span>现状和未来<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>机制一旦建立好，写作就自动化地跑起来了，参与者也越来越多，我带过的学生袁秀龙、丁子涵、符尧、任杰、梁文腾也很用心参与编写，董豪邀请了鹏城实验室的韩佳容和赖铖，志良邀请了许多MindSpore的小伙伴进来做贡献，许多资深的机器学习系统设计者也和我们在各个渠道展开讨论，提供了非常多宝贵的写作建议。另外，学界和产业界的反响也很热烈。海外很多优秀的学生（斯坦福大学的孙建凯、卡耐基梅隆大学的廖培元、剑桥大学的王瀚宸、爱丁堡大学的穆沛），产业界的朋友（英国葛兰素史克公司机器学习团队的肖凯严）都加入了我们的写作。同时，学界的教授（英国伦敦帝国理工学院的Peter
 Pietzuch教授、香港科技大学的陈雷教授等）也持续给我们提供了写作意见，改进了图书质量。</p>
 <p>充分发动了“分布式系统”的力量后，图书的内容得以持续高质量地添加。当我们开源了图书以后，图书的受众快速增长，GitHub上关注度的增长让我们受宠若惊。在社区的推动下，图书的中文版、英文版、阿拉伯语版都已经开始推进。这么多年来，我第一次意识到我在分布式系统和机器学习中学习到的知识，在解决现实复杂问题的时候是如此的有用！</p>
