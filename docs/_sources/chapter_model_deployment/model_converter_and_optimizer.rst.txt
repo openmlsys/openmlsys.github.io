@@ -69,7 +69,7 @@ Batchnorm算子的计算过程如公式 :eq:`ch08-equ-bn_equation`\ 所示。
 
 如
 :numref:`ch08-fig-conv_bn_fusion`\ ，当Convlution算子的输出作为Batchnorm输入时，最终Batchnorm算子的计算公式也就是要求\ :math:`\pmb{Y_{bn}}`\ 关于\ :math:`\pmb{X_{conv}}`\ 的计算公式，我们将\ :math:`\pmb{Y_{conv}}`\ 代入到\ :math:`\pmb{X_{bn}}`\ ，然后将常数项合并提取后，可以得到公式
-:eqref:``equ:conv-bn-equation-3``\ 。
+:eq:`ch08-equ-conv_bn_equation_3`\ 。
 
 .. math:: \pmb{Y_{bn}}=\pmb{A}*\pmb{X_{conv}}+\pmb{B}
    :label: ch08-equ-conv_bn_equation_3

@@ -76,6 +76,11 @@ Show Source
                   <i class="fab fa-github"></i>
                   GitHub
               </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/html-en">
+                  <i class="fas fa-external-link-alt"></i>
+                  English
+              </a>
       </nav>
     </div>
 </header><header class="mdl-layout__drawer">
@@ -429,8 +434,9 @@ Show Source
         
   <div class="section" id="id1">
 <h1><span class="section-number">8.4. </span>加速器实践<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
-<p>在本节中会通过具体的CUDA代码向读者介绍如何编写一个并行计算的广义矩阵乘法程序，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现。虽然在以上章节介绍了张量计算核心相关的内容，但由于篇幅限制，在本节中不使用此硬件结构。而是通过使用更为基本的CUDA代码实现FP32的广义矩阵乘法，来讲解若干实用优化策略。
-### 环境</p>
+<p>在本节中会通过具体的CUDA代码向读者介绍如何编写一个并行计算的广义矩阵乘法程序，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现。虽然在以上章节介绍了张量计算核心相关的内容，但由于篇幅限制，在本节中不使用此硬件结构。而是通过使用更为基本的CUDA代码实现FP32的广义矩阵乘法，来讲解若干实用优化策略。</p>
+<div class="section" id="id2">
+<h2><span class="section-number">8.4.1. </span>环境<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>本节的实践有以下的软件环境依赖：</p>
 <ul class="simple">
 <li><p>Eigen：Eigen是一个线性代数C++模板库，用户可以只使用几条语句完成多线程线性代数运算。</p></li>
@@ -447,9 +453,10 @@ Toolkit是英伟达发布的CUDA工具包，其包含了CUDA编译器（NVCC）�
 <li><p>CUDA Toolkit：CUDA
 Toolkit的安装建议按照<a class="reference external" href="https://developer.nvidia.com/cuda-downloads">官方的提示</a>安装，也可以通过使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">cuda</span></code>）。</p></li>
 </ul>
+</div>
 <div class="section" id="sec-accelerator-naive">
-<span id="id2"></span><h2><span class="section-number">8.4.1. </span>广义矩阵乘法的朴素实现<a class="headerlink" href="#sec-accelerator-naive" title="Permalink to this heading">¶</a></h2>
-<p>依照算法.. _algo-accelerator-gemm:，编写CPU代码如下所示：</p>
+<span id="id3"></span><h2><span class="section-number">8.4.2. </span>广义矩阵乘法的朴素实现<a class="headerlink" href="#sec-accelerator-naive" title="Permalink to this heading">¶</a></h2>
+<p>依照算法如 <a class="reference internal" href="accelerator_programming.html#gemm-algorith"><span class="std std-numref">图8.3.5</span></a>所示，编写CPU代码如下所示：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">K</span><span class="p">];</span>
 <span class="kt">float</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">K</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
 <span class="kt">float</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
@@ -493,9 +500,9 @@ Toolkit的安装建议按照<a class="reference external" href="https://develope
 <p>其可视化结构如
 <a class="reference internal" href="#cuda-naive-gemm"><span class="std std-numref">图8.4.1</span></a>所示，矩阵<span class="math notranslate nohighlight">\(C\)</span>中每一个元素由一个线程计算，在GPU
 Kernel的第5和6行计算该线程对应矩阵<span class="math notranslate nohighlight">\(C\)</span>中的元素行号<span class="math notranslate nohighlight">\(m\)</span>及列号<span class="math notranslate nohighlight">\(n\)</span>，然后在第9到11行该线程利用行号与列号读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中相应的行列向量元素并计算向量内积，最后在第17行将结果写回<span class="math notranslate nohighlight">\(C\)</span>矩阵。</p>
-<div class="figure align-default" id="id9">
+<div class="figure align-default" id="id10">
 <span id="cuda-naive-gemm"></span><a class="reference internal image-reference" href="../_images/naive.png"><img alt="../_images/naive.png" src="../_images/naive.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.1 </span><span class="caption-text">矩阵乘法的朴素实现</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.1 </span><span class="caption-text">矩阵乘法的朴素实现</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>使用以下代码启动核函数：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">gemmNaive</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span>
@@ -522,8 +529,8 @@ Kernel的第5和6行计算该线程对应矩阵<span class="math notranslate noh
 </div>
 <p>可以发现目前的代码距离设备峰值性能仍有较大的差距。在整个计算过程中计算密集最大的过程为矩阵乘法<span class="math notranslate nohighlight">\(A\times B\)</span>，其时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K)\)</span>，而整个计算过程时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K+2*M*N)\)</span>，因此对矩阵乘法的优化是提升性能的关键。</p>
 </div>
-<div class="section" id="id3">
-<h2><span class="section-number">8.4.2. </span>提高计算强度<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">8.4.3. </span>提高计算强度<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>计算强度（Compute
 Intensity）指计算指令数量与访存指令数量的比值，在现代GPU中往往有大量计算单元但只有有限的访存带宽，程序很容易出现计算单元等待数据读取的问题，因此提高计算强度是提升程序性能的一条切实有效的指导思路。对于之前实现的GPU核函数，可以粗略计算其计算强度：在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中，对矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>的每次读取会计算一次浮点乘法与浮点加法，因此计算强度为1——两次浮点运算除以两次数据读取。之前的版本是每个线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>的一个元素——计算矩阵﻿﻿<span class="math notranslate nohighlight">\(A\)</span>的一行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的一列的内积，可以通过使每个线程计算<span class="math notranslate nohighlight">\(C\)</span>更多的元素——计算矩阵<span class="math notranslate nohighlight">\(A\)</span>的多行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的多列的内积——从而提升计算强度。具体地，如果在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中一次读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中的<span class="math notranslate nohighlight">\(m\)</span>个元素和矩阵<span class="math notranslate nohighlight">\(B\)</span>中的<span class="math notranslate nohighlight">\(n\)</span>个元素，那么访存指令为<span class="math notranslate nohighlight">\(m+n\)</span>条，而计算指令为<span class="math notranslate nohighlight">\(2mn\)</span>条，所以计算强度为<span class="math notranslate nohighlight">\(\frac{2mn}{m+n}\)</span>，因此可以很容易发现提高<span class="math notranslate nohighlight">\(m\)</span>和<span class="math notranslate nohighlight">\(n\)</span>会带来计算强度的提升。</p>
 <p>在上一小节中对全局内存的访问与存储都是借助 <code class="docutils literal notranslate"><span class="pre">float</span></code>
@@ -539,16 +546,17 @@ line的命中率。但并不提倡在一切代码中过度追求宽指令的使�
 <p>在实现GPU核函数过程中要注意，每个线程需要从原本各读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中一个
 <code class="docutils literal notranslate"><span class="pre">float</span></code> 数据变为各读取4个 <code class="docutils literal notranslate"><span class="pre">float</span></code>
 数据，这就要求现在每个线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中<span class="math notranslate nohighlight">\(4\times 4\)</span>的矩阵块，称之为
-<code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code>
-。如图:numref:<cite>use_float4</cite>所示，每个线程从左到右、从上到下分别读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据并运算，最后写入到矩阵<span class="math notranslate nohighlight">\(C\)</span>中。</p>
-<div class="figure align-default" id="id10">
-<span id="use-float4"></span><a class="reference internal image-reference" href="../_images/use_float4.png"><img alt="../_images/use_float4.png" src="../_images/use_float4.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.2 </span><span class="caption-text">提高计算强度</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。我们可以进一步让每个线程处理更多的数据，从而进一步提升计算强度，如图:numref:<cite>use_tile</cite>所示。完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
+<code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code> 。如
+<a class="reference internal" href="#use-float4"><span class="std std-numref">图8.4.2</span></a>所示，每个线程从左到右、从上到下分别读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据并运算，最后写入到矩阵<span class="math notranslate nohighlight">\(C\)</span>中。</p>
 <div class="figure align-default" id="id11">
+<span id="use-float4"></span><a class="reference internal image-reference" href="../_images/use_float4.png"><img alt="../_images/use_float4.png" src="../_images/use_float4.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图8.4.2 </span><span class="caption-text">提高计算强度</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。我们可以进一步让每个线程处理更多的数据，从而进一步提升计算强度，如
+<a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a>所示。完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
+<div class="figure align-default" id="id12">
 <span id="use-tile"></span><a class="reference internal image-reference" href="../_images/use_tile.png"><img alt="../_images/use_tile.png" src="../_images/use_tile.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.3 </span><span class="caption-text">通过提高线程所处理矩阵块的数量来进一步提高计算强度</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.3 </span><span class="caption-text">通过提高线程所处理矩阵块的数量来进一步提高计算强度</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <p>测试得到以下结果：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
@@ -584,13 +592,13 @@ ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </s
 等指标上取得了进一步的提升。</p>
 </div>
 <div class="section" id="sec-accelerator-use-smem">
-<span id="id4"></span><h2><span class="section-number">8.4.3. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this heading">¶</a></h2>
+<span id="id5"></span><h2><span class="section-number">8.4.4. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this heading">¶</a></h2>
 <p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，开启若干个线程块，每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个或多个矩阵块。在
 <a class="reference internal" href="#duplicated-data"><span class="std std-numref">图8.4.4</span></a>
 中，可以观察到，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>同一行的线程<span class="math notranslate nohighlight">\(x, y\)</span>会读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中相同的数据，可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
-<div class="figure align-default" id="id12">
+<div class="figure align-default" id="id13">
 <span id="duplicated-data"></span><a class="reference internal image-reference" href="../_images/duplicated_data.png"><img alt="../_images/duplicated_data.png" src="../_images/duplicated_data.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>具体地，需要对代码进行如下改造：首先此前代码在计算内积过程是进行<span class="math notranslate nohighlight">\(K\)</span>次循环读取数据并累加计算，在此设定下每次循环中处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同行的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同列的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据。可以通过将此<span class="math notranslate nohighlight">\(K\)</span>次循环拆解成两层循环，外层循环<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次，每次外层循环的迭代读取一整块数据，内层循环<span class="math notranslate nohighlight">\(tileK\)</span>次进行累加数据。数据从全局内存向共享内存的搬运过程如图
 <a class="reference internal" href="#use-smem-store"><span class="std std-numref">图8.4.5</span></a>
@@ -598,13 +606,13 @@ ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </s
 <code class="docutils literal notranslate"><span class="pre">tile</span></code> 读取到共享内存中；数据从共享内存到寄存器的搬运如图
 <a class="reference internal" href="#use-smem-load"><span class="std std-numref">图8.4.6</span></a>
 所示，每次内层循环循环从共享内存读取数据并计算。这种设计带来的好处是，可以让每个线程不必独自从全局内存读取所有需要的数据，整个线程块将共同需要的数据从全局内存中读取并写入到共享内存中，此后每个线程在计算过程中只需要从共享内存中读取所需要的数据即可。</p>
-<div class="figure align-default" id="id13">
-<span id="use-smem-store"></span><a class="reference internal image-reference" href="../_images/use_smem_store.png"><img alt="../_images/use_smem_store.png" src="../_images/use_smem_store.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.5 </span><span class="caption-text">向共享内存中写入数据</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-default" id="id14">
+<span id="use-smem-store"></span><a class="reference internal image-reference" href="../_images/use_smem_store.png"><img alt="../_images/use_smem_store.png" src="../_images/use_smem_store.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图8.4.5 </span><span class="caption-text">向共享内存中写入数据</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id15">
 <span id="use-smem-load"></span><a class="reference internal image-reference" href="../_images/use_smem_load.png"><img alt="../_images/use_smem_load.png" src="../_images/use_smem_load.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_smem.cu">gemm_use_smem.cu</a>。</p>
 <p>测试得到以下结果：</p>
@@ -620,8 +628,8 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 <code class="docutils literal notranslate"><span class="pre">Pipe</span> <span class="pre">Fma</span> <span class="pre">Cycles</span> <span class="pre">Active</span></code>
 等都有显著提升，这都能充分解释了使用共享内存的改进是合理且有效的。</p>
 </div>
-<div class="section" id="id5">
-<h2><span class="section-number">8.4.4. </span>减少寄存器使用<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id6">
+<h2><span class="section-number">8.4.5. </span>减少寄存器使用<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>可以注意到在向共享内存中存储矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块是按照行优先的数据排布进行的，而对此共享内存的读取是逐行读取的。可以将矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块在共享内存中数据按照列优先的形式排布，这样可以减少循环及循环变量从而带来寄存器使用数量减少进而带来性能提升。</p>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_transpose_smem.cu">gemm_transpose_smem.cu</a>。</p>
 <p>测试得到以下结果：</p>
@@ -634,8 +642,8 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 <code class="docutils literal notranslate"><span class="pre">STS</span></code> 指令数量提升且带来一些 bank confilct
 ，因此在其他GPU架构上此改动可能不会带来正面影响。</p>
 </div>
-<div class="section" id="id6">
-<h2><span class="section-number">8.4.5. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id7">
+<h2><span class="section-number">8.4.6. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>在GPU中使用指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
 读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖
 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
@@ -644,13 +652,13 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。可以通过重新优化流水线隐藏一定的数据读取延迟。如图
 <a class="reference internal" href="#hide-smem-latency"><span class="std std-numref">图8.4.8</span></a>
 所示，可以在内层的<span class="math notranslate nohighlight">\(tileK\)</span>次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令。</p>
-<div class="figure align-default" id="id15">
-<span id="use-smem-pipeline"></span><a class="reference internal image-reference" href="../_images/use_smem_pipeline.png"><img alt="../_images/use_smem_pipeline.png" src="../_images/use_smem_pipeline.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.7 </span><span class="caption-text">上一个GPU核函数的流水线</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-default" id="id16">
+<span id="use-smem-pipeline"></span><a class="reference internal image-reference" href="../_images/use_smem_pipeline.png"><img alt="../_images/use_smem_pipeline.png" src="../_images/use_smem_pipeline.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图8.4.7 </span><span class="caption-text">上一个GPU核函数的流水线</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id17">
 <span id="hide-smem-latency"></span><a class="reference internal image-reference" href="../_images/hide_smem_latency.png"><img alt="../_images/hide_smem_latency.png" src="../_images/hide_smem_latency.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.8 </span><span class="caption-text">隐藏共享内存读取延迟的流水线</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.8 </span><span class="caption-text">隐藏共享内存读取延迟的流水线</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_hide_smem_latency.cu">gemm_hide_smem_latency.cu</a>。</p>
 <p>测试得到以下结果：</p>
@@ -663,8 +671,8 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 减少了67%。而此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。所以这里
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code> 的减少充分说明了内存延迟是有效的。</p>
 </div>
-<div class="section" id="id7">
-<h2><span class="section-number">8.4.6. </span>隐藏全局内存读取延迟<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id8">
+<h2><span class="section-number">8.4.7. </span>隐藏全局内存读取延迟<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令
 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 也有与共享内存读取指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
 类似的行为特性。因此类似的在<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次外层循环中每次循环开始时发出下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见
@@ -675,9 +683,9 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 <code class="docutils literal notranslate"><span class="pre">buffer</span></code> 中的数据写入 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
 ，其后再执行内层循环的最后一次迭代，这样能更进一步隐藏向 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
 写入的内存延迟。具体流水线可视化见图 <a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> 。</p>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id18">
 <span id="hide-global-latency"></span><a class="reference internal image-reference" href="../_images/hide_global_latency.png"><img alt="../_images/hide_global_latency.png" src="../_images/hide_global_latency.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 <p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_final.cu">gemm_final.cu</a>。</p>
 <p>测试得到以下结果：</p>
@@ -691,10 +699,10 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 主要是针对全局内存的指标。该指标的显著减少充分说明预取数据可以在一定程度上隐藏全局内存的读取。</p>
 </div>
 <div class="section" id="cublas">
-<span id="practise-cublas"></span><h2><span class="section-number">8.4.7. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this heading">¶</a></h2>
+<span id="practise-cublas"></span><h2><span class="section-number">8.4.8. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this heading">¶</a></h2>
 <p>按照节 <a class="reference internal" href="accelerator_programming.html#sec-accelerator-use-cublas"><span class="std std-numref">图8.3.5</span></a>
 中介绍的cuBLAS的接口使用方法，可以很容易地写出代码使用cuBLAS完成矩阵乘法，如代码
-<a class="reference internal" href="#practise-cublas"><span class="std std-numref">8.4.7节</span></a> 所示。</p>
+<a class="reference internal" href="#practise-cublas"><span class="std std-numref">8.4.8节</span></a> 所示。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">cublasGemm</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">alf</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">bet</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">lda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">ldb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">ldc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alf</span><span class="p">;</span>
@@ -718,17 +726,19 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code> 等cuBLAS更优，但总体上我们略胜一筹。
 尽管我们的代码相比cuBLAS已经取得了一定的性能提升，但是需要强调的是cuBLAS内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
 </div>
-<div class="section" id="id8">
-<h2><span class="section-number">8.4.8. </span>小结<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id9">
+<h2><span class="section-number">8.4.9. </span>小结<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <p>要实现一个高性能算子需要依照硬件特性适应性进行若干优化。本节优化策略可总结为以下几点：</p>
 <ul class="simple">
 <li><p>并行资源映射——提高并行性：将多层级的并行资源（<code class="docutils literal notranslate"><span class="pre">block</span></code>
 、<code class="docutils literal notranslate"><span class="pre">warp</span></code> 、<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-）与对应需要计算和搬移的数据建立映射关系，提高程序并行性。将可并行的计算和数据搬移操作映射到并行资源上，对于广义矩阵乘法实例，在节~ref{sec-accelerator-naive<code class="docutils literal notranslate"><span class="pre">朴素实现的例子中，令每个</span></code>block<code class="docutils literal notranslate"><span class="pre">与矩阵$C$中的一个矩阵块建立映射关系，每个</span></code>thread`
+）与对应需要计算和搬移的数据建立映射关系，提高程序并行性。将可并行的计算和数据搬移操作映射到并行资源上，对于广义矩阵乘法实例，在
+<a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a>朴素实现的例子中，令每个<code class="docutils literal notranslate"><span class="pre">block</span></code>
+与矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个矩阵块建立映射关系，每个<code class="docutils literal notranslate"><span class="pre">thread</span></code>
 与矩阵块中的一个元素建立映射关系。</p></li>
 <li><p>优化内存结构——减小访存延迟：观察计算过程中同一个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-中数据复用的情况，将复用的数据被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。如在节
-:numref<code class="docutils literal notranslate"><span class="pre">sec-accelerator-naive</span></code>
+中数据复用的情况，将复用的数据被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。如在
+<a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a>
 中将矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>中会被同一个 <code class="docutils literal notranslate"><span class="pre">block</span></code> 内不同
 <code class="docutils literal notranslate"><span class="pre">thread</span></code> 共同访问的数据缓存到共享内存中。</p></li>
 <li><p>优化指令执行——减小指令发射开销：使用 <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">unroll</span></code>
@@ -749,14 +759,15 @@ Compute对核函数分析并与上一个核函数进行对比，可以观察到�
     </p>
     <ul>
 <li><a class="reference internal" href="#">8.4. 加速器实践</a><ul>
-<li><a class="reference internal" href="#sec-accelerator-naive">8.4.1. 广义矩阵乘法的朴素实现</a></li>
-<li><a class="reference internal" href="#id3">8.4.2. 提高计算强度</a></li>
-<li><a class="reference internal" href="#sec-accelerator-use-smem">8.4.3. 使用共享内存缓存复用数据</a></li>
-<li><a class="reference internal" href="#id5">8.4.4. 减少寄存器使用</a></li>
-<li><a class="reference internal" href="#id6">8.4.5. 隐藏共享内存读取延迟</a></li>
-<li><a class="reference internal" href="#id7">8.4.6. 隐藏全局内存读取延迟</a></li>
-<li><a class="reference internal" href="#cublas">8.4.7. 与cuBLAS对比</a></li>
-<li><a class="reference internal" href="#id8">8.4.8. 小结</a></li>
+<li><a class="reference internal" href="#id2">8.4.1. 环境</a></li>
+<li><a class="reference internal" href="#sec-accelerator-naive">8.4.2. 广义矩阵乘法的朴素实现</a></li>
+<li><a class="reference internal" href="#id4">8.4.3. 提高计算强度</a></li>
+<li><a class="reference internal" href="#sec-accelerator-use-smem">8.4.4. 使用共享内存缓存复用数据</a></li>
+<li><a class="reference internal" href="#id6">8.4.5. 减少寄存器使用</a></li>
+<li><a class="reference internal" href="#id7">8.4.6. 隐藏共享内存读取延迟</a></li>
+<li><a class="reference internal" href="#id8">8.4.7. 隐藏全局内存读取延迟</a></li>
+<li><a class="reference internal" href="#cublas">8.4.8. 与cuBLAS对比</a></li>
+<li><a class="reference internal" href="#id9">8.4.9. 小结</a></li>
 </ul>
 </li>
 </ul>

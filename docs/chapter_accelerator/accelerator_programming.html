@@ -76,6 +76,11 @@ Show Source
                   <i class="fab fa-github"></i>
                   GitHub
               </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/html-en">
+                  <i class="fas fa-external-link-alt"></i>
+                  English
+              </a>
       </nav>
     </div>
 </header><header class="mdl-layout__drawer">
@@ -432,7 +437,7 @@ Show Source
 <p>本章前两节主要介绍了这些硬件加速器设计的意义、思路以及基本组成原理。软硬件协同优化作为构建高效AI系统的一个重要指导思想，需要软件算法/软件栈和硬件架构在神经网络应用中互相影响、紧密耦合。为了最大限度地发挥加速器的优势，要求能够基于硬件系统架构设计出一套较为匹配的指令或编程方法。因此，本节将着重介绍加速器的可编程性，以及如何通过编程使能加速器，提升神经网络算子的计算效率。</p>
 <div class="section" id="accelerator-programable-title">
 <span id="id2"></span><h2><span class="section-number">8.3.1. </span>硬件加速器的可编程性<a class="headerlink" href="#accelerator-programable-title" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="accelerator_introduction.html#accelerator-design-title"><span class="std std-numref">8.1.2节</span></a>节中列出的硬件加速器均具有一定的可编程性，程序员可以通过软件编程，有效的使能上述加速器进行计算加速。现有硬件加速器常见的两类编程方式主要有编程接口调用以及算子编译器优化。</p>
+<p><a class="reference internal" href="accelerator_introduction.html#accelerator-design-title"><span class="std std-numref">8.1.2节</span></a>中列出的硬件加速器均具有一定的可编程性，程序员可以通过软件编程，有效的使能上述加速器进行计算加速。现有硬件加速器常见的两类编程方式主要有编程接口调用以及算子编译器优化。</p>
 <div class="section" id="id3">
 <h3><span class="section-number">8.3.1.1. </span>编程接口使能加速器<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>硬件加速器出于计算效率和易用性等方面考虑，将编程使能方式分为不同等级，一般包括：算子库层级，编程原语层级，以及指令层级。为了更具象的解释上述层级的区别，仍以Volta架构的张量计算核心为例，由高层至底层对比介绍这三种不同编程方式：</p>
@@ -505,7 +510,7 @@ DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合�
 <span id="id13"></span><h2><span class="section-number">8.3.2. </span>硬件加速器的多样化编程方法<a class="headerlink" href="#diversified-programming-title" title="Permalink to this heading">¶</a></h2>
 <p>矩阵乘法运算作为深度学习网络中占比最大的计算，对其进行优化是十分必要的。因此本节将统一以广义矩阵乘法为实例，对比介绍如何通过不同编程方式使能加速器。广义矩阵乘法指GEMM（General
 Matrix
-Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \alpha \bm{A}\times \bm{B} + \beta \bm{C}\)</span>，其中<span class="math notranslate nohighlight">\(\bm{A}\in\mathbb{R}^{M\times K}, \bm{B}\in\mathbb{R}^{K\times N}, \bm{C}\in\mathbb{R}^{M\times N}\)</span>。</p>
+Multiplication），即<span class="math notranslate nohighlight">\({C} = \alpha {A}\times {B} + \beta {C}\)</span>，其中<span class="math notranslate nohighlight">\({A}\in\mathbb{R}^{M\times K}, {B}\in\mathbb{R}^{K\times N}, {C}\in\mathbb{R}^{M\times N}\)</span>。</p>
 <div class="figure align-default" id="id21">
 <span id="sec-accelerator-use-cublas"></span><span id="id14"></span><span id="gemm-algorith"></span><a class="reference internal image-reference" href="../_images/gemm.svg"><img alt="../_images/gemm.svg" src="../_images/gemm.svg" width="800px" /></a>
 <p class="caption"><span class="caption-number">图8.3.5 </span><span class="caption-text">矩阵乘法GEMM运算</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
@@ -517,7 +522,7 @@ Multiplication），即<span class="math notranslate nohighlight">\(\bm{C} = \al
 </ul>
 <p>在上述不同层级的编程方式中，直接调用算子加速库使能加速器无疑是最快捷高效的方式。NVIDIA提供了cuBLAS/cuDNN两类算子计算库，cuBLAS提供了使能张量计算核心的接口，用以加速矩阵乘法(GEMM)运算，cuDNN提供了对应接口加速卷积(CONV)运算等。
 以
-<a class="reference internal" href="#accelerator-programable-title"><span class="std std-numref">8.3.1节</span></a>小节的GEMM运算为例，与常规CUDA调用cuBLAS算子库相似，通过cuBLAS加速库使能张量计算核心步骤包括：</p>
+<a class="reference internal" href="#accelerator-programable-title"><span class="std std-numref">8.3.1节</span></a>的GEMM运算为例，与常规CUDA调用cuBLAS算子库相似，通过cuBLAS加速库使能张量计算核心步骤包括：</p>
 <ol class="arabic simple">
 <li><p>创建cuBLAS对象句柄且设置对应数学计算模式</p></li>
 </ol>

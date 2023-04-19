@@ -76,6 +76,11 @@ Show Source
                   <i class="fab fa-github"></i>
                   GitHub
               </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/html-en">
+                  <i class="fas fa-external-link-alt"></i>
+                  English
+              </a>
       </nav>
     </div>
 </header><header class="mdl-layout__drawer">
@@ -452,9 +457,9 @@ Message）和损坏的消息（Corrupted Message）的情况。</p></li>
 </div>
 <div class="section" id="broadcast">
 <h3><span class="section-number">11.5.1.2. </span>Broadcast<a class="headerlink" href="#broadcast" title="Permalink to this heading">¶</a></h3>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id9">
 <span id="ch10-collective-operators"></span><a class="reference internal image-reference" href="../_images/ch10-collective-operators.png"><img alt="../_images/ch10-collective-operators.png" src="../_images/ch10-collective-operators.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图11.5.1 </span><span class="caption-text">常用集合通信算子</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图11.5.1 </span><span class="caption-text">常用集合通信算子</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>一个分布式机器学习系统经常需要将一个设备<span class="math notranslate nohighlight">\(i\)</span>上的模型参数或者配置文件广播（Broadcast）给其余全部设备。因此，可以把Broadcast算子定义为从编号为<span class="math notranslate nohighlight">\(i\)</span>的设备发送长度为<span class="math notranslate nohighlight">\(l\)</span>字节的消息给剩余的<span class="math notranslate nohighlight">\(p-1\)</span>个设备。
 <a class="reference internal" href="#ch10-collective-operators"><span class="std std-numref">图11.5.1</span></a>展示了设备1（在三个设备的集群里）调用Broadcast的初始和结束状态。</p>
@@ -483,15 +488,14 @@ Law）。这些函数由全部设备共同发起，最终聚合结果存在编�
 <p>Gather算子可以将全部设备的数据全部收集（Gather）到编号为<span class="math notranslate nohighlight">\(i\)</span>的设备上。
 <a class="reference internal" href="#ch10-collective-operators"><span class="std std-numref">图11.5.1</span></a>展示了设备1调用Gather来收集全部设备的数据的初始和结束状态。</p>
 <p>在收集函数（Gather
-Function）符合结合律和交换律的情况下，可以通过将其设为Reduce算子中的<span class="math notranslate nohighlight">\(f\)</span>来实现Gather算子。但是，在这种情况下，无论是基于链表还是数组的实现，在每一步的Reduce操作中<span class="math notranslate nohighlight">\(f\)</span>的时间复杂度和输出长度<span class="math notranslate nohighlight">\(l\)</span>都发生了改变。因此，Gather的时间复杂度是<span class="math notranslate nohighlight">\(a \times \log p + (p-1) \times b \times l\)</span>。这是因为在算法的每一阶段<span class="math notranslate nohighlight">\(t\)</span>，传输的信息长度为$
-2^t :raw-latex:<a href="#id4"><span class="problematic" id="id5">`</span></a>times <a href="#id6"><span class="problematic" id="id7">`</span></a>l$。</p>
+Function）符合结合律和交换律的情况下，可以通过将其设为Reduce算子中的<span class="math notranslate nohighlight">\(f\)</span>来实现Gather算子。但是，在这种情况下，无论是基于链表还是数组的实现，在每一步的Reduce操作中<span class="math notranslate nohighlight">\(f\)</span>的时间复杂度和输出长度<span class="math notranslate nohighlight">\(l\)</span>都发生了改变。因此，Gather的时间复杂度是<span class="math notranslate nohighlight">\(a \times \log p + (p-1) \times b \times l\)</span>。这是因为在算法的每一阶段<span class="math notranslate nohighlight">\(t\)</span>，传输的信息长度为<span class="math notranslate nohighlight">\(2^{t} \times l\)</span>。</p>
 </div>
 <div class="section" id="allgather">
 <h3><span class="section-number">11.5.1.6. </span>AllGather<a class="headerlink" href="#allgather" title="Permalink to this heading">¶</a></h3>
 <p>AllGather算子会把收集的结果分发到全部的设备上。
 <a class="reference internal" href="#ch10-collective-operators"><span class="std std-numref">图11.5.1</span></a>展示了设备1，设备2和设备3共同调用AllGather的初始和结束状态。</p>
 <p>在这里，一个简单的方法是使用Gather和Broadcast算子把聚合结果先存到编号为1的设备中，再将其广播到剩余的设备上。这会产生一个<span class="math notranslate nohighlight">\(a \times \log p + (p-1) \times b \times l + (a+p \times l \times b) \times \log p\)</span>的时间复杂度，因为在广播时，如果忽略链表/数组实现所带来的额外空间开销，每次通信的长度为<span class="math notranslate nohighlight">\(pl\)</span>而不是<span class="math notranslate nohighlight">\(l\)</span>。简化后，得到了一个<span class="math notranslate nohighlight">\(a \times \log p + p \times l \times b \times \log p\)</span>
-的时间复杂度。在一个基于超立方体:raw-latex:<cite>footnote{可参考网址为：url{https://link.springer.com/book/10.1007/978-3-030-25209-0}}`的算法下，可以将其进一步优化到和Gather算子一样的时间复杂度:math:`a times log p + (p-1) times b times l</cite>，由于篇幅问题此处便不再赘述。</p>
+的时间复杂度。在一个基于<a class="reference external" href="https://link.springer.com/book/10.1007/978-3-030-25209-0">超立方体</a>的算法下，可以将其进一步优化到和Gather算子一样的时间复杂度<span class="math notranslate nohighlight">\(a \times \log p + (p-1) \times b \times l\)</span>，由于篇幅问题此处便不再赘述。</p>
 </div>
 <div class="section" id="scatter">
 <h3><span class="section-number">11.5.1.7. </span>Scatter<a class="headerlink" href="#scatter" title="Permalink to this heading">¶</a></h3>
@@ -502,16 +506,16 @@ Function）符合结合律和交换律的情况下，可以通过将其设为Red
 的时间复杂度。在机器学习系统中，Scatter算子经常同时被用于链式数据结构和可切分的数据结构，例如张量在一个维度上的<span class="math notranslate nohighlight">\(p\)</span>等分等。</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><span class="section-number">11.5.2. </span>基于AllReduce的梯度平均算法<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">11.5.2. </span>基于AllReduce的梯度平均算法<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>下面讨论如何利用AllReduce算子实现大型集群中的高效梯度平均。首先，参照前面的分析，可以考虑一种简单的计算平均梯度的方法：在集群中分配一个设备收集本地梯度，并在计算平均梯度后再将其广播到全部的设备。这种做法易于实现，但是引入了两个问题。首先，多台设备同时给该聚合设备发送数据时，聚合设备会因严重的带宽不足产生网络拥塞。其次，单台设备需要负担大量的梯度平均计算，而受限于单台设备上的有限算力，这种计算往往会受限于算力瓶颈。</p>
 <p>为了解决上述问题，可以引入AllReduce算子的Reduce-Broadcast实现来优化算法，其设计思路是：通过让全部的节点参与到梯度的网络通信和平均计算中，将巨大的网络和算力开销均摊给全部节点。这种做法可以解决先前单个梯度聚合节点的问题。假设有<span class="math notranslate nohighlight">\(M\)</span>个设备，每个设备存有一个模型副本，该模型由<span class="math notranslate nohighlight">\(N\)</span>个参数/梯度构成。那么按照AllReduce算子的要求，需要先将全部的参数按照设备数量切分成<span class="math notranslate nohighlight">\(M\)</span>个分区（Partition），使得每个分区具有<span class="math notranslate nohighlight">\(N/M\)</span>个参数。首先给出这个算法的初始和结束状态。如
 <a class="reference internal" href="#ch10-collective-operators"><span class="std std-numref">图11.5.1</span></a>的AllReduce的例子所示，该例子含有3个设备。在每个设备有一个模型副本的情况下，这个副本有3个参数。那么按照AllReduce的分区方法，参数会被划分成3个分区（3个设备），而每一个分区则有1个参数（<span class="math notranslate nohighlight">\(N/M\)</span>，<span class="math notranslate nohighlight">\(N\)</span>代表3个参数，<span class="math notranslate nohighlight">\(M\)</span>代表3个设备）。在这个例子中，假定设备1拥有参数2,4,6，设备2拥有参数1,2,3，设备3拥有参数4,8,12，那么在使用一个AllReduce算子进行计算过后，全部的设备都将拥有梯度相加后的结果7,14,21，其中分区1的结果7是由3个设备中分区1的初始结果相加而成（7
 = 1 + 2 +
 4）。为了计算平均梯度，每个设备只需要在最后将梯度之和除以设备数量即可（分区1的最终结果为7除以3）。</p>
-<div class="figure align-default" id="id14">
+<div class="figure align-default" id="id10">
 <span id="ch10-allreduce-process"></span><a class="reference internal image-reference" href="../_images/ch10-allreduce-process.png"><img alt="../_images/ch10-allreduce-process.png" src="../_images/ch10-allreduce-process.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图11.5.2 </span><span class="caption-text">AllReduce算法的过程</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图11.5.2 </span><span class="caption-text">AllReduce算法的过程</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>AllReduce算子会把梯度的计算拆分成<span class="math notranslate nohighlight">\(M-1\)</span>个Reduce算子和<span class="math notranslate nohighlight">\(M-1\)</span>个Broadcast算子（其中<span class="math notranslate nohighlight">\(M\)</span>是节点的数量）。其中，Reduce算子用于计算出梯度的加和，Broadcast算子用于把梯度之和广播给全部的节点。
 <a class="reference internal" href="#ch10-allreduce-process"><span class="std std-numref">图11.5.2</span></a>展示了一个AllReduce算子的执行过程。AllReduce算子由Reduce算子开始，在第一个Reduce算子中，AllReduce算子会对全部节点进行配对（Pairing），让它们共同完成梯度相加的操作。在
@@ -533,8 +537,8 @@ Function）符合结合律和交换律的情况下，可以通过将其设为Red
 中的第一个Broadcast算子中，设备1会将分区2的结果14直接写入设备3的分区2中。设备2会将分区3的结果21直接写入设备1中。设备3会将分区1的结果直接写入设备2中。在一个3个节点的AllReduce集群中，我们会重复2次Broadcast算子将每个分区的Reduce结果告知全部的节点。</p>
 <p>在本节中，我们讨论了AllReduce的其中一种常用实现方法。根据集群网络拓扑的不同，人们也会用以下的方法来实现AllReduce：<a class="reference external" href="https://developer.nvidia.com/blog/massively-scale-deep-learning-training-nccl-2-4">树形结构</a>，<a class="reference external" href="https://github.com/baidu-research/baidu-allreduce">环形结构</a>，<a class="reference external" href="https://arxiv.org/abs/1811.05233%7D">二维环面结构</a>以及<a class="reference external" href="https://github.com/NVIDIA/nccl/issues/320">CollNet</a>。在此我们不展开讨论。</p>
 </div>
-<div class="section" id="id9">
-<h2><span class="section-number">11.5.3. </span>集合通信算法性能分析<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id5">
+<h2><span class="section-number">11.5.3. </span>集合通信算法性能分析<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>在讨论集合通信算子的性能时，人们经常会使用一些数值化指标量化不同的算法实现。在计算点对点通信所需的时间时，会在信息长度上乘以一个系数<span class="math notranslate nohighlight">\(b\)</span>。这个数值化指标就是算法带宽（Algorithm
 Bandwidth），泛指单位时间内执行操作（通信和计算等）的数量。一般计算公式为<span class="math notranslate nohighlight">\(b = s/t\)</span>，其中<span class="math notranslate nohighlight">\(s\)</span>代指操作的大小，<span class="math notranslate nohighlight">\(t\)</span>指操作指定的两个端点之间所经过的时间。以P2P通信举例，可以通过衡量一个大小已知的信息<span class="math notranslate nohighlight">\(m\)</span>在执行Send函数时所花的时间来确定两个设备之间网络的带宽。</p>
 <p>前文提到，在计算点对点通信所需的时间是，会在信息长度之上乘以一个系数b。这个系数就是算法带宽，泛指单位时间内执行操作（通信，计算等）的数量。一般计算公式为<span class="math notranslate nohighlight">\(b = s/t\)</span>，其中<span class="math notranslate nohighlight">\(s\)</span>代指操作的大小，<span class="math notranslate nohighlight">\(t\)</span>指操作指定的两个端点之间所经过的时间。以点到点通信举例，我们可以通过衡量一个大小已知的信息<span class="math notranslate nohighlight">\(m\)</span>在执行send函数时所花的时间来确定两个处理单元之间网络的带宽。</p>
@@ -557,8 +561,8 @@ Factor），从而给出贴近实际硬件表现的带宽值。下面给出常�
 </ul>
 <p>由于Gather和Scatter的带宽计算与实际聚合/分散时的数据结构相关性更高，故不给出特定的校正系数。</p>
 </div>
-<div class="section" id="id10">
-<h2><span class="section-number">11.5.4. </span>利用集合通信优化模型训练的实践<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id6">
+<h2><span class="section-number">11.5.4. </span>利用集合通信优化模型训练的实践<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>针对不同的集群，机器学习系统往往会灵活组合不同集合通信算子来最大化通信效率。下面提供两个案例分析：ZeRO和DALL-E。</p>
 <div class="section" id="zero">
 <h3><span class="section-number">11.5.4.1. </span>ZeRO<a class="headerlink" href="#zero" title="Permalink to this heading">¶</a></h3>
@@ -590,8 +594,8 @@ Factorization）的方法先把高维张量调整为一个二维矩阵，通过�
 </ul>
 </div>
 </div>
-<div class="section" id="id11">
-<h2><span class="section-number">11.5.5. </span>集合通信在数据并行的实践<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id7">
+<h2><span class="section-number">11.5.5. </span>集合通信在数据并行的实践<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>数据并行作为最广泛使用的分布式训练方法，是集合通信首先需要支持的范式。
 对于数据并行的支持，机器学习系统通常提供了两个级别的抽象：在第一种级别的抽象里，机器学习系统更与硬件耦合，可以直接调用集合通信算子的库；在另一种级别的抽象里，机器学习系统更偏向神经网络实现，通过内部调用集合通信算子实现分布式训练和推理的机器学习框架。作为算法工程师，通常会接触到后者的抽象（包括Horovod、KungFu、TensorFlow
 Distributed等），而作为集群的维护者，往往需要深入了解前者的运行原理和具体的调试方法。以
@@ -645,8 +649,8 @@ Parallel，DDP）方法完成了一次简易的机器学习模型计算。</p>
 Distributed并没有显式地调用集合通信算子，而是通过DistributedDataParallel方法将分布式训练和非分布式训练之间的不同隐藏了起来。如果需要在不同集群上运行这段代码，只需要在setup
 函数内对应地更改PyTorch使用的底层集合通信库即可。在backward函数被调用时，才会真正地使用AllReduce算法。相比，如果想要直接使用Gloo，不仅需要一步一步地创建通信所需要的数据结构，同时也很难和现有的模型训练框架无缝连接。</p>
 </div>
-<div class="section" id="id12">
-<h2><span class="section-number">11.5.6. </span>集合通信在混合并行的实践<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id8">
+<h2><span class="section-number">11.5.6. </span>集合通信在混合并行的实践<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <p>随着深度学习的发展，模型和训练数据集的规模呈爆发式增长，单机的算力和存储能力已无法满足需求，因此，分布式训练技术成为行业发展趋势。</p>
 <p>本章前几节已总结当前常用的分布式并行训练技术方案，如数据并行、模型并行和流水线并行，在复杂场景下，往往需要不同技术点组合使用，才能达到训练大模型的高性能。华为MindSpore开源框架提供混合并行的能力，来支撑大模型分布式训练，用户可以根据自己的需要进行灵活组合。以下通过简单代码示例来说明如何在MindSpore中组合使用数据并行、模型并行和流水线并行训练技术，其他大模型训练技术的使用方法请参照官网教程。</p>
 <p>以下代码利用set_auto_parallel_context接口设置并行模式和可用于训练的卡数，同时利用该接口设置流水线并行中的stage数量。通过扩展nn.Cell,
@@ -690,9 +694,9 @@ Distributed并没有显式地调用集合通信算子，而是通过DistributedD
 </div>
 <p><a class="reference internal" href="#ch10-redistribution"><span class="std std-numref">图11.5.3</span></a>
 展示了上述代码中matmul1和matmul2在调用shard函数后的数据排布情况。matmul1算子将输入<span class="math notranslate nohighlight">\(X\)</span>按照行切成4份后，分别放置在4个计算设备上（D1-D4），<span class="math notranslate nohighlight">\(W\)</span>不切分，则以复制的形式放置在4个计算设备上，此时matmul1算子计算的结果<span class="math notranslate nohighlight">\(Y\)</span>，以行切的形式被放置在不同设备上，而matmul2算子在做计算时，需要<span class="math notranslate nohighlight">\(Y\)</span>的全量数据，因此两个计算算子之间需要插入AllGather集合通信算子，来从4个不同的设备上收集到<span class="math notranslate nohighlight">\(Y\)</span>的全量数据。MindSpore能够自动识别不同切分方式的算子之间应该插入哪种集合通信算子，并且将该逻辑对用户隐藏，只暴露出shard接口供用户配置，开发者可以通过合理的策略配置，来减少算子间重排布通信算子在神经网络计算图中的占比，以提升混合并行分布式训练的端到端速率。</p>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id11">
 <span id="ch10-redistribution"></span><a class="reference internal image-reference" href="../_images/ch10-redistribution.png"><img alt="../_images/ch10-redistribution.png" src="../_images/ch10-redistribution.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图11.5.3 </span><span class="caption-text">相邻算子之间插入集合通信算子举例</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图11.5.3 </span><span class="caption-text">相邻算子之间插入集合通信算子举例</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -717,15 +721,15 @@ Distributed并没有显式地调用集合通信算子，而是通过DistributedD
 <li><a class="reference internal" href="#scatter">11.5.1.7. Scatter</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">11.5.2. 基于AllReduce的梯度平均算法</a></li>
-<li><a class="reference internal" href="#id9">11.5.3. 集合通信算法性能分析</a></li>
-<li><a class="reference internal" href="#id10">11.5.4. 利用集合通信优化模型训练的实践</a><ul>
+<li><a class="reference internal" href="#id4">11.5.2. 基于AllReduce的梯度平均算法</a></li>
+<li><a class="reference internal" href="#id5">11.5.3. 集合通信算法性能分析</a></li>
+<li><a class="reference internal" href="#id6">11.5.4. 利用集合通信优化模型训练的实践</a><ul>
 <li><a class="reference internal" href="#zero">11.5.4.1. ZeRO</a></li>
 <li><a class="reference internal" href="#dall-e">11.5.4.2. DALL-E</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11">11.5.5. 集合通信在数据并行的实践</a></li>
-<li><a class="reference internal" href="#id12">11.5.6. 集合通信在混合并行的实践</a></li>
+<li><a class="reference internal" href="#id7">11.5.5. 集合通信在数据并行的实践</a></li>
+<li><a class="reference internal" href="#id8">11.5.6. 集合通信在混合并行的实践</a></li>
 </ul>
 </li>
 </ul>

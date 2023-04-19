@@ -152,8 +152,8 @@ z的计算逻辑，其中Add算子被设置为在CPU上执行，Sub算子被设�
 .. code:: text
 
    x = y
-       x = z
-       x = x - y
+   x = z
+   x = x - y
 
 这段简单的计算逻辑翻译到计算图上可以表示为
 :numref:`side_effect_1`\ 所示。

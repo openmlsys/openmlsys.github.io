@@ -76,6 +76,11 @@ Show Source
                   <i class="fab fa-github"></i>
                   GitHub
               </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/html-en">
+                  <i class="fas fa-external-link-alt"></i>
+                  English
+              </a>
       </nav>
     </div>
 </header><header class="mdl-layout__drawer">
@@ -461,9 +466,9 @@ Show Source
 <div class="section" id="ch08-sec-parallel-inference">
 <span id="id5"></span><h2><span class="section-number">10.4.2. </span>并行计算<a class="headerlink" href="#ch08-sec-parallel-inference" title="Permalink to this heading">¶</a></h2>
 <p>为提升推理的性能，需要重复利用多核的能力，所以一般推理框架会引入多线程机制。主要的思路是将算子的输入数据进行切分，通过多线程去执行不同数据切片，实现算子并行计算，从而成倍提升算子计算性能。</p>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id9">
 <span id="ch08-fig-parallel"></span><a class="reference internal image-reference" href="../_images/parallel.png"><img alt="../_images/parallel.png" src="../_images/parallel.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.1 </span><span class="caption-text">矩阵乘数据切分</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.1 </span><span class="caption-text">矩阵乘数据切分</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>如图所示，对于矩阵乘可以按左矩阵的行进行切分，可以利用三个线程分别计算A1*B，A2*B，A3*B，实现矩阵乘多线程并行计算。</p>
 <p>为方便算子并行计算，同时避免频繁创建销毁线程的开销，推理框架一般会使用线程池机制。业界有两种较为通用的做法：</p>
@@ -492,17 +497,17 @@ CPU硬件指令优化的方法。</p>
 </ol>
 <p>ARMv8系列的CPU上有32个NEON寄存器v0-v31，如
 <a class="reference internal" href="#ch08-fig-register"><span class="std std-numref">图10.4.2</span></a>所示，NEON寄存器v0可存放128bit的数据，即4个float32，8个float16，16个int8等。</p>
-<div class="figure align-default" id="id18">
+<div class="figure align-default" id="id10">
 <span id="ch08-fig-register"></span><a class="reference internal image-reference" href="../_images/register.png"><img alt="../_images/register.png" src="../_images/register.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.2 </span><span class="caption-text">ARMv8处理器NEON寄存器v0的结构</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.2 </span><span class="caption-text">ARMv8处理器NEON寄存器v0的结构</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>针对该处理器，可以采用SIMD(Single Instruction，Multiple
 Data，单指令、多数据)提升数据存取计算的速度。相比于单数据操作指令，NEON指令可以一次性操作NEON寄存器的多个数据。例如：对于浮点数的fmla指令，用法为fmla
 v0.4s, v1.4s, v2.4s，如图
 <a class="reference internal" href="#ch08-fig-fmla"><span class="std std-numref">图10.4.3</span></a>所示，用于将v1和v2两个寄存器中相对应的float值相乘累加到v0的值上。</p>
-<div class="figure align-default" id="id19">
+<div class="figure align-default" id="id11">
 <span id="ch08-fig-fmla"></span><a class="reference internal image-reference" href="../_images/fmla.png"><img alt="../_images/fmla.png" src="../_images/fmla.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.3 </span><span class="caption-text">fmla指令计算功能</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.3 </span><span class="caption-text">fmla指令计算功能</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>汇编语言优化</p></li>
@@ -524,21 +529,21 @@ v0.4s, v1.4s, v2.4s，如图
 <p>1.Img2col</p>
 <p>将卷积的计算转换为矩阵乘，一般采用Img2col的方法实现。在常见的神经网络中，卷积的输入通常都是4维的，默认采用的数据排布方式为NHWC，如图
 <a class="reference internal" href="#ch08-fig-conv-nhwc"><span class="std std-numref">图10.4.4</span></a>所示，是一个卷积示意图。输入维度为（1,IH,IW,IC），卷积核维度为（OC,KH,KW,IC），输出维度为（1,OH,OW,OC）。</p>
-<div class="figure align-default" id="id20">
+<div class="figure align-default" id="id12">
 <span id="ch08-fig-conv-nhwc"></span><a class="reference internal image-reference" href="../_images/conv_nhwc.png"><img alt="../_images/conv_nhwc.png" src="../_images/conv_nhwc.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.4 </span><span class="caption-text">通用卷积示意图</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.4 </span><span class="caption-text">通用卷积示意图</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <p>对卷积的Img2col规则如下。如图
 <a class="reference internal" href="#ch08-fig-img2col-input"><span class="std std-numref">图10.4.5</span></a>所示，对该输入做重排，得到的矩阵见右侧，行数对应输出的OH<em>OW的个数；对于每个行向量，就对应到一个输出点。计算每个输出点，需要IC</em>KH<em>KW个输入数据，Img2col先排列第一个输入通道的KH</em>KW个输入数据，再排列第二个输入通道的数据，直到第IC个通道。</p>
-<div class="figure align-default" id="id21">
+<div class="figure align-default" id="id13">
 <span id="ch08-fig-img2col-input"></span><a class="reference internal image-reference" href="../_images/img2col_input.png"><img alt="../_images/img2col_input.png" src="../_images/img2col_input.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.5 </span><span class="caption-text">输入Img2col的矩阵</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.5 </span><span class="caption-text">输入Img2col的矩阵</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>如
 <a class="reference internal" href="#ch08-fig-img2col-weight"><span class="std std-numref">图10.4.6</span></a>所示，对权重数据做重排。将1个卷积核展开为权重矩阵的一列，因此共有OC列，每个列向量上先排列第一个输入通道上KH*KW的数据，再依次排列后面的通道直到IC。通过重排，卷积的计算就可以转换为两个矩阵相乘的求解。在实际实现时，Img2col和GEMM的数据重排会同时进行，以节省运行时间。</p>
-<div class="figure align-default" id="id22">
+<div class="figure align-default" id="id14">
 <span id="ch08-fig-img2col-weight"></span><a class="reference internal image-reference" href="../_images/img2col_weight.png"><img alt="../_images/img2col_weight.png" src="../_images/img2col_weight.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.6 </span><span class="caption-text">卷积核Img2col的矩阵</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.6 </span><span class="caption-text">卷积核Img2col的矩阵</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <p>2.Winograd算法</p>
 <p>卷积计算归根到底是矩阵乘法，两个二维矩阵相乘的时间复杂度是<span class="math notranslate nohighlight">\(O(n^3)\)</span>。Winograd算法可以降低矩阵乘法的复杂度。</p>
@@ -572,17 +577,11 @@ v0.4s, v1.4s, v2.4s，如图
 <span class="eqno">(10.4.8)<a class="headerlink" href="#equation-ch08-equ-winograd-two-dimension-matrix" title="Permalink to this equation">¶</a></span>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g\mathbf{G^T})*(\mathbf{B^T}d\mathbf{B})\mathbf{A}\]</div>
 <p>Winograd算法的整个计算过程在逻辑上可以分为4步，如
 <a class="reference internal" href="#ch08-fig-winograd"><span class="std std-numref">图10.4.7</span></a>所示：</p>
-<div class="figure align-default" id="id23">
+<div class="figure align-default" id="id15">
 <span id="ch08-fig-winograd"></span><a class="reference internal image-reference" href="../_images/winograd.png"><img alt="../_images/winograd.png" src="../_images/winograd.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">图10.4.7 </span><span class="caption-text">winograd步骤示意图</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">图10.4.7 </span><span class="caption-text">winograd步骤示意图</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
-<p>针对任意的输出大小，要使用:raw-latex:<cite>textit{textbf{F}}`(2$:raw-latex:</cite>times`<span class="math notranslate nohighlight">\(2，3\)</span><a href="#id9"><span class="problematic" id="id10">:raw-latex:`\times`</span></a><span class="math notranslate nohighlight">\(3)的Winograd算法，需要将输出切分成2\)</span><a href="#id11"><span class="problematic" id="id12">:raw-latex:`\times`</span></a><span class="math notranslate nohighlight">\(2的块，找到对应的输入，按照上述的四个步骤，就可以求出对应的输出值。当然，Winograd算法并不局限于求解\textit{\textbf{F}}(2\)</span><a href="#id13"><span class="problematic" id="id14">:raw-latex:`\times`</span></a><span class="math notranslate nohighlight">\(2，3\)</span><a href="#id15"><span class="problematic" id="id16">:raw-latex:`\times`</span></a><span class="math notranslate nohighlight">\(3)，针对任意的\textit{\textbf{F}}(\)</span>m</p>
-<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-0">
-<span class="eqno">(10.4.9)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-0" title="Permalink to this equation">¶</a></span>\[\times\]</div>
-<p>m<span class="math notranslate nohighlight">\(，\)</span>r</p>
-<div class="math notranslate nohighlight" id="equation-chapter-model-deployment-model-inference-1">
-<span class="eqno">(10.4.10)<a class="headerlink" href="#equation-chapter-model-deployment-model-inference-1" title="Permalink to this equation">¶</a></span>\[\times\]</div>
-<p>r<span class="math notranslate nohighlight">\()，都可以找到适当的常量矩阵\textit{\textbf{A}}、\textit{\textbf{B}}、\textit{\textbf{G}}，通过间接计算的方式减少乘法次数。但是随着\)</span>m<span class="math notranslate nohighlight">\(、\)</span>r$的增大，输入、输出涉及的加法以及常量权重的乘法次数都在增加，那么乘法次数带来的计算量下降会被加法和常量乘法所抵消。因此，在实际使用场景中，还需要根据Winograd的实际收益来选择。</p>
+<p>针对任意的输出大小，要使用<span class="math notranslate nohighlight">\(\textit{\textbf{F}}(2\times2，3\times3)\)</span>的Winograd算法，需要将输出切分成<span class="math notranslate nohighlight">\(2\times2\)</span>的块，找到对应的输入，按照上述的四个步骤，就可以求出对应的输出值。当然，Winograd算法并不局限于求解<span class="math notranslate nohighlight">\(\textit{\textbf{F}}(2\times2，3\times3)\)</span>，针对任意的<span class="math notranslate nohighlight">\(\textit{\textbf{F}}(m\times m，r\times r)\)</span>，都可以找到适当的常量矩阵<span class="math notranslate nohighlight">\(\textit{\textbf{A}}\)</span>、<span class="math notranslate nohighlight">\(\textit{\textbf{B}}\)</span>、<span class="math notranslate nohighlight">\(\textit{\textbf{G}}\)</span>，通过间接计算的方式减少乘法次数。但是随着<span class="math notranslate nohighlight">\(m\)</span>、<span class="math notranslate nohighlight">\(r\)</span>的增大，输入、输出涉及的加法以及常量权重的乘法次数都在增加，那么乘法次数带来的计算量下降会被加法和常量乘法所抵消。因此，在实际使用场景中，还需要根据Winograd的实际收益来选择。</p>
 <p>本小节主要介绍了模型推理时的数据处理和性能优化手段。选择合适的数据处理方法，可以更好地提取输入特征，处理输出结果。并行计算以及算子级别的硬件指令与算法优化可以最大限度的发挥硬件的算力。除此之后，内存的占用及访问速率也是影响推理性能的重要因素，因此推理时需要设计合理的内存复用策略，内存复用的策略已经在编译器后端章节已经做了阐述。</p>
 </div>
 </div>

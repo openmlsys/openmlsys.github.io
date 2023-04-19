@@ -76,6 +76,11 @@ Show Source
                   <i class="fab fa-github"></i>
                   GitHub
               </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/html-en">
+                  <i class="fas fa-external-link-alt"></i>
+                  English
+              </a>
       </nav>
     </div>
 </header><header class="mdl-layout__drawer">
@@ -429,7 +434,7 @@ Show Source
         
   <div class="section" id="c-c">
 <h1><span class="section-number">3.4. </span>C/C++编程接口<a class="headerlink" href="#c-c" title="Permalink to this heading">¶</a></h1>
-<p>在2.2和2.3节中，分别讨论了开发者如何利用Python来定义机器学习的整个工作流，以及如何定义复杂的深度神经网络。然而，在很多时候，开发者也需要添加自定义的算子来帮助实现新的模型，优化器，数据处理函数等。这些自定义算子需要通过C和C++实现，从而获得最优性能。但是为了帮助这些算子被开发者使用，他们也需要暴露为Python函数，从而方便开发者整合入已有的Python为核心编写的工作流和模型。在这一小节中，我们讨论这一过程是如何实现的。</p>
+<p>在3.2和3.3节中，分别讨论了开发者如何利用Python来定义机器学习的整个工作流，以及如何定义复杂的深度神经网络。然而，在很多时候，开发者也需要添加自定义的算子来帮助实现新的模型，优化器，数据处理函数等。这些自定义算子需要通过C和C++实现，从而获得最优性能。但是为了帮助这些算子被开发者使用，他们也需要暴露为Python函数，从而方便开发者整合入已有的Python为核心编写的工作流和模型。在这一小节中，我们讨论这一过程是如何实现的。</p>
 <div class="section" id="pythonc-c">
 <h2><span class="section-number">3.4.1. </span>在Python中调用C/C++函数的原理<a class="headerlink" href="#pythonc-c" title="Permalink to this heading">¶</a></h2>
 <p>由于Python的解释器是由C实现的，因此在Python中可以实现对于C和C++函数的调用。现代机器学习框架（包括TensorFlow，PyTorch和MindSpore）主要依赖Pybind11来将底层的大量C和C++函数自动生成对应的Python函数，这一过程一般被称为Python绑定（
