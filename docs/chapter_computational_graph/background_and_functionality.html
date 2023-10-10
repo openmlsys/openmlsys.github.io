@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,14 +430,15 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">4.1. </span>计算图的设计背景和作用<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">4.1. </span>计算图的设计背景和作用<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="figure align-default" id="id2">
 <span id="dag"></span><a class="reference internal image-reference" href="../_images/graph.png"><img alt="../_images/graph.png" src="../_images/graph.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图4.1.1 </span><span class="caption-text">基于计算图的架构</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>早期机器学习框架主要针对全连接和卷积神经网络设计，这些神经网络的拓扑结构简单，神经网络层之间通过串行连接。因此，它们的拓扑结构可以用简易的配置文件表达（例如Caffe基于Protocol
 Buffer格式的模型定义）。</p>
-<p>现代机器学习模型的拓扑结构日益复杂，显著的例子包括混合专家模型、生成对抗网络、注意力模型等。复杂的模型结构（例如带有分支的循环结构等）需要机器学习框架能够对模型算子的执行依赖关系、梯度计算以及训练参数进行快速高效的分析，便于优化模型结构、制定调度执行策略以及实现自动化梯度计算，从而提高机器学习框架训练复杂模型的效率。因此，机器学习系统设计者需要一个通用的数据结构来理解、表达和执行机器学习模型。为了应对这个需求，如:numref:<cite>dag</cite>所示基于计算图的机器学习框架应运而生，框架延续前端语言与后端语言分离的设计。从高层次来看，计算图实现了以下关键功能：</p>
+<p>现代机器学习模型的拓扑结构日益复杂，显著的例子包括混合专家模型、生成对抗网络、注意力模型等。复杂的模型结构（例如带有分支的循环结构等）需要机器学习框架能够对模型算子的执行依赖关系、梯度计算以及训练参数进行快速高效的分析，便于优化模型结构、制定调度执行策略以及实现自动化梯度计算，从而提高机器学习框架训练复杂模型的效率。因此，机器学习系统设计者需要一个通用的数据结构来理解、表达和执行机器学习模型。为了应对这个需求，如
+<a class="reference internal" href="#dag"><span class="std std-numref">图4.1.1</span></a>所示基于计算图的机器学习框架应运而生，框架延续前端语言与后端语言分离的设计。从高层次来看，计算图实现了以下关键功能：</p>
 <ul class="simple">
 <li><p><strong>统一的计算过程表达。</strong>
 在编写机器学习模型程序的过程中，用户希望使用高层次编程语言（如Python、Julia和C++）。然而，硬件加速器等设备往往只提供了C和C++编程接口，因此机器学习系统的实现通常需要基于C和C++。用不同的高层次语言编写的程序因此需要被表达为一个统一的数据结构，从而被底层共享的C和C++系统模块执行。这个数据结构（即计算图）可以表述用户的输入数据、模型中的计算逻辑（通常称为算子）以及算子之间的执行顺序。</p></li>

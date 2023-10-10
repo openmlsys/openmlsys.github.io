@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,12 +431,12 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">14.4. </span>隐私加密算法<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">14.4. </span>隐私加密算法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中央FL-Server。这样可以避免用户个人数据的直接泄露。然而联邦学习框架中，模型的权重以明文形式上云仍然存在间接泄露用户隐私的风险。敌手获取到用户上传的明文权重后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。</p>
 <p>MindSpore
 Federated框架，提供了基于本地差分隐私（LDP）、基于多方安全计算（MPC）的安全聚合算法和华为自研的基于符号的维度选择差分隐私算法（SignDS），在本地模型的权重上云前对其进行加噪或加扰。在保证模型可用性的前提下，解决联邦学习中的隐私泄露问题。</p>
 <div class="section" id="ldp">
-<h2><span class="section-number">14.4.1. </span>基于LDP的安全聚合<a class="headerlink" href="#ldp" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.4.1. </span>基于LDP的安全聚合<a class="headerlink" href="#ldp" title="Permalink to this headline">¶</a></h2>
 <p>差分隐私（differential
 privacy）是一种保护用户数据隐私的机制。差分隐私定义为：</p>
 <div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-0">
@@ -453,7 +451,7 @@ Federated提供基于本地差分隐私的安全聚合算法，防止本地模�
 <p>FL-Client将加噪后的模型权重矩阵<span class="math notranslate nohighlight">\(W_p\)</span>上传至云侧FL-Server进行联邦聚合。噪声矩阵<span class="math notranslate nohighlight">\(G\)</span>相当于给原模型加上了一层掩码，在降低模型泄露敏感数据风险的同时，也会影响模型训练的收敛性。如何在模型隐私性和可用性之间取得更好的平衡，仍然是一个值得研究的问题。实验表明，当参与方的数量<span class="math notranslate nohighlight">\(n\)</span>足够大时（一般指1000以上），大部分噪声能够相互抵消，本地差分隐私机制对聚合模型的精度和收敛性没有明显影响。</p>
 </div>
 <div class="section" id="mpc">
-<h2><span class="section-number">14.4.2. </span>基于MPC的安全聚合<a class="headerlink" href="#mpc" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.4.2. </span>基于MPC的安全聚合<a class="headerlink" href="#mpc" title="Permalink to this headline">¶</a></h2>
 <p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore
 Federated提供了基于MPC的安全聚合方案。</p>
 <p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore
@@ -478,7 +476,7 @@ Federated提供了基于MPC的安全聚合方案。</p>
 <p>上面的过程只是介绍了聚合算法的主要思想，基于MPC的聚合方案是精度无损的，代价是通讯轮次的增加。</p>
 </div>
 <div class="section" id="ldp-signds">
-<h2><span class="section-number">14.4.3. </span>基于LDP-SignDS算法的安全聚合<a class="headerlink" href="#ldp-signds" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.4.3. </span>基于LDP-SignDS算法的安全聚合<a class="headerlink" href="#ldp-signds" title="Permalink to this headline">¶</a></h2>
 <p>对于先前的基于维度加噪的LDP算法，添加到每个维度的噪声规模基本上与模型参数的数量成正比。因此，对于高维模型，可能需要非常多的参与方来减轻噪音对模型收敛的影响。为了解决上述“维度依赖”问题，MindSpore
 Federated 进一步提供了基于维度选择的<strong>Sign-based Dimension Selection
 (SignDS)</strong> <span class="bibtex" id="id2">[jiang2022signds]</span>算法。</p>

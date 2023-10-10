@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -431,7 +429,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">3. </span>编程接口<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">3. </span>编程接口<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>现代机器学习框架包含大量的组件，辅助用户高效开发机器学习算法、处理数据、部署模型、性能调优和调用硬件加速器。在设计这些组件的应用编程接口（Application
 Programming
 Interface，API）时，一个核心的诉求是：如何平衡框架性能和易用性？为了达到最优的性能，开发者需要利用硬件亲和的编程语言如：C和C++来进行开发。这是因为C和C++可以帮助机器学习框架高效地调用硬件底层API，从而最大限度发挥硬件性能。同时，现代操作系统（如Linux和Windows）提供丰富的基于C和C++的API接口（如文件系统、网络编程、多线程管理等），通过直接调用操作系统API，可以降低框架运行的开销。</p>

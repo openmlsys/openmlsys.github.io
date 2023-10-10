@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,12 +431,12 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">11.1. </span>系统概述<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">11.1. </span>系统概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2><span class="section-number">11.1.1. </span>设计动机<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.1.1. </span>设计动机<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>分布式训练系统主要为了解决单节点的算力和内存不足的问题。</p>
 <div class="section" id="id3">
-<h3><span class="section-number">11.1.1.1. </span>算力不足<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.1.1.1. </span>算力不足<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>单处理器的算力不足是促使人们设计分布式训练系统的一个主要原因。一个处理器的算力可以用<strong>每秒钟浮点数操作</strong>（Floating
 Point Operations Per
 Second，FLOPS）来衡量。<a class="reference internal" href="#ch10-computation-increase"><span class="std std-numref">图11.1.1</span></a>分析了机器学习模型对于算力的需求以及同期处理器所提供算力在过去数年中变化。其中，用千万亿运算次数/秒—天（Petaflop/s—day
@@ -450,13 +448,13 @@ Law），中央处理器的算力每18个月增长2倍。虽然计算加速卡(�
 </div>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">11.1.1.2. </span>内存不足<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.1.1.2. </span>内存不足<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>训练机器学习模型需要大量内存。假设一个大型神经网络模型具有1000亿的参数，每个参数都由一个32位浮点数（4个字节）表达，存储模型参数就需要400GB的内存。在实际中，我们需要更多内存来存储激活值和梯度。假设激活值和梯度也用32位浮点数表达，那么其各自至少需要400GB内存，总的内存需求就会超过1200GB（即1.2TB）。而如今的硬件加速卡（如NVIDIA
 A100）仅能提供最高80GB的内存。单卡内存空间的增长受到硬件规格、散热和成本等诸多因素的影响，难以进一步快速增长。因此，我们需要分布式训练系统来同时使用数百个训练加速卡，从而为千亿级别的模型提供所需的TB级别的内存。</p>
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">11.1.2. </span>系统架构<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.1.2. </span>系统架构<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>为了方便获得大量用于分布式训练的服务器，人们往往依靠云计算数据中心。一个数据中心管理着数百个集群，每个集群可能有几百到数千个服务器。通过申请其中的数十台服务器，这些服务器进一步通过分布式训练系统进行管理，并行完成机器学习模型的训练任务。</p>
 <div class="figure align-default" id="id8">
 <span id="ch10-single-vs-multi"></span><a class="reference internal image-reference" href="../_images/ch10-single-vs-multi.png"><img alt="../_images/ch10-single-vs-multi.png" src="../_images/ch10-single-vs-multi.png" style="width: 800px;" /></a>
@@ -467,7 +465,7 @@ Training
 Job）往往会有一组数据（如训练样本）或者任务（如算子）作为输入，利用一个计算节点（如GPU）生成一组输出（如梯度）。分布式执行一般具有三个步骤：第一步将输入进行切分；第二步将每个输入部分会分发给不同的计算节点，实现并行计算；第三步将每个计算节点的输出进行合并，最终得到和单节点等价的计算结果。这种首先切分，然后并行，最后合并的模式，本质上实现了分而治之（Divide-and-Conquer）的方法：由于每个计算节点只需要负责更小的子任务，因此其可以更快速地完成计算，最终实现对整个计算过程的加速。</p>
 </div>
 <div class="section" id="id6">
-<h2><span class="section-number">11.1.3. </span>用户益处<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.1.3. </span>用户益处<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>通过使用分布式训练系统可以获得以下几个优点：</p>
 <ul class="simple">
 <li><p><strong>提升系统性能</strong>：使用分布式训练，往往可以带来训练性能的巨大提升。一个分布式训练系统一般用“到达目标精度所需的时间”（Time-to-Accuracy）这个指标来衡量系统性能。这个指标由两个参数决定:

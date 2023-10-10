@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,7 +430,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">14.5. </span>展望<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">14.5. </span>展望<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>为了实现联邦学习的大规模商用，我们仍然需要做许多的研究工作。比如我们无法查看联邦学习的分布式化的数据，那就很难选择模型的超参数以及设定优化器，只能采用一些基于模拟的方案来调测模型；比如用于移动设备时，单用户的标签数据很少，甚至无法获取数据的标签信息，联邦学习如何用于无监督学习；比如由于参与方的数据分布不一致，训练同一个全局模型，很难评价模型对于每个参与方的好坏；比如数据一直是公司的核心资产，不同的公司一直在致力于收集数据和创造数据孤岛，如何有效地激励公司或者机构参与联邦学习的系统中来。下面将介绍一些MindSpore
 Federated在进行的一些尝试和业界的相关工作。</p>
 <p><strong>异构场景下的联邦学习</strong></p>

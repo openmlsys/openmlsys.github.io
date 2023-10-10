@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,7 +431,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">13.1. </span>系统基本组成<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.1. </span>系统基本组成<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>推荐系统的核心模块是其中的推荐模型，其负责根据输入数据找出用户可能感兴趣的物品。为了支持推荐模型的持续、稳定、高质量运行，大型推荐系统还包括了围绕推荐模型搭建了的一系列其他模块。图
 <a class="reference internal" href="#ch10-recommendation-systems"><span class="std std-numref">图13.1.1</span></a>展示了一个典型的推荐系统的基本组件。首先有一个消息队列接收从推荐服务的客户端上传的日志，其中包括了用户对于此前推荐结果的反馈，例如用户是否点击了推荐的物品。然后数据处理模块对日志中的原始数据进行处理。处理得到新的训练样本写入另一条消息队列中，由训练服务器读取并更新模型参数。主流的推荐模型主要由两部分构成：嵌入表和神经网络。在训练过程中，训练服务器从参数服务器拉取模型参数，计算梯度并将梯度上传回参数服务器，参数服务器聚合各个训练服务器的结果并更新参数。推理服务器负责处理用户请求，根据用户请求从参数服务器拉取对应的模型参数然后计算推荐结果。</p>
 <div class="figure align-default" id="id14">
@@ -442,7 +440,7 @@ Show Source
 </div>
 <p>以下各个小节详细介绍推荐系统工作流中的各个组件的功能和特点。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">13.1.1. </span>消息队列<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.1. </span>消息队列<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>消息队列（Message
 Queue）是一种服务（Service）间异步通信的方式，常用于无服务（Serverless）或微服务（Microservices）架构中。</p>
 <p>例如在推荐系统中，各个模块可以部署成一个个相对独立的微服务。客户端向服务器上报的日志（包含用户对推荐结果的反馈）由消息队列负责收集，然后数据处理服务从消息队列中读取原始日志，进行清洗、转化，得到的用户、物品特征存入特征存储中，而得到的训练样本再写入另一条消息队列中等待训练服务器使用。</p>
@@ -450,7 +448,7 @@ Queue）是一种服务（Service）间异步通信的方式，常用于无服�
 <p>作为分布式系统的重要基础组件，业界已经开发了许多成熟的消息队列系统，例如RabbitMQ，Kafka，Pulsar等。限于篇幅和主题，本节无法详细介绍消息队列的各个方面，感兴趣的读者可以参考这些开源系统的文档或者拓展阅读中给出的资料深入学习。</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">13.1.2. </span>特征存储<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.2. </span>特征存储<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>特征存储是存储并组织特征的地方，被用于模型训练和推理服务中。</p>
 <p>前文提到数据处理模块从消息队列中读取原始日志，例如日志中包含用户性别信息可能是“男”“女”，“未知”中的一种。这样的原始特征无法直接输入推荐模型中使用，因此数据处理模块对其进行简单的映射转化：“男”
 –&gt; 0，“女”-&gt; 1，“未知”-&gt;
@@ -464,21 +462,21 @@ Queue）是一种服务（Service）间异步通信的方式，常用于无服�
 <p>特征存储是机器学习系统中的重要基础组件，工业界有许多成熟的产品，例如SageMaker，Databricks等，也有许多优秀的开源系统，例如Hopsworks，Feast等。关于特征存储更加详细的介绍可以参考拓展阅读中提供的资料。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">13.1.3. </span>稠密神经网络<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.3. </span>稠密神经网络<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>稠密神经网络（Dense Neural
 Network，DNN）是推荐模型的核心，负责探索各个特征之间隐含的联系从而为用户推荐出可能感兴趣的物品。一般在推荐系统中，简单的多层感知机（Multilayer
 Perceptron，MLP）模型就已经显示出了强大的效果并被应用在谷歌
-<span class="bibtex" id="id5">[cheng2016wide]</span>、Meta
+<a class="bibtex reference internal" href="summary.html#cheng2016wide" id="id5">[Cheng et al., 2016]</a>、Meta
 <a class="bibtex reference internal" href="summary.html#naumov2019deep" id="id6">[Naumov et al., 2019]</a>等各大公司的推荐模型中。虽然MLP的大矩阵相乘操作属于计算密集型任务，对于计算能力要求很高，但是推荐模型中的MLP尺寸一般不超过数MB，对存储要求不高。</p>
 <p>虽然MLP已经取得了不错的效果，在推荐系统领域，近年来应用各种新型深度神经网络的尝试从未止步，更加精巧复杂的网络结构层出不穷，近年来也有工作尝试应用Transformer模型完成推荐任务
-<span class="bibtex" id="id7">[de2021transformers4rec]</span>。在可以预见的未来，推荐模型中的稠密神经网络也必然会增长到数GB乃至TB。</p>
+<a class="bibtex reference internal" href="summary.html#de2021transformers4rec" id="id7">[SouzaPereiraMoreira et al., 2021]</a>。在可以预见的未来，推荐模型中的稠密神经网络也必然会增长到数GB乃至TB。</p>
 </div>
 <div class="section" id="id8">
-<h2><span class="section-number">13.1.4. </span>嵌入表<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.4. </span>嵌入表<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>嵌入表是几乎所有推荐模型的共有组件，负责将无法直接参与计算的离散特征数据，例如：用户和物品ID、用户性别、物品类别等，转化为高维空间中的一条向量。推荐模型中的嵌入表的结构和自然语言处理模型中的类似，不同的是自然语言处理模型中的深度神经网络贡献了主要的参数量，而在推荐模型中，如图
 <a class="reference internal" href="#recommendation-models"><span class="std std-numref">图13.1.3</span></a>所示，嵌入表贡献主要的参数量。这是因为，推荐系统中有大量的离散特征，而每个离散特征的每一种可能的取值都需要有对应的嵌入项。例如，性别特征的取值可能是“女”，“男”，“未知”，则需要三个嵌入项。假设每条嵌入项是一个64维的单精度浮点数向量，如果一个推荐系统服务一亿用户，那么仅仅对应的用户嵌入表（其中的每条嵌入项对应一个用户）的大小就有<span class="math notranslate nohighlight">\(4*64*10^8～=23.8\)</span>GB。除了用户嵌入表，还有商品嵌入表（其中的每条嵌入项对应一个商品），以及用户和商品的各项特征的嵌入表。总的嵌入表大小可以轻易达到几百GB甚至几十TB。
 而正如上文提到的，推荐系统中通常用的MLP模型尺寸较小。例如一个在Ali-CCP数据集
-<span class="bibtex" id="id9">[ma2018entire]</span>上训练的DLRM
+<a class="bibtex reference internal" href="summary.html#ma2018entire" id="id9">[Ma et al., 2018]</a>上训练的DLRM
 <a class="bibtex reference internal" href="summary.html#naumov2019deep" id="id10">[Naumov et al., 2019]</a>的嵌入表大小超过1.44GB，而稠密神经网络仅有大约100KB。</p>
 <div class="figure align-default" id="id16">
 <span id="recommendation-models"></span><a class="reference internal image-reference" href="../_images/ch10-recommendation-models.png"><img alt="../_images/ch10-recommendation-models.png" src="../_images/ch10-recommendation-models.png" style="width: 800px;" /></a>
@@ -487,7 +485,7 @@ Perceptron，MLP）模型就已经显示出了强大的效果并被应用在谷�
 <p>在推荐系统中，人们通常使用存算分离的参数服务器架构来服务推荐模型。尽管嵌入表占据了推荐模型的主要存储空间，但是其计算却是十分稀疏的。这是因为无论是在训练还是推理过程中，数据都是以小批次的形式依次计算。而在一个批次的计算过程中，只有涉及到的那些嵌入项才会被访问到。假设在一个服务一亿用户的推荐系统每次处理1000条用户的请求，那么一次只有大约十万分之一的嵌入项会被访问到。因此负责计算推荐结果的服务器（训练服务器或者推理服务器）根本没有必要存储所有的嵌入表。</p>
 </div>
 <div class="section" id="id11">
-<h2><span class="section-number">13.1.5. </span>训练服务器<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.5. </span>训练服务器<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>因为深度学习推荐系统同时具有存储密集（嵌入表）和计算密集（深度神经网路）的特点，工业界通常使用参数服务器架构来支持超大规模推荐模型的训练和推理。参数服务器架构包含训练服务器、参数服务器和推理服务器。本书
 <span class="xref std std-ref">parameter_servers</span>章详细介绍了参数服务器架构，因此本节只重点介绍参数服务器架构具体在推荐系统中的功能。</p>
 <div class="figure align-default" id="id17">
@@ -498,12 +496,12 @@ Perceptron，MLP）模型就已经显示出了强大的效果并被应用在谷�
 <p>由于参数服务器要聚合所有训练服务器的梯度，为了避免网络延迟导致的掉队者严重影响训练效率，通常一个模型的所有训练服务器位于同一个数据中心中。我们将这个数据中心称之为训练数据中心。</p>
 </div>
 <div class="section" id="id12">
-<h2><span class="section-number">13.1.6. </span>参数服务器<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.6. </span>参数服务器<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>在推荐系统中，参数服务器除了协调训练过程，还要负责支持模型推理。在模型推理过程中，推理服务器需要访问参数服务器上的模型参数以计算推荐结果。因此为了降低推理过程的延迟，通常会在推理服务器所在的数据中心（以下称之为推理数据中心）中的参数服务器上保存至少一份模型参数的副本，结构如图
 <a class="reference internal" href="#parameter-server-in-recommendation"><span class="std std-numref">图13.1.4</span></a>所示。这种做法还有利于容灾——当一个数据中心因为某些原因被迫下线无法访问时，可以将用户请求重定向至其他的推理数据中心。</p>
 </div>
 <div class="section" id="id13">
-<h2><span class="section-number">13.1.7. </span>推理服务器<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.7. </span>推理服务器<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <p>推荐系统中的推理服务器负责从客户端接受用户的推荐请求，然后根据请求从参数服务器拉取模型参数，从特征存储中拉取用户和物品特征，然后计算推荐结果。本节为了方便理解，假设用户请求由一个推理服务器处理，实际上在大规模推荐系统中，推理结果由（多个推理服务器上的）多个模型组成的推荐流水线给出。具体的细节将会在下一节多阶段推荐系统中介绍。</p>
 </div>
 </div>

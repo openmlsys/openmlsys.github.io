@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -429,7 +427,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1>控制系统案例<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1>控制系统案例<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在上一章节中，我们初步了解了机器人的控制系统，同时也知道了机器学习在机器人控制系统这个领域有着很多有趣和有前景的研究方向。
 只不过由于控制系统的复杂性和这些研究的前瞻性，它们不太适合用来作为简单的案例。</p>
 <p>与此同时，ROS作为一个成熟的机器人框架，它已经包含了很多成熟稳定的经典控制组件。
@@ -446,9 +444,9 @@ MoveIt在ROS2中的继承者，致力于打造一个容易使用的机器人操�
 Started”这一章。对自己英文有信心的读者可以尝试阅读官方文档以了解更多细节。</p>
 <p>本章没有额外的代码案例。</p>
 <div class="section" id="id2">
-<h2>安装<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2>安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>首先，让我们通过Ubuntu的库管理器来安装Nav2相关的程序库。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-foxy-navigation2<span class="w"> </span>ros-foxy-nav2-bringup
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt install ros-foxy-navigation2 ros-foxy-nav2-bringup
 </pre></div>
 </div>
 <p>其中<code class="docutils literal notranslate"><span class="pre">ros-foxy-navigation2</span></code>是Nav2的核心程序库，而<code class="docutils literal notranslate"><span class="pre">ros-foxy-nav2-bringup</span></code>则是Nav2的一个启动案例。
@@ -456,21 +454,21 @@ Started”这一章。对自己英文有信心的读者可以尝试阅读官方�
 <p>接下来让我们安装<code class="docutils literal notranslate"><span class="pre">turtlebot3</span></code>相关的一系列程序库。
 turtlebot系列是一个很成功的入门级移动机器人系列。
 而这一系列程序库则提供了和turtlebot3机器人相关的组件，其中包含了在模拟环境中使用虚拟turtlebot3机器人的相关功能组件。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ros-foxy-turtlebot3*&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt install <span class="s2">&quot;ros-foxy-turtlebot3*&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
-<h2>运行<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2>运行<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在安装好上面的那些程序库后，我们就可以尝试使用Nav2了。</p>
 <p>首先，让我们新开一个终端窗口，并执行以下命令。这些命令分别导入了ROS2框架，并设定好了我们要使用哪个Turtlebot3模型和在哪儿搜索虚拟世界（Gazebo）需要的模型。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/foxy/setup.bash
-<span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>waffle
-<span class="nb">export</span><span class="w"> </span><span class="nv">GAZEBO_MODEL_PATH</span><span class="o">=</span><span class="nv">$GAZEBO_MODEL_PATH</span>:/opt/ros/foxy/share/turtlebot3_gazebo/models
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /opt/ros/foxy/setup.bash
+<span class="nb">export</span> <span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>waffle
+<span class="nb">export</span> <span class="nv">GAZEBO_MODEL_PATH</span><span class="o">=</span><span class="nv">$GAZEBO_MODEL_PATH</span>:/opt/ros/foxy/share/turtlebot3_gazebo/models
 </pre></div>
 </div>
 <p>现在，我们一切就绪，可以下面这行命令来运行一个Nav2的演示程序。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>nav2_bringup<span class="w"> </span>tb3_simulation_launch.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 launch nav2_bringup tb3_simulation_launch.py
 </pre></div>
 </div>
 <p>其中<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span></code>命令是用来执行一个launch文件，而后者则是将很多需要启动的ROS2组件集合到一起来按计划启动的一个说明文件。
@@ -513,7 +511,7 @@ launch文件和<code class="docutils literal notranslate"><span class="pre">ros2
 <p>RViz还提供了很多其它的Nav2功能的按钮，你可以通过Nav2和ROS2的官方英文文档来了解更多使用方法。</p>
 <p>恭喜，你现在初步了解了怎样使用ROS2框架内的大型功能模组！</p>
 <div class="section" id="wslnav2">
-<h3>章节附录：在WSL中使用Nav2<a class="headerlink" href="#wslnav2" title="Permalink to this heading">¶</a></h3>
+<h3>章节附录：在WSL中使用Nav2<a class="headerlink" href="#wslnav2" title="Permalink to this headline">¶</a></h3>
 <p>有些读者可能是通过Windows下的WSL（Windows Subsystem for
 Linux）来运行ROS2的。
 如果是这种情况，这一章节中的图形界面程序，如RViz和Gazebo，可能会造成问题。

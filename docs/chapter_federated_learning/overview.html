@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,22 +430,22 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">14.1. </span>概述<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">14.1. </span>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>随着人工智能的飞速发展，大规模和高质量的数据对模型的效果和用户的体验都变得越来越重要。与此同时，数据的利用率成为了制约了人工智能的进一步发展的瓶颈。隐私、监管和工程等问题造成了设备与设备之间的数据不能共享，进而导致了数据孤岛问题的出现。为了解决这一难题，联邦学习（Federated
 Learning，FL）应运而生。联邦学习的概念最早在2016年被提了出来。在满足用户隐私保护、数据安全和政府法规的要求下，联邦学习能有效地使用多方机构的数据进行机器学习建模。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">14.1.1. </span>定义<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.1.1. </span>定义<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>联邦学习的核心是数据不动，模型动。显然，若是将数据从各方集中在一起，无法保证对用户隐私的保护，且不符合相关法律法规。联邦学习让模型在各个数据方“移动”，这样就可以达到数据不出端即可建模的效果。在联邦学习中，各方数据都保留在本地，通过（在中心服务器上）交换加密的参数或其他信息来建立机器学习模型。</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">14.1.2. </span>应用场景<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.1.2. </span>应用场景<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在实际的应用场景中，根据样本和特征的重叠情况，联邦学习可以被分为横向联邦学习（样本不同，特征重叠），纵向联邦学习（特征不同，样本重叠）和联邦迁移学习（样本和特征都不重叠）。</p>
 <p><strong>横向联邦学习</strong>适用于不同参与方拥有的特征相同、但参与的个体不同的场景。比如，在广告推荐场景中，算法开发人员使用不同手机用户的相同特征（点击次数、停留时间或使用频次等）的数据来建立模型。因为这些特征数据不能出端，横向联邦学习被用来联合多用户的特征数据来构建模型。</p>
 <p><strong>纵向联邦学习</strong>适用于样本重叠多、特征重叠少的场景。比如，有两个不同机构，一家是保险公司，另一家是医院。它们的用户群体很有可能包含该地的大部分居民。它们两方的用户交集可能较大。由于保险公司记录的是用户的收支行为与信用评级，而医院则拥有用户的疾病与购药记录，因此它们的用户特征交集较小。纵向联邦学习就是将这些不同特征在加密的状态下加以聚合，以增强模型能力的方法。</p>
 <p><strong>联邦迁移学习</strong>的核心是找到源领域和目标领域之间的相似性。比如有两个不同机构，一家是位于中国的银行，另一家是位于美国的电商。由于受到地域限制，这两家机构的用户群体交集很小。同时，由于机构类型的不同，二者的数据特征也只有小部分重合。在这种情况下，要想进行有效的联邦学习，就必须引入迁移学习。联邦迁移学习可以解决单边数据规模小和标签样本少的问题，并提升模型的效果。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">14.1.3. </span>部署场景<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.1.3. </span>部署场景<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>联邦学习和参数服务器（数据中心分布式学习）架构非常相似，都是采用中心化的服务器和分散的客户端去构建同一个机器学习模型。此外，根据部署场景的不同，联邦学习还可以细分为跨组织（Cross-silo）与跨设备（Cross-device）联邦学习。一般而言，跨组织联邦学习的用户一般是企业、机构单位级别的，而跨设备联邦学习针对的则是便携式电子设备、移动端设备等。
 <a class="reference internal" href="#ch10-federated-learning-different-connection"><span class="std std-numref">图14.1.1</span></a>展示了三者的区别和联系：</p>
 <div class="figure align-default" id="id6">
@@ -456,7 +454,7 @@ Learning，FL）应运而生。联邦学习的概念最早在2016年被提了出
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">14.1.4. </span>常用框架<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.1.4. </span>常用框架<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>随着用户和开发人员对联邦学习技术的需求不断增长，联邦学习工具和框架的数量也越来越多。下面将介绍一些主流的联邦学习框架。</p>
 <p><a class="reference external" href="https://www.tensorflow.org/federated">TFF</a> (TensorFlow
 Federated)是谷歌牵头开发的联邦学习开源框架，用于在分散数据上进行机器学习和其他计算。TFF的开发是为了促进联邦学习的开放研究和实验。在许多参与的客户中训练共享的全局模型，这些客户将其训练数据保存在本地。例如，联邦学习已被用于训练移动键盘的预测模型，而无需将敏感的键入数据上载到服务器。</p>

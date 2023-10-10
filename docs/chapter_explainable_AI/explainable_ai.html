@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,7 +431,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">16.1. </span>背景<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.1. </span>背景<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在人类历史上，技术进步、生产关系逻辑和伦理法规的发展是动态演进的。当一种新的技术在实验室获得突破后，其引发的价值产生方式的变化会依次对商品形态、生产关系等带来冲击。而同时当新技术带来的价值提升得到认可后，商业逻辑的组织形态在自发的调整过程中，也会对技术发展的路径、内容甚至速度提出诉求，并当诉求得到满足时适配以新型的伦理法规。在这样的相互作用中，技术系统与社会体系会共振完成演进，是谓技术革命。</p>
 <p>近10年来，籍由算力与数据规模的性价比突破临界点，以深度神经网络为代表的联结主义模型架构及统计学习范式（以后简称深度学习）在特征表征能力上取得了跨越级别的突破，大大推动了人工智能的发展，在很多场景中达到令人难以置信的效果。比如：人脸识别准确率达到97%以上；谷歌智能语音助手回答正确率，在2019年的测试中达到92.9%。在这些典型场景下，深度学习在智能表现上的性能已经超过了普通人类（甚至专家），从而到了撬动技术更替的临界点。在过去几年间，在某些商业逻辑对技术友好，或者伦理法规暂时稀缺的领域，如安防、实时调度、流程优化、竞技博弈、信息流分发等，人工智能和深度学习取得了技术和商业上快速突破。</p>
 <p>食髓知味，技术发展的甜头自然每个领域都不愿放过。而当对深度学习商业化运用来到某些对技术敏感、与人的生存或安全关系紧密的领域，如自动驾驶、金融、医疗和司法等高风险应用场景时，原有的商业逻辑在进行技术更替的过程中就会遇到阻力，从而导致商业化变现速度的减缓甚至失败。究其原因，以上场景的商业逻辑及背后伦理法规的中枢之一是稳定的、可追踪的责任明晰与责任分发；而深度学习得到的模型是个黑盒，我们无法从模型的结构或权重中获取模型行为的任何信息，从而使这些场景下责任追踪和分发的中枢无法复用，导致人工智能在业务应用中遇到技术上和结构上的困难。</p>
@@ -450,7 +448,7 @@ Show Source
 <p>因此，从商业推广层面以及从法规层面，我们都需要打开黑盒模型，对模型进行解释，可解释AI正是解决该类问题的技术。</p>
 </div>
 <div class="section" id="ai">
-<h1><span class="section-number">16.2. </span>可解释AI定义<a class="headerlink" href="#ai" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.2. </span>可解释AI定义<a class="headerlink" href="#ai" title="Permalink to this headline">¶</a></h1>
 <p>按DARPA（美国国防部先进研究项目局）的描述，如
 <a class="reference internal" href="#xai-concept"><span class="std std-numref">图16.2.1</span></a>所示，
 可解释AI的概念在于：区别于现有的AI系统，可解释AI系统可以解决用户面对黑盒模型时遇到的问题，使得用户知其然并知其所以然。</p>
@@ -469,7 +467,7 @@ AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大�
 <p>我们根据自身的实践经验和理解，将可解释AI定义为：一套面向机器学习（主要是深度神经网络）的技术合集，包括可视化、数据挖掘、逻辑推理、知识图谱等，目的是通过此技术合集，使深度神经网络呈现一定的可理解性，以满足相关使用者对模型及应用服务产生的信息诉求（如因果或背景信息），从而为使用者对人工智能服务建立认知层面的信任。</p>
 </div>
 <div class="section" id="id2">
-<h1><span class="section-number">16.3. </span>可解释AI算法现状介绍<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.3. </span>可解释AI算法现状介绍<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考
 <a class="bibtex reference internal" href="#tkde-li" id="id3">[Li et al., 2020]</a>总结归纳了可解释AI的算法类型，如
 <a class="reference internal" href="#xai-methods"><span class="std std-numref">图16.3.1</span></a>所示。</p>
@@ -574,7 +572,7 @@ Fortress 2”推荐给用户的解释可以翻译成固定话术：“Team Fortr
 2”是游戏公司“Valve”开发的一款动作类、多人在线、射击类电子游戏。这与用户历史玩过的游戏“Half-Life”有高度关联。</p>
 </div>
 <div class="section" id="id17">
-<h1><span class="section-number">16.4. </span>可解释AI系统及实践<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.4. </span>可解释AI系统及实践<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h1>
 <p>随着各领域对可解释的诉求快速增长，越来越多企业集成可解释AI工具包，为广大用户提供快速便捷的可解释实践，业界现有的主流工具包有:
 - TensorFlow团队的What-if
 Tool，用户不需编写任何程序代码就能探索学习模型，让非开发人员也能参与模型调校工作。
@@ -601,14 +599,14 @@ XAI工具的架构如下，其为基于MindSpore深度学习框架的一个可�
 <p>要使用MindSpore可解释AI，读者首先要通过pip安装MindSpore
 XAI包（支持MindSpore1.7 或以上，GPU及Ascend
 处理器，推荐配合JupyterLab使用）:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>mindspore-xai
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install mindspore-xai
 </pre></div>
 </div>
 <p>在MindSpore
 XAI的<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-CN/r1.8/index.html">官网教程</a>中，详细介绍了如何安装和使用提供的解释方法,
 读者可自行查阅。</p>
 <div class="section" id="id18">
-<h2><span class="section-number">16.4.1. </span>MindSpore XAI工具为图片分类场景提供解释<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.4.1. </span>MindSpore XAI工具为图片分类场景提供解释<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <p>下面结合MindSpore XAI1.8版本中已支持的显着图可视方法 GradCAM
 作为一个代码演示例子。读者可参阅<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-CN/1.8/using_cv_explainers.html">官方教程</a>以取得演示用的数据集,
 模型和完整脚本代码。</p>
@@ -643,7 +641,7 @@ XAI的<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-C
 <p>在上图中，预测标签为“boat”，但是原始图像中并没有船只存在，通过图中右侧解释结果可以看到模型将水面作为分类的关键依据，得到预测结果“boat”，这个依据是错误的。通过对训练数据集中标签为“boat”的数据子集进行分析，发现绝大部分标签为“boat”的图片中，都有水面，这很可能导致模型训练的时候，误将水面作为“boat”类型的关键依据。基于此，按比例补充有船没有水面的图片集，从而大幅消减模型学习的时候误判关键特征的概率。</p>
 </div>
 <div class="section" id="tabular-lime">
-<span id="id19"></span><h2><span class="section-number">16.4.2. </span>MindSpore XAI工具为表格分类场景提供解释<a class="headerlink" href="#tabular-lime" title="Permalink to this heading">¶</a></h2>
+<span id="id19"></span><h2><span class="section-number">16.4.2. </span>MindSpore XAI工具为表格分类场景提供解释<a class="headerlink" href="#tabular-lime" title="Permalink to this headline">¶</a></h2>
 <p>MindSpore XAI
 1.8版本支持了三个业界比较常见的表格数据模型解释方法：LIMETabular、SHAPKernel和SHAPGradient。</p>
 <p>以LIMETabular为例针对一个复杂难解释的模型，提供一个局部可解释的模型来对单个样本进行解释：</p>
@@ -672,7 +670,7 @@ lime_outputs 是代表决策边界的一个结构数据。 可视化解释,可�
 <p>上述解释说明针对setosa这一决策,最为重要的特征为petal length。</p>
 </div>
 <div class="section" id="id20">
-<h2><span class="section-number">16.4.3. </span>MindSpore XAI工具提供白盒模型<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.4.3. </span>MindSpore XAI工具提供白盒模型<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
 <p>除了针对黑盒模型的事后解释方法,XAI工具同样提供业界领先的白盒模型,使得用户可基于这些白盒模型进行训练,在推理过程中模型可同时输出推理结果及解释结果。以TB-Net为例(可参考:numref:<cite>tb_net</cite>及其<a class="reference external" href="https://e.gitee.com/mind_spore/repos/mindspore/xai/tree/master/models/whitebox/tbnet">官网教程</a>进行使用)，该方法已上线商用，为百万级客户提供带有语义级解释的理财产品推荐服务。TB-Net利用知识图谱对理财产品的属性和客户的历史数据进行建模。在图谱中，具有共同属性值的理财产品会被连接起来，待推荐产品与客户的历史购买或浏览的产品会通过共同的属性值连接成路径，构成该客户的子图谱。然后，TB-Net对图谱中的路径进行双向传导计算，从而识别关键产品和关键路径，作为推荐和解释的依据。</p>
 <p>一个可解释推荐的例子如下：在历史数据中，该客户近期曾购买或浏览了理财产品A、B和N等等。通过TB-Net的路径双向传导计算可知，路径（产品P，年化利率_中等偏高，产品A）和路径（产品P，风险等级_中等风险，产品N）的权重较高，即为关键路径。此时，TB-Net输出的解释为：“推荐理财产品P给该客户，是因为它的年化利率_中等偏高，风险等级_中等风险，分别与该客户近期购买或浏览的理财产品A和B一致。”</p>
 <div class="figure align-default" id="id34">
@@ -684,7 +682,7 @@ XAI还会提供一系列的度量方法用以评估不同解释方法的优劣�
 </div>
 </div>
 <div class="section" id="id21">
-<h1><span class="section-number">16.5. </span>未来可解释AI<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.5. </span>未来可解释AI<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h1>
 <p>为了进一步推动可解释AI的研究，我们在此总结了一些值得注意的研究方向。</p>
 <p>首先，知识感知型XAI仍有很大的研究扩展空间。然而，要有效地利用外部知识，仍有许多悬而未决的问题。其中一个问题是如何在如此广阔的知识空间中获取或检索有用的知识。例如,
 维基百科上记载了各式各样各领域相关的知识, 但如果要解决医学图像分类问题,
@@ -694,7 +692,7 @@ XAI还会提供一系列的度量方法用以评估不同解释方法的优劣�
 <p>最后，我们相信跨学科合作将是有益的。XAI的发展不仅需要计算机科学家来开发先进的算法，还需要物理学家、生物学家和认知科学家来揭开人类认知的奥秘，以及特定领域的专家来贡献他们的领域知识。</p>
 </div>
 <div class="section" id="id22">
-<h1><span class="section-number">16.6. </span>参考文献<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">16.6. </span>参考文献<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h1>
 <p id="bibtex-bibliography-chapter_explainable_AI/explainable_ai-0"><dl class="citation">
 <dt class="bibtex label" id="chen2019looks"><span class="brackets"><a class="fn-backref" href="#id7">Chen et al., 2019</a></span></dt>
 <dd><p>Chen, C., Li, O., Tao, D., Barnett, A., Rudin, C., &amp; Su, J. K. (2019). This looks like that: deep learning for interpretable image recognition. <em>Advances in neural information processing systems</em>, <em>32</em>.</p>

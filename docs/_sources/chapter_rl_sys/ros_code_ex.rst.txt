@@ -464,8 +464,8 @@ ROS2参数
 
    'parametrised_hello_world_node = my_hello_world.parametrised_hello_world_node:main'
 
-在编译完成之后，如果我们在终端中执行\ ``ros2 run my_hello_world parametrised_hello_world_node``\ ，我们将看到这个参数化HelloWorld节点将正常运行，并持续发布”\ *Hello
-World: N*\ ”这样的信息。此时节点使用的是\ ``world``\ 这个初始值。
+在编译完成之后，如果我们在终端中执行\ ``ros2 run my_hello_world parametrised_hello_world_node``\ ，我们将看到这个参数化HelloWorld节点将正常运行，并持续发布“*Hello
+World: N*”这样的信息。此时节点使用的是\ ``world``\ 这个初始值。
 
 让我们在一个新的终端中执行\ ``ros2 param list``\ ，我们将看到下面的信息：
 
@@ -484,8 +484,8 @@ World: N*\ ”这样的信息。此时节点使用的是\ ``world``\ 这个初�
 
    ros2 param set /parametrised_hello_world_node name "ROS2"
 
-如果赋值成功的话，这个命令会返回\ ``Set parameter successful``\ ，并且我们可以在持续运行参数化HelloWorld节点的那个终端窗口内看到其发布的信息变为了”\ *Hello
-ROS2: N*\ ”。
+如果赋值成功的话，这个命令会返回\ ``Set parameter successful``\ ，并且我们可以在持续运行参数化HelloWorld节点的那个终端窗口内看到其发布的信息变为了“*Hello
+ROS2: N*”。
 
 恭喜！你现在掌握了如何让ROS2节点（和其它类型的ROS2程序）使用参数的方法。
 

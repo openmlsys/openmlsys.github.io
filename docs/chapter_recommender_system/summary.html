@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,11 +430,11 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">13.5. </span>小结<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.5. </span>小结<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>推荐系统作为深度学习在工业界最成功的落地成果之一，极大地提升了用户的在线使用体验，并且为各大公司创造了可观的利润，从而促使各大公司持续加大对推荐系统的投入。过去两年推荐模型的规模成指数增长，带来了许多系统层面的挑战亟待解决。在实际的生产环境中面临的问题与挑战是本章区区几千字难以概括的，因此工业级推荐系统的架构必然十分复杂，本章只能抛砖引玉地简单介绍一种典型的推荐系统组成的基本架构和运行过程，并介绍了推荐系统面临的持续更新模型的挑战和一种前沿的解决方案。面对实际生产环境，具体的系统设计方案需要根据不同推荐场景的需求而变化，不存在一种万能的解决方案。</p>
 </div>
 <div class="section" id="id2">
-<h1><span class="section-number">13.6. </span>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.6. </span>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>推荐模型：<a class="reference external" href="https://arxiv.org/abs/1606.07792">Wide &amp; Deep</a></p></li>
 <li><p>消息队列介绍：<a class="reference external" href="https://aws.amazon.com/message-queue/">什么是消息队列</a></p></li>
@@ -444,13 +442,22 @@ Show Source
 </ul>
 </div>
 <div class="section" id="id3">
-<h1><span class="section-number">13.7. </span>参考文献<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.7. </span>参考文献<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <p id="bibtex-bibliography-chapter_recommender_system/summary-0"><dl class="citation">
+<dt class="bibtex label" id="cheng2016wide"><span class="brackets">Cheng et al., 2016</span></dt>
+<dd><p>Cheng, H.-T., Koc, L., Harmsen, J., Shaked, T., Chandra, T., Aradhye, H., … others. (2016). Wide &amp; deep learning for recommender systems. <em>Proceedings of the 1st workshop on deep learning for recommender systems</em> (pp. 7–10).</p>
+</dd>
 <dt class="bibtex label" id="projectadam-186212"><span class="brackets">Chilimbi et al., 2014</span></dt>
 <dd><p>Chilimbi, T., Suzue, Y., Apacible, J., &amp; Kalyanaraman, K. (2014 , October). Project adam: building an efficient and scalable deep learning training system. <em>11th USENIX Symposium on Operating Systems Design and Implementation (OSDI 14)</em> (pp. 571–582). Broomfield, CO: USENIX Association. URL: <a class="reference external" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/chilimbi">https://www.usenix.org/conference/osdi14/technical-sessions/presentation/chilimbi</a></p>
 </dd>
+<dt class="bibtex label" id="de2021transformers4rec"><span class="brackets">SouzaPereiraMoreira et al., 2021</span></dt>
+<dd><p>de Souza Pereira Moreira, G., Rabhi, S., Lee, J. M., Ak, R., &amp; Oldridge, E. (2021). Transformers4rec: bridging the gap between nlp and sequential/session-based recommendation. <em>Proceedings of the 15th ACM Conference on Recommender Systems</em> (pp. 143–153).</p>
+</dd>
 <dt class="bibtex label" id="id4"><span class="brackets">Li et al., 2014</span></dt>
 <dd><p>Li, M., Andersen, D. G., Park, J. W., Smola, A. J., Ahmed, A., Josifovski, V., … Su, B.-Y. (2014 , October). Scaling distributed machine learning with the parameter server. <em>11th USENIX Symposium on Operating Systems Design and Implementation (OSDI 14)</em> (pp. 583–598). Broomfield, CO: USENIX Association. URL: <a class="reference external" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/li_mu">https://www.usenix.org/conference/osdi14/technical-sessions/presentation/li_mu</a></p>
+</dd>
+<dt class="bibtex label" id="ma2018entire"><span class="brackets">Ma et al., 2018</span></dt>
+<dd><p>Ma, X., Zhao, L., Huang, G., Wang, Z., Hu, Z., Zhu, X., &amp; Gai, K. (2018). Entire space multi-task model: an effective approach for estimating post-click conversion rate. <em>The 41st International ACM SIGIR Conference on Research &amp; Development in Information Retrieval</em> (pp. 1137–1140).</p>
 </dd>
 <dt class="bibtex label" id="vectorset-10-1145-1243418-1243427"><span class="brackets">Malkhi et al., 2007</span></dt>
 <dd><p>Malkhi, D., Novik, L., &amp; Purcell, C. (2007 , April). P2p replica synchronization with vector sets. <em>SIGOPS Oper. Syst. Rev.</em>, <em>41</em>(2), 68–74. URL: <a class="reference external" href="https://doi.org/10.1145/1243418.1243427">https://doi.org/10.1145/1243418.1243427</a>, <a class="reference external" href="https://doi.org/10.1145/1243418.1243427">doi:10.1145/1243418.1243427</a></p>

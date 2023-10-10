@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,10 +431,10 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">3.3. </span>定义深度神经网络<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">3.3. </span>定义深度神经网络<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在上一节我们使用MindSpore构建了一个多层感知机的网络结构，随着深度神经网络的飞速发展，各种深度神经网络结构层出不穷，但是不管结构如何复杂，神经网络层数量如何增加，构建深度神经网络结构始终遵循最基本的元素：1.承载计算的节点；2.可变化的节点权重（节点权重可训练）；3.允许数据流动的节点连接。因此在机器学习编程库中深度神经网络是以层为核心，它提供了各类深度神经网络层基本组件；将神经网络层组件按照网络结构进行堆叠、连接就能构造出神经网络模型。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">3.3.1. </span>以层为核心定义神经网络<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3.1. </span>以层为核心定义神经网络<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>神经网络层包含构建机器学习网络结构的基本组件，如计算机视觉领域常用到卷积(Convolution)、池化(Pooling)、全连接(Fully
 Connected)；自然语言处理常用到循环神经网络(Recurrent Neural
 Network，RNN)；为了加速训练，防止过拟合通常用到批标准化（BatchNorm）、Dropout等。</p>
@@ -526,7 +524,7 @@ Short-term Memory，LSTM）；
 Transformer又是BERT模型架构的重要组成。随着深度神经网络的发展，未来也会诞生各类模型架构，架构的创新可以通过各类神经网络基本组件的组合来实现。</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">3.3.2. </span>神经网络层的实现原理<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3.2. </span>神经网络层的实现原理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>3.3.1中使用伪代码定义了一些卷积神经网络接口和模型构建过程，整个构建过程需要创建训练变量和构建连接过程。随着网络层数的增加，手动管理训练变量是一个繁琐的过程，因此3.3.1中描述的接口在机器学习库中属于低级API。机器学习编程库大都提供了更高级用户友好的API，它将神经网络层抽象出一个基类，所有的神经网络层都继承基类来实现，如MindSpore提供的mindspore.nn.Cell；PyTorch提供的torch.nn.Module。基于基类他们都提供了高阶API，如MindSpore
 提供的mindspore.nn.Conv2d、mindspore.nn.MaxPool2d、mindspore.dataset；PyTorch提供的torch.nn.Conv2d、torch.nn.MaxPool2d、torch.utils.data.Dataset。</p>
 <p><a class="reference internal" href="#model-build"><span class="std std-numref">图3.3.7</span></a>描述了神经网络构建过程中的基本细节。基类需要初始化训练参数、管理参数状态以及定义计算过程；神经网络模型需要实现对神经网络层和神经网络层参数管理的功能。在机器学习编程库中，承担此功能有MindSpore的Cell、PyTorch的Module。Cell和Module是模型抽象方法也是所有网络的基类。现有模型抽象方案有两种，一种是抽象出两个方法分别为Layer（负责单个神经网络层的参数构建和前向计算），Model（负责对神经网络层进行连接组合和神经网络层参数管理）；另一种是将Layer和Model抽象成一个方法，该方法既能表示单层神经网络层也能表示包含多个神经网络层堆叠的模型，Cell和Module就是这样实现的。</p>
@@ -542,7 +540,7 @@ Transformer又是BERT模型架构的重要组成。随着深度神经网络的�
 <p>神经网络接口层基类实现，仅做了简化的描述，在实际实现时，执行计算的__call__方法并不会让用户直接重载，它往往在__call__之外定义一个执行操作的方法（对于神经网络模型该方法是实现网络结构的连接，对于神经网络层则是实现计算过程）后再__call__调用；如MindSpore的Cell因为动态图和静态图的执行是不一样的，因此在__call__里定义动态图和计算图的计算执行，在construct方法里定义层或者模型的操作过程。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">3.3.3. </span>自定义神经网络层<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3.3. </span>自定义神经网络层<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>3.3.1中使用伪代码定义机器学习库中低级API，有了实现的神经网络基类抽象方法，那么就可以设计更高层次的接口解决手动管理参数的繁琐。假设已经有了神经网络模型抽象方法Cell，构建Conv2D将继承Cell，并重构__init__和__call__方法，在__init__里初始化训练参数和输入参数，在__call__里调用低级API实现计算逻辑。同样使用伪代码描述自定义卷积层的过程。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span># 接口定义：
 卷积层的接口：convolution(input, filters, stride, padding)
@@ -573,7 +571,7 @@ class Conv2D(Cell):
 <p>在执行过程中，初始化Conv2D时，__setattr__会判断属性，属于Cell把神经网络层Conv2D记录到self._cells，属于parameter的filters记录到self._params。查看神经网络层参数使用conv.parameters_and_names；查看神经网络层列表使用conv.cells_and_names；执行操作使用conv(input)。</p>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">3.3.4. </span>自定义神经网络模型<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3.4. </span>自定义神经网络模型<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>神经网络层是Cell的子类（SubClass）实现，同样的神经网络模型也可以采用SubClass的方法自定义神经网络模型；构建时需要在__init__里将要使用的神经网络组件实例化，在__call__里定义神经网络的计算逻辑。同样的以3.3.1的卷积神经网络模型为例，定义接口和伪代码描述如下：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span># 使用Cell子类构建的神经网络层接口定义：
 # 构建卷积神经网络的组件接口定义：

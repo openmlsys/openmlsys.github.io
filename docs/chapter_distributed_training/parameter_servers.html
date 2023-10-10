@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,10 +430,10 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">11.6. </span>参数服务器<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">11.6. </span>参数服务器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>下面介绍另一种常见的分布式训练系统：参数服务器。不同的机器学习框架以不同方式提供参数服务器的实现。TensorFlow和MindSpore内置了参数服务器的实现。PyTorch需要用户使用RPC接口自行实现。同时，我们也有参数服务器的第三方实现，如PS-Lite。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">11.6.1. </span>系统架构<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.6.1. </span>系统架构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>不同于基于集合通信实现的机器学习系统，参数服务器系统中的服务器会被分配两种角色：训练服务器和参数服务器。其中参数服务器需要提供充足内存资源和通信资源，训练服务器需要提供大量的计算资源（如硬件加速器）。
 <a class="reference internal" href="#ch10-parameter-servers"><span class="std std-numref">图11.6.1</span></a>
 描述了带有参数服务器的机器学习集群。这个集群中含有两个训练服务器和两个参数服务器。
@@ -448,7 +446,7 @@ Shard）训练出梯度。这个梯度会被推送（Push）到各自参数服�
 </div>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">11.6.2. </span>异步训练<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.6.2. </span>异步训练<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>参数服务器的一个核心作用是可以处理分布式训练服务器中出现的落后者（Straggler）。在之前的讨论中，在每一轮训练结束后，训练服务器都需要计算平均梯度对每一个模型副本进行更新，从而保证下一轮训练开始前，全部模型副本参数的一致性，这种对于参数一致性的确保一般被称为同步训练（Synchronous
 Training）。同步训练一般有助于训练系统达到更好的模型精度，但是当系统规模变大，往往会观察到落后者服务器的出现。落后者出现的原因很多。常见的原因包括：落后者设备可能和其他设备不在同一个机柜中，因此落后者的通信带宽显著小于其他设备。另外，落后者设备也可能和其他进程共享本地的服务器计算和通信资源，形成资源竞争，从而降低了性能。</p>
 <p>落后者对于基于AllReduce的同步训练系统的性能有显著影响，这是因为AllReduce让全部节点参与到平均梯度的计算和通信中，而每个节点负责等量的数据。因此一个落后者的出现，都会让整个AllReduce操作延迟完成。为了解决这个问题，人们常使用参数服务器同步梯度。一种常见的设计是：训练服务器训练出梯度后，会把本地梯度全部推送到参数服务器。参数服务器在等到一定训练服务器（例如90%的训练服务器）的梯度后，就开始计算平均梯度。这样可以确保平均梯度的计算不会被落后者的出现延误。计算好的平均梯度马上推送给全部训练服务器，开始下一轮训练。</p>
@@ -456,7 +454,7 @@ Training）。同步训练一般有助于训练系统达到更好的模型精度
 Training)。在一个异步训练系统中，每个训练服务器在训练开始时，有相同的模型参数副本。在训练中，它们计算出梯度后会马上将梯度推送到参数服务器，参数服务器将推送的梯度立刻用于更新参数，并通知训练服务器立刻来拉取最新的参数。在这个过程中，不同的训练服务器很可能会使用不同版本的模型参数进行梯度计算，这种做法可能会伤害模型的精度，但它同时让不同训练服务器可以按照各自的运算速度推送和拉取参数，而无须等待同伴，因此避免了落后者对于整个集群性能的影响。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">11.6.3. </span>数据副本<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.6.3. </span>数据副本<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>在参数服务器的实际部署中，人们往往需要解决数据热点问题。互联网数据往往符合幂律概率（Power-Law
 Distribution），这会导致部分参数在训练过程中被访问的次数会显著高于其他参数。例如，热门商品的嵌入项（Embedding
 Item）被训练服务器拉取的次数就会远远高于非热门商品。因此，存储了热门数据的参数服务器所承受的数据拉取和推送请求会远远高于其他参数服务器，因此形成数据热点，伤害了系统的可扩展性。</p>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,7 +431,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">9.4. </span>保序性设计<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">9.4. </span>保序性设计<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>和常规数据并行计算任务不同的是，机器学习场景下的数据并行处理为了确保实验的可复现性需要维护保序的性质。在具体实现中，我们需要保证并行数据预处理后的数据输出顺序与输入顺序保持相同(即下图中的SeqB和SeqA相同)。这确保了每一次的数据模块的结果输出顺序由数据混洗模块输出顺序唯一确定，有助于用户在不同的实验之间进行比较和调试。不同的机器学习系统采用了不同的方案来确保保序性，我们以MindSpore的实现为例子进行介绍以加深读者对这部分内容的理解。</p>
 <div class="figure align-default" id="id2">
 <span id="data-order-definition"></span><a class="reference internal image-reference" href="../_images/data_ordering.png"><img alt="../_images/data_ordering.png" src="../_images/data_ordering.png" style="width: 800px;" /></a>

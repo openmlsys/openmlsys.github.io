@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,11 +431,11 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="ch05-sec-memory-pool">
-<span id="id1"></span><h1><span class="section-number">7.4. </span>内存分配<a class="headerlink" href="#ch05-sec-memory-pool" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">7.4. </span>内存分配<a class="headerlink" href="#ch05-sec-memory-pool" title="Permalink to this headline">¶</a></h1>
 <p>内存在传统计算机存储器层次结构中有着重要的地位，它是连接高速缓存和磁盘之间的桥梁，有着比高速缓存更大的空间，比磁盘更快的访问速度。随着深度学习的发展，深度神经网络的模型越来越复杂，AI芯片上的内存很可能无法容纳一个大型网络模型。因此，对内存进行复用是一个重要的优化手段。此外，通过连续内存分配和
 In-Place内存分配还可以提高某些算子的执行效率。</p>
 <div class="section" id="device">
-<h2><span class="section-number">7.4.1. </span>Device内存概念<a class="headerlink" href="#device" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.4.1. </span>Device内存概念<a class="headerlink" href="#device" title="Permalink to this headline">¶</a></h2>
 <p>在深度学习体系结构中，通常将与硬件加速器（如GPU、AI芯片等）相邻的内存称之为设备（Device）内存，而与CPU相邻的内存称之为主机（Host）内存。如
 <a class="reference internal" href="#host-device-memory"><span class="std std-numref">图7.4.1</span></a>所示，CPU可以合法地访问主机上的内存，而无法直接访问设备上的内存；同理，AI芯片可以访问设备上的内存，却无法访问主机上的内存。因此，在网络训练过程中，往往需要从磁盘加载数据到主机内存中，然后在主机内存中做数据处理，再从主机内存拷贝到设备内存中，最后设备才能合法地访问数据。算子全部计算完成后，用户要获取训练结果，又需要把数据从设备内存拷贝到主机内存中。</p>
 <div class="figure align-default" id="id7">
@@ -446,7 +444,7 @@ In-Place内存分配还可以提高某些算子的执行效率。</p>
 </div>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">7.4.2. </span>内存分配<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.4.2. </span>内存分配<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>内存分配模块主要负责给图中算子的输入、输出分配Device内存。用户的前端脚本经过编译器前端处理后得到中间表达，后端根据中间表达进行算子选择和相关优化，可以得到算子最终的输入输出张量的形状、数据类型（Data
 Type）、格式（Format）等信息，根据这些信息可以计算出算子输入、输出张量的尺寸大小。基本的计算方法如式</p>
 <div class="math notranslate nohighlight" id="equation-chapter-backend-and-runtime-memory-allocator-0">
@@ -466,7 +464,7 @@ Type）、格式（Format）等信息，根据这些信息可以计算出算子�
 </div>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">7.4.3. </span>内存复用<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.4.3. </span>内存复用<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>在机器学习系统中，内存复用是指分析张量的生命周期，将生命周期结束的张量的设备内存释放回内存池并用于后续张量的内存分配。内存复用的目的是提高内存的利用率，让有限的设备内存容纳更大的模型。
 以
 <a class="reference internal" href="#memory-allocate"><span class="std std-numref">图7.4.2</span></a>为例，当BatchNorm算子计算结束后，输出1不再被任何算子使用，则该张量的设备内存可以被回收，并且如果输出1的内存尺寸大于等于输出3的内存尺寸，则从输出1回收的地址可以用于输出3的内存分配，从而达到复用输出1地址的目的。</p>
@@ -484,9 +482,9 @@ Solver，安全优化的内存分配求解器）。SOMAS将计算图并行流与
 <a class="reference internal" href="#combine-memory-reuse-and-no-reuse"><span class="std std-numref">图7.4.4</span></a>右边所示，经过SOMAS求解之后，同样的内存大小，可支持的Tensor数量达到了7个。</p>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">7.4.4. </span>常见的内存分配优化手段<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.4.4. </span>常见的内存分配优化手段<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
-<h3><span class="section-number">7.4.4.1. </span>内存融合<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.4.4.1. </span>内存融合<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>上述内存分配的方式，都是以单个张量的维度去分配的，每个张量分配到的设备地址往往是离散的。但是对于某些特殊的算子，如AllReduce通信算子，需要为它们分配连续的内存。通信算子的执行包含通信等待、数据搬移、计算等步骤，而在大规模分布式集群的场景下，通信的耗时往往是性能瓶颈。针对这种场景，如
 <a class="reference internal" href="#memory-fusion"><span class="std std-numref">图7.4.5</span></a>所示，可以将多个通信算子融合成一个，为通信算子的输入分配连续的内存，从而减少通信的次数。
 又比如分布式训练中的神经网络权重初始化，通常将一个训练进程中的权重初始化，然后将该权重广播到其他进程中。当一个网络有较多权重的时候，需要多次进行广播。通常可以为所有权重分配连续的内存地址，然后广播一次，节省大量通信的耗时。</p>
@@ -496,7 +494,7 @@ Solver，安全优化的内存分配求解器）。SOMAS将计算图并行流与
 </div>
 </div>
 <div class="section" id="in-place">
-<h3><span class="section-number">7.4.4.2. </span>In-Place算子<a class="headerlink" href="#in-place" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.4.4.2. </span>In-Place算子<a class="headerlink" href="#in-place" title="Permalink to this headline">¶</a></h3>
 <p>在内存分配流程中，会为每个算子的输入和输出都分配不同的内存。然而对很多算子而言，为其分配不同的输入和输出地址，会浪费内存并且影响计算性能。例如优化器算子，其计算的目的就是更新神经网络的权重；例如Python语法中的
 += 和 *= 操作符，将计算结果更新到符号左边的变量中；例如 a[0]=b 语法，将
 a[0] 的值更新为

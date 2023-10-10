@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -429,11 +427,11 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1>感知系统案例<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1>感知系统案例<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>在之前<a class="reference external" href="./ros_code_ex.md">机器人操作系统（ROS）的入门案例</a>这一章节中，我们学习了怎样创建一个ROS2项目以及怎样使用ROS2框架下的节点，服务，动作等。然后，我们又在上一章节中初步了解了机器人的感知系统。
 在这一章节中，我们将通过一个简单的案例来演示怎样结合ROS2和深度学习框架PyTorch来完成一个我们设想的感知系统中的一个基本功能。</p>
 <div class="section" id="id2">
-<h2>案例背景<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2>案例背景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>假设我们想要帮某果园设计一款全自动摘菠萝机器人。
 这个机器人可能需要有一个智能移动底盘来负责在果园中移动，若干传感器（包括一个RGB摄像头）来检测菠萝，以及一个机械臂来负责摘取动作。
 在这个机器人需要完成的一长列各种功能中，它的感知系统必然需要能检测摄像头传感器的画面中央是否有一个菠萝。
@@ -445,12 +443,12 @@ Show Source
 <p>和之前的案例类似，本章节的案例所使用的代码可以在本书相关的<a class="reference external" href="https://github.com/openmlsys/openmlsys-ros2">ROS2案例代码库</a>中的<code class="docutils literal notranslate"><span class="pre">src/object_detector</span></code>文件夹内找到。</p>
 </div>
 <div class="section" id="id3">
-<h2>项目搭建<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2>项目搭建<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>让我们沿用之前已经搭建好的ROS2项目框架。
 我们只需在其中增加一个ROS2的Python库来实现我们想要的功能即可。
 因此，让我们回到<code class="docutils literal notranslate"><span class="pre">src</span></code>目录下并创建此Python库。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>openmlsys-ros2/src
-ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--node-name<span class="w"> </span>object_detector_node<span class="w"> </span>object_detector<span class="w"> </span>--dependencies<span class="w"> </span>rclpy<span class="w"> </span>std_msgs<span class="w"> </span>sensor_msgs<span class="w"> </span>cv_bridge<span class="w"> </span>opencv-python<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2/src
+ros2 pkg create --build-type ament_python --node-name object_detector_node object_detector --dependencies rclpy std_msgs sensor_msgs cv_bridge opencv-python torch torchvision torchaudio
 </pre></div>
 </div>
 <p>在创建好Python库后，别忘了将<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>和<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中的<code class="docutils literal notranslate"><span class="pre">version</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer</span></code>，<code class="docutils literal notranslate"><span class="pre">maintainer_email</span></code>，<code class="docutils literal notranslate"><span class="pre">description</span></code>和<code class="docutils literal notranslate"><span class="pre">license</span></code>项都更新好。</p>
@@ -459,7 +457,7 @@ ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </
 在开发真是机器人时，我们可能可以在实机上检测我们的程序，但是对于这个案例，我们只能使用这个<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库和若干选择好的图片来测试我们的程序。
 实际上，就算是开发实际机器人的功能，也最好在实际测试之前使用图片来做这个功能的单元测试。</p>
 <p>我们只需通过ubuntu的<code class="docutils literal notranslate"><span class="pre">apt</span></code>来安装这个<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库，因为作为一个常用的ROS2框架下的程序库，它已经被打包好以便通过ubuntu的包管理器来安装。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-foxy-image-publisher
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt install ros-foxy-image-publisher
 </pre></div>
 </div>
 <p>关于<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>这个库更多的信息和使用方法，可以查看<a class="reference external" href="http://wiki.ros.org/image_publisher">它的文档</a>。这是个针对早期ROS1版本的文档，但是因为这个库之后没有任何变化，文档中所有的功能都和我们所使用的ROS2版本中的一样。</p>
@@ -477,7 +475,7 @@ ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </
 </div>
 </div>
 <div class="section" id="id4">
-<h2>添加代码<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2>添加代码<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>之前创建Python库的命令应该已经帮我们创建好了<code class="docutils literal notranslate"><span class="pre">src/object_detector/object_detector/object_detector_node.py</span></code>这个文件。现在让我们用以下内容来替换掉此文件中已有的内容。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
@@ -557,20 +555,20 @@ id）。这里<code class="docutils literal notranslate"><span class="pre">953</
 <p>至此，一个使用PyTorch和AlexNet来识别摄像头中是否有菠萝的节点类就完成了。</p>
 </div>
 <div class="section" id="id5">
-<h2>运行及检测<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2>运行及检测<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>下面，让我们尝试运行我们新写好的节点类并用菠萝和苹果的图片来检测这个节点类是否运行正常。</p>
 <p>首先，让我们编译这个新写的Python库。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>openmlsys-ros2
-colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> openmlsys-ros2
+colcon build --symlink-install
 </pre></div>
 </div>
 <p>在成功编译之后，我们可以新开一个终端窗口并执行下面的命令来运行一个节点类实例。
 记住，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>object_detector<span class="w"> </span>object_detector_node<span class="w"> </span>--ros-args<span class="w"> </span>-r<span class="w"> </span>camera_topic:<span class="o">=</span>image_raw
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2 run object_detector object_detector_node --ros-args -r camera_topic:<span class="o">=</span>image_raw
 </pre></div>
 </div>
 <p>如果你遇到<code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'cv2'</span></code>这之类的问题，则代表ROS2命令没有成功识别你Python虚拟环境中的程序库。这时候你可以尝试进入你所用的虚拟环境后执行下面这个命令。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>which<span class="w"> </span>python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span><span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>object_detector<span class="w"> </span>object_detector_node<span class="w"> </span>--ros-args<span class="w"> </span>-r<span class="w"> </span>camera_topic:<span class="o">=</span>image_raw
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run object_detector object_detector_node --ros-args -r camera_topic:<span class="o">=</span>image_raw
 </pre></div>
 </div>
 <p>这个命令前面<code class="docutils literal notranslate"><span class="pre">PYTHONPATH=&quot;$(dirname</span> <span class="pre">$(which</span> <span class="pre">python))/../lib/python3.8/site-packages:$PYTHONPATH&quot;</span></code>这一串的作用是将你目前Python环境的库添加到<code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>，这样ROS2命令的Python就可以找到你目前Python环境（即ROS2项目所对应的Python虚拟环境）中的Python库了。</p>
@@ -583,19 +581,19 @@ colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
 这实际上是ROS2框架的一个很实用的特性。</p>
 <p>如果你想更深入的了解重映射相关的细节，可以阅读<a class="reference external" href="https://design.ros2.org/articles/static_remapping.html">这篇官方介绍</a>。</p>
 <p>在我们成功运行新节点后，让我们在一个新终端窗口中运行下面这行命令来测试它是否能检测到菠萝。同样的，你可能需要先运行<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/local_setup.zsh</span></code>来引入我们自己的ROS2项目。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>which<span class="w"> </span>python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span><span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>image_publisher<span class="w"> </span>image_publisher_node<span class="w"> </span>data/ros-pineapple.jpg<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>publish_rate:<span class="o">=</span><span class="m">1</span>.0
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run image_publisher image_publisher_node data/ros-pineapple.jpg --ros-args -p publish_rate:<span class="o">=</span><span class="m">1</span>.0
 </pre></div>
 </div>
 <p>上面这行命令将会使用<code class="docutils literal notranslate"><span class="pre">image_publisher</span></code>库和它的节点来以1Hz的频率将之前准备好的菠萝图片发布到<code class="docutils literal notranslate"><span class="pre">image_raw</span></code>这个主题上去。
 当这个<code class="docutils literal notranslate"><span class="pre">image_publisher_node</span></code>节点成功运行后，我们应当能在<code class="docutils literal notranslate"><span class="pre">object_detector_node</span></code>节点运行的终端窗口中看到类似<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655174212.930385900]</span> <span class="pre">[object_detector_node]:</span> <span class="pre">Detected:</span> <span class="pre">&quot;True&quot;,</span> <span class="pre">target</span> <span class="pre">class</span> <span class="pre">id:</span> <span class="pre">953</span></code>这样的信息来证明我们的节点类能够检测到菠萝。</p>
 <p>接着让我们在<code class="docutils literal notranslate"><span class="pre">image_publisher_node</span></code>节点的窗口中使用<code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code>结束掉节点，然后使用下面这行命令来发布准备好的苹果图片。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>which<span class="w"> </span>python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span><span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>image_publisher<span class="w"> </span>image_publisher_node<span class="w"> </span>data/ros-apple.jpg<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>publish_rate:<span class="o">=</span><span class="m">1</span>.0
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="k">$(</span>which python<span class="k">))</span><span class="s2">/../lib/python3.8/site-packages:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span> ros2 run image_publisher image_publisher_node data/ros-apple.jpg --ros-args -p publish_rate:<span class="o">=</span><span class="m">1</span>.0
 </pre></div>
 </div>
 <p>现在，在<code class="docutils literal notranslate"><span class="pre">object_detector_node</span></code>节点运行的终端窗口中我们应该看到的是类似<code class="docutils literal notranslate"><span class="pre">[INFO]</span> <span class="pre">[1655171989.912783400]</span> <span class="pre">[object_detector_node]:</span> <span class="pre">Detected:</span> <span class="pre">&quot;False&quot;,</span> <span class="pre">target</span> <span class="pre">class</span> <span class="pre">id:</span> <span class="pre">953</span></code>这样的信息来证明我们的节点类不会把苹果识别成菠萝。</p>
 </div>
 <div class="section" id="id6">
-<h2>小结<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<h2>小结<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>恭喜，你已经成功了解如何在ROS2项目中使用ROS2框架外的Python库了！
 如果你使用Python虚拟环境，你可能需要额外的设置<code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>环境变量。
 另外，主题名字重映射（Name Remapping）是一个很有用的ROS2特性。

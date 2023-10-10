@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,7 +431,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">13.4. </span>案例分析：支持在线模型更新的大型推荐系统<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.4. </span>案例分析：支持在线模型更新的大型推荐系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>下面我们分析一个新型的支持低延迟模型更新的推荐系统Ekko
 <a class="bibtex reference internal" href="summary.html#id5" id="id2">[Sima et al., 2022]</a>，从而引入实际部署推荐系统所需要考虑的系统设计知识。Ekko的核心思想是将训练服务器产生的梯度或模型更新立刻发送至所有参数服务器，绕过费时长达数分钟乃至数小时的保存模型检查点、验证模型检查点、广播模型检查点到所有推理数据中心的过程。如此一来，推理服务器每次都能从同一数据中心的参数服务器上读到最新的模型参数。我们将这样的模型更新方式称为在线更新，以区别于上一小节介绍的离线更新，如图
 <a class="reference internal" href="#online-update"><span class="std std-numref">图13.4.1</span></a>所示。</p>
@@ -442,10 +440,10 @@ Show Source
 <p class="caption"><span class="caption-number">图13.4.1 </span><span class="caption-text">在线更新</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">13.4.1. </span>系统设计挑战<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.1. </span>系统设计挑战<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>相比于离线更新，在线更新避免了费时的存储和验证模型检查点的步骤，然而也带来了新的问题和挑战：</p>
 <div class="section" id="id4">
-<h3><span class="section-number">13.4.1.1. </span>1. 通过广域网传输海量的模型更新<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.4.1.1. </span>1. 通过广域网传输海量的模型更新<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>在训练数据中心内部，训练服务器通过局域网（LAN）向参数服务器发送模型更新的速度可达几百GB每秒，而不同数据中心之间的网络带宽往往只有数Gbps，而且所有数据中心的网络带宽需要优先满足推理服务的需求——接受用户的推理请求并返回推荐结果。因此留给模型同步的带宽更加有限。</p>
 <p>如果从训练数据中心向所有其他数据中心广播参数更新，会导致训练数据中心成为影响同步速度的瓶颈。假设训练数据中心需要广播一个100GB的模型至5个推理数据中心，训练数据中心可用的带宽为5Gbps，则需要花费800秒时间，这离秒级模型更新的需求还差了两个数量级。</p>
 <p>如果使用如图 <a class="reference internal" href="#chain-replication"><span class="std std-numref">图13.4.2</span></a>所示的链式复制
@@ -456,11 +454,11 @@ Show Source
 </div>
 </div>
 <div class="section" id="id6">
-<h3><span class="section-number">13.4.1.2. </span>2. 防范网络拥塞影响推荐质量<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.4.1.2. </span>2. 防范网络拥塞影响推荐质量<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>模型跨地域更新的延迟很大程度上取决于网络状况，一旦网络繁忙出现拥塞，则整体更新延迟不可避免会上升，从而影响服务质量。而且采用在线更新的推荐系统更新流量也会有波峰，当模型更新流量波峰叠加网络拥塞，整体更新延迟更是雪上加霜。</p>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">13.4.1.3. </span>3. 防范有偏差的模型更新影响推荐质量<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.4.1.3. </span>3. 防范有偏差的模型更新影响推荐质量<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>模型在线更新带来的一个问题是，不可能单独对每一条更新进行检查以确保其对服务质量不会产生负面影响。因此有偏差的模型更新可能被发送到推理集群中，从而直接影响在线服务质量。而且在大规模在线环境中，出现有偏差的模型更新的概率并不低。</p>
 <p>图 <a class="reference internal" href="#system-challenges"><span class="std std-numref">图13.4.3</span></a>总结了在线更新会面临的系统挑战。</p>
 <div class="figure align-default" id="id20">
@@ -470,7 +468,7 @@ Show Source
 </div>
 </div>
 <div class="section" id="id8">
-<h2><span class="section-number">13.4.2. </span>系统架构<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.2. </span>系统架构<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>针对这些挑战，Ekko提出了如图
 <a class="reference internal" href="#ekko-overview"><span class="std std-numref">图13.4.4</span></a>所总结的三个核心组件。概括来讲：</p>
 <div class="figure align-default" id="id21">
@@ -485,7 +483,7 @@ Objectives）受到严重影响。</p></li>
 </ol>
 </div>
 <div class="section" id="id9">
-<h2><span class="section-number">13.4.3. </span>点对点模型更新传播算法<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.3. </span>点对点模型更新传播算法<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>Ekko需要支持上千台分布在数个相隔上千公里的数据中心内的参数服务器之间传播模型更新。然而一个超大规模深度学习推荐系统每秒钟可以生成几百GB的模型更新，而数据中心之前的网络带宽仅有100Mbps到1Gbps不等。如果采用已有参数服务器架构，例如Project
 Adam
 <a class="bibtex reference internal" href="summary.html#projectadam-186212" id="id10">[Chilimbi et al., 2014]</a>的两阶段提交协议，由训练数据中心向其他数据中心发送这些模型更新，不仅训练数据中心的带宽会成为瓶颈，而且整个系统的模型更新速度会受限于最慢的一条网络。同时Ekko的研究人员发现使用深度学习模型的推理服务器并不需要知道参数的更新过程，而仅需要知道参数的最新权重（状态）。有鉴于此，Ekko设计了基于状态的无日志同步算法，如图
@@ -510,7 +508,7 @@ Version），从而可以通过仅仅发送一个64比特的分片向量过滤�
 Overlay）技术来进一步更加细致地优化通讯。</p>
 </div>
 <div class="section" id="id13">
-<h2><span class="section-number">13.4.4. </span>模型更新调度器<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.4. </span>模型更新调度器<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <p>秒级模型更新的服务质量非常容易受到网络延迟的影响，而跨地域数据中心之间出现短暂的网络拥塞并不罕见。Ekko的设计者在实践中观察发现仅有一小部分关键的模型更新对服务质量具有决定性影响。为了最大程度保证在网络拥塞时的模型服务质量，Ekko会根据模型更新对服务质量的影响，赋予不同的优先级，并在点对点传播过程中优先发送这些关键更新。</p>
 <p>具体来讲，Ekko的设计者提出了三种优先级指标来发现对服务质量具有决定性影响的模型更新：</p>
 <ol class="arabic simple">
@@ -536,7 +534,7 @@ Overlay）技术来进一步更加细致地优化通讯。</p>
 <p>Ekko的线上实验结果显示，当网络拥塞时，采用服务质量有感的模型更新调度器可以避免超过2%的服务质量下滑。</p>
 </div>
 <div class="section" id="id16">
-<h2><span class="section-number">13.4.5. </span>模型状态管理器<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.5. </span>模型状态管理器<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <p>为了防止有害的模型更新影响到在线服务质量，Ekko设计了推理模型状态管理器来监控推理模型的健康状态。其核心思想是设置一组基线模型，并从推理请求中分出不到1%的流量给基线模型，从而可以得到基线模型的服务质量相关指标。如图
 <a class="reference internal" href="#model-state-manager"><span class="std std-numref">图13.4.7</span></a>所示，推理模型状态管理器中的时序异常检测算法不断监控基线模型和在线模型的服务质量。模型质量的状态可能是健康、未定或者损害，由复制状态机维护。一旦确定在线模型处于损坏状态，首先将被损坏模型的流量切换至其他健康的替换模型上，然后在线回滚模型至健康的状态。</p>
 <div class="figure align-default" id="id24">
@@ -545,7 +543,7 @@ Overlay）技术来进一步更加细致地优化通讯。</p>
 </div>
 </div>
 <div class="section" id="id17">
-<h2><span class="section-number">13.4.6. </span>小结<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.4.6. </span>小结<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <p>Ekko已经在生产环境中部署超过一年，服务超过10亿用户。Ekko成功将跨地域数据中心之间的模型平均更新延迟从分钟级别降低到了2.4秒，而在数据中心内部模型平均更新延迟可以低至0.7秒。秒级模型更新对于线上服务质量的提升十分明显，论文中的实验结果显示，仅仅加速多阶段推荐流水线中的一个排序模型，各项关键指标相比于分钟级模型更新就能够提升1.30%-3.28%。考虑到Ekko服务的用户规模，这种程度的提升是非常不平凡的，其所带来的收益也是非常可观的。</p>
 <p>总而言之，Ekko提出了一种设计深度学习推荐系统的新思路，通过直接将模型更新发送到所有参数服务器这样一种在线更新的方式绕过了繁琐耗时的中间步骤，从而实现了秒级模型更新，显著提升了在线服务质量。针对在线更新可能带来的风险，Ekko设计了SLO保护机制，并且通过实验证明是行之有效的。这一小节简单介绍了工业界和学术界的前沿研究成果——Ekko的系统设计和背后的设计思想，希望能够给读者带来一些大型深度学习推荐系统设计的思考。受限于篇幅以及考虑到读者的阅读目标，本小节没有详细讨论Ekko的技术细节，如果读者对Ekko的技术设计细节感兴趣可以深入阅读原论文。</p>
 </div>

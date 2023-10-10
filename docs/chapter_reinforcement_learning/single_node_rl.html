@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,7 +430,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">15.2. </span>单节点强化学习系统<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">15.2. </span>单节点强化学习系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>前面介绍了强化学习的基本知识，这里我们介绍常见的单智能体强化学习系统中较为简单的一类，即单节点强化学习系统，这里的节点是指一个用于模型更新的计算单元。我们按照是否对模型更新的过程做并行化处理，将强化学习系统分为单节点和分布式强化学习系统。其中，单节点强化学习系统可以理解为只实例化一个类对象作为智能体，与环境交互进行采样和利用所采得的样本进行更新的过程分别视为这个类内的不同函数。除此之外的更为复杂的强化学习框架都可视为分布式强化学习系统。</p>
 <p>分布式强化学习系统的具体形式有很多，系统的形式也往往依赖于所实现的算法。从最简单的情况考虑，假设我们仍在同一个计算单元上实现算法，但是将强化学习的采样过程和更新过程实现为两个并行的进程，甚至各自实现为多个进程，以满足不同计算资源间的平衡。这时就需要进程间通信来协调采样和更新过程，这是一个最基础的分布式强化学习框架。更为复杂的情况是，整个算法的运行在多个计算设备上进行（如一个多机的计算集群），智能体的函数可能需要跨机跨进程间的通信来实现。对于多智能体系统，还需要同时对多个智能体的模型进行更新，则需要更为复杂的计算系统设计。我们将逐步介绍这些不同的系统内的实现机制。</p>
 <p>我们先对单节点强化学习系统进行介绍。在这里，我们以RLzoo

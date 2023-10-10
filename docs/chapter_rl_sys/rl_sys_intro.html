@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -432,7 +430,7 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">17.1. </span>机器人系统概述<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">17.1. </span>机器人系统概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>机器人学是一个交叉学科，它涉及了计算机科学、机械工程、电气工程、生物医学工程、数学等多种学科，并有诸多应用，比如自动驾驶汽车、机械臂、无人机、医疗机器人等。机器人能够自主地完成一种或多种任务或者辅助人类完成指定任务。通常，人们把机器人系统划分为感知系统、决策（规划）和控制系统等组成部分。</p>
 <p>机器人系统按照涉及的机器人数量，可以划分为单机器人学习系统和多机器人学习系统。多机器人学习系统协作和沟通中涉及的安全和隐私问题，也会是一个值得研究的方向。最近机器人学习系统在室内自主移动
 <a class="bibtex reference internal" href="summary.html#id4" id="id2">[Pan et al., 2020]</a><a class="bibtex reference internal" href="summary.html#huang2018navigationnet" id="id3">[Huang et al., 2018]</a>，道路自动驾驶
@@ -453,7 +451,7 @@ Deadline-Driven)和Pylot，可以让模型训练与部署系统与这些平台�
 <p class="caption"><span class="caption-number">图17.1.2 </span><span class="caption-text">通过模仿学习进行自动驾驶框架图。</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="id9">
-<h2><span class="section-number">17.1.1. </span>感知系统<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">17.1.1. </span>感知系统<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
 <a class="bibtex reference internal" href="summary.html#ding2019camnet" id="id10">[Ding et al., 2019]</a>），周围什么情况（通过3D物体检测
 <a class="bibtex reference internal" href="summary.html#yi2020segvoxelnet" id="id11">[Yi et al., 2020]</a>或语义分割），预测相机在空间的轨迹
@@ -472,7 +470,7 @@ RGB-D 视频在测试时提高性能。其中，Bundle Adjustment
 (BA)与机器学习的结合被广泛研究。CMU提出通过主动神经 SLAM
 的模块化系统帮助智能机器人在未知环境中的高效探索。</p>
 <div class="section" id="id14">
-<h3><span class="section-number">17.1.1.1. </span>物体检测与语义分割<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.1.1. </span>物体检测与语义分割<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
 <a class="bibtex reference internal" href="summary.html#ding2019camnet" id="id15">[Ding et al., 2019]</a>），周围什么情况（通过3D物体检测
 <a class="bibtex reference internal" href="summary.html#yi2020segvoxelnet" id="id16">[Yi et al., 2020]</a>或语义分割），预测相机在空间的轨迹
@@ -481,7 +479,7 @@ RGB-D 视频在测试时提高性能。其中，Bundle Adjustment
 <a class="bibtex reference internal" href="summary.html#id4" id="id19">[Pan et al., 2020]</a>吸引了众多研究者的关注。</p>
 </div>
 <div class="section" id="slam">
-<h3><span class="section-number">17.1.1.2. </span>即时定位与建图（SLAM）<a class="headerlink" href="#slam" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.1.2. </span>即时定位与建图（SLAM）<a class="headerlink" href="#slam" title="Permalink to this headline">¶</a></h3>
 <p>将一个机器人放到未知的环境中，如何能让它明白自己的位置和周围环境？这要靠即时定位与建图（Simultaneous
 Localization and Mapping，SLAM）系统来实现。</p>
 <p><a class="reference internal" href="#orbslam3"><span class="std std-numref">图17.1.3</span></a> 展示了最新的ORB-SLAM3的主要系统组件。
@@ -503,7 +501,7 @@ TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可�
 </div>
 </div>
 <div class="section" id="id22">
-<h2><span class="section-number">17.1.2. </span>规划系统<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">17.1.2. </span>规划系统<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
 <p>机器人规划不仅包含运动路径规划，还包含任务规划 <a class="bibtex reference internal" href="summary.html#id6" id="id23">[Sun et al., 2022a]</a>
 <a class="bibtex reference internal" href="summary.html#wang2023mimicplay" id="id24">[Wang et al., 2023]</a>
 <a class="bibtex reference internal" href="summary.html#li2023behavior" id="id25">[Li et al., 2023]</a>。其中，运动规划是机器人技术的核心问题之一，在给定的两个位置之间为机器人找到一条符合约束条件的路径。这个约束可以是无碰撞、路径最短、机械功最小等，需要有概率完整性和最优性的保证，从导航到复杂环境中的机械臂操作都有运动规划的应用。然而，当经典运动规划在处理现实世界的机器人问题（在高维空间中）时，挑战仍然存在。研究人员仍在开发新算法来克服这些限制，包括优化计算和内存负载、更好地规划表示和处理维度灾难等。</p>
@@ -520,22 +518,22 @@ TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可�
 </div>
 </div>
 <div class="section" id="id32">
-<h2><span class="section-number">17.1.3. </span>控制系统<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">17.1.3. </span>控制系统<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
 <p>虽然控制理论已牢牢植根于基于模型（Model-based）的设计思想，但丰富的数据和机器学习方法给控制理论带来了新的机遇。控制理论和机器学习的交叉方向涵盖了广泛的研究方向以及在各种现实世界系统中的应用。</p>
 <div class="section" id="id33">
-<h3><span class="section-number">17.1.3.1. </span>线性二次控制<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.3.1. </span>线性二次控制<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <p>理论方面，线性二次控制（Linear-Quadratic
 Control）是经典的控制方法。若动力系统可以用一组线性微分方程表示，而其约束为二次泛函，这类的问题称为线性二次问题。此类问题的解即为线性二次调节器（Linear–Quadratic
 Regulator），简称LQR。最近有关于图神经网络在分布式线性二次控制的研究，将线性二次问题转换为自监督学习问题，能够找到基于图神经网络的最佳分布式控制器，他们还推导出了所得闭环系统稳定的充分条件。</p>
 </div>
 <div class="section" id="id34">
-<h3><span class="section-number">17.1.3.2. </span>模型预测控制<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.3.2. </span>模型预测控制<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
 <p>模型预测控制（MPC）是一种先进的过程控制方法，用于在满足一组约束条件的同时控制过程。MPC
 的主要优势在于它允许优化当前时刻的同时考虑未来时刻。因此与线性二次调节器不同。MPC
 还具有预测未来事件的能力，并可以相应地采取控制措施。最近有研究将最优控制和机器学习相结合并应用在陌生环境中的视觉导航任务：比如基于学习的感知模块产生一系列航路点通过无碰撞路径引导机器人到达目标，基于模型的规划器使用这些航路点来生成平滑且动态可行的轨迹，然后使用反馈控制在物理系统上执行。实验表明，与纯粹基于几何映射或基于端到端学习的方案相比，这种新的系统可以更可靠、更有效地到达目标位置。</p>
 </div>
 <div class="section" id="id35">
-<h3><span class="section-number">17.1.3.3. </span>控制系统的稳定性分析<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.3.3. </span>控制系统的稳定性分析<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
 <p>因为安全对机器人应用是至关重要的，有的强化学习方法通过学习动力学的不确定性来提高安全性，鼓励安全、稳健、以及可以正式认证所学控制策略的方法，如
 <a class="reference internal" href="#safe-learning-control"><span class="std std-numref">图17.1.5</span></a>展示了安全学习控制（Safe Learning
 Control）系统的框架图。Lyapunov
@@ -549,7 +547,7 @@ Lyapunov来将安全性纳入考虑。</p>
 </div>
 </div>
 <div class="section" id="id37">
-<h2><span class="section-number">17.1.4. </span>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">17.1.4. </span>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h2>
 <p>机器人和机器学习都是有广阔前景和令人兴奋的前沿领域，而当它们结合在一起后，会变得更加迷人，并且有远大于1+1&gt;2的效果。
 因此，当我们在机器人项目中应用机器学习时，我们很容易过于兴奋，尝试着用机器学习去做很多之前只能幻想的成果。
 然而，在机器人中应用机器学习和直接使用机器学习有着很多不同。
@@ -572,9 +570,9 @@ Lyapunov来将安全性纳入考虑。</p>
 我相信，没有人会想遇到这类突发事件。</p>
 <p>因此，无论是在怎样的机器人项目中应用机器学习，我们都必须时刻关注和确保系统的安全性。</p>
 <div class="section" id="id38">
-<h3><span class="section-number">17.1.4.1. </span>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.4.1. </span>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id39">
-<h4><span class="section-number">17.1.4.1.1. </span>风险评估<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">17.1.4.1.1. </span>风险评估<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
 <p>为了能够确保机器人和机器学习系统的安全性，我们首先要知道可能有哪些危险。
 我们可以通过风险评估（Risk Assessment）来做到这一点。
 怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。
@@ -584,7 +582,7 @@ Mitigation）。
 一份没有执行的方案等于没有方案。</p>
 </div>
 <div class="section" id="id40">
-<h4><span class="section-number">17.1.4.1.2. </span>独立的安全系统<a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">17.1.4.1.2. </span>独立的安全系统<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
 <p>在了解了可能有哪些风险之后，我们可以通过设计一个独立的安全系统来规避掉风险中和机器人系统相关的那一部分。
 具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。
 实际上，这个安全系统不应该只针对机器学习系统，而是应该针对整个机器人的方方面面。
@@ -598,7 +596,7 @@ Mitigation）。
 </div>
 </div>
 <div class="section" id="id41">
-<h3><span class="section-number">17.1.4.2. </span>机器学习系统的伦理问题<a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">17.1.4.2. </span>机器学习系统的伦理问题<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <p>除了上述讨论到的最根本的安全性问题，机器学习系统的伦理问题也会对机器人的使用造成影响。</p>
 <p>例如训练数据集中人种类型不平衡这一类经典的伦理问题。
 让我们还是以之前的那个物流仓库移动货运机器人为例。

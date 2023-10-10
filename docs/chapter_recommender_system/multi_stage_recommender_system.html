@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/d2l.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -433,12 +431,12 @@ Show Source
         <div class="page-content" role="main">
         
   <div class="section" id="id1">
-<h1><span class="section-number">13.2. </span>多阶段推荐系统<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">13.2. </span>多阶段推荐系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>推荐流水线的功能是根据用户请求推荐为其可能感兴趣的物品。具体来说，当用户需要使用推荐服务时向推理服务发送一个推荐请求，其中包括用户ID和当前的上下文特征（例如，用户刚刚浏览过的物品、浏览时长等），推荐流水线将该用户的特征和备选物品特征作为输入，进行计算后得出这名用户对各个备选物品的评分，并选出评分最高的（数十个到数百个）物品作为推荐结果返回。</p>
 <p>一个推荐系统中通常会有多达数十亿的备选物品，如果用一个模型来计算用户对于每个备选物品的评分，必然会导致模型在准确度和速度上做取舍。换句话说，要么选择简单的模型牺牲准确度换取速度——导致用户对推荐结果毫无兴趣；要么选择复杂的模型牺牲速度换取准确度——导致用户因等待时间过长而离开。有鉴于此，现代推荐系统通常以如图
 <a class="reference internal" href="#recommender-pipeline"><span class="std std-numref">图13.2.1</span></a>所示的流水线的形式部署多个推荐模型。在流水线的最前端，召回（Retrieval）阶段（通常使用结构较为简单、运行速度较快的模型）从所有备选物品中过滤出用户可能感兴趣的数千至数万个物品。接下来排序（Ranking）阶段（通常使用结构更为复杂、运行速度也更慢的模型）对选出的物品进行打分并排序，然后再根据业务场景为用户返回最高分的数十或数百个物品作为推荐结果。当排序模型过于复杂而不能在规定时间内处理所有被召回的物品时，排序阶段可以被进一步细分为：粗排（Pre-ranking），精排（Ranking）和重排（Re-ranking）三个阶段。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">13.2.1. </span>推荐流水线概述<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.1. </span>推荐流水线概述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-default" id="id18">
 <span id="recommender-pipeline"></span><a class="reference internal image-reference" href="../_images/recommender_pipeline.png"><img alt="../_images/recommender_pipeline.png" src="../_images/recommender_pipeline.png" style="width: 800px;" /></a>
 <p class="caption"><span class="caption-number">图13.2.1 </span><span class="caption-text">多阶段推荐流水线示例图</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
@@ -446,10 +444,10 @@ Show Source
 <p>下面几个小节详细将会详细介绍召回和排序阶段的常用模型、训练方法以及关键指标。</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">13.2.2. </span>召回<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.2. </span>召回<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在召回阶段，模型以用户特征作为输入，从所有备选物品中粗略筛选出一部分用户可能感兴趣的物品作为输出。召回阶段的主要目的是将候选物品范围缩小，减轻下一阶段排序模型的运行负担。</p>
 <div class="section" id="id4">
-<h3><span class="section-number">13.2.2.1. </span>1. 双塔模型<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.2.1. </span>1. 双塔模型<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>接下来以如图 <a class="reference internal" href="#two-tower-model"><span class="std std-numref">图13.2.2</span></a>所示双塔模型
 <a class="bibtex reference internal" href="summary.html#yi2019sampling" id="id5">[Yi et al., 2019]</a>为例介绍召回的流程。双塔模型具有两个MLP，分别对用户特征和物品特征进行编码，称之为用户塔 <a class="footnote-reference brackets" href="#id16" id="id6">1</a>
 和物品塔。对于输入数据，连续特征可以直接作为MLP的输入，而离散特征需要通过嵌入表映射为一个稠密向量再输入到MLP中。用户塔和物品塔对特征进行处理得到用户向量和物品向量用于表示不同用户或物品。双塔模型使用一个评分函数衡量用户向量和物品向量之间的相似度。</p>
@@ -459,16 +457,16 @@ Show Source
 </div>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">13.2.2.2. </span>2. 训练<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.2.2. </span>2. 训练<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>%关于如何训练这一模型，一个自然的想法是：每个用户都与所有的物品两两进行评分。然而如前文提及，训练数据集来自以往做出的推荐和用户反馈，同一名用户只可能对少数物品做出过反馈，因此数据集只包含用户与部分物品的互动。此外，召回阶段的备选物品通常很多，两两评分得到的分数矩阵会占用大量内存。所以在实际训练中，我们只选取用户点击了的（用户，物品）对，即正样本作为训练数据集，在训练过程中使用采样器对其他物品进行采样作为负样本。
 训练时，模型的输入为用户对历史推荐结果的反馈数据，即（用户，物品，标签）对，其中标签表示用户是否点击了物品。一般点击记为1，而未点击记为0。双塔模型使用正样本（即标签为1的样本）作为训练数据。然后使用一种可以纠正采样偏差的批次内采样器在批次内进行采样得到负样本，其算法细节在不是本节介绍的重点，感兴趣的读者可以深入研究原论文。模型输出的结果是用户点击不同物品的概率。训练时选用合适的损失函数使得正样本的预测结果尽可能接近1，而负样本的预测结果尽可能接近0。</p>
 </div>
 <div class="section" id="id8">
-<h3><span class="section-number">13.2.2.3. </span>3. 推理<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.2.3. </span>3. 推理<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>推理之前，首先使用训练好的模型计算出所有物品的物品向量并保存。这是因为物品的特征是相对稳定的，这样做可以减少推理时的计算开销，从而加快推理速度。而用户特征和用户的使用情况相关，因此当用户请求到达时，双塔模型使用用户塔对当前的用户特征进行计算，得到用户向量。然后使用训练时的评分函数作为相似度的衡量，使用这一用户的用户向量与所有备选物品的物品向量进行相似度搜索。选出相似度最高的一部分物品输出作为召回结果。</p>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">13.2.2.4. </span>4. 评估指标<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.2.4. </span>4. 评估指标<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>召回模型的常见评估指标是在召回<span class="math notranslate nohighlight">\(k\)</span>个物品时的召回率（Recall&#64;k），召回<span class="math notranslate nohighlight">\(k\)</span>个物品时的召回率定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-chapter-recommender-system-multi-stage-recommender-system-0">
 <span class="eqno">(13.2.1)<a class="headerlink" href="#equation-chapter-recommender-system-multi-stage-recommender-system-0" title="Permalink to this equation">¶</a></span>\[\text{Recall&#64;k} = \frac{\text{TP}}{\min(\text{TP} + \text{FN}, k)}\]</div>
@@ -476,7 +474,7 @@ Show Source
 </div>
 </div>
 <div class="section" id="id10">
-<h2><span class="section-number">13.2.3. </span>排序<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.3. </span>排序<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>在排序阶段，模型结合用户和物品特征对召回得到的物品逐一打分。分数大小反映了该用户对物品感兴趣的概率。根据排序结果，选取评分最高的一部分物品向用户推荐。</p>
 <p>当推荐模型所需要处理的备选物品越来越多，或者需要加入更为复杂的推荐逻辑和规则时，排序可以进一步细分为三个阶段：粗排、精排和重排：</p>
 <ol class="arabic simple">
@@ -485,7 +483,7 @@ Show Source
 <li><p>重排阶段会根据一定的商业逻辑（例如，增加新物品的曝光率或者过滤掉用户已经购买过的物品、看过的视频等）和规则（打乱推荐的物品、减少相似物品推荐）对精排的结果进行进一步处理以从整体上提升推荐服务的质量，而不是仅仅关注单个物品的点击率。</p></li>
 </ol>
 <div class="section" id="dlrm">
-<h3><span class="section-number">13.2.3.1. </span>1. DLRM<a class="headerlink" href="#dlrm" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.3.1. </span>1. DLRM<a class="headerlink" href="#dlrm" title="Permalink to this headline">¶</a></h3>
 <p>接下来以DLRM
 <a class="bibtex reference internal" href="summary.html#naumov2019deep" id="id11">[Naumov et al., 2019]</a>为例，介绍排序模型如何处理特征数据。如图
 <a class="reference internal" href="#dlrm-model"><span class="std std-numref">图13.2.3</span></a>所示，DLRM包括嵌入表、两层MLP和一层交互层 <a class="footnote-reference brackets" href="#id17" id="id12">2</a>。</p>
@@ -503,11 +501,11 @@ production）操作，从而得到二阶交叉特征。由于交互层得到的�
 </div>
 </div>
 <div class="section" id="id13">
-<h3><span class="section-number">13.2.3.2. </span>2. 训练方法<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.3.2. </span>2. 训练方法<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>DLRM直接基于（用户，物品，标签）对进行训练。模型将用户和物品特征一起输入，进行交互处理预测出用户点击物品的概率。对于正样本应当令概率尽可能接近1，而负样本接近0。</p>
 </div>
 <div class="section" id="id14">
-<h3><span class="section-number">13.2.3.3. </span>3. 训练评估指标<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.3.3. </span>3. 训练评估指标<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>排序实际上可以被看作一个二分类问题，即将（用户，物品）分类为点击（标签为1）或不点击（标签为0），所以评估排序模型的方法与评估二分类模型类似。但是由于推荐系统数据集通常极度不平衡（正负样本比例悬殊），为了减少数据不平衡对指标的影响，排序模型的常用评估指标为AUC（Area
 Under Curve, 曲线下面积）和F1评分。 其中，AUC是ROC（Receiver Operating
 Characteristic，受试者工作特征）曲线下的面积，ROC曲线是在选取不同分类阈值时的真阳性率-假阳性率曲线。通过计算AUC和ROC曲线，可以选取合适的分类阈值。如果预测概率大于分类阈值，则认为预测结果为1（点击）；否则为0（不点击）。根据预测结果可以算出召回率（recall）和精确率（precision），然后根据公式
@@ -517,7 +515,7 @@ Characteristic，受试者工作特征）曲线下的面积，ROC曲线是在选
 :label: f1\]</div>
 </div>
 <div class="section" id="id15">
-<h3><span class="section-number">13.2.3.4. </span>4. 推理流程<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.2.3.4. </span>4. 推理流程<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>推理时，首先将召回的物品的特征和相应的该用户的特征拼接起来，然后输入DLRM。根据模型的预测分数，选择概率最高的一部分物品输出。</p>
 <dl class="footnote brackets">
 <dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id6">1</a></span></dt>
