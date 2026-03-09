@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>16.1. 背景 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="17. 机器人系统" href="../chapter_rl_sys/index.html" />
+    <link rel="prev" title="16. 可解释性AI系统" href="index.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link" href="index.html"><span class="section-number">16. </span>可解释性AI系统</a><i class="material-icons">navigate_next</i>
+            <a class="mdl-navigation__link is-active"><span class="section-number">16.1. </span>背景</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/chapter_explainable_AI/explainable_ai.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
+                  <i class="fab fa-github"></i>
+                  GitHub
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/">
+                  <i class="fas fa-language"></i>
+                  English
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">16. 可解释性AI系统</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">16. 可解释性AI系统</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">16.1. 背景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ai">16.2. 可解释AI定义</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">16.4. 可解释AI系统及实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">16.5. 未来可解释AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">16.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="id1">
+<h1><span class="section-number">16.1. </span>背景<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>在人类历史上，技术进步、生产关系逻辑和伦理法规的发展是动态演进的。当一种新的技术在实验室获得突破后，其引发的价值产生方式的变化会依次对商品形态、生产关系等带来冲击。而同时当新技术带来的价值提升得到认可后，商业逻辑的组织形态在自发的调整过程中，也会对技术发展的路径、内容甚至速度提出诉求，并当诉求得到满足时适配以新型的伦理法规。在这样的相互作用中，技术系统与社会体系会共振完成演进，是谓技术革命。</p>
+<p>近10年来，籍由算力与数据规模的性价比突破临界点，以深度神经网络为代表的联结主义模型架构及统计学习范式（以后简称深度学习）在特征表征能力上取得了跨越级别的突破，大大推动了人工智能的发展，在很多场景中达到令人难以置信的效果。比如：人脸识别准确率达到97%以上；谷歌智能语音助手回答正确率，在2019年的测试中达到92.9%。在这些典型场景下，深度学习在智能表现上的性能已经超过了普通人类（甚至专家），从而到了撬动技术更替的临界点。在过去几年间，在某些商业逻辑对技术友好，或者伦理法规暂时稀缺的领域，如安防、实时调度、流程优化、竞技博弈、信息流分发等，人工智能和深度学习取得了技术和商业上快速突破。</p>
+<p>食髓知味，技术发展的甜头自然每个领域都不愿放过。而当对深度学习商业化运用来到某些对技术敏感、与人的生存或安全关系紧密的领域，如自动驾驶、金融、医疗和司法等高风险应用场景时，原有的商业逻辑在进行技术更替的过程中就会遇到阻力，从而导致商业化变现速度的减缓甚至失败。究其原因，以上场景的商业逻辑及背后伦理法规的中枢之一是稳定的、可追踪的责任明晰与责任分发；而深度学习得到的模型是个黑盒，我们无法从模型的结构或权重中获取模型行为的任何信息，从而使这些场景下责任追踪和分发的中枢无法复用，导致人工智能在业务应用中遇到技术上和结构上的困难。</p>
+<p>举2个具体的例子：例1，在金融风控场景，通过深度学习模型识别出来小部分用户有欺诈嫌疑，但是业务部门不敢直接使用这个结果进行处理。因为人们难以理解结果是如何得到的，从而无法判断结果是否准确。而且该结果缺乏明确的依据，如果处理了，也无法向监管机构交代；
+例2，在医疗领域，深度学习模型根据患者的检测数据，判断患者有肺结核，但是医生不知道诊断结果是怎么来的，不敢直接采用，而是根据自己的经验，仔细查看相关检测数据，然后给出自己的判断。从这2个例子可以看出，黑盒模型严重影响模型在实际场景的应用和推广。</p>
+<p>此外，模型的可解释性问题也引起了国家层面的关注，相关机构对此推出了相关的政策和法规。</p>
+<ul class="simple">
+<li><p>2017年7月，国务院印发《新一代人工智能发展规划》，首次涵盖可解释AI。</p></li>
+<li><p>2021年3月，中国人民银行发布金融行业标准《人工智能算法金融应用评价规范》，对金融行业AI模型可解释性提出了明确要求。</p></li>
+<li><p>2021年8月，网信办《互联网信息服务算法推荐管理规定》,
+提出对互联网行业算法推荐可解释性的要求。</p></li>
+<li><p>2021年9月，科技部发布《新一代人工智能伦理规范》。</p></li>
+</ul>
+<p>因此，从商业推广层面以及从法规层面，我们都需要打开黑盒模型，对模型进行解释，可解释AI正是解决该类问题的技术。</p>
+</div>
+<div class="section" id="ai">
+<h1><span class="section-number">16.2. </span>可解释AI定义<a class="headerlink" href="#ai" title="Permalink to this heading">¶</a></h1>
+<p>按DARPA（美国国防部先进研究项目局）的描述，如
+<a class="reference internal" href="#xai-concept"><span class="std std-numref">图16.2.1</span></a>所示，
+可解释AI的概念在于：区别于现有的AI系统，可解释AI系统可以解决用户面对黑盒模型时遇到的问题，使得用户知其然并知其所以然。</p>
+<div class="figure align-default" id="id41">
+<span id="xai-concept"></span><a class="reference internal image-reference" href="../_images/xai_concept.png"><img alt="../_images/xai_concept.png" src="../_images/xai_concept.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.2.1 </span><span class="caption-text">可解释AI概念（图片来源于Broad Agency Announcement Explainable
+Artificial Intelligence (XAI) DARPA-BAA-16–53）</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+</div>
+<p>然而，不论是学术界还是工业界，对于可解释AI (eXplainable
+AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大家参考讨论：</p>
+<ul class="simple">
+<li><p>可解释性就是希望寻求对模型工作机理的直接理解，打破人工智能的黑盒子。</p></li>
+<li><p>可解释AI是为AI算法所做出的决策提供人类可读的以及可理解的解释。</p></li>
+<li><p>可解释AI是确保人类可以轻松理解和信任人工智能代理做出的决策的一组方法。</p></li>
+</ul>
+<p>我们根据自身的实践经验和理解，将可解释AI定义为：一套面向机器学习（主要是深度神经网络）的技术合集，包括可视化、数据挖掘、逻辑推理、知识图谱等，目的是通过此技术合集，使深度神经网络呈现一定的可理解性，以满足相关使用者对模型及应用服务产生的信息诉求（如因果或背景信息），从而为使用者对人工智能服务建立认知层面的信任。</p>
+</div>
+<div class="section" id="id2">
+<h1><span class="section-number">16.3. </span>可解释AI算法现状介绍<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h1>
+<p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考
+<span id="id3">[<a class="reference internal" href="#id24" title="Li, X.-H., Cao, C. C., Shi, Y., Bai, W., Gao, H., Qiu, L., … Chen, L. (2020). A survey of data-driven and knowledge-aware explainable ai. IEEE Transactions on Knowledge and Data Engineering, (), 1-1. doi:10.1109/TKDE.2020.2983930">Li et al., 2020</a>]</span>总结归纳了可解释AI的算法类型，如
+<a class="reference internal" href="#xai-methods"><span class="std std-numref">图16.3.1</span></a>所示。</p>
+<div class="figure align-default" id="id42">
+<span id="xai-methods"></span><a class="reference internal image-reference" href="../_images/XAI_methods.PNG"><img alt="../_images/XAI_methods.PNG" src="../_images/XAI_methods.PNG" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.1 </span><span class="caption-text">可解释AI（XAI）算法分支</span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
+</div>
+<p>对模型进行解释有多种多样的方法，这里依据解释过程是否引入数据集以外的外部知识，将其分为数据驱动的解释方法和知识感知的解释方法。</p>
+<p><strong>数据驱动的解释</strong></p>
+<p>数据驱动的解释是指纯粹从数据本身生成解释的方法，而不需要先验知识等外部信息。为了提供解释，数据驱动的方法通常从选择数据集（具有全局或局部分布）开始。然后，将选定的数据集或其变体输入到黑盒模型（在某些情况下，选取数据集不是所必需的。例如，
+<span id="id4">[<a class="reference internal" href="#id25" title="Erhan, D., Bengio, Y., Courville, A., &amp; Vincent, P. (2009 , 01). Visualizing higher-layer features of a deep network. Technical Report, Univeristé de Montréal.">Erhan et al., 2009</a>]</span>提出的最大激活值方法），通过对黑盒模型的相应预测进行一定的分析(例如，对预测w.r.t.输入特征进行求导）来生成解释。根据可解释性的范围，这些方法可以进一步分为全局方法或局部方法，即它们是解释所有数据点的全局模型行为还是预测子集行为。特别地，基于实例的方法提供了一种特殊类型的解释–它们直接返回数据实例作为解释。虽然从解释范围的分类来看，基于实例的方法也可以适合全局方法（代表性样本）或局部方法（反事实），但我们单独列出它们，以强调它们提供解释的特殊方式。</p>
+<p>全局方法旨在提供对模型逻辑的理解以及所有预测的完整推理，基于对其特征、学习到的组件和结构的整体视图等等。有几个方向可以探索全局可解释性。为了便于理解，我们将它们分为以下三个子类：
+(i)
+模型提取——从原始黑盒模型中提取出一个可解释的模型，比如通过模型蒸馏的方式将原有黑盒模型蒸馏到可解释的决策树
+<span id="id5">[<a class="reference internal" href="#id30" title="Frosst, N., &amp; Hinton, G. (2017). Distilling a neural network into a soft decision tree. arXiv preprint arXiv:1711.09784.">Frosst &amp; Hinton, 2017</a>]</span>
+<span id="id6">[<a class="reference internal" href="#id33" title="Zhang, Q., Yang, Y., Ma, H., &amp; Wu, Y. N. (2019). Interpreting cnns via decision trees. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (pp. 6261–6270).">Zhang et al., 2019</a>]</span>，从而使用决策树中的规则解释该原始模型；
+(ii) 基于特征的方法——估计特征的重要性或相关性，如
+<a class="reference internal" href="#xai-global-feature-importance"><span class="std std-numref">图16.3.2</span></a>所示,
+该类型解释可提供如“信用逾期记录是模型依赖的最重要特征”的解释，从而协助判定模型是否存在偏见.
+一种典型的全局特征解释方法是SHAP（其仅能针对树模型输出全局解释）:cite:<cite>lundberg2017unified</cite>。
+(iii)
+透明模型设计——修改或重新设计黑盒模型以提高其可解释性。这类方法目前也逐渐成为探索热点，近期的相关工作包括ProtoPNet
+<span id="id7">[<a class="reference internal" href="#id32" title="Chen, C., Li, O., Tao, D., Barnett, A., Rudin, C., &amp; Su, J. K. (2019). This looks like that: deep learning for interpretable image recognition. Advances in neural information processing systems, 32.">Chen et al., 2019</a>]</span>, Interpretable CNN
+<span id="id8">[<a class="reference internal" href="#id34" title="Zhang, Q., Wu, Y. N., &amp; Zhu, S.-C. (2018). Interpretable convolutional neural networks. Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 8827–8836).">Zhang et al., 2018</a>]</span>, ProtoTree
+<span id="id9">[<a class="reference internal" href="#id35" title="Nauta, M., van Bree, R., &amp; Seifert, C. (2021). Neural prototype trees for interpretable fine-grained image recognition. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 14933–14943).">Nauta et al., 2021</a>]</span>等。</p>
+<div class="figure align-default" id="id43">
+<span id="xai-global-feature-importance"></span><a class="reference internal image-reference" href="../_images/xai_global_feature_importance.png"><img alt="../_images/xai_global_feature_importance.png" src="../_images/xai_global_feature_importance.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.2 </span><span class="caption-text">全局特征重要性解释</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+</div>
+<p>全局解释可以提供黑盒模型的整体认知。但由于黑盒模型的高复杂性，在实践中往往很难通过模型提取/设计得到与原模型行为相近的简单透明模型，也往往很难对整个数据集抽象出统一的特征重要性。此外，在为单个观察生成解释时，全局解释也缺乏局部保真度，因为全局重要的特征可能无法准确解释单个样例的决定。因此，局部方法成为了近些年领域内重要的研究方向。局部方法尝试为单个实例或一组实例检验模型行为的合理性。当仅关注局部行为时，复杂模型也可以变得简单，因此即使是简单的函数也有可以为局部区域提供可信度高的解释。基于获得解释的过程，局部方法可以分为两类：局部近似和基于传播的方法。</p>
+<p>局部近似是通过在样本近邻区域模拟黑盒模型的行为生成可理解的子模型。相比于全局方法中的模型提取，局部近似仅需关注样本临近区域，因此更容易获得精确描述局部行为的子模型。如
+<a class="reference internal" href="#xai-lime"><span class="std std-numref">图16.3.3</span></a>所示，通过在关注数据点<span class="math notranslate nohighlight">\(x\)</span>附近生成<span class="math notranslate nohighlight">\(m\)</span>个数据点<span class="math notranslate nohighlight">\((x_i^\prime, f(x_i^\prime)), for\  i=1,2, ...m\)</span>（这里<span class="math notranslate nohighlight">\(f\)</span>为黑盒模型决策函数）,用线性拟合这些数据点，可以得到一个线性模型<span class="math notranslate nohighlight">\(g=\sum_i^k w_ix^i\)</span>，这里<span class="math notranslate nohighlight">\(k\)</span>表示数据的特征维度。那么线性模型中的权重<span class="math notranslate nohighlight">\(w_i\)</span>即可用于表示数据<span class="math notranslate nohighlight">\(x\)</span>中第<span class="math notranslate nohighlight">\(i\)</span>个特征对于模型<span class="math notranslate nohighlight">\(f\)</span>的重要性。</p>
+<div class="figure align-default" id="id44">
+<span id="xai-lime"></span><a class="reference internal image-reference" href="../_images/xai_lime.png"><img alt="../_images/xai_lime.png" src="../_images/xai_lime.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.3 </span><span class="caption-text">局部近似方法示例</span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
+</div>
+<p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如
+<a class="reference internal" href="#xai-gradient-based"><span class="std std-numref">图16.3.4</span></a>所示,通过梯度回传，计算模型输出对输入的梯度<span class="math notranslate nohighlight">\(\frac{d(f(x))}{dx}\)</span>
+作为模型解释。常见的基于梯度传播的方法有基本Gradient方法，GuidedBackprop
+<span id="id10">[<a class="reference internal" href="#id37" title="Zeiler, M. D., &amp; Fergus, R. (2014). Visualizing and understanding convolutional networks. European conference on computer vision (pp. 818–833).">Zeiler &amp; Fergus, 2014</a>]</span>, GradCAM
+<span id="id11">[<a class="reference internal" href="#id36" title="Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., &amp; Batra, D. (2017). Grad-cam: visual explanations from deep networks via gradient-based localization. Proceedings of the IEEE international conference on computer vision (pp. 618–626).">Selvaraju et al., 2017</a>]</span>等. 而基于前向传播的方法通过扰动特征后,
+进行前向推理的输出差异来量化输出与特征的相关性。其中，常见的几种方法有RISE
+<span id="id12">[<a class="reference internal" href="#id38" title="Petsiuk, V., Das, A., &amp; Saenko, K. (2018). Rise: randomized input sampling for explanation of black-box models. arXiv preprint arXiv:1806.07421.">Petsiuk et al., 2018</a>]</span>，ScoreCAM <span id="id13">[<a class="reference internal" href="#id39" title="Wang, H., Wang, Z., Du, M., Yang, F., Zhang, Z., Ding, S., … Hu, X. (2020). Score-cam: score-weighted visual explanations for convolutional neural networks. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops (pp. 24–25).">Wang et al., 2020</a>]</span>等。</p>
+<div class="figure align-default" id="id45">
+<span id="xai-gradient-based"></span><a class="reference internal image-reference" href="../_images/xai_gradient_based.PNG"><img alt="../_images/xai_gradient_based.PNG" src="../_images/xai_gradient_based.PNG" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.4 </span><span class="caption-text">局部近似方法示例</span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
+</div>
+<p><strong>知识感知的解释</strong></p>
+<p>数据驱动的解释方法能够从数据集或输入和输出之间的关系提供全面的解释。在此基础上，还可以利用外部知识来丰富解释并使其更加人性化。没有机器学习背景知识的门外汉可能很难直接理解特征的重要性，以及特征和目标之间的联系。借助外部领域知识，我们不仅可以生成表明特征重要性的解释，还可以描述某些特征比其他特征更重要的原因。因此，在过去几年中，基于知识感知的可解释AI方法引起了越来越多的关注。与从多种情景中收集的原始数据集相比，知识通常被视为人类根据生活经验或严格的理论推理得出的实体或关系。一般来说，知识可以有多种形式。它可以保留在人的头脑中，也可以用自然语言、音频或规则记录，具有严格的逻辑。为了对这些方法进行系统回顾，我们在此根据知识来源将它们分为两类：通用知识方法和知识库（KB）方法。前者以非结构化数据为知识源来构建解释，后者以结构化知识库为基础来构建解释。</p>
+<p>提供知识的一个相对直接的方法是通过人类的参与。事实上，随着人工智能研究和应用的爆炸式增长，人类在人工智能系统中的关键作用已经慢慢显现。这样的系统被称为以人为中心的人工智能系统。
+<span id="id14">[<a class="reference internal" href="#id28" title="Riedl, M. O. (2019). Human-centered artificial intelligence and machine learning. Human Behavior and Emerging Technologies, 1(1), 33–36.">Riedl, 2019</a>]</span>认为，以人为中心的人工智能不仅能让人工智能系统从社会文化的角度更好地了解人类，还能让人工智能系统帮助人类了解自己。为了实现这些目标，人工智能需要满足可解释性和透明度等几个属性。</p>
+<p>具体来说，人类能够通过提供相当多的人类定义的概念来在人工智能系统中发挥作用。
+<span id="id15">[]</span>利用概念激活向量（CAV）来测试概念在分类任务中的重要性（TCAV）。CAV是与感兴趣目标概念的激活与否决策边界垂直的矢量，该矢量可以这样获取:
+输入目标概念的正负样本, 进行线性回归, 得到决策边界,
+从而得到CAV。以“斑马”的“条纹”概念为例，用户首先收集包含有“条纹”的数据样本及不含“条纹”的数据样本，输入到网络中，获取中间层的激活值，基于正负样本的标签（<span class="math notranslate nohighlight">\(1\)</span>代表含有概念，<span class="math notranslate nohighlight">\(0\)</span>代表不含概念）对中间层激活值进行拟合，获取决策边界，CAV即为该决策边界的垂直向量。</p>
+<p>如
+<a class="reference internal" href="#xai-tcav"><span class="std std-numref">图16.3.5</span></a>所示，为了计算TCAV评分，代表第<span class="math notranslate nohighlight">\(l\)</span>层概念对类<span class="math notranslate nohighlight">\(k\)</span>预测的重要性的“概念敏感度”可以首先计算为方向导数<span class="math notranslate nohighlight">\(S_{C,k,l}(\mathbf{x})\)</span>：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-explainable-ai-explainable-ai-0">
+<span class="eqno">(16.3.1)<a class="headerlink" href="#equation-chapter-explainable-ai-explainable-ai-0" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{split}
+S_{C,k,l}(\mathbf{x}) =  &amp;\lim_{\epsilon\rightarrow 0}\frac{h_{l,k}(f_{l}(\mathbf{x})+\epsilon \mathbf{v}^{l}_{C})-h_{l,k}(f_{l}(\mathbf{x}))}{\epsilon} \\ = &amp;\nabla h_{l,k}(f_{l}(\mathbf{x})) \cdot \mathbf{v}^{l}_{C}
+\end{split}
+\label{eq:TCAV_score}\end{split}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(f_{l}(\mathbf{x})\)</span>是在第<span class="math notranslate nohighlight">\(l\)</span>、<span class="math notranslate nohighlight">\(h_{l,k}(\cdot)\)</span>是类<span class="math notranslate nohighlight">\(k\)</span>的logit,<span class="math notranslate nohighlight">\(\nabla h_{l,k}(\cdot)\)</span>是<span class="math notranslate nohighlight">\(h_{l，k}\)</span>
+w.r.t层<span class="math notranslate nohighlight">\(l\)</span>的激活的梯度。<span class="math notranslate nohighlight">\(\mathbf{v}^{l}_{C}\)</span>是用户旨在探索的概念<span class="math notranslate nohighlight">\(C\)</span>的CAV。正（或负）敏感性表明概念<span class="math notranslate nohighlight">\(C\)</span>对输入的激活有正（或负）影响。</p>
+<p>基于<span class="math notranslate nohighlight">\(S_{C,k,l}\)</span>,
+TCAV就可以通过计算类<span class="math notranslate nohighlight">\(k\)</span>的具有正<span class="math notranslate nohighlight">\(S_{C,k,l}\)</span>’s的样本的比率来获得：</p>
+<div class="math notranslate nohighlight" id="equation-chapter-explainable-ai-explainable-ai-1">
+<span class="eqno">(16.3.2)<a class="headerlink" href="#equation-chapter-explainable-ai-explainable-ai-1" title="Permalink to this equation">¶</a></span>\[\textbf{TCAV}_{Q_{C,k,l}}=\frac{\vert \{\mathbf{x}\in X_{k}:S_{C,k,l}(\mathbf{x})&gt;0\}\vert}{\vert X_{k}\vert}
+\label{eq:TCAV}\]</div>
+<p>结合<span class="math notranslate nohighlight">\(t\)</span>-分布假设方法，如果<span class="math notranslate nohighlight">\(\textbf{TCAV}_{Q_{C,k,l}}\)</span>大于0.5，则表明概念<span class="math notranslate nohighlight">\(C\)</span>对类<span class="math notranslate nohighlight">\(k\)</span>有重大影响。</p>
+<div class="figure align-default" id="id46">
+<span id="xai-tcav"></span><a class="reference internal image-reference" href="../_images/xai_tcav.png"><img alt="../_images/xai_tcav.png" src="../_images/xai_tcav.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.5 </span><span class="caption-text">TCAV流程(图片来源于 <span id="id16">[<a class="reference internal" href="#id24" title="Li, X.-H., Cao, C. C., Shi, Y., Bai, W., Gao, H., Qiu, L., … Chen, L. (2020). A survey of data-driven and knowledge-aware explainable ai. IEEE Transactions on Knowledge and Data Engineering, (), 1-1. doi:10.1109/TKDE.2020.2983930">Li et al., 2020</a>]</span>)</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+</div>
+<p>人类的知识可以是主观的，而KB可以是客观的。在当前研究中，KB通常被建模为知识图谱(KG)。以下以MindSpore支持的可解释推荐模型TB-Net为例，讲解如何使用知识图谱构建可解释模型。知识图谱可以捕捉实体之间丰富的语义关系。TB-Net的目的之一就是确定哪一对实体（即，物品-物品）对用户产生最重大的影响，并通过什么关系和关键节点进行关联。不同于现有的基于KG嵌入的方法（RippleNet使用KG补全方法预测用户与物品之间的路径），TB-Net提取真实路径，以达到推荐结果的高准确性和优越的可解释性。</p>
+<div class="figure align-default" id="id47">
+<span id="tb-net"></span><a class="reference internal image-reference" href="../_images/tb_net.png"><img alt="../_images/tb_net.png" src="../_images/tb_net.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.6 </span><span class="caption-text">TB-Net网络训练框架</span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
+</div>
+<p>TB-Net的框架如
+<a class="reference internal" href="#tb-net"><span class="std std-numref">图16.3.6</span></a>所示：其中，<span class="math notranslate nohighlight">\(i_c\)</span>代表待推荐物品，<span class="math notranslate nohighlight">\(h_n\)</span>代表历史记录中用户交互的物品，<span class="math notranslate nohighlight">\(r\)</span>和<span class="math notranslate nohighlight">\(e\)</span>代表图谱中的关系（relation）和实体（entity），它们的向量化表达拼接在一起形成关系矩阵和实体矩阵。首先，TB-Net通过<span class="math notranslate nohighlight">\(i_c\)</span>和<span class="math notranslate nohighlight">\(h_n\)</span>的相同特征值来构建用户<span class="math notranslate nohighlight">\(u\)</span>的子图谱，每一对<span class="math notranslate nohighlight">\(i_c\)</span>和<span class="math notranslate nohighlight">\(h_n\)</span>都由关系和实体所组成的路径来连接。然后，TB-Net的路径双向传导方法将物品、实体和关系向量的计算从路径的左侧和右侧分别传播到中间节点，即计算左右两个流向的向量汇集到同一中间实体的概率。该概率用于表示用户对中间实体的喜好程度，并作为解释的依据。最后，TB-Net识别子图谱中关键路径（即关键实体和关系），输出推荐结果和具有语义级别的解释。</p>
+<p>以游戏推荐为场景，随机对一个用户推荐新的游戏，如
+<a class="reference internal" href="#xai-kg-recommendation"><span class="std std-numref">图16.3.7</span></a>所示，其中Half-Life, DOTA 2, Team
+Fortress 2等为游戏名称。关系属性中，game.year
+代表游戏发行年份，game.genres代表游戏属性，game.developer代表游戏的开发商，game.categories代表游戏分类。属性节点中，MOBA代表多人在线战术竞技游戏，Valve代表威尔乌游戏公司，Action代表动作类，Multi-player代表多人游戏，Valve
+Anti-Cheat
+enabled代表威尔乌防作弊类，Free代表免费，Cross-Platform代表跨平台。右边的游戏是用户历史记录中玩过的游戏。而测试数据中正确推荐的游戏是“Team
+Fortress 2”。</p>
+<div class="figure align-default" id="id48">
+<span id="xai-kg-recommendation"></span><a class="reference internal image-reference" href="../_images/xai_kg_recommendation.png"><img alt="../_images/xai_kg_recommendation.png" src="../_images/xai_kg_recommendation.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.3.7 </span><span class="caption-text">Steam游戏推荐可解释示例 （用户玩过的游戏: Half-Life, DOAT 2.
+推荐命中的游戏: “Team Fortress 2”。具有属性信息的节点如，game.geners:
+Action, free-to-play; game.developer: Valve; game.categories:
+Multiplayer, MOBA.）</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+</div>
+<p>在
+<a class="reference internal" href="#xai-kg-recommendation"><span class="std std-numref">图16.3.7</span></a>中，有两个突出显示的相关概率（38.6%,
+21.1%），它们是在推荐过程中模型计算的关键路径被激活的概率。红色箭头突出显示从“Team
+Fortress
+2”到历史项目“Half-Life”之间的关键路径。它表明TB-Net能够通过各种关系连接向用户推荐物品，并找出关键路径作为解释。因此，将“Team
+Fortress 2”推荐给用户的解释可以翻译成固定话术：“Team Fortress
+2”是游戏公司“Valve”开发的一款动作类、多人在线、射击类电子游戏。这与用户历史玩过的游戏“Half-Life”有高度关联。</p>
+</div>
+<div class="section" id="id17">
+<h1><span class="section-number">16.4. </span>可解释AI系统及实践<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h1>
+<p>随着各领域对可解释的诉求快速增长，越来越多企业集成可解释AI工具包，为广大用户提供快速便捷的可解释实践，业界现有的主流工具包有:
+- TensorFlow团队的What-if
+Tool，用户不需编写任何程序代码就能探索学习模型，让非开发人员也能参与模型调校工作。
+-
+IBM的AIX360，提供了多种的解释及度量方法去评估模型在各个不同维度上的可解释及可信性能。
+- Facebook
+Torch团队的captum，针对图像及文本场景，提供了多种主流解释方法。 -</p>
+<p>微软的InterpretML，用户可以训练不同的白盒模型及解释黑盒模型。 -
+SeldonIO的Alibi，专注于查勘模型内部状况及决策解释，提供各种白盒、黑盒模型、单样本及全局解释方法的实现。
+-
+华为MindSpore的XAI工具，提供数据工具、解释方法、白盒模型以及度量方法，为用户提供不同级别的解释（局部，全局，语义级别等）。</p>
+<p>本节将以MindSpore
+XAI工具为例，讲解在实践中如何使用可解释AI工具为图片分类模型和表格数据分类模型提供解释，从而协助用户理解模型进行进一步的调试调优。
+MindSpore
+XAI工具的架构如下，其为基于MindSpore深度学习框架的一个可解释工具，可在Ascend及GPU设备上部署。
+<img alt="MindSpore XAI 架构图" src="../_images/mindspore_xai.png" /></p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>800px</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>要使用MindSpore可解释AI，读者首先要通过pip安装MindSpore
+XAI包（支持MindSpore1.7 或以上，GPU及Ascend
+处理器，推荐配合JupyterLab使用）:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>mindspore-xai
+</pre></div>
+</div>
+<p>在MindSpore
+XAI的<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-CN/r1.8/index.html">官网教程</a>中，详细介绍了如何安装和使用提供的解释方法,
+读者可自行查阅。</p>
+<div class="section" id="id18">
+<h2><span class="section-number">16.4.1. </span>MindSpore XAI工具为图片分类场景提供解释<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<p>下面结合MindSpore XAI1.8版本中已支持的显着图可视方法 GradCAM
+作为一个代码演示例子。读者可参阅<a class="reference external" href="https://www.mindspore.cn/xai/docs/zh-CN/1.8/using_cv_explainers.html">官方教程</a>以取得演示用的数据集,
+模型和完整脚本代码。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mindspore_xai.explainer</span><span class="w"> </span><span class="kn">import</span> <span class="n">GradCAM</span>
+
+<span class="c1"># 通常指定最后一层的卷积层</span>
+<span class="n">grad_cam</span> <span class="o">=</span> <span class="n">GradCAM</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;layer4&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3 是&#39;boat&#39;类的ID</span>
+<span class="n">saliency</span> <span class="o">=</span> <span class="n">grad_cam</span><span class="p">(</span><span class="n">boat_image</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果输入的是一个维度为 <span class="math notranslate nohighlight">\(1*3*224*224\)</span>
+的图片Tensor，那返回的saliency就是一个 <span class="math notranslate nohighlight">\(1*1*224*224\)</span>
+的显著图Tensor。下面我们将几个例子展示如何使用可解释AI能力来更好理解图片分类模型的预测结果，获取作为分类预测依据的关键特征区域，从而判断得到分类结果的合理性和正确性，加速模型调优。</p>
+<div class="figure align-default" id="id49">
+<span id="correct-correct"></span><a class="reference internal image-reference" href="../_images/correct_correct.png"><img alt="../_images/correct_correct.png" src="../_images/correct_correct.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-number">图16.4.1 </span><span class="caption-text">预测结果正确，依据的关键特征合理的例子</span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+</div>
+<p>上图预测标签是“bicycle”，解释结果给出依据的关键特征
+在车轮上，说明这个分类判断依据是合理的, 可以初步判定模型为可信的。</p>
+<div class="figure align-default" id="id50">
+<span id="correct-wrong"></span><a class="reference internal image-reference" href="../_images/correct_wrong.png"><img alt="../_images/correct_wrong.png" src="../_images/correct_wrong.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-number">图16.4.2 </span><span class="caption-text">预测结果正确，依据的关键特征不合理的例子</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+</div>
+<p>上图在预测标签中有1个标签是“person”，这个结果是对的；但是解释的时候，高亮区域在马头的上，那么这个关键特征依据很可能是错误的,
+这个模型的可靠性还需进一步验证。</p>
+<div class="figure align-default" id="id51">
+<span id="wrong-wrong"></span><a class="reference internal image-reference" href="../_images/wrong_wrong.png"><img alt="../_images/wrong_wrong.png" src="../_images/wrong_wrong.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-number">图16.4.3 </span><span class="caption-text">预测结果错误，依据的关键特征不合理的例子</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+</div>
+<p>在上图中，预测标签为“boat”，但是原始图像中并没有船只存在，通过图中右侧解释结果可以看到模型将水面作为分类的关键依据，得到预测结果“boat”，这个依据是错误的。通过对训练数据集中标签为“boat”的数据子集进行分析，发现绝大部分标签为“boat”的图片中，都有水面，这很可能导致模型训练的时候，误将水面作为“boat”类型的关键依据。基于此，按比例补充有船没有水面的图片集，从而大幅消减模型学习的时候误判关键特征的概率。</p>
+</div>
+<div class="section" id="tabular-lime">
+<span id="id19"></span><h2><span class="section-number">16.4.2. </span>MindSpore XAI工具为表格分类场景提供解释<a class="headerlink" href="#tabular-lime" title="Permalink to this heading">¶</a></h2>
+<p>MindSpore XAI
+1.8版本支持了三个业界比较常见的表格数据模型解释方法：LIMETabular、SHAPKernel和SHAPGradient。</p>
+<p>以LIMETabular为例针对一个复杂难解释的模型，提供一个局部可解释的模型来对单个样本进行解释：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mindspore_xai.explainer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIMETabular</span>
+
+<span class="c1"># 将特征转换为特征统计数据</span>
+<span class="n">feature_stats</span> <span class="o">=</span> <span class="n">LIMETabular</span><span class="o">.</span><span class="n">to_feat_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+
+<span class="c1"># 初始化解释器</span>
+<span class="n">lime</span> <span class="o">=</span> <span class="n">LIMETabular</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">feature_stats</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+
+<span class="c1"># 解释</span>
+<span class="n">lime_outputs</span> <span class="o">=</span> <span class="n">lime</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>解释器会显示出把该样本分类为setosa这一决定的决策边界，返回的
+lime_outputs 是代表决策边界的一个结构数据。 可视化解释,可得到
+<img alt="LIME解释结果" src="../_images/tabular.png" /></p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>400px</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>上述解释说明针对setosa这一决策,最为重要的特征为petal length。</p>
+</div>
+<div class="section" id="id20">
+<h2><span class="section-number">16.4.3. </span>MindSpore XAI工具提供白盒模型<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<p>除了针对黑盒模型的事后解释方法,XAI工具同样提供业界领先的白盒模型,使得用户可基于这些白盒模型进行训练,在推理过程中模型可同时输出推理结果及解释结果。以TB-Net为例(可参考:numref:<cite>tb_net</cite>及其<a class="reference external" href="https://e.gitee.com/mind_spore/repos/mindspore/xai/tree/master/models/whitebox/tbnet">官网教程</a>进行使用)，该方法已上线商用，为百万级客户提供带有语义级解释的理财产品推荐服务。TB-Net利用知识图谱对理财产品的属性和客户的历史数据进行建模。在图谱中，具有共同属性值的理财产品会被连接起来，待推荐产品与客户的历史购买或浏览的产品会通过共同的属性值连接成路径，构成该客户的子图谱。然后，TB-Net对图谱中的路径进行双向传导计算，从而识别关键产品和关键路径，作为推荐和解释的依据。</p>
+<p>一个可解释推荐的例子如下：在历史数据中，该客户近期曾购买或浏览了理财产品A、B和N等等。通过TB-Net的路径双向传导计算可知，路径（产品P，年化利率_中等偏高，产品A）和路径（产品P，风险等级_中等风险，产品N）的权重较高，即为关键路径。此时，TB-Net输出的解释为：“推荐理财产品P给该客户，是因为它的年化利率_中等偏高，风险等级_中等风险，分别与该客户近期购买或浏览的理财产品A和B一致。”</p>
+<div class="figure align-default" id="id52">
+<span id="tbnet-finance"></span><a class="reference internal image-reference" href="../_images/tbnet_finance.png"><img alt="../_images/tbnet_finance.png" src="../_images/tbnet_finance.png" style="width: 800px;" /></a>
+<p class="caption"><span class="caption-number">图16.4.4 </span><span class="caption-text">TBNet应用金融理财场景</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+</div>
+<p>除了上面介绍的解释方法外，MindSpore
+XAI还会提供一系列的度量方法用以评估不同解释方法的优劣，另外也会陆续增加自带解释的白盒模型，用户可直接取用成熟的模型架构以快速构建自己的可解释AI系统。</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h1><span class="section-number">16.5. </span>未来可解释AI<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h1>
+<p>为了进一步推动可解释AI的研究，我们在此总结了一些值得注意的研究方向。</p>
+<p>首先，知识感知型XAI仍有很大的研究扩展空间。然而，要有效地利用外部知识，仍有许多悬而未决的问题。其中一个问题是如何在如此广阔的知识空间中获取或检索有用的知识。例如,
+维基百科上记载了各式各样各领域相关的知识, 但如果要解决医学图像分类问题,
+维基百科上大部分词条都是无关或存在噪音的,
+这样便很难准确地寻找到合适的知识引入到XAI系统中。</p>
+<p>此外，XAI系统的部署也非常需要一个更加标准和更加统一的评估框架。为了构建标准统一的评估框架，我们可能需要同时利用不同的指标，相互补充。不同的指标可能适用于不同的任务和用户。统一的评价框架应具有相应的灵活性。</p>
+<p>最后，我们相信跨学科合作将是有益的。XAI的发展不仅需要计算机科学家来开发先进的算法，还需要物理学家、生物学家和认知科学家来揭开人类认知的奥秘，以及特定领域的专家来贡献他们的领域知识。</p>
+</div>
+<div class="section" id="id22">
+<h1><span class="section-number">16.6. </span>参考文献<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h1>
+<div class="docutils container" id="id23">
+<dl class="citation">
+<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id7">Chen et al., 2019</a></span></dt>
+<dd><p>Chen, C., Li, O., Tao, D., Barnett, A., Rudin, C., &amp; Su, J. K. (2019). This looks like that: deep learning for interpretable image recognition. <em>Advances in neural information processing systems</em>, <em>32</em>.</p>
+</dd>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id4">Erhan et al., 2009</a></span></dt>
+<dd><p>Erhan, D., Bengio, Y., Courville, A., &amp; Vincent, P. (2009 , 01). Visualizing higher-layer features of a deep network. <em>Technical Report, Univeristé de Montréal</em>.</p>
+</dd>
+<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id5">Frosst &amp; Hinton, 2017</a></span></dt>
+<dd><p>Frosst, N., &amp; Hinton, G. (2017). Distilling a neural network into a soft decision tree. <em>arXiv preprint arXiv:1711.09784</em>.</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets">Li et al., 2020</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id16">2</a>)</span></dt>
+<dd><p>Li, X.-H., Cao, C. C., Shi, Y., Bai, W., Gao, H., Qiu, L., … Chen, L. (2020). A survey of data-driven and knowledge-aware explainable ai. <em>IEEE Transactions on Knowledge and Data Engineering</em>, (), 1-1. <a class="reference external" href="https://doi.org/10.1109/TKDE.2020.2983930">doi:10.1109/TKDE.2020.2983930</a></p>
+</dd>
+<dt class="label" id="id35"><span class="brackets"><a class="fn-backref" href="#id9">Nauta et al., 2021</a></span></dt>
+<dd><p>Nauta, M., van Bree, R., &amp; Seifert, C. (2021). Neural prototype trees for interpretable fine-grained image recognition. <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em> (pp. 14933–14943).</p>
+</dd>
+<dt class="label" id="id38"><span class="brackets"><a class="fn-backref" href="#id12">Petsiuk et al., 2018</a></span></dt>
+<dd><p>Petsiuk, V., Das, A., &amp; Saenko, K. (2018). Rise: randomized input sampling for explanation of black-box models. <em>arXiv preprint arXiv:1806.07421</em>.</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id14">Riedl, 2019</a></span></dt>
+<dd><p>Riedl, M. O. (2019). Human-centered artificial intelligence and machine learning. <em>Human Behavior and Emerging Technologies</em>, <em>1</em>(1), 33–36.</p>
+</dd>
+<dt class="label" id="id36"><span class="brackets"><a class="fn-backref" href="#id11">Selvaraju et al., 2017</a></span></dt>
+<dd><p>Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., &amp; Batra, D. (2017). Grad-cam: visual explanations from deep networks via gradient-based localization. <em>Proceedings of the IEEE international conference on computer vision</em> (pp. 618–626).</p>
+</dd>
+<dt class="label" id="id39"><span class="brackets"><a class="fn-backref" href="#id13">Wang et al., 2020</a></span></dt>
+<dd><p>Wang, H., Wang, Z., Du, M., Yang, F., Zhang, Z., Ding, S., … Hu, X. (2020). Score-cam: score-weighted visual explanations for convolutional neural networks. <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops</em> (pp. 24–25).</p>
+</dd>
+<dt class="label" id="id37"><span class="brackets"><a class="fn-backref" href="#id10">Zeiler &amp; Fergus, 2014</a></span></dt>
+<dd><p>Zeiler, M. D., &amp; Fergus, R. (2014). Visualizing and understanding convolutional networks. <em>European conference on computer vision</em> (pp. 818–833).</p>
+</dd>
+<dt class="label" id="id34"><span class="brackets"><a class="fn-backref" href="#id8">Zhang et al., 2018</a></span></dt>
+<dd><p>Zhang, Q., Wu, Y. N., &amp; Zhu, S.-C. (2018). Interpretable convolutional neural networks. <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em> (pp. 8827–8836).</p>
+</dd>
+<dt class="label" id="id33"><span class="brackets"><a class="fn-backref" href="#id6">Zhang et al., 2019</a></span></dt>
+<dd><p>Zhang, Q., Yang, Y., Ma, H., &amp; Wu, Y. N. (2019). Interpreting cnns via decision trees. <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em> (pp. 6261–6270).</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">16.1. 背景</a></li>
+<li><a class="reference internal" href="#ai">16.2. 可解释AI定义</a></li>
+<li><a class="reference internal" href="#id2">16.3. 可解释AI算法现状介绍</a></li>
+<li><a class="reference internal" href="#id17">16.4. 可解释AI系统及实践</a><ul>
+<li><a class="reference internal" href="#id18">16.4.1. MindSpore XAI工具为图片分类场景提供解释</a></li>
+<li><a class="reference internal" href="#tabular-lime">16.4.2. MindSpore XAI工具为表格分类场景提供解释</a></li>
+<li><a class="reference internal" href="#id20">16.4.3. MindSpore XAI工具提供白盒模型</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id21">16.5. 未来可解释AI</a></li>
+<li><a class="reference internal" href="#id22">16.6. 参考文献</a></li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>16. 可解释性AI系统</div>
+         </div>
+     </a>
+     <a id="button-next" href="../chapter_rl_sys/index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>17. 机器人系统</div>
+        </div>
+     </a>
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>
