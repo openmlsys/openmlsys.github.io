@@ -1,592 +1,340 @@
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-    <title>14.4. 隐私加密算法 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
-
-    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/d2l.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14.5. 展望" href="outlook.html" />
-    <link rel="prev" title="14.3. 纵向联邦学习" href="vertical_fl.html" /> 
-  </head>
-<body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
-    <div class="mdl-layout__header-row">
-        
-        <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">14. </span>联邦学习系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">14.4. </span>隐私加密算法</a>
-        </nav>
-        <div class="mdl-layout-spacer"></div>
-        <nav class="mdl-navigation">
-        
-<form class="form-inline pull-sm-right" action="../search.html" method="get">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
-          <input type="hidden" name="check_keywords" value="yes" />
-          <input type="hidden" name="area" value="default" />
-        </div>
-      </div>
-      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
-      Quick search
-      </div>
-</form>
-        
-<a id="button-show-source"
-    class="mdl-button mdl-js-button mdl-button--icon"
-    href="../_sources/chapter_federated_learning/privacy_encryption_algorithm.rst.txt" rel="nofollow">
-  <i class="material-icons">code</i>
-</a>
-<div class="mdl-tooltip" data-mdl-for="button-show-source">
-Show Source
-</div>
-        </nav>
-    </div>
-    <div class="mdl-layout__header-row header-links">
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-          
-              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
-                  <i class="fab fa-github"></i>
-                  GitHub
-              </a>
-          
-              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/">
-                  <i class="fas fa-language"></i>
-                  English
-              </a>
-      </nav>
-    </div>
-</header><header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">14. 联邦学习系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
-
-            </nav>
-        
-        </div>
-    
-</header>
-        <main class="mdl-layout__content" tabIndex="0">
-
-	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
-    <header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">14. 联邦学习系统</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
-
-            </nav>
-        
-        </div>
-    
-</header>
-
-    <div class="document">
-        <div class="page-content" role="main">
-        
-  <div class="section" id="id1">
-<h1><span class="section-number">14.4. </span>隐私加密算法<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
-<p>联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中央FL-Server。这样可以避免用户个人数据的直接泄露。然而联邦学习框架中，模型的权重以明文形式上云仍然存在间接泄露用户隐私的风险。敌手获取到用户上传的明文权重后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。</p>
-<p>MindSpore
-Federated框架，提供了基于本地差分隐私（LDP）、基于多方安全计算（MPC）的安全聚合算法和华为自研的基于符号的维度选择差分隐私算法（SignDS），在本地模型的权重上云前对其进行加噪或加扰。在保证模型可用性的前提下，解决联邦学习中的隐私泄露问题。</p>
-<div class="section" id="ldp">
-<h2><span class="section-number">14.4.1. </span>基于LDP的安全聚合<a class="headerlink" href="#ldp" title="Permalink to this heading">¶</a></h2>
-<p>差分隐私（differential
-privacy）是一种保护用户数据隐私的机制。差分隐私定义为：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-0">
-<span class="eqno">(14.4.1)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-0" title="Permalink to this equation">¶</a></span>\[Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D’) \in S]+\delta\]</div>
-<p>对于两个差别只有一条记录的数据集<span class="math notranslate nohighlight">\(D\)</span>和<span class="math notranslate nohighlight">\(D’\)</span>，通过随机算法<span class="math notranslate nohighlight">\(\mathcal{K}\)</span>，输出结果为集合<span class="math notranslate nohighlight">\(S\)</span>子集的概率满足上面公式。<span class="math notranslate nohighlight">\(\epsilon\)</span>为差分隐私预算，<span class="math notranslate nohighlight">\(\delta\)</span>为扰动，<span class="math notranslate nohighlight">\(\epsilon\)</span>和<span class="math notranslate nohighlight">\(\delta\)</span>越小，说明<span class="math notranslate nohighlight">\(\mathcal{K}\)</span>在<span class="math notranslate nohighlight">\(D\)</span>和<span class="math notranslate nohighlight">\(D’\)</span>上输出的数据分布越接近。</p>
-<p>在联邦学习中，假设FL-Client本地训练之后的模型权重矩阵是<span class="math notranslate nohighlight">\(W\)</span>，由于模型在训练过程中会“记住”训练集的特征，所以敌手可以借助<span class="math notranslate nohighlight">\(W\)</span>还原出用户的训练数据集。</p>
-<p>MindSpore
-Federated提供基于本地差分隐私的安全聚合算法，防止本地模型的权重上云时泄露隐私数据。</p>
-<p>FL-Client会生成一个与本地模型权重矩阵<span class="math notranslate nohighlight">\(W\)</span>相同维度的差分噪声矩阵<span class="math notranslate nohighlight">\(G\)</span>，然后将二者相加，得到一个满足差分隐私定义的权重矩阵<span class="math notranslate nohighlight">\(W_p\)</span>:</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-1">
-<span class="eqno">(14.4.2)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-1" title="Permalink to this equation">¶</a></span>\[W_p=W+G\]</div>
-<p>FL-Client将加噪后的模型权重矩阵<span class="math notranslate nohighlight">\(W_p\)</span>上传至云侧FL-Server进行联邦聚合。噪声矩阵<span class="math notranslate nohighlight">\(G\)</span>相当于给原模型加上了一层掩码，在降低模型泄露敏感数据风险的同时，也会影响模型训练的收敛性。如何在模型隐私性和可用性之间取得更好的平衡，仍然是一个值得研究的问题。实验表明，当参与方的数量<span class="math notranslate nohighlight">\(n\)</span>足够大时（一般指1000以上），大部分噪声能够相互抵消，本地差分隐私机制对聚合模型的精度和收敛性没有明显影响。</p>
-</div>
-<div class="section" id="mpc">
-<h2><span class="section-number">14.4.2. </span>基于MPC的安全聚合<a class="headerlink" href="#mpc" title="Permalink to this heading">¶</a></h2>
-<p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore
-Federated提供了基于MPC的安全聚合方案。</p>
-<p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore
-Federated提供了基于MPC的安全聚合方案。</p>
-<p>在这种训练模式下，假设参与的FL-Client集合为<span class="math notranslate nohighlight">\(U\)</span>，对于任意FL-Client
-<span class="math notranslate nohighlight">\(u\)</span>和<span class="math notranslate nohighlight">\(v\)</span>，它们会两两协商出一对随机扰动<span class="math notranslate nohighlight">\(p_{uv}\)</span>、<span class="math notranslate nohighlight">\(p_{vu}\)</span>，满足</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-2">
-<span class="eqno">(14.4.3)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-2" title="Permalink to this equation">¶</a></span>\[\begin{split}\label{puv}
-    p_{uv}=
-    \begin{cases}
-    -p_{vu}, &amp;u{\neq}v\\
-    0, &amp;u=v
-    \end{cases}\end{split}\]</div>
-<p>于是每个FL-Client <span class="math notranslate nohighlight">\(u\)</span>
-在上传模型权重至FL-Server前，会在原模型权重<span class="math notranslate nohighlight">\(x_u\)</span>加上它与其它用户协商的扰动：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-3">
-<span class="eqno">(14.4.4)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-3" title="Permalink to this equation">¶</a></span>\[x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}\]</div>
-<p>从而FL-Server聚合结果<span class="math notranslate nohighlight">\(\overline{x}\)</span>为：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-4">
-<span class="eqno">(14.4.5)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-4" title="Permalink to this equation">¶</a></span>\[\label{eq:juhejieguo}
-\overline{x}=\sum\limits_{u{\in}U}(x_{u}+\sum\limits_{v{\in}U}p_{uv})=\sum\limits_{u{\in}U}x_{u}+\sum\limits_{u{\in}U}\sum\limits_{v{\in}U}p_{uv}=\sum\limits_{u{\in}U}x_{u}\]</div>
-<p>上面的过程只是介绍了聚合算法的主要思想，基于MPC的聚合方案是精度无损的，代价是通讯轮次的增加。</p>
-</div>
-<div class="section" id="ldp-signds">
-<h2><span class="section-number">14.4.3. </span>基于LDP-SignDS算法的安全聚合<a class="headerlink" href="#ldp-signds" title="Permalink to this heading">¶</a></h2>
-<p>对于先前的基于维度加噪的LDP算法，添加到每个维度的噪声规模基本上与模型参数的数量成正比。因此，对于高维模型，可能需要非常多的参与方来减轻噪音对模型收敛的影响。为了解决上述“维度依赖”问题，MindSpore
-Federated 进一步提供了基于维度选择的<strong>Sign-based Dimension Selection
-(SignDS)</strong> <span id="id2">[]</span>算法。</p>
-<p>SignDS算法的主要思想是，对于每一条真实的本地更新<span class="math notranslate nohighlight">\(\Delta\in\mathbb{R}^{d}\)</span>，FL-Client首先选择一小部分更新最明显的维度构建Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>，并以此选择一个维度集合<span class="math notranslate nohighlight">\(J\)</span>返回给FL-Server。FL-Server根据维度集合<span class="math notranslate nohighlight">\(J\)</span>构建一条对应的稀疏更新<span class="math notranslate nohighlight">\(\Delta^\prime\)</span>，并聚合所有稀疏更新用于更新全局模型。由于本地模型更新与本地数据信息相关联，直接选取真实的最大更新维度可能导致隐私泄露。对此，SignDS算法在两方面实现了隐私安全保证。一方面，算法使用了一种基数机制（Exponential
-Mechanism， EM
-<span id="id3">[]</span>）的维度选择算法<strong>EM-MDS</strong>，使得所选维度集满足严格的<span class="math notranslate nohighlight">\(\epsilon\)</span>-LDP保证；另一方面，在构建稀疏更新时，对所选维度分配一个常量值而不直接使用实际更新值，以保证稀疏更新和本地数据不再直接关联。由于维度选择满足<span class="math notranslate nohighlight">\(\epsilon\)</span>-LDP，且分配给所选维度的更新值与本地数据无关，根据差分隐私的传递性
-<span id="id4">[]</span>，所构建的稀疏更新同样满足<span class="math notranslate nohighlight">\(\epsilon\)</span>-LDP保证。<strong>相较于之前基于维度加噪的LDP算法，SignDS算法可以显著提升高维模型的训练精度。同时，由于FL-Client只需上传一小部分的维度值而不是所有的模型权重，因此联邦学习的上行通信量也被大大降低。</strong></p>
-<p>下面，我们分别对Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>的构建和EM-MDS维度选择算法进行详细介绍。</p>
-<p>首先，由于实际更新值有正负，直接给所有选定的维度分配相同的常量值可能会明显改变模型更新方向，影响模型收敛。为了解决这个问题，SignDS提出了一种基于符号的Top-K集合构建策略。具体来讲，算法引入了一个额外的符号变量<span class="math notranslate nohighlight">\(s\in\\{-1,1\\}\)</span>。该变量由FL-Client以等概率随机采样，用于确定本地更新<span class="math notranslate nohighlight">\(\Delta\)</span>的Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>。如果<span class="math notranslate nohighlight">\(s=1\)</span>，我们将<span class="math notranslate nohighlight">\(\Delta\)</span>按<strong>真实更新值</strong>排序，并将<strong>最大</strong>的<span class="math notranslate nohighlight">\(k\)</span>个更新维度记为<span class="math notranslate nohighlight">\(S_k\)</span>。我们进一步从<span class="math notranslate nohighlight">\(S_k\)</span>中随机选择一部分维度，并将<span class="math notranslate nohighlight">\(s=1\)</span>作为这些维度的更新值用以构建稀疏更新。直觉上，<span class="math notranslate nohighlight">\(S_k\)</span>中维度的更新值很可能大于零。因此，将<span class="math notranslate nohighlight">\(s=1\)</span>分配给选定的维度不会导致模型更新方向的太大差异，从而减轻了对模型精度的影响。类似的，当<span class="math notranslate nohighlight">\(s=-1\)</span>时，我们选取<strong>最小</strong>的<span class="math notranslate nohighlight">\(k\)</span>个更新维度记为<span class="math notranslate nohighlight">\(S_k\)</span>，并将<span class="math notranslate nohighlight">\(s=-1\)</span>分配给所选维度。</p>
-<p>下面，我们进一步介绍用于维度选择的EM-MDS算法。简单来说，EM-MDS算法的目的是从输出维度域<span class="math notranslate nohighlight">\(\mathcal{J}\)</span>中以一定概率<span class="math notranslate nohighlight">\(\mathcal{P}\)</span>随机选择一个维度集合<span class="math notranslate nohighlight">\(J\in\mathcal{J}\)</span>，不同维度集合对应的概率不同。我们假设<span class="math notranslate nohighlight">\(J\)</span>总共包含<span class="math notranslate nohighlight">\(h\)</span>个维度，其中有<span class="math notranslate nohighlight">\(\nu\)</span>个维度属于Top-K集合（即<span class="math notranslate nohighlight">\(|S_k \cap J|=\nu\)</span>，且<span class="math notranslate nohighlight">\(\nu\in[0,h]\)</span>），另外<span class="math notranslate nohighlight">\(h-\nu\)</span>个维度属于非Top-K集合。直观上，<span class="math notranslate nohighlight">\(\nu\)</span>越大，<span class="math notranslate nohighlight">\(J\)</span>中包含的Top-K维度越多，模型收敛越好。因此，我们希望给<span class="math notranslate nohighlight">\(\nu\)</span>较大的维度集合分配更高的概率。基于这个想法，我们将评分函数定义为：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-5">
-<span class="eqno">(14.4.6)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-5" title="Permalink to this equation">¶</a></span>\[u(S_{k}, J) = 𝟙(|S_k\cap J| \geq \nu_{th}) =  𝟙(\nu \geq \nu_{th})
-:label: score_function\]</div>
-<p><span class="math notranslate nohighlight">\(u(S_{k}, J)\)</span>用来衡量输出维度集合<span class="math notranslate nohighlight">\(J\)</span>中包含的Top-K维度的数量是否超过某一阈值<span class="math notranslate nohighlight">\(\nu_{th}\)</span>（<span class="math notranslate nohighlight">\(\nu_{th}\in[1,h]\)</span>），超过则为1，否则为0。进一步，<span class="math notranslate nohighlight">\(u(S_{k}, J)\)</span>的敏感度可计算为：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-6">
-<span class="eqno">(14.4.7)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-6" title="Permalink to this equation">¶</a></span>\[\phi = \max_{J\in\mathcal{J}} ||u(S_{k}, J) - u(S^\prime_{k}, J)||= 1 - 0 = 1
-:label: sensitivity\]</div>
-<p>注意
-<code class="xref eq docutils literal notranslate"><span class="pre">sensitivity</span></code>对于任意一对不同的Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>和<span class="math notranslate nohighlight">\(S_k^\prime\)</span>均成立。</p>
-<p>根据以上定义，EM-MDS算法描述如下：</p>
-<p><em>给定真实本地更新:math:`Deltainmathbb{R}^{d}`的Top-K集合:math:`S_k`和隐私预算:math:`epsilon`，输出维度集合:math:`Jinmathcal{J}`的采样概率为：</em></p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-7">
-<span class="eqno">(14.4.8)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-7" title="Permalink to this equation">¶</a></span>\[    \mathcal{P}=\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J^\prime))}
-    =
-    \frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}
-    =
-    \frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau} + \sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon)}
-:label: emmds\]</div>
-<p><em>其中，:math:`nu`是:math:`J`中包含的Top-K维度数量，:math:`nu_{th}`是评分函数的阈值，:math:`J^prime`是任意一输出维度集合，:math:`omega_{tau}=binom{k}{tau}binom{d-k}{h-tau}`是所有包含:math:`tau`个Top-K维度的集合数。</em></p>
-<p>我们进一步提供了EM-MDS算法的隐私证明:</p>
-<p>对于每个FL-Client，给定随机采样的符号值<span class="math notranslate nohighlight">\(x\)</span>，任意两个本地更新<span class="math notranslate nohighlight">\(\Delta\)</span>，<span class="math notranslate nohighlight">\(\Delta^\prime\)</span>的Top-K集合记为<span class="math notranslate nohighlight">\(S_k\)</span>和<span class="math notranslate nohighlight">\(S_k^\prime\)</span>，对于任意输出维度集合<span class="math notranslate nohighlight">\(J\in\mathcal{J}\)</span>，令<span class="math notranslate nohighlight">\(\nu=|S_k \cap J|\)</span>,
-<span class="math notranslate nohighlight">\(\nu^\prime=|S_k^\prime \cap J|\)</span>为<span class="math notranslate nohighlight">\(J\)</span>与两组Top-K维度集的交集数量。根据
-<code class="xref eq docutils literal notranslate"><span class="pre">emmds</span></code>，以下不等式成立：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-8">
-<span class="eqno">(14.4.9)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-8" title="Permalink to this equation">¶</a></span>\[\begin{split}\frac{\mathrm{Pr}\[J|\Delta\]}{\mathrm{Pr}\[J|\Delta^\prime\]} = \frac{\mathrm{Pr}\[J|S_{k}\]}{\mathrm{Pr}\[J|S^\prime_{k}\]} = \frac{\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J^\prime))}}{\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S^\prime_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S^\prime_{k}, J^\prime))}}
-    = \frac{\frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}}{\frac{
-    \mathrm{exp}(\epsilon\cdot 𝟙(\nu^\prime \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}} \\
-    = \frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{
-    \mathrm{exp}(\epsilon\cdot 𝟙(\nu^\prime \geq \nu_{th}))}
-    \leq \frac{\mathrm{exp}(\epsilon\cdot 1)}{\mathrm{exp}(\epsilon\cdot 0)} = \mathrm{exp}(\epsilon)\end{split}\]</div>
-<p><em>证明EM-MDS算法满足:math:`epsilon`-LDP保证。</em></p>
-<p>值得注意的是，计算
-<code class="xref eq docutils literal notranslate"><span class="pre">emmds</span></code>需要先确定Top-K维度数的阈值<span class="math notranslate nohighlight">\(\nu_{th}\)</span>。为此，我们首先推导在给定阈值<span class="math notranslate nohighlight">\(\nu_{th}\)</span>时，任意一组输出维度集合<span class="math notranslate nohighlight">\(J\)</span>包含的Top-K维度的概率分布和期望：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-9">
-<span class="eqno">(14.4.10)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-9" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathrm{Pr}(\nu=\tau|\nu_{th})=
-    \begin{cases}
-        \omega_{\tau} / \Omega \quad \quad \quad \quad \quad \mathrm{ } &amp;if \quad \tau\in\[0,\nu_{th}\) \\
-        \omega_{\tau}\cdot\mathrm{exp}(\epsilon) / \Omega \quad \quad &amp;if \quad \tau\in\[\nu_{th},h\]
-    \end{cases}
-:label: discrete-prob\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-10">
-<span class="eqno">(14.4.11)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-10" title="Permalink to this equation">¶</a></span>\[    \mathbb{E}\[\nu|\nu_{th}\] = \sum_{\tau=0}^{\tau=h}\tau\cdot \mathrm{Pr}(\nu=\tau|\nu_{th})
-:label: expectation\]</div>
-<p>这里，<span class="math notranslate nohighlight">\(\Omega\)</span>为
-<code class="xref eq docutils literal notranslate"><span class="pre">emmds</span></code>中<span class="math notranslate nohighlight">\(\mathcal{P}\)</span>的分母部分。直觉上，<span class="math notranslate nohighlight">\(\mathbb{E}\[\nu|\nu_{th}\]\)</span>越高，随机采样的<span class="math notranslate nohighlight">\(J\)</span>集合中包含的Top-K维度的概率就越大，从而模型效用就越好。因此，我们将<span class="math notranslate nohighlight">\(\mathbb{E}\[\nu|\nu_{th}\]\)</span>最高时的阈值确定为目标阈值<span class="math notranslate nohighlight">\(\nu_{th}^{\*}\)</span>，即：</p>
-<div class="math notranslate nohighlight" id="equation-chapter-federated-learning-privacy-encryption-algorithm-11">
-<span class="eqno">(14.4.12)<a class="headerlink" href="#equation-chapter-federated-learning-privacy-encryption-algorithm-11" title="Permalink to this equation">¶</a></span>\[\nu_{th}^{\*} = \underset{\nu_{th}\in\[1, h\]}{\operatorname{argmax}} \mathbb{E}\[\nu|\nu_{th}\]
-:label: threshold\]</div>
-<p>最后，我们在
-<a class="reference internal" href="#signds-workflow"><span class="std std-numref">图14.4.1</span></a>中描述了SignDS算法的详细流程。给定本地模型更新<span class="math notranslate nohighlight">\(\Delta\)</span>，我们首先随机采样一个符号值<span class="math notranslate nohighlight">\(s\)</span>并构建Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>。接下来，我们根据
-<code class="xref eq docutils literal notranslate"><span class="pre">threshold</span></code>确定阈值<span class="math notranslate nohighlight">\(\nu_{th}^{\*}\)</span>并遵循
-<code class="xref eq docutils literal notranslate"><span class="pre">emmds</span></code>定义的概率选择输出集合<span class="math notranslate nohighlight">\(J\)</span>。考虑到输出域<span class="math notranslate nohighlight">\(\mathcal{J}\)</span>包含<span class="math notranslate nohighlight">\(\binom{d}{k}\)</span>个可能的维度集合，以一定概率直接从<span class="math notranslate nohighlight">\(\mathcal{J}\)</span>中随机采样一个组合需要很大的计算成本和空间成本。因此，我们采用了逆采样算法以提升计算效率。具体来说，我们首先从标准均匀分布中采样一个随机值<span class="math notranslate nohighlight">\(\beta\sim U(0,1)\)</span>，并根据
-<code class="xref eq docutils literal notranslate"><span class="pre">discrete-prob</span></code>中<span class="math notranslate nohighlight">\(p(\nu=\tau|\nu_{th})\)</span>的累计概率分布<span class="math notranslate nohighlight">\(CDF_{\tau}\)</span>确定输出维度集合中包含的Top-K维度数<span class="math notranslate nohighlight">\(\nu\)</span>。最后，我们从Top-K集合<span class="math notranslate nohighlight">\(S_k\)</span>中随机选取<span class="math notranslate nohighlight">\(\nu\)</span>个维度，从非Top-K集合中随机采样<span class="math notranslate nohighlight">\(h-\nu\)</span>个维度，以构建最终的输出维度集合<span class="math notranslate nohighlight">\(J\)</span>。</p>
-<div class="figure align-default" id="id5">
-<span id="signds-workflow"></span><a class="reference internal image-reference" href="../_images/ch10-federated-learning-signds.PNG"><img alt="../_images/ch10-federated-learning-signds.PNG" src="../_images/ch10-federated-learning-signds.PNG" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图14.4.1 </span><span class="caption-text">SignDS工作流程</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>隐私加密算法 - 机器学习系统：设计和实现</title>
 
 
-        </div>
-        <div class="side-doc-outline">
-            <div class="side-doc-outline--content"> 
-<div class="localtoc">
-    <p class="caption">
-      <span class="caption-text">Table Of Contents</span>
-    </p>
-    <ul>
-<li><a class="reference internal" href="#">14.4. 隐私加密算法</a><ul>
-<li><a class="reference internal" href="#ldp">14.4.1. 基于LDP的安全聚合</a></li>
-<li><a class="reference internal" href="#mpc">14.4.2. 基于MPC的安全聚合</a></li>
-<li><a class="reference internal" href="#ldp-signds">14.4.3. 基于LDP-SignDS算法的安全聚合</a></li>
-</ul>
-</li>
-</ul>
+        <!-- Custom HTML head -->
 
-</div>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
+        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-31a2f041.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
             </div>
         </div>
-
-      <div class="clearer"></div>
-    </div><div class="pagenation">
-     <a id="button-prev" href="vertical_fl.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
-         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
-         <div class="pagenation-text">
-            <span class="pagenation-direction">Previous</span>
-            <div>14.3. 纵向联邦学习</div>
-         </div>
-     </a>
-     <a id="button-next" href="outlook.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
-         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
-        <div class="pagenation-text">
-            <span class="pagenation-direction">Next</span>
-            <div>14.5. 展望</div>
-        </div>
-     </a>
-  </div>
-        
-        </main>
     </div>
-  </body>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">机器学习系统：设计和实现</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="隐私加密算法"><a class="header" href="#隐私加密算法">隐私加密算法</a></h2>
+<p>联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中央FL-Server。这样可以避免用户个人数据的直接泄露。然而联邦学习框架中，模型的权重以明文形式上云仍然存在间接泄露用户隐私的风险。敌手获取到用户上传的明文权重后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。</p>
+<p>MindSpore Federated框架，提供了基于本地差分隐私（LDP）、基于多方安全计算（MPC）的安全聚合算法和华为自研的基于符号的维度选择差分隐私算法（SignDS），在本地模型的权重上云前对其进行加噪或加扰。在保证模型可用性的前提下，解决联邦学习中的隐私泄露问题。</p>
+<h3 id="基于ldp的安全聚合"><a class="header" href="#基于ldp的安全聚合">基于LDP的安全聚合</a></h3>
+<p>差分隐私（differential privacy）是一种保护用户数据隐私的机制。差分隐私定义为：
+$$
+P r[cal(K)(D) in S] &lt;= e^(epsilon) P r[cal(K)(D’) in S]+delta
+$$</p>
+<p>对于两个差别只有一条记录的数据集$D$和$D’$，通过随机算法$cal(K)$，输出结果为集合$S$子集的概率满足上面公式。$epsilon$为差分隐私预算，$delta$为扰动，$epsilon$和$delta$越小，说明$cal(K)$在$D$和$D’$上输出的数据分布越接近。</p>
+<p>在联邦学习中，假设FL-Client本地训练之后的模型权重矩阵是$W$，由于模型在训练过程中会“记住”训练集的特征，所以敌手可以借助$W$还原出用户的训练数据集。</p>
+<p>MindSpore Federated提供基于本地差分隐私的安全聚合算法，防止本地模型的权重上云时泄露隐私数据。</p>
+<p>FL-Client会生成一个与本地模型权重矩阵$W$相同维度的差分噪声矩阵$G$，然后将二者相加，得到一个满足差分隐私定义的权重矩阵$W_p$:</p>
+<p>$$
+W_p=W+G
+$$</p>
+<p>FL-Client将加噪后的模型权重矩阵$W_p$上传至云侧FL-Server进行联邦聚合。噪声矩阵$G$相当于给原模型加上了一层掩码，在降低模型泄露敏感数据风险的同时，也会影响模型训练的收敛性。如何在模型隐私性和可用性之间取得更好的平衡，仍然是一个值得研究的问题。实验表明，当参与方的数量$n$足够大时（一般指1000以上），大部分噪声能够相互抵消，本地差分隐私机制对聚合模型的精度和收敛性没有明显影响。</p>
+<h3 id="基于mpc的安全聚合"><a class="header" href="#基于mpc的安全聚合">基于MPC的安全聚合</a></h3>
+<p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore Federated提供了基于MPC的安全聚合方案。</p>
+<p>尽管差分隐私技术可以适当保护用户数据隐私，但是当参与FL-Client数量比较少或者高斯噪声幅值较大时，模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，MindSpore Federated提供了基于MPC的安全聚合方案。</p>
+<p>在这种训练模式下，假设参与的FL-Client集合为$U$，对于任意FL-Client $u$和$v$，它们会两两协商出一对随机扰动$p_(u v)$、$p_(v u)$，满足</p>
+<p>$$</p>
+<pre><code>p_(u v)=
+cases(-p_(v u), &amp;u eq.not v, 0, &amp;u=v)
+</code></pre>
+<p>$$
+于是每个FL-Client $u$ 在上传模型权重至FL-Server前，会在原模型权重$x_u$加上它与其它用户协商的扰动：</p>
+<p>$$
+x_(e n c r y p t)=x_u+sum limits_(v in U) p_(u v)
+$$</p>
+<p>从而FL-Server聚合结果$overline(x)$为：
+$$</p>
+<p>overline(x)=sum limits_(u in U)(x_(u)+sum limits_(v in U) p_(u v))=sum limits_(u in U) x_(u)+sum limits_(u in U) sum limits_(v in U) p_(u v)=sum limits_(u in U) x_(u)
+$$
+上面的过程只是介绍了聚合算法的主要思想，基于MPC的聚合方案是精度无损的，代价是通讯轮次的增加。</p>
+<h3 id="基于ldp-signds算法的安全聚合"><a class="header" href="#基于ldp-signds算法的安全聚合">基于LDP-SignDS算法的安全聚合</a></h3>
+<p>对于先前的基于维度加噪的LDP算法，添加到每个维度的噪声规模基本上与模型参数的数量成正比。因此，对于高维模型，可能需要非常多的参与方来减轻噪音对模型收敛的影响。为了解决上述“维度依赖”问题，MindSpore Federated 进一步提供了基于维度选择的<strong>Sign-based Dimension Selection (SignDS)</strong> <sup id="cite-jiang2022signds"><a href="#ref-jiang2022signds">[1]</a></sup>算法。</p>
+<p>SignDS算法的主要思想是，对于每一条真实的本地更新$Delta in bb(R)^(d)$，FL-Client首先选择一小部分更新最明显的维度构建Top-K集合$S_k$，并以此选择一个维度集合$J$返回给FL-Server。FL-Server根据维度集合$J$构建一条对应的稀疏更新$Delta^prime$，并聚合所有稀疏更新用于更新全局模型。由于本地模型更新与本地数据信息相关联，直接选取真实的最大更新维度可能导致隐私泄露。对此，SignDS算法在两方面实现了隐私安全保证。一方面，算法使用了一种基数机制（Exponential Mechanism， EM <sup id="cite-mcsherry2007mechanism"><a href="#ref-mcsherry2007mechanism">[2]</a></sup>）的维度选择算法<strong>EM-MDS</strong>，使得所选维度集满足严格的$epsilon$-LDP保证；另一方面，在构建稀疏更新时，对所选维度分配一个常量值而不直接使用实际更新值，以保证稀疏更新和本地数据不再直接关联。由于维度选择满足$epsilon$-LDP，且分配给所选维度的更新值与本地数据无关，根据差分隐私的传递性 <sup id="cite-dwork2014algorithmic"><a href="#ref-dwork2014algorithmic">[3]</a></sup>，所构建的稀疏更新同样满足$epsilon$-LDP保证。<strong>相较于之前基于维度加噪的LDP算法，SignDS算法可以显著提升高维模型的训练精度。同时，由于FL-Client只需上传一小部分的维度值而不是所有的模型权重，因此联邦学习的上行通信量也被大大降低。</strong></p>
+<p>下面，我们分别对Top-K集合$S_k$的构建和EM-MDS维度选择算法进行详细介绍。</p>
+<p>首先，由于实际更新值有正负，直接给所有选定的维度分配相同的常量值可能会明显改变模型更新方向，影响模型收敛。为了解决这个问题，SignDS提出了一种基于符号的Top-K集合构建策略。具体来讲，算法引入了一个额外的符号变量$s in {-1,1}$。该变量由FL-Client以等概率随机采样，用于确定本地更新$Delta$的Top-K集合$S_k$。如果$s=1$，我们将$Delta$按<strong>真实更新值</strong>排序，并将<strong>最大</strong>的$k$个更新维度记为$S_k$。我们进一步从$S_k$中随机选择一部分维度，并将$s=1$作为这些维度的更新值用以构建稀疏更新。直觉上，$S_k$中维度的更新值很可能大于零。因此，将$s=1$分配给选定的维度不会导致模型更新方向的太大差异，从而减轻了对模型精度的影响。类似的，当$s=-1$时，我们选取<strong>最小</strong>的$k$个更新维度记为$S_k$，并将$s=-1$分配给所选维度。</p>
+<p>下面，我们进一步介绍用于维度选择的EM-MDS算法。简单来说，EM-MDS算法的目的是从输出维度域$cal(J)$中以一定概率$cal(P)$随机选择一个维度集合$J in cal(J)$，不同维度集合对应的概率不同。我们假设$J$总共包含$h$个维度，其中有$nu$个维度属于Top-K集合（即$|S_k inter J|=nu$，且$nu in[0,h]$），另外$h-nu$个维度属于非Top-K集合。直观上，$nu$越大，$J$中包含的Top-K维度越多，模型收敛越好。因此，我们希望给$nu$较大的维度集合分配更高的概率。基于这个想法，我们将评分函数定义为：
+$$
+u(S_(k), J) = 𝟙(|S_k inter J| &gt;= nu_(t h)) =  𝟙(nu &gt;= nu_(t h))
+quad upright(“(1)”)
+$$</p>
+<p>$u(S_(k), J)$用来衡量输出维度集合$J$中包含的Top-K维度的数量是否超过某一阈值$nu_(t h)$（$nu_(t h) in[1,h]$），超过则为1，否则为0。进一步，$u(S_(k), J)$的敏感度可计算为：</p>
+<p>$$
+phi = max_(J in cal(J)) ||u(S_(k), J) - u(S^prime_(k), J)||= 1 - 0 = 1
+quad upright(“(2)”)
+$$</p>
+<p>注意 (2)对于任意一对不同的Top-K集合$S_k$和$S_k^prime$均成立。</p>
+<p>根据以上定义，EM-MDS算法描述如下：</p>
+<p><em>给定真实本地更新$Delta in bb(R)^(d)$的Top-K集合$S_k$和隐私预算$epsilon$，输出维度集合$J in cal(J)$的采样概率为：</em></p>
+<p>$$
+cal(P)=frac(upright(“exp”)(frac(epsilon, phi) dot.c u(S_(k), J)), sum_(J^prime in cal(J)) upright(“exp”)(frac(epsilon, phi) dot.c u(S_(k), J^prime)))
+=
+frac(upright(“exp”)(epsilon dot.c 𝟙(nu &gt;= nu_(t h))), sum_(tau=0)^(tau=h) omega_(tau) dot.c upright(“exp”)(epsilon dot.c 𝟙(tau &gt;=nu_(t h))))
+=
+frac(upright(“exp”)(epsilon dot.c 𝟙(nu &gt;= nu_(t h))), sum_(tau=0)^(tau=nu_(t h)-1) omega_(tau) + sum_(tau=nu_(t h))^(tau=h) omega_(tau) dot.c upright(“exp”)(epsilon))
+quad upright(“(3)”)
+$$</p>
+<p><em>其中，$nu$是$J$中包含的Top-K维度数量，$nu_(t h)$是评分函数的阈值，$J^prime$是任意一输出维度集合，$omega_(tau)=binom(k, tau) binom(d-k, h-tau)$是所有包含$tau$个Top-K维度的集合数。</em></p>
+<p>我们进一步提供了EM-MDS算法的隐私证明:</p>
+<p>对于每个FL-Client，给定随机采样的符号值$x$，任意两个本地更新$Delta$，$Delta^prime$的Top-K集合记为$S_k$和$S_k^prime$，对于任意输出维度集合$J in cal(J)$，令$nu=|S_k inter J|$, $nu^prime=|S_k^prime inter J|$为$J$与两组Top-K维度集的交集数量。根据 (3)，以下不等式成立：</p>
+<p>$$
+frac(upright(“Pr”)[J|Delta ], upright(“Pr”)[J|Delta^prime ]) = frac(upright(“Pr”)[J|S_(k)], upright(“Pr”)[J|S^prime_(k)]) = frac(frac(upright(“exp”)(frac(epsilon, phi) dot.c u(S_(k), J)), sum_(J^prime in cal(J)) upright(“exp”)(frac(epsilon, phi) dot.c u(S_(k), J^prime))), frac(upright(“exp”)(frac(epsilon, phi) dot.c u(S^prime_(k), J)), sum_(J^prime in cal(J)) upright(“exp”)(frac(epsilon, phi) dot.c u(S^prime_(k), J^prime))))
+= frac(frac(upright(“exp”)(epsilon dot.c 𝟙(nu &gt;= nu_(t h))), sum_(tau=0)^(tau=h) omega_(tau) dot.c upright(“exp”)(epsilon dot.c 𝟙(tau &gt;=nu_(t h)))), frac(
+upright(“exp”)(epsilon dot.c 𝟙(nu^prime &gt;= nu_(t h))), sum_(tau=0)^(tau=h) omega_(tau) dot.c upright(“exp”)(epsilon dot.c 𝟙(tau &gt;=nu_(t h)))))  \</p>
+<pre><code>= frac(upright("exp")(epsilon dot.c 𝟙(nu &gt;= nu_(t h))), 
+upright("exp")(epsilon dot.c 𝟙(nu^prime &gt;= nu_(t h))))
+&lt;= frac(upright("exp")(epsilon dot.c 1), upright("exp")(epsilon dot.c 0)) = upright("exp")(epsilon)
+</code></pre>
+<p>$$</p>
+<p><em>证明EM-MDS算法满足$epsilon$-LDP保证。</em></p>
+<p>值得注意的是，计算 (3)需要先确定Top-K维度数的阈值$nu_(t h)$。为此，我们首先推导在给定阈值$nu_(t h)$时，任意一组输出维度集合$J$包含的Top-K维度的概率分布和期望：</p>
+<p>$$
+upright(“Pr”)(nu=tau|nu_(t h))=
+cases(omega_(tau) / Omega quad quad quad quad quad  &amp;i f quad tau in [0,nu_(t h)), omega_(tau) dot.c upright(“exp”)(epsilon) / Omega quad quad &amp;i f quad tau in [nu_(t h),h])
+quad upright(“(4)”)
+$$</p>
+<p>$$
+bb(E)[nu|nu_(t h)] = sum_(tau=0)^(tau=h) tau dot.c upright(“Pr”)(nu=tau|nu_(t h))
+quad upright(“(5)”)
+$$</p>
+<p>这里，$Omega$为 (3)中$cal(P)$的分母部分。直觉上，$bb(E)[nu|nu_(t h)]$越高，随机采样的$J$集合中包含的Top-K维度的概率就越大，从而模型效用就越好。因此，我们将$bb(E)[nu|nu_(t h)]$最高时的阈值确定为目标阈值$nu_(t h)^(*)$，即：</p>
+<p>$$
+nu_(t h)^(*) = attach(op(“argmax”), b: nu_(t h) in [1, h]) bb(E)[nu|nu_(t h)]
+quad upright(“(6)”)
+$$</p>
+<p>最后，我们在 <code>signds_workflow</code>中描述了SignDS算法的详细流程。给定本地模型更新$Delta$，我们首先随机采样一个符号值$s$并构建Top-K集合$S_k$。接下来，我们根据 (6)确定阈值$nu_(t h)^(*)$并遵循 (3)定义的概率选择输出集合$J$。考虑到输出域$cal(J)$包含$binom(d, k)$个可能的维度集合，以一定概率直接从$cal(J)$中随机采样一个组合需要很大的计算成本和空间成本。因此，我们采用了逆采样算法以提升计算效率。具体来说，我们首先从标准均匀分布中采样一个随机值$beta tilde.op U(0,1)$，并根据 (4)中$p(nu=tau|nu_(t h))$的累计概率分布$C D F_(tau)$确定输出维度集合中包含的Top-K维度数$nu$。最后，我们从Top-K集合$S_k$中随机选取$nu$个维度，从非Top-K集合中随机采样$h-nu$个维度，以构建最终的输出维度集合$J$。</p>
+<p><img src="../img/ch10/ch10-federated-learning-signds.PNG" alt="SignDS工作流程"></p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-jiang2022signds">Jiang, Xue and Zhou, Xuebing and Grossklags, Jens. <em>SignDS-FL: Local Differentially Private Federated Learning with Sign-based Dimension Selection</em>. ACM Transactions on Intelligent Systems and Technology (TIST). 2022. <a href="#cite-jiang2022signds">↩</a></li>
+
+<li id="ref-mcsherry2007mechanism">McSherry, Frank and Talwar, Kunal. <em>Mechanism design via differential privacy</em>. IEEE Symposium on Foundations of Computer Science. 2007. <a href="#cite-mcsherry2007mechanism">↩</a></li>
+
+<li id="ref-dwork2014algorithmic">Dwork, Cynthia and Roth, Aaron. <em>The algorithmic foundations of differential privacy</em>. Foundations and Trends in Theoretical Computer Science. 2014. <a href="#cite-dwork2014algorithmic">↩</a></li>
+
+</ol>
+
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_federated_learning/vertical_fl.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_federated_learning/outlook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_federated_learning/vertical_fl.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_federated_learning/outlook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
 </html>

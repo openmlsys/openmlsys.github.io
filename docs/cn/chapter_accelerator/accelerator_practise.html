@@ -1,798 +1,418 @@
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-    <title>8.4. 加速器实践 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
-
-    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/d2l.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8.5. 总结" href="summary.html" />
-    <link rel="prev" title="8.3. 加速器基本编程原理" href="accelerator_programming.html" /> 
-  </head>
-<body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
-    <div class="mdl-layout__header-row">
-        
-        <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">8. </span>硬件加速器</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">8.4. </span>加速器实践</a>
-        </nav>
-        <div class="mdl-layout-spacer"></div>
-        <nav class="mdl-navigation">
-        
-<form class="form-inline pull-sm-right" action="../search.html" method="get">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
-          <input type="hidden" name="check_keywords" value="yes" />
-          <input type="hidden" name="area" value="default" />
-        </div>
-      </div>
-      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
-      Quick search
-      </div>
-</form>
-        
-<a id="button-show-source"
-    class="mdl-button mdl-js-button mdl-button--icon"
-    href="../_sources/chapter_accelerator/accelerator_practise.rst.txt" rel="nofollow">
-  <i class="material-icons">code</i>
-</a>
-<div class="mdl-tooltip" data-mdl-for="button-show-source">
-Show Source
-</div>
-        </nav>
-    </div>
-    <div class="mdl-layout__header-row header-links">
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-          
-              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
-                  <i class="fab fa-github"></i>
-                  GitHub
-              </a>
-          
-              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/">
-                  <i class="fas fa-language"></i>
-                  English
-              </a>
-      </nav>
-    </div>
-</header><header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">8. 硬件加速器</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
-
-            </nav>
-        
-        </div>
-    
-</header>
-        <main class="mdl-layout__content" tabIndex="0">
-
-	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
-    <header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">8. 硬件加速器</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_rl_sys/index.html">17. 机器人系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/rl_sys_intro.html">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_rl_sys/summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
-
-            </nav>
-        
-        </div>
-    
-</header>
-
-    <div class="document">
-        <div class="page-content" role="main">
-        
-  <div class="section" id="id1">
-<h1><span class="section-number">8.4. </span>加速器实践<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
-<p>在本节中会通过具体的CUDA代码向读者介绍如何编写一个并行计算的广义矩阵乘法程序，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现。虽然在以上章节介绍了张量计算核心相关的内容，但由于篇幅限制，在本节中不使用此硬件结构。而是通过使用更为基本的CUDA代码实现FP32的广义矩阵乘法，来讲解若干实用优化策略。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">8.4.1. </span>环境<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
-<p>本节的实践有以下的软件环境依赖：</p>
-<ul class="simple">
-<li><p>Eigen：Eigen是一个线性代数C++模板库，用户可以只使用几条语句完成多线程线性代数运算。</p></li>
-<li><p>OpenMP（可选）：OpenMP是用于共享内存并行系统的多处理器程序设计的一套指导性编译处理方案，可以使用OpenMP对Eigen的计算进行加速。</p></li>
-<li><p>CUDA Toolkit：CUDA
-Toolkit是英伟达发布的CUDA工具包，其包含了CUDA编译器（NVCC），CUDA线性代数库（cuBLAS）等组件。
-本节的实践都是在CPU Intex Xeon E5-2650 v3，GPU Nvidia Geforce RTX
-3080；系统Ubuntu 18.04版本，CUDA Toolkit 11.1进行的。</p></li>
-</ul>
-<p>安装相关依赖如下：</p>
-<ul class="simple">
-<li><p>Eigen：Eigen的安装可以通过使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libeigen3-dev</span></code>），也可以从<a class="reference external" href="https://eigen.tuxfamily.org/index.php?title=Main_Page">官网</a>下载。</p></li>
-<li><p>OpenMP（可选）：通常会被大多数编译器默认支持，如果没有被支持的话可以使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libomp-dev</span></code>）。</p></li>
-<li><p>CUDA Toolkit：CUDA
-Toolkit的安装建议按照<a class="reference external" href="https://developer.nvidia.com/cuda-downloads">官方的提示</a>安装，也可以通过使用包管理器安装（如使用指令<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">cuda</span></code>）。</p></li>
-</ul>
-</div>
-<div class="section" id="sec-accelerator-naive">
-<span id="id3"></span><h2><span class="section-number">8.4.2. </span>广义矩阵乘法的朴素实现<a class="headerlink" href="#sec-accelerator-naive" title="Permalink to this heading">¶</a></h2>
-<p>依照算法如 <a class="reference internal" href="accelerator_programming.html#gemm-algorith"><span class="std std-numref">图8.3.5</span></a>所示，编写CPU代码如下所示：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">K</span><span class="p">];</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">K</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">;</span>
-
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">c</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>可以看到，矩阵<span class="math notranslate nohighlight">\(C\)</span>
-中各个元素的计算是独立的。可以利用GPU的大量线程去分别计算矩阵<span class="math notranslate nohighlight">\(C\)</span>
-中相应的元素，以达到并行计算的目的，GPU核函数将如下所示：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">gemmKernel</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A</span><span class="p">,</span>
-<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="p">,</span>
-<span class="w">                           </span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">N</span><span class="p">,</span>
-<span class="w">                           </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
-<span class="w">      </span><span class="k">return</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">];</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">alpha</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">beta</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beta</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">C</span><span class="p">[</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>其可视化结构如
-<a class="reference internal" href="#cuda-naive-gemm"><span class="std std-numref">图8.4.1</span></a>所示，矩阵<span class="math notranslate nohighlight">\(C\)</span>中每一个元素由一个线程计算，在GPU
-Kernel的第5和6行计算该线程对应矩阵<span class="math notranslate nohighlight">\(C\)</span>中的元素行号<span class="math notranslate nohighlight">\(m\)</span>及列号<span class="math notranslate nohighlight">\(n\)</span>，然后在第9到11行该线程利用行号与列号读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中相应的行列向量元素并计算向量内积，最后在第17行将结果写回<span class="math notranslate nohighlight">\(C\)</span>矩阵。</p>
-<div class="figure align-default" id="id10">
-<span id="cuda-naive-gemm"></span><a class="reference internal image-reference" href="../_images/naive.png"><img alt="../_images/naive.png" src="../_images/naive.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.1 </span><span class="caption-text">矩阵乘法的朴素实现</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
-<p>使用以下代码启动核函数：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">gemmNaive</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span>
-<span class="w">               </span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">M</span><span class="p">,</span>
-<span class="w">               </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">dim3</span><span class="w"> </span><span class="n">block</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">);</span>
-<span class="w">  </span><span class="n">dim3</span><span class="w"> </span><span class="n">grid</span><span class="p">((</span><span class="n">M</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-
-<span class="w">  </span><span class="n">gemmKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>在这里令每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中<span class="math notranslate nohighlight">\(16\times16\)</span>个元素，因此开启<span class="math notranslate nohighlight">\((M - 1) / 16 + 1 \times (N - 1) / 16 + 1\)</span>个线程块用于计算整个矩阵<span class="math notranslate nohighlight">\(C\)</span>。</p>
-<p>使用Eigen生成数据并计算得到CPU端的广义矩阵乘法结果，同时实现了GPU端计算结果的误差计算、时间测试的代码，详情见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/first_attempt.cu">first_attempt.cu</a>，编译及执行得到输出结果为：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">48.961</span> <span class="n">ms</span>
-<span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-</pre></div>
-</div>
-<p>可以使用以下公式粗略的计算GPU的峰值吞吐量：2<span class="math notranslate nohighlight">\(\times\)</span>频率<span class="math notranslate nohighlight">\(\times\)</span>单精度计算单元数量
-，其中单精度计算单元数量等于GPU中流多处理器（SM）数量乘每个流多处理器中单精度计算单元数量，计算可以得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FP32</span> <span class="n">peak</span> <span class="n">throughput</span> <span class="mf">29767.680</span> <span class="n">GFLOPS</span>
-<span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">185.313</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>可以发现目前的代码距离设备峰值性能仍有较大的差距。在整个计算过程中计算密集最大的过程为矩阵乘法<span class="math notranslate nohighlight">\(A\times B\)</span>，其时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K)\)</span>，而整个计算过程时间复杂度为<span class="math notranslate nohighlight">\(O(M*N*K+2*M*N)\)</span>，因此对矩阵乘法的优化是提升性能的关键。</p>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">8.4.3. </span>提高计算强度<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
-<p>计算强度（Compute
-Intensity）指计算指令数量与访存指令数量的比值，在现代GPU中往往有大量计算单元但只有有限的访存带宽，程序很容易出现计算单元等待数据读取的问题，因此提高计算强度是提升程序性能的一条切实有效的指导思路。对于之前实现的GPU核函数，可以粗略计算其计算强度：在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中，对矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>的每次读取会计算一次浮点乘法与浮点加法，因此计算强度为1——两次浮点运算除以两次数据读取。之前的版本是每个线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>的一个元素——计算矩阵﻿﻿<span class="math notranslate nohighlight">\(A\)</span>的一行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的一列的内积，可以通过使每个线程计算<span class="math notranslate nohighlight">\(C\)</span>更多的元素——计算矩阵<span class="math notranslate nohighlight">\(A\)</span>的多行与矩阵<span class="math notranslate nohighlight">\(B\)</span>的多列的内积——从而提升计算强度。具体地，如果在<span class="math notranslate nohighlight">\(K\)</span>次循环的内积计算中一次读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中的<span class="math notranslate nohighlight">\(m\)</span>个元素和矩阵<span class="math notranslate nohighlight">\(B\)</span>中的<span class="math notranslate nohighlight">\(n\)</span>个元素，那么访存指令为<span class="math notranslate nohighlight">\(m+n\)</span>条，而计算指令为<span class="math notranslate nohighlight">\(2mn\)</span>条，所以计算强度为<span class="math notranslate nohighlight">\(\frac{2mn}{m+n}\)</span>，因此可以很容易发现提高<span class="math notranslate nohighlight">\(m\)</span>和<span class="math notranslate nohighlight">\(n\)</span>会带来计算强度的提升。</p>
-<p>在上一小节中对全局内存的访问与存储都是借助 <code class="docutils literal notranslate"><span class="pre">float</span></code>
-指针完成的，具体到硬件指令集上实际是使用指令 <code class="docutils literal notranslate"><span class="pre">LDG.E</span></code> 与 <code class="docutils literal notranslate"><span class="pre">STG.E</span></code>
-完成的。可以使用128位宽指令<code class="docutils literal notranslate"><span class="pre">LDG.E.128</span></code> 与 <code class="docutils literal notranslate"><span class="pre">STG.E.128</span></code> 一次读取多个
-<code class="docutils literal notranslate"><span class="pre">float</span></code>
-数。使用宽指令的好处是一方面简化了指令序列，使用一个宽指令代替四个标准指令可以节省十几个指令的发射周期，这可以为计算指令的发射争取到额外的时间；另一方面128比特正好等于一个cache
-line的长度，使用宽指令也有助于提高cache
-line的命中率。但并不提倡在一切代码中过度追求宽指令的使用，开发者应当将更多的时间关注并行性设计和局部数据复用等更直接的优化手段。</p>
-<p>具体的实现如下，由于每个 <code class="docutils literal notranslate"><span class="pre">float</span></code> 类型大小为32个比特，可以将4个
-<code class="docutils literal notranslate"><span class="pre">float</span></code> 堆叠在一起构成一个128比特的 <code class="docutils literal notranslate"><span class="pre">float4</span></code> 类，对 <code class="docutils literal notranslate"><span class="pre">float4</span></code>
-的访存将会是使用宽指令完成。其具体代码实现见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/util.cuh">util.cuh</a>中。</p>
-<p>在实现GPU核函数过程中要注意，每个线程需要从原本各读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中一个
-<code class="docutils literal notranslate"><span class="pre">float</span></code> 数据变为各读取4个 <code class="docutils literal notranslate"><span class="pre">float</span></code>
-数据，这就要求现在每个线程负责处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中<span class="math notranslate nohighlight">\(4\times 4\)</span>的矩阵块，称之为
-<code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">tile</span></code> 。如
-<a class="reference internal" href="#use-float4"><span class="std std-numref">图8.4.2</span></a>所示，每个线程从左到右、从上到下分别读取矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据并运算，最后写入到矩阵<span class="math notranslate nohighlight">\(C\)</span>中。</p>
-<div class="figure align-default" id="id11">
-<span id="use-float4"></span><a class="reference internal image-reference" href="../_images/use_float4.png"><img alt="../_images/use_float4.png" src="../_images/use_float4.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.2 </span><span class="caption-text">提高计算强度</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。我们可以进一步让每个线程处理更多的数据，从而进一步提升计算强度，如
-<a class="reference internal" href="#use-tile"><span class="std std-numref">图8.4.3</span></a>所示。完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
-<div class="figure align-default" id="id12">
-<span id="use-tile"></span><a class="reference internal image-reference" href="../_images/use_tile.png"><img alt="../_images/use_tile.png" src="../_images/use_tile.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.3 </span><span class="caption-text">通过提高线程所处理矩阵块的数量来进一步提高计算强度</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">6.232</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">1378.317</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用分析工具Nsight Compute分析取得性能提升的具体原因。Nsight
-Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它通过劫持驱动的方式对GPU底层数据采样和输出。可以使用以下指令进行性能分析：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash
-ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </span>-o<span class="w"> </span>&lt;profile_output_file&gt;<span class="w"> </span>&lt;profile_process&gt;
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">full</span></code> 代表采样所有数据， <code class="docutils literal notranslate"><span class="pre">-o</span></code> 代表以文件的形式输出结果；
-<code class="docutils literal notranslate"><span class="pre">&lt;profile_output_file&gt;</span></code> 填输出文件名但注意不要加后缀名，
-<code class="docutils literal notranslate"><span class="pre">&lt;profile_process&gt;</span></code> 填待分析的可执行文件及其参数。 比如需要分析
-<code class="docutils literal notranslate"><span class="pre">first_attempt</span></code> ，将输出结果命名为 <code class="docutils literal notranslate"><span class="pre">first_attepmt_prof_result</span></code>
-可以使用以下指令：</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ncu</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">first_attepmt_prof_result</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">first_attempt</span>
-</pre></div>
-</div>
-<p>如果提示权限不足可以使在指令前加<code class="docutils literal notranslate"><span class="pre">sudo</span></code> 。
-在得到输出文件之后，可以使用 <code class="docutils literal notranslate"><span class="pre">nv-nsight-cu</span></code>
-查看文件。对改动的GPU核函数与上一版本的GPU核函数进行对比分析，发现：</p>
-<p>首先 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 指令数量下降了84%，且指标 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">LG</span> <span class="pre">Throttle</span></code>
-下降33%，说明使用宽指令增加计算密度确实可以通过减少全局内存访问的指令数目而减少发射等待时间。最后指标
-<code class="docutils literal notranslate"><span class="pre">Arithmetic</span> <span class="pre">Intensity</span></code> 的提升也和之前的关于计算强度的分析相吻合。</p>
-<p>我们对<code class="docutils literal notranslate"><span class="pre">gemm_use_tile.cu</span></code>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">3.188</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">2694.440</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用Nsight Compute分析发现：类似地，本次优化在 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">LG</span> <span class="pre">Throttle</span></code>
-等指标上取得了进一步的提升。</p>
-</div>
-<div class="section" id="sec-accelerator-use-smem">
-<span id="id5"></span><h2><span class="section-number">8.4.4. </span>使用共享内存缓存复用数据<a class="headerlink" href="#sec-accelerator-use-smem" title="Permalink to this heading">¶</a></h2>
-<p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，开启若干个线程块，每个线程块处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个或多个矩阵块。在
-<a class="reference internal" href="#duplicated-data"><span class="std std-numref">图8.4.4</span></a>
-中，可以观察到，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>同一行的线程<span class="math notranslate nohighlight">\(x, y\)</span>会读取矩阵<span class="math notranslate nohighlight">\(A\)</span>中相同的数据，可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
-<div class="figure align-default" id="id13">
-<span id="duplicated-data"></span><a class="reference internal image-reference" href="../_images/duplicated_data.png"><img alt="../_images/duplicated_data.png" src="../_images/duplicated_data.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.4 </span><span class="caption-text">线程间重复读取数据</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
-<p>具体地，需要对代码进行如下改造：首先此前代码在计算内积过程是进行<span class="math notranslate nohighlight">\(K\)</span>次循环读取数据并累加计算，在此设定下每次循环中处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同行的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据，处理矩阵<span class="math notranslate nohighlight">\(C\)</span>中相同列的线程会读取相同的矩阵<span class="math notranslate nohighlight">\(B\)</span>的数据。可以通过将此<span class="math notranslate nohighlight">\(K\)</span>次循环拆解成两层循环，外层循环<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次，每次外层循环的迭代读取一整块数据，内层循环<span class="math notranslate nohighlight">\(tileK\)</span>次进行累加数据。数据从全局内存向共享内存的搬运过程如图
-<a class="reference internal" href="#use-smem-store"><span class="std std-numref">图8.4.5</span></a>
-所示，每次内层循环开始前将矩阵<span class="math notranslate nohighlight">\(A\)</span>和矩阵<span class="math notranslate nohighlight">\(B\)</span>中一整个
-<code class="docutils literal notranslate"><span class="pre">tile</span></code> 读取到共享内存中；数据从共享内存到寄存器的搬运如图
-<a class="reference internal" href="#use-smem-load"><span class="std std-numref">图8.4.6</span></a>
-所示，每次内层循环循环从共享内存读取数据并计算。这种设计带来的好处是，可以让每个线程不必独自从全局内存读取所有需要的数据，整个线程块将共同需要的数据从全局内存中读取并写入到共享内存中，此后每个线程在计算过程中只需要从共享内存中读取所需要的数据即可。</p>
-<div class="figure align-default" id="id14">
-<span id="use-smem-store"></span><a class="reference internal image-reference" href="../_images/use_smem_store.png"><img alt="../_images/use_smem_store.png" src="../_images/use_smem_store.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.5 </span><span class="caption-text">向共享内存中写入数据</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id15">
-<span id="use-smem-load"></span><a class="reference internal image-reference" href="../_images/use_smem_load.png"><img alt="../_images/use_smem_load.png" src="../_images/use_smem_load.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.6 </span><span class="caption-text">从共享内存中读取数据</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_smem.cu">gemm_use_smem.cu</a>。</p>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.617</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">13925.168</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>通过使用Nsight
-Compute对核函数分析并与上一个核函数进行对比，可以观察到一些主要的变化：首先
-<code class="docutils literal notranslate"><span class="pre">LDG</span></code> 指令数量下降了97%，与此前设计相吻合。同时观察到
-<code class="docutils literal notranslate"><span class="pre">SM</span> <span class="pre">Utilization</span></code>
-提升了218%也可以侧面证实使用共享内存减少了内存访问延迟从而提升了利用率，此外还可以观察到各项指标如
-<code class="docutils literal notranslate"><span class="pre">Pipe</span> <span class="pre">Fma</span> <span class="pre">Cycles</span> <span class="pre">Active</span></code>
-等都有显著提升，这都能充分解释了使用共享内存的改进是合理且有效的。</p>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">8.4.5. </span>减少寄存器使用<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
-<p>可以注意到在向共享内存中存储矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块是按照行优先的数据排布进行的，而对此共享内存的读取是逐行读取的。可以将矩阵<span class="math notranslate nohighlight">\(A\)</span>的数据块在共享内存中数据按照列优先的形式排布，这样可以减少循环及循环变量从而带来寄存器使用数量减少进而带来性能提升。</p>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_transpose_smem.cu">gemm_transpose_smem.cu</a>。</p>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.610</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14083.116</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用Nsight Compute分析有以下观察发现主要的变化：<code class="docutils literal notranslate"><span class="pre">Occupancy</span></code>
-提升1.3%，而带来此提升的原因是寄存器使用111个，相比上一个GPU核函数使用128个寄存器减少了17个，从而带来了性能提升。但这个变化会因为GPU架构不同导致有不同的变化，同时可以观察到
-<code class="docutils literal notranslate"><span class="pre">STS</span></code> 指令数量提升且带来一些 bank confilct
-，因此在其他GPU架构上此改动可能不会带来正面影响。</p>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">8.4.6. </span>隐藏共享内存读取延迟<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
-<p>在GPU中使用指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖
-<code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-指令读取的数据的指令时才会等待读取的完成。而在上一小节中，在内层<span class="math notranslate nohighlight">\(tileK\)</span>次循环中，每次发射完读取共享内存的指令之后就会立即执行依赖于读取数据的数学运算，这样就会导致计算单元等待数据从共享内存的读取，如
-<a class="reference internal" href="#use-smem-pipeline"><span class="std std-numref">图8.4.7</span></a>
-所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。可以通过重新优化流水线隐藏一定的数据读取延迟。如图
-<a class="reference internal" href="#hide-smem-latency"><span class="std std-numref">图8.4.8</span></a>
-所示，可以在内层的<span class="math notranslate nohighlight">\(tileK\)</span>次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令。</p>
-<div class="figure align-default" id="id16">
-<span id="use-smem-pipeline"></span><a class="reference internal image-reference" href="../_images/use_smem_pipeline.png"><img alt="../_images/use_smem_pipeline.png" src="../_images/use_smem_pipeline.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.7 </span><span class="caption-text">上一个GPU核函数的流水线</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id17">
-<span id="hide-smem-latency"></span><a class="reference internal image-reference" href="../_images/hide_smem_latency.png"><img alt="../_images/hide_smem_latency.png" src="../_images/hide_smem_latency.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.8 </span><span class="caption-text">隐藏共享内存读取延迟的流水线</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</div>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_hide_smem_latency.cu">gemm_hide_smem_latency.cu</a>。</p>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.585</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14686.179</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用Nsight Compute观察发现：相比上一个GPU核函数，指标
-<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
-减少了67%。而此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。所以这里
-<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code> 的减少充分说明了内存延迟是有效的。</p>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">8.4.7. </span>隐藏全局内存读取延迟<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
-<p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令
-<code class="docutils literal notranslate"><span class="pre">LDG</span></code> 也有与共享内存读取指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-类似的行为特性。因此类似的在<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次外层循环中每次循环开始时发出下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见
-<a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> 。</p>
-<p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU在读取全局内存中使用的指令
-<code class="docutils literal notranslate"><span class="pre">LDG</span></code> 也有与共享内存读取指令 <code class="docutils literal notranslate"><span class="pre">LDS</span></code>
-类似的行为特性。因此类似的在<span class="math notranslate nohighlight">\(\frac{K}{tileK}\)</span>次外层循环中每次循环开始时发出下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵<span class="math notranslate nohighlight">\(A\)</span>中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。此外，可以让内层循环先执行<span class="math notranslate nohighlight">\(tileK - 1\)</span>次，在最后一次执行前将
-<code class="docutils literal notranslate"><span class="pre">buffer</span></code> 中的数据写入 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
-，其后再执行内层循环的最后一次迭代，这样能更进一步隐藏向 <code class="docutils literal notranslate"><span class="pre">tile</span></code>
-写入的内存延迟。具体流水线可视化见图 <a class="reference internal" href="#hide-global-latency"><span class="std std-numref">图8.4.9</span></a> 。</p>
-<div class="figure align-default" id="id18">
-<span id="hide-global-latency"></span><a class="reference internal image-reference" href="../_images/hide_global_latency.png"><img alt="../_images/hide_global_latency.png" src="../_images/hide_global_latency.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图8.4.9 </span><span class="caption-text">隐藏全局内存读取延迟的流水线</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</div>
-<p>完整代码见<a class="reference external" href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_final.cu">gemm_final.cu</a>。</p>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.542</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Average</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">15838.302</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用Nsight Compute分析可以观察到指标 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code>
-减少了67%，与上一小结的 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Short</span> <span class="pre">Scoreboard</span></code>
-概念相对应，<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code>
-主要是针对全局内存的指标。该指标的显著减少充分说明预取数据可以在一定程度上隐藏全局内存的读取。</p>
-</div>
-<div class="section" id="cublas">
-<span id="practise-cublas"></span><h2><span class="section-number">8.4.8. </span>与cuBLAS对比<a class="headerlink" href="#cublas" title="Permalink to this heading">¶</a></h2>
-<p>按照节 <a class="reference internal" href="accelerator_programming.html#sec-accelerator-use-cublas"><span class="std std-numref">图8.3.5</span></a>
-中介绍的cuBLAS的接口使用方法，可以很容易地写出代码使用cuBLAS完成矩阵乘法，如代码
-<a class="reference internal" href="#practise-cublas"><span class="std std-numref">8.4.8节</span></a> 所示。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">cublasGemm</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">alf</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">bet</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">lda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">ldb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">ldc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alf</span><span class="p">;</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bet</span><span class="p">;</span>
-<span class="w">  </span><span class="n">cublasHandle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
-<span class="w">  </span><span class="n">cublasCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
-<span class="w">  </span><span class="n">cublasSgemm</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">CUBLAS_OP_N</span><span class="p">,</span><span class="w"> </span><span class="n">CUBLAS_OP_N</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">lda</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">ldb</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">ldc</span><span class="p">);</span>
-<span class="w">  </span><span class="n">cublasDestroy</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>需要注意的是cuBLAS默认矩阵在GPU中是按列优先存储的，而我们的矩阵是按行优先存储的，而两者可以通过转置相互转换，所以<span class="math notranslate nohighlight">\(A\times B = (B^T\times A^T)^T\)</span>，因此在输入时需要调整矩阵的顺序，即可保证输出结果仍是行优先矩阵。</p>
-<p>测试得到以下结果：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">Error</span><span class="p">:</span> <span class="mf">0.000092</span>
-<span class="n">Average</span> <span class="n">Time</span><span class="p">:</span> <span class="mf">0.613</span> <span class="n">ms</span><span class="p">,</span> <span class="n">Throughput</span><span class="p">:</span> <span class="mf">14002.600</span> <span class="n">GFLOPS</span>
-</pre></div>
-</div>
-<p>使用Nsight Compute分析发现 <code class="docutils literal notranslate"><span class="pre">LDG</span></code> 和 <code class="docutils literal notranslate"><span class="pre">STS</span></code>
-等指令使用较多，导致指令发射压力较大，具体体现在 <code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Wait</span></code> 与
-<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Dispatch</span> <span class="pre">Stall</span></code> 指标相比较差。但其他指标诸如
-<code class="docutils literal notranslate"><span class="pre">Stall</span> <span class="pre">Long</span> <span class="pre">Scoreboard</span></code> 等cuBLAS更优，但总体上我们略胜一筹。
-尽管我们的代码相比cuBLAS已经取得了一定的性能提升，但是需要强调的是cuBLAS内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">8.4.9. </span>小结<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
-<p>要实现一个高性能算子需要依照硬件特性适应性进行若干优化。本节优化策略可总结为以下几点：</p>
-<ul class="simple">
-<li><p>并行资源映射——提高并行性：将多层级的并行资源（<code class="docutils literal notranslate"><span class="pre">block</span></code>
-、<code class="docutils literal notranslate"><span class="pre">warp</span></code> 、<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-）与对应需要计算和搬移的数据建立映射关系，提高程序并行性。将可并行的计算和数据搬移操作映射到并行资源上，对于广义矩阵乘法实例，在
-<a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a>朴素实现的例子中，令每个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-与矩阵<span class="math notranslate nohighlight">\(C\)</span>中的一个矩阵块建立映射关系，每个<code class="docutils literal notranslate"><span class="pre">thread</span></code>
-与矩阵块中的一个元素建立映射关系。</p></li>
-<li><p>优化内存结构——减小访存延迟：观察计算过程中同一个<code class="docutils literal notranslate"><span class="pre">block</span></code>
-中数据复用的情况，将复用的数据被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。如在
-<a class="reference internal" href="#sec-accelerator-naive"><span class="std std-numref">8.4.2节</span></a>
-中将矩阵<span class="math notranslate nohighlight">\(A\)</span>与矩阵<span class="math notranslate nohighlight">\(B\)</span>中会被同一个 <code class="docutils literal notranslate"><span class="pre">block</span></code> 内不同
-<code class="docutils literal notranslate"><span class="pre">thread</span></code> 共同访问的数据缓存到共享内存中。</p></li>
-<li><p>优化指令执行——减小指令发射开销：使用 <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">unroll</span></code>
-功能进行循环展开来提升指令级并行，减少逻辑判断；使用向量化加载指令以提高带宽等，对于Ampere架构，最大向量化加载指令为
-<code class="docutils literal notranslate"><span class="pre">LDG.E.128</span></code> ，可以采用 <code class="docutils literal notranslate"><span class="pre">float4</span></code> 类型的数据进行读取。</p></li>
-<li><p>优化访存流水线——隐藏访存延迟：在进行内存结构变化（矩阵数据搬移）时，可以优化访存流水线，在数据搬移的间隔执行计算操作以隐藏数据搬移的延迟。</p></li>
-</ul>
-</div>
-</div>
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>加速器实践 - 机器学习系统：设计和实现</title>
 
 
-        </div>
-        <div class="side-doc-outline">
-            <div class="side-doc-outline--content"> 
-<div class="localtoc">
-    <p class="caption">
-      <span class="caption-text">Table Of Contents</span>
-    </p>
-    <ul>
-<li><a class="reference internal" href="#">8.4. 加速器实践</a><ul>
-<li><a class="reference internal" href="#id2">8.4.1. 环境</a></li>
-<li><a class="reference internal" href="#sec-accelerator-naive">8.4.2. 广义矩阵乘法的朴素实现</a></li>
-<li><a class="reference internal" href="#id4">8.4.3. 提高计算强度</a></li>
-<li><a class="reference internal" href="#sec-accelerator-use-smem">8.4.4. 使用共享内存缓存复用数据</a></li>
-<li><a class="reference internal" href="#id6">8.4.5. 减少寄存器使用</a></li>
-<li><a class="reference internal" href="#id7">8.4.6. 隐藏共享内存读取延迟</a></li>
-<li><a class="reference internal" href="#id8">8.4.7. 隐藏全局内存读取延迟</a></li>
-<li><a class="reference internal" href="#cublas">8.4.8. 与cuBLAS对比</a></li>
-<li><a class="reference internal" href="#id9">8.4.9. 小结</a></li>
-</ul>
-</li>
-</ul>
+        <!-- Custom HTML head -->
 
-</div>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
+        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-31a2f041.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
             </div>
         </div>
-
-      <div class="clearer"></div>
-    </div><div class="pagenation">
-     <a id="button-prev" href="accelerator_programming.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
-         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
-         <div class="pagenation-text">
-            <span class="pagenation-direction">Previous</span>
-            <div>8.3. 加速器基本编程原理</div>
-         </div>
-     </a>
-     <a id="button-next" href="summary.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
-         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
-        <div class="pagenation-text">
-            <span class="pagenation-direction">Next</span>
-            <div>8.5. 总结</div>
-        </div>
-     </a>
-  </div>
-        
-        </main>
     </div>
-  </body>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">机器学习系统：设计和实现</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="加速器实践"><a class="header" href="#加速器实践">加速器实践</a></h2>
+<p>在本节中会通过具体的CUDA代码向读者介绍如何编写一个并行计算的广义矩阵乘法程序，通过提高计算强度、使用共享内存、优化内存读取流水线等方法最终取得接近硬件加速器性能峰值的实现。虽然在以上章节介绍了张量计算核心相关的内容，但由于篇幅限制，在本节中不使用此硬件结构。而是通过使用更为基本的CUDA代码实现FP32的广义矩阵乘法，来讲解若干实用优化策略。</p>
+<h3 id="环境"><a class="header" href="#环境">环境</a></h3>
+<p>本节的实践有以下的软件环境依赖：</p>
+<ul>
+<li>Eigen：Eigen是一个线性代数C++模板库，用户可以只使用几条语句完成多线程线性代数运算。</li>
+<li>OpenMP（可选）：OpenMP是用于共享内存并行系统的多处理器程序设计的一套指导性编译处理方案，可以使用OpenMP对Eigen的计算进行加速。</li>
+<li>CUDA Toolkit：CUDA Toolkit是英伟达发布的CUDA工具包，其包含了CUDA编译器（NVCC），CUDA线性代数库（cuBLAS）等组件。
+本节的实践都是在CPU Intex Xeon E5-2650 v3，GPU Nvidia Geforce RTX 3080；系统Ubuntu 18.04版本，CUDA Toolkit 11.1进行的。</li>
+</ul>
+<p>安装相关依赖如下：</p>
+<ul>
+<li>Eigen：Eigen的安装可以通过使用包管理器安装（如使用指令<code>apt install libeigen3-dev</code>），也可以从<a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">官网</a>下载。</li>
+<li>OpenMP（可选）：通常会被大多数编译器默认支持，如果没有被支持的话可以使用包管理器安装（如使用指令<code>apt install libomp-dev</code>）。</li>
+<li>CUDA Toolkit：CUDA Toolkit的安装建议按照<a href="https://developer.nvidia.com/cuda-downloads">官方的提示</a>安装，也可以通过使用包管理器安装（如使用指令<code>apt install cuda</code>）。</li>
+</ul>
+<h3 id="广义矩阵乘法的朴素实现"><a class="header" href="#广义矩阵乘法的朴素实现">广义矩阵乘法的朴素实现</a></h3>
+<p>依照算法如 <code>gemm-algorith</code>所示，编写CPU代码如下所示：</p>
+<pre><code class="language-c++">float A[M][K];
+float B[K][N];
+float C[M][N];
+float alpha, beta;
+
+for (unsigned m = 0; m &lt; M; ++m) {
+    for (unsigned n = 0; n &lt; N; ++n) {
+        float c = 0;
+        for (unsigned k = 0; k &lt; K; ++k) {
+            c += A[m][k] * B[k][n];
+        }
+        C[m][n] = alpha * c + beta * C[m][n];
+    }
+}
+</code></pre>
+<p>可以看到，矩阵$C$ 中各个元素的计算是独立的。可以利用GPU的大量线程去分别计算矩阵$C$ 中相应的元素，以达到并行计算的目的，GPU核函数将如下所示：</p>
+<pre><code class="language-c++">__global__ void gemmKernel(const float * A,
+                           const float * B, float * C,
+                           float alpha, float beta, unsigned M, unsigned N,
+                           unsigned K) {
+  unsigned int m = threadIdx.x + blockDim.x * blockIdx.x;
+  unsigned int n = threadIdx.y + blockDim.y * blockIdx.y;
+  if (m &gt;= M || n &gt;= N)
+      return;
+  float c = 0;
+  for (unsigned k = 0; k &lt; K; ++k) {
+    c += A[m * K + k] * B[k * N + n];
+  }
+  c = c * alpha;
+  float result = c;
+  if (beta != 0) {
+    result = result + C[m * N + n] * beta;
+  }
+  C[m * N + n] = result;
+}
+</code></pre>
+<p>其可视化结构如 <code>cuda_naive_gemm</code>所示，矩阵$C$中每一个元素由一个线程计算，在GPU Kernel的第5和6行计算该线程对应矩阵$C$中的元素行号$m$及列号$n$，然后在第9到11行该线程利用行号与列号读取矩阵$A$和矩阵$B$中相应的行列向量元素并计算向量内积，最后在第17行将结果写回$C$矩阵。</p>
+<p><img src="../img/ch06/6.4/naive.png" alt="矩阵乘法的朴素实现"></p>
+<p>使用以下代码启动核函数：</p>
+<pre><code class="language-c++">void gemmNaive(const float *A, const float *B, float *C,
+               float alpha, float beta, unsigned M,
+               unsigned N, unsigned K) {
+  dim3 block(16, 16);
+  dim3 grid((M - 1) / block.x + 1, (N - 1) / block.y + 1);
+
+  gemmKernel&lt;&lt;&lt;grid, block&gt;&gt;&gt;(A, B, C, alpha, beta, M, N, K);
+}
+</code></pre>
+<p>在这里令每个线程块处理矩阵$C$中$16 times 16$个元素，因此开启$(M - 1) / 16 + 1 times (N - 1) / 16 + 1$个线程块用于计算整个矩阵$C$。</p>
+<p>使用Eigen生成数据并计算得到CPU端的广义矩阵乘法结果，同时实现了GPU端计算结果的误差计算、时间测试的代码，详情见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/first_attempt.cu">first_attempt.cu</a>，编译及执行得到输出结果为：</p>
+<pre><code>Average Time: 48.961 ms
+Max Error: 0.000092
+</code></pre>
+<p>可以使用以下公式粗略的计算GPU的峰值吞吐量：2$times$频率$times$单精度计算单元数量 ，其中单精度计算单元数量等于GPU中流多处理器（SM）数量乘每个流多处理器中单精度计算单元数量，计算可以得到以下结果：</p>
+<pre><code>FP32 peak throughput 29767.680 GFLOPS
+Average Throughput: 185.313 GFLOPS
+</code></pre>
+<p>可以发现目前的代码距离设备峰值性能仍有较大的差距。在整个计算过程中计算密集最大的过程为矩阵乘法$A times B$，其时间复杂度为$O(M<em>N</em>K)$，而整个计算过程时间复杂度为$O(M<em>N</em>K+2<em>M</em>N)$，因此对矩阵乘法的优化是提升性能的关键。</p>
+<h3 id="提高计算强度"><a class="header" href="#提高计算强度">提高计算强度</a></h3>
+<p>计算强度（Compute Intensity）指计算指令数量与访存指令数量的比值，在现代GPU中往往有大量计算单元但只有有限的访存带宽，程序很容易出现计算单元等待数据读取的问题，因此提高计算强度是提升程序性能的一条切实有效的指导思路。对于之前实现的GPU核函数，可以粗略计算其计算强度：在$K$次循环的内积计算中，对矩阵$A$与矩阵$B$的每次读取会计算一次浮点乘法与浮点加法，因此计算强度为1——两次浮点运算除以两次数据读取。之前的版本是每个线程负责处理矩阵$C$的一个元素——计算矩阵﻿﻿$A$的一行与矩阵$B$的一列的内积，可以通过使每个线程计算$C$更多的元素——计算矩阵$A$的多行与矩阵$B$的多列的内积——从而提升计算强度。具体地，如果在$K$次循环的内积计算中一次读取矩阵$A$中的$m$个元素和矩阵$B$中的$n$个元素，那么访存指令为$m+n$条，而计算指令为$2 m n$条，所以计算强度为$frac(2 m n, m+n)$，因此可以很容易发现提高$m$和$n$会带来计算强度的提升。</p>
+<p>在上一小节中对全局内存的访问与存储都是借助 <code>float</code> 指针完成的，具体到硬件指令集上实际是使用指令 <code>LDG.E</code> 与 <code>STG.E</code> 完成的。可以使用128位宽指令<code>LDG.E.128</code> 与 <code>STG.E.128</code>  一次读取多个 <code>float</code> 数。使用宽指令的好处是一方面简化了指令序列，使用一个宽指令代替四个标准指令可以节省十几个指令的发射周期，这可以为计算指令的发射争取到额外的时间；另一方面128比特正好等于一个cache line的长度，使用宽指令也有助于提高cache line的命中率。但并不提倡在一切代码中过度追求宽指令的使用，开发者应当将更多的时间关注并行性设计和局部数据复用等更直接的优化手段。</p>
+<p>具体的实现如下，由于每个 <code>float</code> 类型大小为32个比特，可以将4个 <code>float</code> 堆叠在一起构成一个128比特的 <code>float4</code> 类，对 <code>float4</code> 的访存将会是使用宽指令完成。其具体代码实现见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/util.cuh">util.cuh</a>中。</p>
+<p>在实现GPU核函数过程中要注意，每个线程需要从原本各读取矩阵$A$和矩阵$B$中一个 <code>float</code> 数据变为各读取4个 <code>float</code> 数据，这就要求现在每个线程负责处理矩阵$C$中$4 times 4$的矩阵块，称之为 <code>thread tile</code> 。如 <code>use_float4</code>所示，每个线程从左到右、从上到下分别读取矩阵$A$和矩阵$B$的数据并运算，最后写入到矩阵$C$中。</p>
+<p><img src="../img/ch06/6.4/use_float4.png" alt="提高计算强度"></p>
+<p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。我们可以进一步让每个线程处理更多的数据，从而进一步提升计算强度，如 <code>use_tile</code>所示。完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
+<p><img src="../img/ch06/6.4/use_tile.png" alt="通过提高线程所处理矩阵块的数量来进一步提高计算强度"></p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 6.232 ms, Average Throughput: 1378.317 GFLOPS
+</code></pre>
+<p>使用分析工具Nsight Compute分析取得性能提升的具体原因。Nsight Compute是英伟达发布的主要针对GPU核函数的性能分析工具，它通过劫持驱动的方式对GPU底层数据采样和输出。可以使用以下指令进行性能分析：</p>
+<pre><code class="language-bash">bash
+ncu --set full -o &lt;profile_output_file&gt; &lt;profile_process&gt;
+</code></pre>
+<p><code>--set full</code> 代表采样所有数据， <code>-o</code> 代表以文件的形式输出结果； <code>&lt;profile_output_file&gt;</code> 填输出文件名但注意不要加后缀名， <code>&lt;profile_process&gt;</code> 填待分析的可执行文件及其参数。
+比如需要分析 <code>first_attempt</code> ，将输出结果命名为 <code>first_attepmt_prof_result</code> 可以使用以下指令：</p>
+<pre><code class="language-c++">ncu --set full -o first_attepmt_prof_result ./first_attempt
+</code></pre>
+<p>如果提示权限不足可以使在指令前加<code>sudo</code> 。
+在得到输出文件之后，可以使用 <code>nv-nsight-cu</code> 查看文件。对改动的GPU核函数与上一版本的GPU核函数进行对比分析，发现：</p>
+<p>首先 <code>LDG</code> 指令数量下降了84%，且指标 <code>Stall LG Throttle</code> 下降33%，说明使用宽指令增加计算密度确实可以通过减少全局内存访问的指令数目而减少发射等待时间。最后指标 <code>Arithmetic Intensity</code> 的提升也和之前的关于计算强度的分析相吻合。</p>
+<p>我们对<code>gemm_use_tile.cu</code>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 3.188 ms, Average Throughput: 2694.440 GFLOPS
+</code></pre>
+<p>使用Nsight Compute分析发现：类似地，本次优化在 <code>Stall LG Throttle</code> 等指标上取得了进一步的提升。</p>
+<h3 id="使用共享内存缓存复用数据"><a class="header" href="#使用共享内存缓存复用数据">使用共享内存缓存复用数据</a></h3>
+<p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，开启若干个线程块，每个线程块处理矩阵$C$中的一个或多个矩阵块。在 <code>duplicated_data</code> 中，可以观察到，处理矩阵$C$同一行的线程$x, y$会读取矩阵$A$中相同的数据，可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
+<p><img src="../img/ch06/6.4/duplicated_data.png" alt="线程间重复读取数据"></p>
+<p>具体地，需要对代码进行如下改造：首先此前代码在计算内积过程是进行$K$次循环读取数据并累加计算，在此设定下每次循环中处理矩阵$C$中相同行的线程会读取相同的矩阵$A$的数据，处理矩阵$C$中相同列的线程会读取相同的矩阵$B$的数据。可以通过将此$K$次循环拆解成两层循环，外层循环$frac(K, t i l e K)$次，每次外层循环的迭代读取一整块数据，内层循环$t i l e K$次进行累加数据。数据从全局内存向共享内存的搬运过程如图 <code>use_smem_store</code> 所示，每次内层循环开始前将矩阵$A$和矩阵$B$中一整个 <code>tile</code> 读取到共享内存中；数据从共享内存到寄存器的搬运如图 <code>use_smem_load</code> 所示，每次内层循环循环从共享内存读取数据并计算。这种设计带来的好处是，可以让每个线程不必独自从全局内存读取所有需要的数据，整个线程块将共同需要的数据从全局内存中读取并写入到共享内存中，此后每个线程在计算过程中只需要从共享内存中读取所需要的数据即可。</p>
+<p><img src="../img/ch06/6.4/use_smem_store.png" alt="向共享内存中写入数据"></p>
+<p><img src="../img/ch06/6.4/use_smem_load.png" alt="从共享内存中读取数据"></p>
+<p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_smem.cu">gemm_use_smem.cu</a>。</p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 0.617 ms, Average Throughput: 13925.168 GFLOPS
+</code></pre>
+<p>通过使用Nsight Compute对核函数分析并与上一个核函数进行对比，可以观察到一些主要的变化：首先 <code>LDG</code> 指令数量下降了97%，与此前设计相吻合。同时观察到 <code>SM Utilization</code> 提升了218%也可以侧面证实使用共享内存减少了内存访问延迟从而提升了利用率，此外还可以观察到各项指标如 <code>Pipe Fma Cycles Active</code> 等都有显著提升，这都能充分解释了使用共享内存的改进是合理且有效的。</p>
+<h3 id="减少寄存器使用"><a class="header" href="#减少寄存器使用">减少寄存器使用</a></h3>
+<p>可以注意到在向共享内存中存储矩阵$A$的数据块是按照行优先的数据排布进行的，而对此共享内存的读取是逐行读取的。可以将矩阵$A$的数据块在共享内存中数据按照列优先的形式排布，这样可以减少循环及循环变量从而带来寄存器使用数量减少进而带来性能提升。</p>
+<p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_transpose_smem.cu">gemm_transpose_smem.cu</a>。</p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 0.610 ms, Average Throughput: 14083.116 GFLOPS
+</code></pre>
+<p>使用Nsight Compute分析有以下观察发现主要的变化：<code>Occupancy</code> 提升1.3%，而带来此提升的原因是寄存器使用111个，相比上一个GPU核函数使用128个寄存器减少了17个，从而带来了性能提升。但这个变化会因为GPU架构不同导致有不同的变化，同时可以观察到 <code>STS</code> 指令数量提升且带来一些 bank confilct ，因此在其他GPU架构上此改动可能不会带来正面影响。</p>
+<h3 id="隐藏共享内存读取延迟"><a class="header" href="#隐藏共享内存读取延迟">隐藏共享内存读取延迟</a></h3>
+<p>在GPU中使用指令 <code>LDS</code> 读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖 <code>LDS</code> 指令读取的数据的指令时才会等待读取的完成。而在上一小节中，在内层$t i l e K$次循环中，每次发射完读取共享内存的指令之后就会立即执行依赖于读取数据的数学运算，这样就会导致计算单元等待数据从共享内存的读取，如 <code>use_smem_pipeline</code> 所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。可以通过重新优化流水线隐藏一定的数据读取延迟。如图 <code>hide_smem_latency</code> 所示，可以在内层的$t i l e K$次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令。</p>
+<p><img src="../img/ch06/6.4/use_smem_pipeline.png" alt="上一个GPU核函数的流水线"></p>
+<p><img src="../img/ch06/6.4/hide_smem_latency.png" alt="隐藏共享内存读取延迟的流水线"></p>
+<p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_hide_smem_latency.cu">gemm_hide_smem_latency.cu</a>。</p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 0.585 ms, Average Throughput: 14686.179 GFLOPS
+</code></pre>
+<p>使用Nsight Compute观察发现：相比上一个GPU核函数，指标 <code>Stall Short Scoreboard</code> 减少了67%。而此前提过GPU内存读写指令发出后并不会等待数据读取到寄存器后再执行下一条语句，但是会在Scoreboard设置符号并在完成读取后置回符号，等到之后有数据依赖的指令执行前会等待Scoreboard中符号的置回。所以这里 <code>Stall Short Scoreboard</code> 的减少充分说明了内存延迟是有效的。</p>
+<h3 id="隐藏全局内存读取延迟"><a class="header" href="#隐藏全局内存读取延迟">隐藏全局内存读取延迟</a></h3>
+<p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令 <code>LDG</code> 也有与共享内存读取指令 <code>LDS</code> 类似的行为特性。因此类似的在$frac(K, t i l e K)$次外层循环中每次循环开始时发出下一次外层循环需要的矩阵$A$中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵$A$中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见 <code>hide_global_latency</code> 。</p>
+<p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU在读取全局内存中使用的指令 <code>LDG</code> 也有与共享内存读取指令 <code>LDS</code> 类似的行为特性。因此类似的在$frac(K, t i l e K)$次外层循环中每次循环开始时发出下一次外层循环需要的矩阵$A$中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵$A$中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。此外，可以让内层循环先执行$t i l e K - 1$次，在最后一次执行前将 <code>buffer</code> 中的数据写入 <code>tile</code> ，其后再执行内层循环的最后一次迭代，这样能更进一步隐藏向 <code>tile</code> 写入的内存延迟。具体流水线可视化见图 <code>hide_global_latency</code> 。</p>
+<p><img src="../img/ch06/6.4/hide_global_latency.png" alt="隐藏全局内存读取延迟的流水线"></p>
+<p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_final.cu">gemm_final.cu</a>。</p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 0.542 ms, Average Throughput: 15838.302 GFLOPS
+</code></pre>
+<p>使用Nsight Compute分析可以观察到指标 <code>Stall Long Scoreboard</code> 减少了67%，与上一小结的 <code>Stall Short Scoreboard</code> 概念相对应，<code>Stall Long Scoreboard</code> 主要是针对全局内存的指标。该指标的显著减少充分说明预取数据可以在一定程度上隐藏全局内存的读取。</p>
+<h3 id="与cublas对比"><a class="header" href="#与cublas对比">与cuBLAS对比</a></h3>
+<p>按照节 <code>sec-accelerator-use-cublas</code> 中介绍的cuBLAS的接口使用方法，可以很容易地写出代码使用cuBLAS完成矩阵乘法，如代码 <code>practise-cublas</code> 所示。</p>
+<pre><code class="language-c++">void cublasGemm(const float *A, const float *B, float *C, float alf, float bet, int M, int N, int K) {
+  int lda = N, ldb = K, ldc = N;
+  const float *alpha = &amp;alf;
+  const float *beta = &amp;bet;
+  cublasHandle_t handle;
+  cublasCreate(&amp;handle);
+  cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N, M, K, alpha, B, lda, A, ldb, beta, C, ldc);
+  cublasDestroy(handle);
+}
+</code></pre>
+<p>需要注意的是cuBLAS默认矩阵在GPU中是按列优先存储的，而我们的矩阵是按行优先存储的，而两者可以通过转置相互转换，所以$A times B = (B^T times A^T)^T$，因此在输入时需要调整矩阵的顺序，即可保证输出结果仍是行优先矩阵。</p>
+<p>测试得到以下结果：</p>
+<pre><code>Max Error: 0.000092
+Average Time: 0.613 ms, Throughput: 14002.600 GFLOPS
+</code></pre>
+<p>使用Nsight Compute分析发现 <code>LDG</code> 和 <code>STS</code> 等指令使用较多，导致指令发射压力较大，具体体现在 <code>Stall Wait</code> 与 <code>Stall Dispatch Stall</code> 指标相比较差。但其他指标诸如 <code>Stall Long Scoreboard</code> 等cuBLAS更优，但总体上我们略胜一筹。
+尽管我们的代码相比cuBLAS已经取得了一定的性能提升，但是需要强调的是cuBLAS内部为各种不同的矩阵尺寸以及不同的设备实现了若干不同的GPU核函数，我们实现的核函数在其他尺寸或其他设备设备上性能可能无法取得此加速比。</p>
+<h3 id="小结"><a class="header" href="#小结">小结</a></h3>
+<p>要实现一个高性能算子需要依照硬件特性适应性进行若干优化。本节优化策略可总结为以下几点：</p>
+<ul>
+<li>
+<p>并行资源映射——提高并行性：将多层级的并行资源（<code>block</code> 、<code>warp</code> 、<code>thread</code> ）与对应需要计算和搬移的数据建立映射关系，提高程序并行性。将可并行的计算和数据搬移操作映射到并行资源上，对于广义矩阵乘法实例，在 <code>sec-accelerator-naive</code>朴素实现的例子中，令每个<code>block</code> 与矩阵$C$中的一个矩阵块建立映射关系，每个<code>thread</code> 与矩阵块中的一个元素建立映射关系。</p>
+</li>
+<li>
+<p>优化内存结构——减小访存延迟：观察计算过程中同一个<code>block</code> 中数据复用的情况，将复用的数据被如共享内存、寄存器等高性能体系结构存储下来，以此提高吞吐量。如在 <code>sec-accelerator-naive</code> 中将矩阵$A$与矩阵$B$中会被同一个 <code>block</code> 内不同 <code>thread</code> 共同访问的数据缓存到共享内存中。</p>
+</li>
+<li>
+<p>优化指令执行——减小指令发射开销：使用 <code>#pragma unroll</code> 功能进行循环展开来提升指令级并行，减少逻辑判断；使用向量化加载指令以提高带宽等，对于Ampere架构，最大向量化加载指令为 <code>LDG.E.128</code> ，可以采用 <code>float4</code> 类型的数据进行读取。</p>
+</li>
+<li>
+<p>优化访存流水线——隐藏访存延迟：在进行内存结构变化（矩阵数据搬移）时，可以优化访存流水线，在数据搬移的间隔执行计算操作以隐藏数据搬移的延迟。</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_accelerator/accelerator_programming.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_accelerator/summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_accelerator/accelerator_programming.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_accelerator/summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
 </html>

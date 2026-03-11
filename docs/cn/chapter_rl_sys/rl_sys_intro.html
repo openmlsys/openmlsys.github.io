@@ -1,671 +1,354 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>机器人系统概述 - 机器学习系统：设计和实现</title>
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-    <title>17.1. 机器人系统概述 &#8212; 机器学习系统：设计和实现 1.0.0 documentation</title>
 
-    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx_materialdesign_theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fontawesome/all.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/d2l.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/d2l.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17.2. 通用机器人操作系统" href="ros.html" />
-    <link rel="prev" title="17. 机器人系统" href="index.html" /> 
-  </head>
-<body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
-    <div class="mdl-layout__header-row">
-        
-        <nav class="mdl-navigation breadcrumb">
-            <a class="mdl-navigation__link" href="index.html"><span class="section-number">17. </span>机器人系统</a><i class="material-icons">navigate_next</i>
-            <a class="mdl-navigation__link is-active"><span class="section-number">17.1. </span>机器人系统概述</a>
-        </nav>
-        <div class="mdl-layout-spacer"></div>
-        <nav class="mdl-navigation">
-        
-<form class="form-inline pull-sm-right" action="../search.html" method="get">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
-          <input type="hidden" name="check_keywords" value="yes" />
-          <input type="hidden" name="area" value="default" />
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
+        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-31a2f041.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
         </div>
-      </div>
-      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
-      Quick search
-      </div>
-</form>
-        
-<a id="button-show-source"
-    class="mdl-button mdl-js-button mdl-button--icon"
-    href="../_sources/chapter_rl_sys/rl_sys_intro.rst.txt" rel="nofollow">
-  <i class="material-icons">code</i>
-</a>
-<div class="mdl-tooltip" data-mdl-for="button-show-source">
-Show Source
-</div>
-        </nav>
     </div>
-    <div class="mdl-layout__header-row header-links">
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-          
-              <a  class="mdl-navigation__link" href="https://github.com/openmlsys/openmlsys-zh">
-                  <i class="fab fa-github"></i>
-                  GitHub
-              </a>
-          
-              <a  class="mdl-navigation__link" href="https://openmlsys.github.io/">
-                  <i class="fas fa-language"></i>
-                  English
-              </a>
-      </nav>
-    </div>
-</header><header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
-            </nav>
-        
-        </div>
-    
-</header>
-        <main class="mdl-layout__content" tabIndex="0">
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
 
-	<script type="text/javascript" src="../_static/sphinx_materialdesign_theme.js "></script>
-    <header class="mdl-layout__drawer">
-    
-          <!-- Title -->
-      <span class="mdl-layout-title">
-          <a class="title" href="../index.html">
-              <img class="logo" src="../_static/logo-with-text.png" alt="机器学习系统：设计和实现"/>
-          </a>
-      </span>
-    
-    
-      <div class="globaltoc">
-        <span class="mdl-layout-title toc">Table Of Contents</span>
-        
-        
-            
-            <nav class="mdl-navigation">
-                <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface/index.html">1. 前言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_introduction/index.html">2. 导论</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/applications.html">2.1. 机器学习应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/design.html">2.2. 机器学习框架的设计目标</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/architecture.html">2.3. 机器学习框架的基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/ecosystem.html">2.4. 机器学习系统生态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_introduction/readers.html">2.5. 图书结构和读者</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_programming_interface/index.html">3. 编程接口</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/development_history.html">3.1. 机器学习系统编程模型的演进</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_workflow.html">3.2. 机器学习工作流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/neural_network_layer.html">3.3. 定义深度神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/c_python_interaction.html">3.4. C/C++编程接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/ml_programming_paradigm.html">3.5. 机器学习框架的编程范式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html">3.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_programming_interface/summary.html#id2">3.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_computational_graph/index.html">4. 计算图</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/background_and_functionality.html">4.1. 计算图的设计背景和作用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/components_of_computational_graph.html">4.2. 计算图的基本构成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/generation_of_computational_graph.html">4.3. 计算图的生成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/schedule_of_computational_graph.html">4.4. 计算图的调度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html">4.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_computational_graph/summary.html#id2">4.6. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_advanced/index.html">5. 第二部分：进阶篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_frontend_and_ir/index.html">6. AI编译器和前端技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ai_compiler_design_principle.html">6.1. AI编译器设计原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/overview_of_frontend.html">6.2. AI编译器前端技术概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/intermediate_representation.html">6.3. 中间表示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/ad.html">6.4. 自动微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/type_system_and_static_analysis.html">6.5. 类型系统和静态分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/common_frontend_optimization_pass.html">6.6. 常见前端编译优化方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html">6.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_frontend_and_ir/summary.html#id2">6.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_backend_and_runtime/index.html">7. 编译器后端和运行时</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/overview.html">7.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/graph_optimizer.html">7.2. 计算图优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/kernel_selecter.html">7.3. 算子选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/memory_allocator.html">7.4. 内存分配</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/compute_schedule_and_execute.html">7.5. 计算调度与执行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/op_compiler.html">7.6. 算子编译器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html">7.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_backend_and_runtime/summary.html#id2">7.8. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_accelerator/index.html">8. 硬件加速器</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_introduction.html">8.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_architecture.html">8.2. 加速器基本组成原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_programming.html">8.3. 加速器基本编程原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/accelerator_practise.html">8.4. 加速器实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html">8.5. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id2">8.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_accelerator/summary.html#id3">8.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_data_processing/index.html">9. 数据处理框架</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/requirements.html">9.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/program_model.html">9.2. 易用性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/performance.html">9.3. 高效性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/data_order.html">9.4. 保序性设计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/extension.html">9.5. 单机数据处理性能的扩展</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html">9.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_data_processing/summary.html#id2">9.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_model_deployment/index.html">10. 模型部署</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_deployment_introduction.html">10.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_converter_and_optimizer.html">10.2. 训练模型到推理模型的转换及优化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_compression.html">10.3. 模型压缩</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_inference.html">10.4. 模型推理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/model_security.html">10.5. 模型的安全保护</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html">10.6. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_model_deployment/summary.html#id2">10.7. 扩展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_distributed_training/index.html">11. 分布式训练</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/overview.html">11.1. 系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html">11.2. 实现方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/methods.html#id6">11.3. 流水线并行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/cluster.html">11.4. 机器学习集群架构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/collective.html">11.5. 集合通信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/parameter_servers.html">11.6. 参数服务器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html">11.7. 总结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_distributed_training/summary.html#id2">11.8. 拓展阅读</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_preface_extension/index.html">12. 第三部分：拓展篇</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_recommender_system/index.html">13. 深度学习推荐系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/system_architecture.html">13.1. 系统基本组成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/multi_stage_recommender_system.html">13.2. 多阶段推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/model_update.html">13.3. 模型更新</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/case_study.html">13.4. 案例分析：支持在线模型更新的大型推荐系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html">13.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id2">13.6. 扩展阅读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_recommender_system/summary.html#id3">13.7. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_federated_learning/index.html">14. 联邦学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/overview.html">14.1. 概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/horizontal_fl.html">14.2. 横向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/vertical_fl.html">14.3. 纵向联邦学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/privacy_encryption_algorithm.html">14.4. 隐私加密算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/outlook.html">14.5. 展望</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_federated_learning/summary.html">14.6. 小结</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_reinforcement_learning/index.html">15. 强化学习系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/rl_introduction.html">15.1. 强化学习介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/single_node_rl.html">15.2. 单节点强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl.html">15.3. 多智能体强化学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/marl_sys.html">15.4. 多智能体强化学习系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html">15.5. 小结</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_reinforcement_learning/summary.html#id2">15.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../chapter_explainable_AI/index.html">16. 可解释性AI系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html">16.1. 背景</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#ai">16.2. 可解释AI定义</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id2">16.3. 可解释AI算法现状介绍</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id17">16.4. 可解释AI系统及实践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id21">16.5. 未来可解释AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chapter_explainable_AI/explainable_ai.html#id22">16.6. 参考文献</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">17. 机器人系统</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">17.1. 机器人系统概述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros.html">17.2. 通用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ros_code_ex.html">17.3. 案例分析：使用机器人操作系统</a></li>
-<li class="toctree-l2"><a class="reference internal" href="summary.html">17.4. 总结</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix_machine_learning_introduction/index.html">附录：机器学习介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/neural_network.html">1. 神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/gradient_descent.html">2. 梯度下降与反向传播</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html">3. 经典机器学习方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendix_machine_learning_introduction/classic_machine_learning.html#id4">4. 参考文献</a></li>
-</ul>
-</li>
-</ul>
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
 
-            </nav>
-        
-        </div>
-    
-</header>
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
 
-    <div class="document">
-        <div class="page-content" role="main">
-        
-  <div class="section" id="id1">
-<h1><span class="section-number">17.1. </span>机器人系统概述<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">机器学习系统：设计和实现</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="机器人系统概述"><a class="header" href="#机器人系统概述">机器人系统概述</a></h2>
 <p>机器人学是一个交叉学科，它涉及了计算机科学、机械工程、电气工程、生物医学工程、数学等多种学科，并有诸多应用，比如自动驾驶汽车、机械臂、无人机、医疗机器人等。机器人能够自主地完成一种或多种任务或者辅助人类完成指定任务。通常，人们把机器人系统划分为感知系统、决策（规划）和控制系统等组成部分。</p>
-<p>机器人系统按照涉及的机器人数量，可以划分为单机器人学习系统和多机器人学习系统。多机器人学习系统协作和沟通中涉及的安全和隐私问题，也会是一个值得研究的方向。最近机器人学习系统在室内自主移动
-<span id="id2">[<a class="reference internal" href="summary.html#id36" title="Huang, H., Shen, Y., Sun, J., &amp; Lu, C. (2018). Navigationnet: a large-scale interactive indoor navigation dataset. arXiv preprint arXiv:1808.08374.">Huang et al., 2018</a>, <a class="reference internal" href="summary.html#id9" title="Pan, B., Sun, J., Leung, H. Y. T., Andonian, A., &amp; Zhou, B. (2020). Cross-view semantic segmentation for sensing surroundings. IEEE Robotics and Automation Letters, 5(3), 4867-4873. doi:10.1109/LRA.2020.3004325">Pan et al., 2020</a>]</span>，道路自动驾驶
-<span id="id3">[<a class="reference internal" href="summary.html#id4" title="Huang, J., Xie, S., Sun, J., Ma, Q., Liu, C., Lin, D., &amp; Zhou, B. (2021 , 16–18 Nov). Kober, J., Ramos, F., &amp; Tomlin, C. (Eds.). Learning a decision module by imitating driver’s control behaviors. Proceedings of the 2020 Conference on Robot Learning (pp. 1–10). PMLR. URL: https://proceedings.mlr.press/v155/huang21a.html">Huang et al., 2021</a>, <a class="reference internal" href="summary.html#id46" title="Sun, J., Kousik, S., Fridovich-Keil, D., &amp; Schwager, M. (2022). Self-supervised traffic advisors: distributed, multi-view traffic prediction for smart cities. arXiv preprint.">Sun et al., 2022b</a>, <a class="reference internal" href="summary.html#id47" title="Sun, J., Sun, H., Han, T., &amp; Zhou, B. (2021 , 16–18 Nov). Kober, J., Ramos, F., &amp; Tomlin, C. (Eds.). Neuro-symbolic program search for autonomous driving decision module design. Proceedings of the 2020 Conference on Robot Learning (pp. 21–30). PMLR. URL: https://proceedings.mlr.press/v155/sun21a.html">Sun et al., 2021a</a>]</span>，机械臂工业操作等行业场景得到充分应用和发展。一些机器人学习基础设施项目也在进行中，如具备从公开可用的互联网资源、计算机模拟和
-真实机器人试验中学习能力的大规模的计算系统RoboBrain。在自动驾驶领域，受联网的自动驾驶汽车
-(CAV) 对传统交通运输行业的影响，“车辆计算”(Vehicle Computing)
-概念引起广泛关注，并激发了如何让计算能力有限使用周围的CAV计算平台来执行复杂的计算任务的研究。最近，有很多自动驾驶系统的模拟器，代表性的比如CARLA，MetaDrive
-<span id="id4">[<a class="reference internal" href="summary.html#id21" title="Li, Q., Peng, Z., Xue, Z., Zhang, Q., &amp; Zhou, B. (2021). Metadrive: composing diverse driving scenarios for generalizable reinforcement learning. ArXiv preprint, abs/2109.12674. URL: https://arxiv.org/abs/2109.12674">Li et al., 2021a</a>]</span>，CarSim和TruckSim，它们可以作为各种自动驾驶算法的训练场并对算法效果进行评估。另外针对自动驾驶的系统开发平台也不断涌现，如ERDOS、D3
-(Dynamic
-Deadline-Driven)和Pylot，可以让模型训练与部署系统与这些平台对接。</p>
-<div class="figure align-default" id="id39">
-<span id="vehicle-computing"></span><a class="reference internal image-reference" href="../_images/vehicle_computing.png"><img alt="../_images/vehicle_computing.png" src="../_images/vehicle_computing.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.1.1 </span><span class="caption-text">车辆计算框架图 <span id="id5">[<a class="reference internal" href="summary.html#id48" title="Lu, S., &amp; Shi, W. (2021). The emergence of vehicle computing. IEEE Internet Computing, 25(3), 18-22. doi:10.1109/MIC.2021.3066076">Lu &amp; Shi, 2021</a>]</span></span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
-</div>
-<p><a class="reference internal" href="#learning-decision-module"><span class="std std-numref">图17.1.2</span></a>是一个典型的感知、规划、控制的模块化设计的自动驾驶系统框架图，绿线表示自主驾驶系统的模块化流程，而橙色虚线表示规划和控制模块是不可微的。但是决策策略可以通过重新参数化技术进行训练，如蓝色虚线所示。接下来将按照这个顺序依次介绍感知系统、规划系统和控制系统。</p>
-<div class="figure align-default" id="id40">
-<span id="learning-decision-module"></span><a class="reference internal image-reference" href="../_images/idm.png"><img alt="../_images/idm.png" src="../_images/idm.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.1.2 </span><span class="caption-text">通过模仿学习进行自动驾驶框架图。</span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">17.1.1. </span>感知系统<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
-<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
-<span id="id7">[<a class="reference internal" href="summary.html#id5" title="Ding, M., Wang, Z., Sun, J., Shi, J., &amp; Luo, P. (2019). Camnet: coarse-to-fine retrieval for camera re-localization. Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 2871–2880).">Ding et al., 2019</a>]</span>），周围什么情况（通过3D物体检测
-<span id="id8">[<a class="reference internal" href="summary.html#id50" title="Yi, H., Shi, S., Ding, M., Sun, J., Xu, K., Zhou, H., … Wang, G. (2020). Segvoxelnet: exploring semantic context and depth-aware features for 3d vehicle detection from point cloud. 2020 IEEE International Conference on Robotics and Automation (ICRA) (pp. 2274–2280).">Yi et al., 2020</a>]</span>或语义分割），预测相机在空间的轨迹
-<span id="id9">[<a class="reference internal" href="summary.html#id53" title="Qiu, J., Chen, L., Gu, X., Lo, F. P.-W., Tsai, Y.-Y., Sun, J., … Lo, B. (2022). Egocentric human trajectory forecasting with a wearable camera and multi-modal fusion. IEEE Robotics and Automation Letters, (), 1-8. doi:10.1109/LRA.2022.3188101">Qiu et al., 2022</a>]</span>，这些要依靠感知系统来实现 <span id="id10">[<a class="reference internal" href="summary.html#id37" title="Xu, Y., Zhu, X., Shi, J., Zhang, G., Bao, H., &amp; Li, H. (2019). Depth completion from sparse lidar data with depth-normal constraints. Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 2811–2820).">Xu et al., 2019</a>]</span>。
+<p>机器人系统按照涉及的机器人数量，可以划分为单机器人学习系统和多机器人学习系统。多机器人学习系统协作和沟通中涉及的安全和隐私问题，也会是一个值得研究的方向。最近机器人学习系统在室内自主移动 <sup id="cite-9123682"><a href="#ref-9123682">[1]</a></sup><sup id="cite-huang2018navigationnet"><a href="#ref-huang2018navigationnet">[2]</a></sup>，道路自动驾驶 <sup id="cite-pmlr-v155-huang21a"><a href="#ref-pmlr-v155-huang21a">[3]</a></sup><sup id="cite-pmlr-v155-sun21a"><a href="#ref-pmlr-v155-sun21a">[4]</a></sup><sup id="cite-Sun2022SelfSupervisedTA"><a href="#ref-Sun2022SelfSupervisedTA">[5]</a></sup>，机械臂工业操作等行业场景得到充分应用和发展。一些机器人学习基础设施项目也在进行中，如具备从公开可用的互联网资源、计算机模拟和 真实机器人试验中学习能力的大规模的计算系统RoboBrain。在自动驾驶领域，受联网的自动驾驶汽车 (CAV) 对传统交通运输行业的影响，“车辆计算”(Vehicle Computing) 概念引起广泛关注，并激发了如何让计算能力有限使用周围的CAV计算平台来执行复杂的计算任务的研究。最近，有很多自动驾驶系统的模拟器，代表性的比如CARLA，MetaDrive <sup id="cite-li2021metadrive"><a href="#ref-li2021metadrive">[6]</a></sup>，CarSim和TruckSim，它们可以作为各种自动驾驶算法的训练场并对算法效果进行评估。另外针对自动驾驶的系统开发平台也不断涌现，如ERDOS、D3 (Dynamic Deadline-Driven)和Pylot，可以让模型训练与部署系统与这些平台对接。</p>
+<p><img src="../img/ch13/vehicle_computing.png" alt="车辆计算框架图 &lt;sup id=&quot;cite-9491826&quot;&gt;&lt;a href=&quot;#ref-9491826&quot;&gt;[7]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p><code>learning\_decision\_module</code>是一个典型的感知、规划、控制的模块化设计的自动驾驶系统框架图，绿线表示自主驾驶系统的模块化流程，而橙色虚线表示规划和控制模块是不可微的。但是决策策略可以通过重新参数化技术进行训练，如蓝色虚线所示。接下来将按照这个顺序依次介绍感知系统、规划系统和控制系统。</p>
+<p><img src="../img/ch13/idm.png" alt="通过模仿学习进行自动驾驶框架图。"></p>
+<h3 id="感知系统"><a class="header" href="#感知系统">感知系统</a></h3>
+<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位 <sup id="cite-ding2019camnet"><a href="#ref-ding2019camnet">[8]</a></sup>），周围什么情况（通过3D物体检测 <sup id="cite-yi2020segvoxelnet"><a href="#ref-yi2020segvoxelnet">[9]</a></sup>或语义分割），预测相机在空间的轨迹 <sup id="cite-9813561"><a href="#ref-9813561">[10]</a></sup>，这些要依靠感知系统来实现 <sup id="cite-xu2019depth"><a href="#ref-xu2019depth">[11]</a></sup>。
 一提到感知系统，不得不提的就是即时定位与建图（Simultaneous Localization
 and
 Mapping，SLAM)系统。SLAM大致过程包括地标提取、数据关联、状态估计、状态更新以及地标更新等。视觉里程计Visual
-Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动（Ego-motion）。ORB-SLAM系列是视觉SLAM中有代表性的工作， <code class="xref std std-numref docutils literal notranslate"><span class="pre">orbslam3</span></code>
-展示了最新的ORB-SLAM3的主要系统组件。香港科技大学开源的基于单目视觉与惯导融合的SLAM技术VINS-Mono也很值得关注。多传感器融合、优化数据关联与回环检测、与前端异构处理器集成、提升鲁棒性和重定位精度都是SLAM技术接下来的发展方向。</p>
+Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动（Ego-motion）。ORB-SLAM系列是视觉SLAM中有代表性的工作， <code>orbslam3</code> 展示了最新的ORB-SLAM3的主要系统组件。香港科技大学开源的基于单目视觉与惯导融合的SLAM技术VINS-Mono也很值得关注。多传感器融合、优化数据关联与回环检测、与前端异构处理器集成、提升鲁棒性和重定位精度都是SLAM技术接下来的发展方向。</p>
 <p>最近，随着机器学习的兴起，基于学习的SLAM框架也被提了出来。TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可以推广到多个数据集和现实世界场景，并优于传统基于几何的方法。
 UnDeepVO是一个无监督深度学习方案，能够通过使用深度神经网络估计单目相机的
-6-DoF 位姿及其视图深度。DROID-SLAM是用于单目、立体和 RGB-D
-相机的深度视觉 SLAM，它通过Bundle
+6-DoF 位姿及其视图深度。DROID-SLAM是用于单目、立体和
+RGB-D 相机的深度视觉 SLAM，它通过Bundle
 Adjustment层对相机位姿和像素深度的反复迭代更新，具有很强的鲁棒性，故障大大减少，尽管对单目视频进行了训练，但它可以利用立体声或
 RGB-D 视频在测试时提高性能。其中，Bundle Adjustment
-(BA)与机器学习的结合被广泛研究。CMU提出通过主动神经 SLAM
+(BA)与机器学习的结合被广泛研究。CMU提出通过主动神经
+SLAM
 的模块化系统帮助智能机器人在未知环境中的高效探索。</p>
-<div class="section" id="id11">
-<h3><span class="section-number">17.1.1.1. </span>物体检测与语义分割<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
-<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位
-<span id="id12">[<a class="reference internal" href="summary.html#id5" title="Ding, M., Wang, Z., Sun, J., Shi, J., &amp; Luo, P. (2019). Camnet: coarse-to-fine retrieval for camera re-localization. Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 2871–2880).">Ding et al., 2019</a>]</span>），周围什么情况（通过3D物体检测
-<span id="id13">[<a class="reference internal" href="summary.html#id50" title="Yi, H., Shi, S., Ding, M., Sun, J., Xu, K., Zhou, H., … Wang, G. (2020). Segvoxelnet: exploring semantic context and depth-aware features for 3d vehicle detection from point cloud. 2020 IEEE International Conference on Robotics and Automation (ICRA) (pp. 2274–2280).">Yi et al., 2020</a>]</span>或语义分割），预测相机在空间的轨迹
-<span id="id14">[<a class="reference internal" href="summary.html#id53" title="Qiu, J., Chen, L., Gu, X., Lo, F. P.-W., Tsai, Y.-Y., Sun, J., … Lo, B. (2022). Egocentric human trajectory forecasting with a wearable camera and multi-modal fusion. IEEE Robotics and Automation Letters, (), 1-8. doi:10.1109/LRA.2022.3188101">Qiu et al., 2022</a>]</span>，这些要依靠感知系统来实现 <span id="id15">[<a class="reference internal" href="summary.html#id37" title="Xu, Y., Zhu, X., Shi, J., Zhang, G., Bao, H., &amp; Li, H. (2019). Depth completion from sparse lidar data with depth-normal constraints. Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 2811–2820).">Xu et al., 2019</a>]</span>。</p>
-<p>图像语义分割作为一项常用而又经典的感知技术，经过多年不停的迭代，传统的2D技术已经渐渐的趋于成熟，提升空间较小。同时传统的2D语义分割有一定的局限性，很难从2D图像中直接获知物体的空间位置、以及其在整体空间中的布局，要知道整体空间的位置信息还是需要更多的三维信息。为了让机器人从单纯的2D图像出发，得到空间中物体三维的坐标、语义和边界信息，跨视角语义分割
-<span id="id16">[<a class="reference internal" href="summary.html#id9" title="Pan, B., Sun, J., Leung, H. Y. T., Andonian, A., &amp; Zhou, B. (2020). Cross-view semantic segmentation for sensing surroundings. IEEE Robotics and Automation Letters, 5(3), 4867-4873. doi:10.1109/LRA.2020.3004325">Pan et al., 2020</a>]</span>吸引了众多研究者的关注。</p>
-</div>
-<div class="section" id="slam">
-<h3><span class="section-number">17.1.1.2. </span>即时定位与建图（SLAM）<a class="headerlink" href="#slam" title="Permalink to this heading">¶</a></h3>
-<p>将一个机器人放到未知的环境中，如何能让它明白自己的位置和周围环境？这要靠即时定位与建图（Simultaneous
-Localization and Mapping，SLAM）系统来实现。</p>
-<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">orbslam3</span></code> 展示了最新的ORB-SLAM3的主要系统组件。
+<h4 id="物体检测与语义分割"><a class="header" href="#物体检测与语义分割">物体检测与语义分割</a></h4>
+<p>感知系统不仅包括视觉感知，还可以包含触觉、声音等。在未知环境中，机器人想实现自主移动和导航必须知道自己在哪（通过相机重定位 <sup id="cite-ding2019camnet"><a href="#ref-ding2019camnet">[8]</a></sup>），周围什么情况（通过3D物体检测 <sup id="cite-yi2020segvoxelnet"><a href="#ref-yi2020segvoxelnet">[9]</a></sup>或语义分割），预测相机在空间的轨迹 <sup id="cite-9813561"><a href="#ref-9813561">[10]</a></sup>，这些要依靠感知系统来实现 <sup id="cite-xu2019depth"><a href="#ref-xu2019depth">[11]</a></sup>。</p>
+<p>图像语义分割作为一项常用而又经典的感知技术，经过多年不停的迭代，传统的2D技术已经渐渐的趋于成熟，提升空间较小。同时传统的2D语义分割有一定的局限性，很难从2D图像中直接获知物体的空间位置、以及其在整体空间中的布局，要知道整体空间的位置信息还是需要更多的三维信息。为了让机器人从单纯的2D图像出发，得到空间中物体三维的坐标、语义和边界信息，跨视角语义分割 <sup id="cite-9123682"><a href="#ref-9123682">[1]</a></sup>吸引了众多研究者的关注。</p>
+<h4 id="即时定位与建图slam"><a class="header" href="#即时定位与建图slam">即时定位与建图（SLAM）</a></h4>
+<p>将一个机器人放到未知的环境中，如何能让它明白自己的位置和周围环境？这要靠即时定位与建图（Simultaneous Localization and Mapping，SLAM）系统来实现。</p>
+<p><code>orbslam3</code> 展示了最新的ORB-SLAM3的主要系统组件。
 SLAM大致过程包括地标提取、数据关联、状态估计、状态更新以及地标更新等。SLAM系统在机器人运动过程中通过重复观测到的地图特征（比如，墙角，柱子等）定位自身位置和姿态，再根据自身位置增量式的构建地图，从而达到同时定位和地图构建的目的。</p>
-<p>DROID-SLAM是用于单目、立体和 RGB-D 相机的深度视觉 SLAM，它通过Bundle
-Adjustment层对相机位姿和像素深度的反复迭代更新，具有很强的鲁棒性，故障大大减少，尽管对单目视频进行了训练，但它可以利用立体声或
-RGB-D 视频在测试时提高性能。 其中，Bundle Adjustment
-(BA)描述了像素坐标和重投影坐标之间误差的和，重投影坐标通常使用3D坐标点和相机参数计算得到。BA计算量较大较为耗时，爱丁堡大学提出通过分布式多GPU系统
-<span id="id17">[<a class="reference internal" href="summary.html#id54" title="Ren, J., Liang, W., Yan, R., Mai, L., Liu, S., &amp; Liu, X. (2022). Megba: a high-performance and distributed library for large-scale bundle adjustment. European Conference on Computer Vision.">Ren et al., 2022</a>]</span>
-对BA计算进行加速。随着机器学习的发展，BA与机器学习的结合被广泛研究。</p>
-<p>视觉里程计Visual
-Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动。
+<p>DROID-SLAM是用于单目、立体和 RGB-D 相机的深度视觉 SLAM，它通过Bundle Adjustment层对相机位姿和像素深度的反复迭代更新，具有很强的鲁棒性，故障大大减少，尽管对单目视频进行了训练，但它可以利用立体声或 RGB-D 视频在测试时提高性能。
+其中，Bundle Adjustment (BA)描述了像素坐标和重投影坐标之间误差的和，重投影坐标通常使用3D坐标点和相机参数计算得到。BA计算量较大较为耗时，爱丁堡大学提出通过分布式多GPU系统 <sup id="cite-MegBA"><a href="#ref-MegBA">[12]</a></sup> 对BA计算进行加速。随着机器学习的发展，BA与机器学习的结合被广泛研究。</p>
+<p>视觉里程计Visual Odometry是SLAM中的重要部分，它估计两个时刻机器人的相对运动。
 最近，随着机器学习的兴起，基于学习的VO框架也被提了出来。
 TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可以推广到多个数据集和现实世界场景，并优于传统基于几何的方法。</p>
-<div class="figure align-default" id="id41">
-<span id="orbslam3"></span><a class="reference internal image-reference" href="../_images/orbslam3.png"><img alt="../_images/orbslam3.png" src="../_images/orbslam3.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.1.3 </span><span class="caption-text">ORB-SLAM3主要系统组件 <span id="id18">[<a class="reference internal" href="summary.html#id25" title="Campos, C., Elvira, R., Rodríguez, J. J. G., Montiel, J. M., &amp; Tardós, J. D. (2021). Orb-slam3: an accurate open-source library for visual, visual–inertial, and multimap slam. IEEE Transactions on Robotics, 37(6), 1874–1890.">Campos et al., 2021</a>]</span></span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id19">
-<h2><span class="section-number">17.1.2. </span>规划系统<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
-<p>机器人规划不仅包含运动路径规划，还包含任务规划 <span id="id20">[<a class="reference internal" href="summary.html#id51" title="Sun, J., Huang, D.-A., Lu, B., Liu, Y.-H., Zhou, B., &amp; Garg, A. (2022). Plate: visually-grounded planning with transformers in procedural tasks. IEEE Robotics and Automation Letters, 7(2), 4924-4930. doi:10.1109/LRA.2022.3150855">Sun et al., 2022a</a>]</span>
-<span id="id21">[<a class="reference internal" href="summary.html#id56" title="Wang, C., Fan, L., Sun, J., Zhang, R., Fei-Fei, L., Xu, D., … Anandkumar, A. (2023). Mimicplay: long-horizon imitation learning by watching human play. arXiv preprint arXiv:2302.12422.">Wang et al., 2023</a>]</span>
-<span id="id22">[<a class="reference internal" href="summary.html#id55" title="Li, C., Zhang, R., Wong, J., Gokmen, C., Srivastava, S., Martín-Martín, R., … others. (2023). Behavior-1k: a benchmark for embodied ai with 1,000 everyday activities and realistic simulation. Conference on Robot Learning (pp. 80–93).">Li et al., 2023</a>]</span>。其中，运动规划是机器人技术的核心问题之一，在给定的两个位置之间为机器人找到一条符合约束条件的路径。这个约束可以是无碰撞、路径最短、机械功最小等，需要有概率完整性和最优性的保证，从导航到复杂环境中的机械臂操作都有运动规划的应用。然而，当经典运动规划在处理现实世界的机器人问题（在高维空间中）时，挑战仍然存在。研究人员仍在开发新算法来克服这些限制，包括优化计算和内存负载、更好地规划表示和处理维度灾难等。</p>
+<p><img src="../img/ch13/orbslam3.png" alt="ORB-SLAM3主要系统组件 &lt;sup id=&quot;cite-campos2021orb&quot;&gt;&lt;a href=&quot;#ref-campos2021orb&quot;&gt;[13]&lt;/a&gt;&lt;/sup&gt;"></p>
+<h3 id="规划系统"><a class="header" href="#规划系统">规划系统</a></h3>
+<p>机器人规划不仅包含运动路径规划，还包含任务规划 <sup id="cite-9712373"><a href="#ref-9712373">[14]</a></sup> <sup id="cite-wang2023mimicplay"><a href="#ref-wang2023mimicplay">[15]</a></sup> <sup id="cite-li2023behavior"><a href="#ref-li2023behavior">[16]</a></sup>。其中，运动规划是机器人技术的核心问题之一，在给定的两个位置之间为机器人找到一条符合约束条件的路径。这个约束可以是无碰撞、路径最短、机械功最小等，需要有概率完整性和最优性的保证，从导航到复杂环境中的机械臂操作都有运动规划的应用。然而，当经典运动规划在处理现实世界的机器人问题（在高维空间中）时，挑战仍然存在。研究人员仍在开发新算法来克服这些限制，包括优化计算和内存负载、更好地规划表示和处理维度灾难等。</p>
 <p>同时，机器学习的一些进展为机器人专家研究运动规划问题开辟了新视角：以数据驱动的方式解决经典运动规划器的瓶颈。基于深度学习的规划器可以使用视觉或语义输入进行规划等。ML4KP是一个可用于运动动力学进行运动规划的C++库，可以轻松地将机器学习方法集成到规划过程中。</p>
-<p>强化学习在规划系统上也有重要应用
-<span id="id23">[<a class="reference internal" href="summary.html#id35" title="Sun, J., Yu, L., Dong, P., Lu, B., &amp; Zhou, B. (2021). Adversarial inverse reinforcement learning with self-attention dynamics model. IEEE Robotics and Automation Letters, 6(2), 1880–1886.">Sun et al., 2021b</a>]</span>，最近有一些工作基于MetaDrive模拟器
-<span id="id24">[<a class="reference internal" href="summary.html#id21" title="Li, Q., Peng, Z., Xue, Z., Zhang, Q., &amp; Zhou, B. (2021). Metadrive: composing diverse driving scenarios for generalizable reinforcement learning. ArXiv preprint, abs/2109.12674. URL: https://arxiv.org/abs/2109.12674">Li et al., 2021a</a>]</span>进行多智能体强化学习、驾驶行为分析等
-<span id="id25">[<a class="reference internal" href="summary.html#id22" title="Peng, Z., Li, Q., Hui, K. M., Liu, C., &amp; Zhou, B. (2021). Learning to simulate self-driven particles system with coordinated policy optimization. Advances in Neural Information Processing Systems, 34.">Peng et al., 2021a</a>]</span> <span id="id26">[<a class="reference internal" href="summary.html#id23" title="Peng, Z., Li, Q., Liu, C., &amp; Zhou, B. (2021). Safe driving via expert guided policy optimization. 5th Annual Conference on Robot Learning.">Peng et al., 2021b</a>]</span>
-<span id="id27">[<a class="reference internal" href="summary.html#id26" title="Li, Q., Peng, Z., &amp; Zhou, B. (2021). Efficient learning of safe driving policy via human-ai copilot optimization. International Conference on Learning Representations.">Li et al., 2021b</a>]</span>。为了更好地说明强化学习是如何应用在自动驾驶中，尤其是作为自动驾驶规划模块的应用，
-<code class="xref std std-numref docutils literal notranslate"><span class="pre">rl_ad</span></code>展示了一个基于深度强化学习的自动驾驶POMDP模型，包含环境、奖励、智能体等重要组件。</p>
-<div class="figure align-default" id="id42">
-<span id="rl-ad"></span><a class="reference internal image-reference" href="../_images/rl_ad.png"><img alt="../_images/rl_ad.png" src="../_images/rl_ad.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.1.4 </span><span class="caption-text">基于深度强化学习的自动驾驶POMDP模型 <span id="id28">[<a class="reference internal" href="summary.html#id52" title="Aradi, S. (2020). Survey of deep reinforcement learning for motion planning of autonomous vehicles. IEEE Transactions on Intelligent Transportation Systems.">Aradi, 2020</a>]</span></span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="id29">
-<h2><span class="section-number">17.1.3. </span>控制系统<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h2>
+<p>强化学习在规划系统上也有重要应用 <sup id="cite-sun2021adversarial"><a href="#ref-sun2021adversarial">[17]</a></sup>，最近有一些工作基于MetaDrive模拟器 <sup id="cite-li2021metadrive"><a href="#ref-li2021metadrive">[6]</a></sup>进行多智能体强化学习、驾驶行为分析等 <sup id="cite-peng2021learning"><a href="#ref-peng2021learning">[18]</a></sup> <sup id="cite-peng2021safe"><a href="#ref-peng2021safe">[19]</a></sup> <sup id="cite-li2021efficient"><a href="#ref-li2021efficient">[20]</a></sup>。为了更好地说明强化学习是如何应用在自动驾驶中，尤其是作为自动驾驶规划模块的应用， <code>rl\_ad</code>展示了一个基于深度强化学习的自动驾驶POMDP模型，包含环境、奖励、智能体等重要组件。</p>
+<p><img src="../img/ch13/rl_ad.png" alt="基于深度强化学习的自动驾驶POMDP模型 &lt;sup id=&quot;cite-aradi2020survey&quot;&gt;&lt;a href=&quot;#ref-aradi2020survey&quot;&gt;[21]&lt;/a&gt;&lt;/sup&gt;"></p>
+<h3 id="控制系统"><a class="header" href="#控制系统">控制系统</a></h3>
 <p>虽然控制理论已牢牢植根于基于模型（Model-based）的设计思想，但丰富的数据和机器学习方法给控制理论带来了新的机遇。控制理论和机器学习的交叉方向涵盖了广泛的研究方向以及在各种现实世界系统中的应用。</p>
-<div class="section" id="id30">
-<h3><span class="section-number">17.1.3.1. </span>线性二次控制<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
-<p>理论方面，线性二次控制（Linear-Quadratic
-Control）是经典的控制方法。若动力系统可以用一组线性微分方程表示，而其约束为二次泛函，这类的问题称为线性二次问题。此类问题的解即为线性二次调节器（Linear–Quadratic
-Regulator），简称LQR。最近有关于图神经网络在分布式线性二次控制的研究，将线性二次问题转换为自监督学习问题，能够找到基于图神经网络的最佳分布式控制器，他们还推导出了所得闭环系统稳定的充分条件。</p>
-</div>
-<div class="section" id="id31">
-<h3><span class="section-number">17.1.3.2. </span>模型预测控制<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h3>
-<p>模型预测控制（MPC）是一种先进的过程控制方法，用于在满足一组约束条件的同时控制过程。MPC
-的主要优势在于它允许优化当前时刻的同时考虑未来时刻。因此与线性二次调节器不同。MPC
-还具有预测未来事件的能力，并可以相应地采取控制措施。最近有研究将最优控制和机器学习相结合并应用在陌生环境中的视觉导航任务：比如基于学习的感知模块产生一系列航路点通过无碰撞路径引导机器人到达目标，基于模型的规划器使用这些航路点来生成平滑且动态可行的轨迹，然后使用反馈控制在物理系统上执行。实验表明，与纯粹基于几何映射或基于端到端学习的方案相比，这种新的系统可以更可靠、更有效地到达目标位置。</p>
-</div>
-<div class="section" id="id32">
-<h3><span class="section-number">17.1.3.3. </span>控制系统的稳定性分析<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
-<p>因为安全对机器人应用是至关重要的，有的强化学习方法通过学习动力学的不确定性来提高安全性，鼓励安全、稳健、以及可以正式认证所学控制策略的方法，如
-<code class="xref std std-numref docutils literal notranslate"><span class="pre">safe_learning_control</span></code>展示了安全学习控制（Safe Learning
-Control）系统的框架图。Lyapunov
-函数是评估非线性动力系统稳定性的有效工具，最近有人提出Neural
-Lyapunov来将安全性纳入考虑。</p>
-<div class="figure align-default" id="id43">
-<span id="safe-learning-control"></span><a class="reference internal image-reference" href="../_images/safe_learning_control.png"><img alt="../_images/safe_learning_control.png" src="../_images/safe_learning_control.png" style="width: 800px;" /></a>
-<p class="caption"><span class="caption-number">图17.1.5 </span><span class="caption-text">安全学习控制系统，数据被用来更新控制策略或或安全滤波器
-<span id="id33">[<a class="reference internal" href="summary.html#id29" title="Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., &amp; Schoellig, A. P. (2021). Safe learning in robotics: from learning-based control to safe reinforcement learning. Annual Review of Control, Robotics, and Autonomous Systems, 5.">Brunke et al., 2021</a>]</span></span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id34">
-<h2><span class="section-number">17.1.4. </span>在机器人项目中安全的应用机器学习<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
-<p>机器人和机器学习都是有广阔前景和令人兴奋的前沿领域，而当它们结合在一起后，会变得更加迷人，并且有远大于1+1&gt;2的效果。
-因此，当我们在机器人项目中应用机器学习时，我们很容易过于兴奋，尝试着用机器学习去做很多之前只能幻想的成果。
-然而，在机器人中应用机器学习和直接使用机器学习有着很多不同。
-其中很重要的一点不同就是，一般的机器学习系统更多的是在虚拟世界中造成直接影响，而机器人中的机器学习系统很容易通过机器人对物理世界造成直接影响。
-因此，<strong>当我们在机器人项目中应用机器学习时，我们必须时刻关注系统的安全性</strong>，保证无论是在产品开发时还是在产品上市后的使用期，开发者和用户的安全性都能得到可靠的保证。
-而且不仅商业项目要考虑安全性，开发个人项目是也需要确保安全性。
-没有人想因为安全性上的疏忽而对自己或朋友/同事造成无法挽回的遗憾。</p>
+<h4 id="线性二次控制"><a class="header" href="#线性二次控制">线性二次控制</a></h4>
+<p>理论方面，线性二次控制（Linear-Quadratic Control）是经典的控制方法。若动力系统可以用一组线性微分方程表示，而其约束为二次泛函，这类的问题称为线性二次问题。此类问题的解即为线性二次调节器（Linear–Quadratic Regulator），简称LQR。最近有关于图神经网络在分布式线性二次控制的研究，将线性二次问题转换为自监督学习问题，能够找到基于图神经网络的最佳分布式控制器，他们还推导出了所得闭环系统稳定的充分条件。</p>
+<h4 id="模型预测控制"><a class="header" href="#模型预测控制">模型预测控制</a></h4>
+<p>模型预测控制（MPC）是一种先进的过程控制方法，用于在满足一组约束条件的同时控制过程。MPC 的主要优势在于它允许优化当前时刻的同时考虑未来时刻。因此与线性二次调节器不同。MPC 还具有预测未来事件的能力，并可以相应地采取控制措施。最近有研究将最优控制和机器学习相结合并应用在陌生环境中的视觉导航任务：比如基于学习的感知模块产生一系列航路点通过无碰撞路径引导机器人到达目标，基于模型的规划器使用这些航路点来生成平滑且动态可行的轨迹，然后使用反馈控制在物理系统上执行。实验表明，与纯粹基于几何映射或基于端到端学习的方案相比，这种新的系统可以更可靠、更有效地到达目标位置。</p>
+<h4 id="控制系统的稳定性分析"><a class="header" href="#控制系统的稳定性分析">控制系统的稳定性分析</a></h4>
+<p>因为安全对机器人应用是至关重要的，有的强化学习方法通过学习动力学的不确定性来提高安全性，鼓励安全、稳健、以及可以正式认证所学控制策略的方法，如 <code>safe\_learning\_control</code>展示了安全学习控制（Safe Learning Control）系统的框架图。Lyapunov 函数是评估非线性动力系统稳定性的有效工具，最近有人提出Neural Lyapunov来将安全性纳入考虑。</p>
+<p><img src="../img/ch13/safe_learning_control.png" alt="安全学习控制系统，数据被用来更新控制策略或或安全滤波器 &lt;sup id=&quot;cite-brunke2021safe&quot;&gt;&lt;a href=&quot;#ref-brunke2021safe&quot;&gt;[22]&lt;/a&gt;&lt;/sup&gt;"></p>
+<h3 id="在机器人项目中安全的应用机器学习"><a class="header" href="#在机器人项目中安全的应用机器学习">在机器人项目中安全的应用机器学习</a></h3>
+<p>机器人和机器学习都是有广阔前景和令人兴奋的前沿领域，而当它们结合在一起后，会变得更加迷人，并且有远大于1+1&gt;2的效果。 因此，当我们在机器人项目中应用机器学习时，我们很容易过于兴奋，尝试着用机器学习去做很多之前只能幻想的成果。 然而，在机器人中应用机器学习和直接使用机器学习有着很多不同。 其中很重要的一点不同就是，一般的机器学习系统更多的是在虚拟世界中造成直接影响，而机器人中的机器学习系统很容易通过机器人对物理世界造成直接影响。 因此，<strong>当我们在机器人项目中应用机器学习时，我们必须时刻关注系统的安全性</strong>，保证无论是在产品开发时还是在产品上市后的使用期，开发者和用户的安全性都能得到可靠的保证。 而且不仅商业项目要考虑安全性，开发个人项目是也需要确保安全性。 没有人想因为安全性上的疏忽而对自己或朋友/同事造成无法挽回的遗憾。</p>
 <p>以上这些并不是危言耸听，让我们设想以下这些情况：
-假设你正在为你们公司开发一个物流仓库内使用的移动货运机器人，它被设计为和工人在同一工作环境内运行，以便在需要时及时帮工人搬运货物至目的地。
-这个机器人有一个视觉的行人识别系统，以便识别前方是否有人。
-当机器人在前进的过程中遇到障碍物的话，这个行人识别系统会参与决定机器人的行为。
-如果有人的话，机器人会选择绕大弯来避开行进道路上的行人障碍物；而如果没人的话，机器人可以绕小弯来避障。
-可是，如果某次这个行人识别系统检测失误，系统没有检测到前方的障碍物是一个正在梯子上整理货物的工人，所以选择小弯避障。
-而当机器人靠近时，工人才突然发现有个机器人正在靠近他，并因此受到惊吓跌落至机器人行进的正前方。如果我们考虑到物流仓库的货运机器人自重加载重一般至少是几百公斤，我们就知道万一真的因此发生碰撞，后果是不堪设想。
-如果真的发生这种情况，这个机器人产品的商业前景会毁于一旦，公司和负责人也会被追究相应责任（甚至法律意义上的责任）。更重要的是，对受害者所造成的伤害和自己心里的内疚会对双方的一生都造成严重的影响。</p>
-<p>不仅是商业项目，假设你正在开发一个小型娱乐机械臂来尝试帮你完成桌面上的一些小任务，例如移动茶杯或打开关闭开关。
-你的这个机械臂也依赖于一个物体识别系统来识别任务目标。
-某次在移动茶杯时，机械臂没有识别到规划路线中有一个接线板，因此茶杯不小心摔倒并且水泼到接线板里引起短路。
-幸运的话可能只需要换一个接线板，而不幸的时候甚至可能会引起火灾或电击。
-我相信，没有人会想遇到这类突发事件。</p>
+假设你正在为你们公司开发一个物流仓库内使用的移动货运机器人，它被设计为和工人在同一工作环境内运行，以便在需要时及时帮工人搬运货物至目的地。 这个机器人有一个视觉的行人识别系统，以便识别前方是否有人。 当机器人在前进的过程中遇到障碍物的话，这个行人识别系统会参与决定机器人的行为。 如果有人的话，机器人会选择绕大弯来避开行进道路上的行人障碍物；而如果没人的话，机器人可以绕小弯来避障。 可是，如果某次这个行人识别系统检测失误，系统没有检测到前方的障碍物是一个正在梯子上整理货物的工人，所以选择小弯避障。 而当机器人靠近时，工人才突然发现有个机器人正在靠近他，并因此受到惊吓跌落至机器人行进的正前方。如果我们考虑到物流仓库的货运机器人自重加载重一般至少是几百公斤，我们就知道万一真的因此发生碰撞，后果是不堪设想。 如果真的发生这种情况，这个机器人产品的商业前景会毁于一旦，公司和负责人也会被追究相应责任（甚至法律意义上的责任）。更重要的是，对受害者所造成的伤害和自己心里的内疚会对双方的一生都造成严重的影响。</p>
+<p>不仅是商业项目，假设你正在开发一个小型娱乐机械臂来尝试帮你完成桌面上的一些小任务，例如移动茶杯或打开关闭开关。 你的这个机械臂也依赖于一个物体识别系统来识别任务目标。 某次在移动茶杯时，机械臂没有识别到规划路线中有一个接线板，因此茶杯不小心摔倒并且水泼到接线板里引起短路。 幸运的话可能只需要换一个接线板，而不幸的时候甚至可能会引起火灾或电击。 我相信，没有人会想遇到这类突发事件。</p>
 <p>因此，无论是在怎样的机器人项目中应用机器学习，我们都必须时刻关注和确保系统的安全性。</p>
-<div class="section" id="id35">
-<h3><span class="section-number">17.1.4.1. </span>确保安全性的办法：风险评估和独立的安全系统<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="id36">
-<h4><span class="section-number">17.1.4.1.1. </span>风险评估<a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h4>
-<p>为了能够确保机器人和机器学习系统的安全性，我们首先要知道可能有哪些危险。
-我们可以通过风险评估（Risk Assessment）来做到这一点。
-怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。
-我们想要强调的是，对于发现的风险，我们需要尽可能的给出一个避免风险的方案（Risk
-Mitigation）。
-更重要的时，我们需要确保这些方案的具体执行，而不仅仅是流于表面的给出方案就完事。
-一份没有执行的方案等于没有方案。</p>
-</div>
-<div class="section" id="id37">
-<h4><span class="section-number">17.1.4.1.2. </span>独立的安全系统<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h4>
+<h4 id="确保安全性的办法风险评估和独立的安全系统"><a class="header" href="#确保安全性的办法风险评估和独立的安全系统">确保安全性的办法：风险评估和独立的安全系统</a></h4>
+<h5 id="风险评估"><a class="header" href="#风险评估">风险评估</a></h5>
+<p>为了能够确保机器人和机器学习系统的安全性，我们首先要知道可能有哪些危险。 我们可以通过风险评估（Risk Assessment）来做到这一点。
+怎样完成一份风险评估网上已经有很多文章了，我们在这里就不过多的介绍。 我们想要强调的是，对于发现的风险，我们需要尽可能的给出一个避免风险的方案（Risk Mitigation）。 更重要的时，我们需要确保这些方案的具体执行，而不仅仅是流于表面的给出方案就完事。 一份没有执行的方案等于没有方案。</p>
+<h5 id="独立的安全系统"><a class="header" href="#独立的安全系统">独立的安全系统</a></h5>
 <p>在了解了可能有哪些风险之后，我们可以通过设计一个独立的安全系统来规避掉风险中和机器人系统相关的那一部分。
-具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。
-实际上，这个安全系统不应该只针对机器学习系统，而是应该针对整个机器人的方方面面。
-或者换句话来说，当开发机器人项目时，必须要有一个足够安全且独立的安全系统。
-而针对于机器学习系统的安全性只是这个独立安全系统“足够安全”的部分体现罢了。
-还是以之前的那个物流仓库移动货运机器人为例。
-如果机器人的轮子是有独立安全回路并且断电自动刹车的轮子，而机器人又有一个严格符合安全标准且也有安全回路的激光雷达来检测障碍物，同时这个激光雷达的安全回路直接连接至轮子的安全回路。
-这样一来，不管机器人是否检测到前方有人或突然有一个人闯入机器人行进路线，激光雷达都会检测到有异物，直接通过独立的安全回路将轮子断电并刹车，以确保不会发生碰撞。
-这样一个配置完全独立于任何控制逻辑，从而不受任何上层系统的影响。
-<strong>而对于开发者来说，当我们有了一个可靠独立的安全系统，我们也可以放心的去使用最新的突破性技术，而不用担心新技术是否会造成不可预期的后果。</strong></p>
-</div>
-</div>
-<div class="section" id="id38">
-<h3><span class="section-number">17.1.4.2. </span>机器学习系统的伦理问题<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h3>
+具体来讲，这个安全系统应该独立于机器学习系统，并且处于机器人架构的底层和拥有足够或最高等级的优先级。 实际上，这个安全系统不应该只针对机器学习系统，而是应该针对整个机器人的方方面面。 或者换句话来说，当开发机器人项目时，必须要有一个足够安全且独立的安全系统。 而针对于机器学习系统的安全性只是这个独立安全系统“足够安全”的部分体现罢了。
+还是以之前的那个物流仓库移动货运机器人为例。 如果机器人的轮子是有独立安全回路并且断电自动刹车的轮子，而机器人又有一个严格符合安全标准且也有安全回路的激光雷达来检测障碍物，同时这个激光雷达的安全回路直接连接至轮子的安全回路。 这样一来，不管机器人是否检测到前方有人或突然有一个人闯入机器人行进路线，激光雷达都会检测到有异物，直接通过独立的安全回路将轮子断电并刹车，以确保不会发生碰撞。 这样一个配置完全独立于任何控制逻辑，从而不受任何上层系统的影响。 <strong>而对于开发者来说，当我们有了一个可靠独立的安全系统，我们也可以放心的去使用最新的突破性技术，而不用担心新技术是否会造成不可预期的后果。</strong></p>
+<h4 id="机器学习系统的伦理问题"><a class="header" href="#机器学习系统的伦理问题">机器学习系统的伦理问题</a></h4>
 <p>除了上述讨论到的最根本的安全性问题，机器学习系统的伦理问题也会对机器人的使用造成影响。</p>
-<p>例如训练数据集中人种类型不平衡这一类经典的伦理问题。
-让我们还是以之前的那个物流仓库移动货运机器人为例。
-如果我们的训练数据集只有亚洲人的图片，那么当我们想要开拓海外市场时，我们的海外用户很有可能会发现我们的机器人并不能很好的识别他们的工人。
-虽然独立的安全系统可以避免事故的发生，但是急停在工人面前肯定不是一个很好的用户体验。
-我们机器人的海外销量也会受到影响。</p>
+<p>例如训练数据集中人种类型不平衡这一类经典的伦理问题。 让我们还是以之前的那个物流仓库移动货运机器人为例。 如果我们的训练数据集只有亚洲人的图片，那么当我们想要开拓海外市场时，我们的海外用户很有可能会发现我们的机器人并不能很好的识别他们的工人。 虽然独立的安全系统可以避免事故的发生，但是急停在工人面前肯定不是一个很好的用户体验。 我们机器人的海外销量也会受到影响。</p>
 <p>机器学习系统的伦理问题是目前比较火热的一个讨论领域。作为行业相关人员，我们需要了解这个方向上的最新进展。一方面是在系统设计的初期就把这些问题考虑进去，另一方面也是希望我们的成果能够给更多人带来幸福，而不是带去困扰。</p>
-</div>
-</div>
-</div>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-9123682">Pan, Bowen and Sun, Jiankai and Leung, Ho Yin Tiga and Andonian, Alex and Zhou, Bolei. <em>Cross-View Semantic Segmentation for Sensing Surroundings</em>. IEEE Robotics and Automation Letters. 2020. <a href="#cite-9123682">↩</a></li>
+
+<li id="ref-huang2018navigationnet">Huang, He and Shen, Yujing and Sun, Jiankai and Lu, Cewu. <em>NavigationNet: A large-scale interactive indoor navigation dataset</em>. arXiv preprint arXiv:1808.08374. 2018. <a href="#cite-huang2018navigationnet">↩</a></li>
+
+<li id="ref-pmlr-v155-huang21a">Huang, Junning and Xie, Sirui and Sun, Jiankai and Ma, Qiurui and Liu, Chunxiao and Lin, Dahua and Zhou, Bolei. <em>Learning a Decision Module by Imitating Driver’s Control Behaviors</em>. Proceedings of the 2020 Conference on Robot Learning. 2021. <a href="#cite-pmlr-v155-huang21a">↩</a></li>
+
+<li id="ref-pmlr-v155-sun21a">Sun, Jiankai and Sun, Hao and Han, Tian and Zhou, Bolei. <em>Neuro-Symbolic Program Search for Autonomous Driving Decision Module Design</em>. Proceedings of the 2020 Conference on Robot Learning. 2021. <a href="#cite-pmlr-v155-sun21a">↩</a></li>
+
+<li id="ref-Sun2022SelfSupervisedTA">Jiankai Sun and Shreyas Kousik and David Fridovich-Keil and Mac Schwager. <em>Self-Supervised Traffic Advisors: Distributed, Multi-view Traffic Prediction for Smart Cities</em>. arXiv preprint. 2022. <a href="#cite-Sun2022SelfSupervisedTA">↩</a></li>
+
+<li id="ref-li2021metadrive">Li, Quanyi and Peng, Zhenghao and Xue, Zhenghai and Zhang, Qihang and Zhou, Bolei. <em>Metadrive: Composing diverse driving scenarios for generalizable reinforcement learning</em>. ArXiv preprint. 2021. <a href="#cite-li2021metadrive">↩</a></li>
+
+<li id="ref-9491826">Lu, Sidi and Shi, Weisong. <em>The Emergence of Vehicle Computing</em>. IEEE Internet Computing. 2021. <a href="#cite-9491826">↩</a></li>
+
+<li id="ref-ding2019camnet">Ding, Mingyu and Wang, Zhe and Sun, Jiankai and Shi, Jianping and Luo, Ping. <em>CamNet: Coarse-to-fine retrieval for camera re-localization</em>. Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019. <a href="#cite-ding2019camnet">↩</a></li>
+
+<li id="ref-yi2020segvoxelnet">Yi, Hongwei and Shi, Shaoshuai and Ding, Mingyu and Sun, Jiankai and Xu, Kui and Zhou, Hui and Wang, Zhe and Li, Sheng and Wang, Guoping. <em>Segvoxelnet: Exploring semantic context and depth-aware features for 3d vehicle detection from point cloud</em>. 2020 IEEE International Conference on Robotics and Automation (ICRA). 2020. <a href="#cite-yi2020segvoxelnet">↩</a></li>
+
+<li id="ref-9813561">Qiu, Jianing and Chen, Lipeng and Gu, Xiao and Lo, Frank P.-W. and Tsai, Ya-Yen and Sun, Jiankai and Liu, Jiaqi and Lo, Benny. <em>Egocentric Human Trajectory Forecasting with a Wearable Camera and Multi-Modal Fusion</em>. IEEE Robotics and Automation Letters. 2022. <a href="#cite-9813561">↩</a></li>
+
+<li id="ref-xu2019depth">Xu, Yan and Zhu, Xinge and Shi, Jianping and Zhang, Guofeng and Bao, Hujun and Li, Hongsheng. <em>Depth completion from sparse lidar data with depth-normal constraints</em>. Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019. <a href="#cite-xu2019depth">↩</a></li>
+
+<li id="ref-MegBA">Ren, Jie and Liang, Wenteng and Yan, Ran and Mai, Luo and Liu, Shiwen and Liu, Xiao. <em>MegBA: A High-Performance and Distributed Library for Large-Scale Bundle Adjustment</em>. European Conference on Computer Vision. 2022. <a href="#cite-MegBA">↩</a></li>
+
+<li id="ref-campos2021orb">Campos, Carlos and Elvira, Richard and Rodr\'\iguez, Juan J Gomez and Montiel, Jose MM and Tardos, Juan D. <em>Orb-slam3: An accurate open-source library for visual, visual--inertial, and multimap slam</em>. IEEE Transactions on Robotics. 2021. <a href="#cite-campos2021orb">↩</a></li>
+
+<li id="ref-9712373">Sun, Jiankai and Huang, De-An and Lu, Bo and Liu, Yun-Hui and Zhou, Bolei and Garg, Animesh. <em>PlaTe: Visually-Grounded Planning With Transformers in Procedural Tasks</em>. IEEE Robotics and Automation Letters. 2022. <a href="#cite-9712373">↩</a></li>
+
+<li id="ref-wang2023mimicplay">Wang, Chen and Fan, Linxi and Sun, Jiankai and Zhang, Ruohan and Fei-Fei, Li and Xu, Danfei and Zhu, Yuke and Anandkumar, Anima. <em>MimicPlay: Long-Horizon Imitation Learning by Watching Human Play</em>. arXiv preprint arXiv:2302.12422. 2023. <a href="#cite-wang2023mimicplay">↩</a></li>
+
+<li id="ref-li2023behavior">Li, Chengshu and Zhang, Ruohan and Wong, Josiah and Gokmen, Cem and Srivastava, Sanjana and Mart\'\in-Mart\'\in, Roberto and Wang, Chen and Levine, Gabrael and Lingelbach, Michael and Sun, Jiankai and others. <em>Behavior-1k: A benchmark for embodied ai with 1,000 everyday activities and realistic simulation</em>. Conference on Robot Learning. 2023. <a href="#cite-li2023behavior">↩</a></li>
+
+<li id="ref-sun2021adversarial">Sun, Jiankai and Yu, Lantao and Dong, Pinqian and Lu, Bo and Zhou, Bolei. <em>Adversarial inverse reinforcement learning with self-attention dynamics model</em>. IEEE Robotics and Automation Letters. 2021. <a href="#cite-sun2021adversarial">↩</a></li>
+
+<li id="ref-peng2021learning">Peng, Zhenghao and Li, Quanyi and Hui, Ka Ming and Liu, Chunxiao and Zhou, Bolei. <em>Learning to Simulate Self-Driven Particles System with Coordinated Policy Optimization</em>. Advances in Neural Information Processing Systems. 2021. <a href="#cite-peng2021learning">↩</a></li>
+
+<li id="ref-peng2021safe">Peng, Zhenghao and Li, Quanyi and Liu, Chunxiao and Zhou, Bolei. <em>Safe Driving via Expert Guided Policy Optimization</em>. 5th Annual Conference on Robot Learning. 2021. <a href="#cite-peng2021safe">↩</a></li>
+
+<li id="ref-li2021efficient">Li, Quanyi and Peng, Zhenghao and Zhou, Bolei. <em>Efficient Learning of Safe Driving Policy via Human-AI Copilot Optimization</em>. International Conference on Learning Representations. 2021. <a href="#cite-li2021efficient">↩</a></li>
+
+<li id="ref-aradi2020survey">Aradi, Szilard. <em>Survey of deep reinforcement learning for motion planning of autonomous vehicles</em>. IEEE Transactions on Intelligent Transportation Systems. 2020. <a href="#cite-aradi2020survey">↩</a></li>
+
+<li id="ref-brunke2021safe">Brunke, Lukas and Greeff, Melissa and Hall, Adam W and Yuan, Zhaocong and Zhou, Siqi and Panerati, Jacopo and Schoellig, Angela P. <em>Safe learning in robotics: From learning-based control to safe reinforcement learning</em>. Annual Review of Control, Robotics, and Autonomous Systems. 2021. <a href="#cite-brunke2021safe">↩</a></li>
+
+</ol>
 
 
-        </div>
-        <div class="side-doc-outline">
-            <div class="side-doc-outline--content"> 
-<div class="localtoc">
-    <p class="caption">
-      <span class="caption-text">Table Of Contents</span>
-    </p>
-    <ul>
-<li><a class="reference internal" href="#">17.1. 机器人系统概述</a><ul>
-<li><a class="reference internal" href="#id6">17.1.1. 感知系统</a><ul>
-<li><a class="reference internal" href="#id11">17.1.1.1. 物体检测与语义分割</a></li>
-<li><a class="reference internal" href="#slam">17.1.1.2. 即时定位与建图（SLAM）</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id19">17.1.2. 规划系统</a></li>
-<li><a class="reference internal" href="#id29">17.1.3. 控制系统</a><ul>
-<li><a class="reference internal" href="#id30">17.1.3.1. 线性二次控制</a></li>
-<li><a class="reference internal" href="#id31">17.1.3.2. 模型预测控制</a></li>
-<li><a class="reference internal" href="#id32">17.1.3.3. 控制系统的稳定性分析</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id34">17.1.4. 在机器人项目中安全的应用机器学习</a><ul>
-<li><a class="reference internal" href="#id35">17.1.4.1. 确保安全性的办法：风险评估和独立的安全系统</a><ul>
-<li><a class="reference internal" href="#id36">17.1.4.1.1. 风险评估</a></li>
-<li><a class="reference internal" href="#id37">17.1.4.1.2. 独立的安全系统</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id38">17.1.4.2. 机器学习系统的伦理问题</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+                    </main>
 
-</div>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_rl_sys/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_rl_sys/ros.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
             </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_rl_sys/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_rl_sys/ros.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
         </div>
 
-      <div class="clearer"></div>
-    </div><div class="pagenation">
-     <a id="button-prev" href="index.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
-         <i class="pagenation-arrow-L fas fa-arrow-left fa-lg"></i>
-         <div class="pagenation-text">
-            <span class="pagenation-direction">Previous</span>
-            <div>17. 机器人系统</div>
-         </div>
-     </a>
-     <a id="button-next" href="ros.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
-         <i class="pagenation-arrow-R fas fa-arrow-right fa-lg"></i>
-        <div class="pagenation-text">
-            <span class="pagenation-direction">Next</span>
-            <div>17.2. 通用机器人操作系统</div>
-        </div>
-     </a>
-  </div>
-        
-        </main>
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
     </div>
-  </body>
+    </body>
 </html>
