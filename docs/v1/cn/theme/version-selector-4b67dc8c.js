@@ -22,7 +22,7 @@
     var docsMatch = path.match(/^(\/docs\/)/);
     if (docsMatch) root = docsMatch[1];
 
-    var p = docsRoot;
+    var p = root;
     if (version === "v1") p += "v1/";
     if (lang === "zh") p += "cn/";
     return p;
