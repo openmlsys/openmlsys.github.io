@@ -1,0 +1,812 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Machine Learning Systems: Design and Implementation (1st Edition)</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-366ed487.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-030d3c28.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="machine-learning-systems-design-and-implementation-1st-edition"><a class="header" href="#machine-learning-systems-design-and-implementation-1st-edition">Machine Learning Systems: Design and Implementation (1st Edition)</a></h1>
+<pre><code class="language-eval_rst">.. raw:: html
+   :file: frontpage.html
+</code></pre>
+<pre><code class="language-toc">:maxdepth: 2
+:numbered:
+
+chapter_preface/index
+chapter_introduction/index
+chapter_programming_interface/index
+chapter_computational_graph/index
+
+chapter_preface_advanced/index
+
+chapter_frontend_and_ir/index
+chapter_backend_and_runtime/index
+chapter_accelerator/index
+chapter_data_processing/index
+chapter_model_deployment/index
+chapter_distributed_training/index
+
+chapter_preface_extension/index
+
+chapter_recommender_system/index
+chapter_federated_learning/index
+chapter_reinforcement_learning/index
+chapter_explainable_AI/index
+chapter_rl_sys/index
+
+</code></pre>
+<pre><code class="language-toc">:maxdepth: 1
+
+appendix_machine_learning_introduction/index
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="preface"><a class="header" href="#preface">Preface</a></h1>
+<h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p>In 2020, I joined the School of Informatics at the University of Edinburgh, which is considered one of the birthplaces of Artificial Intelligence (AI) research. The university offers machine learning courses that cover a wide range of topics, including natural language processing, computer vision, and computational neuroscience. Additionally, the university is well-known for providing a complete series of fundamental courses on computer systems, such as operating systems, programming languages, compilers, and computer architecture. However, when I asked my students about how computer systems are utilized to deploy and accelerate computation in machine learning, many of them appeared puzzled. This led me to contemplate whether the University of Edinburgh, along with other universities worldwide, should expand their curricula by adding a course that bridges the gap between machine learning and computer systems.</p>
+<p>Initially, my idea was to expand an existing course. At the time, the “AI Systems” course at the University of California, Berkeley was particularly popular. It explored various research directions in machine learning systems, with an emphasis on studying research papers. Unfortunately, many of these papers did not stand the test of time, and the course did not provide a comprehensive architectural overview of the knowledge. Consequently, students were unable to gain a complete understanding of the subject or learn how to construct a machine learning system from scratch. I then looked to other universities, where I discovered that the University of Washington offered a brief course called “Deep Learning Systems,” which focused on the compilation process of machine learning programs. However, the course primarily centered around Apache TVM, a compiler stack for deep learning systems, and lacked a systematic introduction to machine learning systems. Stanford University also had a course in this area, “Machine Learning Systems Design,” but it focused on topics such as data cleansing, management, and annotation, as databases were the course designer’s primary expertise.</p>
+<p>In my search for a suitable course, I expanded my scope to Microsoft Research Asia. Their “AI Systems” course seemed like the closest match to my expectations at the time, as it elaborated on the design concepts of machine learning systems. However, as I prepared to teach it to undergraduates, I realized that it provided only a general introduction to the core design concepts of machine learning systems and assumed students had a solid foundational knowledge of computer systems. It was better suited for doctoral students than undergraduates. In fact, all the courses I previously mentioned focused on studying research papers rather than on easily comprehensible textbooks that provide a clear knowledge map. Consequently, the materials involved in these courses were filled with scattered ideas, creating significant obstacles for students attempting to learn about machine learning systems.</p>
+<p>On the flip side, 2020 was a year in which we saw the emergence of excellent course materials, providing fundamental knowledge about operating systems, databases, distributed systems, and even machine learning algorithms. However, it remained difficult to find a textbook that systematically introduces machine learning systems. Many enterprise and university labs needed to expend significant resources in order to train students and engineers from scratch and enhance their understanding of the fundamental architecture of machine learning systems. The absence of such textbooks presented a huge challenge in developing academic and industry talent. Against this backdrop, the idea of writing a textbook on machine learning systems began to take shape in my mind.</p>
+<h2 id="beginning"><a class="header" href="#beginning">Beginning</a></h2>
+<p>When I shared this idea with my friends, they recognized the immense value of writing such a textbook. However, the preparation and writing process involved could be a daunting uphill battle. My postdoctoral mentor advised me to focus on publishing high-impact papers at the beginning of my faculty career instead of spending significant amounts of time and energy on a book that may not even be published. Other professors preferred to revise existing textbooks rather than write new ones, particularly in the field of machine learning systems, which evolve rapidly through a process of trial and error. Even if a new book were published, it may become obsolete quickly due to technological advancements over time.</p>
+<p>Despite encountering several obstacles, the idea of writing a textbook on machine learning systems did not fade away until I went to China for a holiday and spoke with Xuefeng Jin, the architect of MindSpore. We first met in London around Christmas time in 2019 when he was leading the development of MindSpore 1.0, which had yet to be launched. We became acquainted through our mutual interest in the development of machine learning systems. In 2018, I co-built a new machine learning framework from scratch, similar to PyTorch, with my colleagues. Although the project ended due to insufficient resources, the experience motivated me to publish several papers on machine learning systems. Xuefeng and I both recognized how challenging it was to develop AI systems and to find experts in machine learning system development. Students often focused more on machine learning algorithms and had only a superficial understanding of key system design principles. They did not realize the significance of these principles until they applied machine learning technologies in practice, but by that point, it was too late to learn them. I shared my idea with Xuefeng about writing a textbook on machine learning systems and anticipated that it might take three to four years to complete. Xuefeng had a similar idea and asked whether he could assist in any way.</p>
+<p>Xuefeng’s offer was enlightening. I started asking myself: why not break the conventional pattern of book writing, which follows the chronicle of discipline development over years by one or two professors. This pattern is similar to the waterfall model in traditional software development, but with technological advancements, software development has evolved to open-source agile development. Therefore, why should book writing follow the outdated approach? A good example of this is the \emph{Deep Dive into Deep Learning} book, compiled by the MXNet open-source community. I immediately invited Hao Dong, an assistant professor at Peking University and co-founder of the TensorLayer open-source community, to collaborate with us. Excited about this prospect, Xuefeng invited his colleague, Zhiliang Gan, to join us. We were committed to creating a new textbook and finally settled down to writing.</p>
+<p>After several rounds of discussion, we named the book <strong>Machine Learning Systems: Design and Implementation</strong>. Our intention was to introduce the time-tested design principles of machine learning systems and share a wealth of system implementation experience, so that students could learn how to analyze and solve problems in future work and scientific research.</p>
+<h2 id="community-building"><a class="header" href="#community-building">Community Building</a></h2>
+<p>Since the field of machine learning systems is an evolving discipline that continually nurtures a variety of research subjects, I pondered how to create an author community to ensure the book’s sustainability. As my research expertise focuses on large-scale software systems, I chose to build a community by referencing several key design points of distributed systems, as follows:</p>
+<ul>
+<li>
+<p><strong>Prevention of single-point failure or bottleneck:</strong>
+Modern distributed systems are typically designed to separate the control plane from the data plane to avoid single-point failure or bottleneck. To ensure the sustainability of the book, we decided to follow this approach and design a highly scalable writing community using a distributed mechanism. The editor spent most of their time searching for excellent, proactive, and responsible chapter owners. Chapter owners then collaborated with other authors to facilitate writing progress on a per-chapter basis, communicating with chapter authors about writing details and adhering to given deadlines. The editor and chapter owners had weekly meetings to synchronize writing progress and ensure that chapter content met the overall expectations of the editor and the community in terms of quality.</p>
+</li>
+<li>
+<p><strong>Iterative improvement:</strong>
+The stochastic gradient descent (SGD) optimization algorithm in deep learning uses local gradients to perform numerous iterations in complex problems and find local optimal solutions. I applied the same principles when designing the iterative improvement process for the book’s quality. Similar to determining initial parameters, we drafted the first edition of the book on Overleaf. Then, we organized the content into a standard Git code repository and established a mechanism to encourage readers and community members to access issues and pull requests (PRs) on GitHub. We also set up comprehensive book building tools, continuous integration tools, and contributor seminars. This enabled us to continually improve the book’s quality, aiming to achieve optimal quality. It was akin to the outcome we achieve in machine learning by following the SGD method.</p>
+</li>
+<li>
+<p><strong>High availability:</strong> We established a 24/7 online writing platform for participants to develop the book and receive feedback from the community in any time zone and language around the world. The Git repository was hosted on GitHub and mirrored on Gitee to ensure high availability of the writing platform.</p>
+</li>
+<li>
+<p><strong>Content neutralization:</strong>  In a distributed system, the equal treatment of each node is crucial for long-term operation, as it allows for a unified approach to rectifying issues. Similarly, in writing a book, we must anticipate potential challenges such as outdated designs or the departure of writers, and mitigate them through collaboration among participants from diverse backgrounds. We emphasize the importance of creating neutral, objective, and inclusive content and ensuring that any issues that arise do not impede progress.</p>
+</li>
+</ul>
+<h2 id="current-situation-and-future-outlook"><a class="header" href="#current-situation-and-future-outlook">Current Situation and Future Outlook</a></h2>
+<p>With the established mechanism, writing progressed smoothly and more participants joined the project.  My former students Xiulong Yuan, Zihan Ding, Yao Fu, Jie Ren, and Wenteng Liang were also dedicated to writing and editing this book. Jiarong Han and Cheng Lai from Peng Cheng Laboratory, along with numerous MindSpore developers all made significant contributions to the book. Many senior designers of machine learning systems also held discussions with us through various channels and provided valuable feedback for the book. In addition, many academic and industry top minds shared their thoughts with us. And worldwide, talented students participated in writing. They included Jiankai Sun from Stanford University, Peiyuan Liao from Carnegie Mellon University, Hanchen Wang from Cambridge University, and Pei Mu from the University of Edinburgh. Kaiyan Xiao, a machine learning expert from GlaxoSmithKline PLC, also became one of the authors. Furthermore, professors Peter Pietzuch from Imperial College London and Lei Chen from Hong Kong University of Science and Technology, among others, provided continuous writing advice to enhance the book’s quality.</p>
+<p>After we implemented the “distributed system” for book writing, the book’s quality has continually improved. When we released the book as an open-source project, the number of participants rapidly increased, coming as a major surprise to us. Driven by the open-source community, the English and Chinese versions of the book have been advanced. This was the first time that I realized the huge benefit of using the idea of distributed systems and the knowledge of machine learning in solving complex problems in real life.</p>
+<p>A single tree is too weak to withstand a sandstorm. Similarly, it was the forest of friends and the power of the community that gave us the courage to take the very first and crucial step in writing this book. I hope that this way of thinking can inspire and help in finding solutions to other complex problems.</p>
+<p>By May 2022, the core authors and editors (Luo Mai, Hao Dong, Xuefeng Jin, and Zhiliang Gan), the book coordinator (Zhipeng Tan), and the following contributors have endeavored to create this book: <strong>Introduction</strong> (Luo Mai, Hao Dong, and Zhiliang Gan), <strong>Programming Model</strong> (Cheng Lai, Luo Mai, and Hao Dong), <strong>Computational Graph</strong> (Jiarong Han, Luo Mai, and Hao Dong), <strong>AI Compiler and Frontend Technology</strong> (Zhibo Liang, Qinghua Zhang, Bingjian Huang, Jianfeng Yu, and Zhiliang Gan), <strong>AI Compiler Backend and Runtime</strong> (Jinjin Chu, Pei Mu, and Fubi Cai), <strong>Hardware Accelerator</strong> (Renwei Zhang, Jie Ren, Wenteng Liang, Chao Liu, Gang Chen, and Mingqi Li), <strong>Data Processing</strong> (Xiulong Yuan), <strong>Model Deployment</strong> (Gangqiang Han, Yehui Tang, Zhiqiang Zhai, and Shanni Li), <strong>Distributed Training</strong> (Luo Mai and Peiyuan Liao) <strong>Federated Learning System</strong> (Tiancheng Wu and Hanchen Wang), <strong>Recommender System</strong> (Yao Fu, Bei Pei, and Luo Mai), <strong>Reinforcement Learning System</strong> (Zihan Ding), <strong>Explainable AI System</strong> (Haoyang Li and Xiaohui Li), and <strong>Robotic System</strong> (Jiankai Sun and Kaiyan Xiao).</p>
+<p>We welcome new contributors to help improve and expand the book’s content. If you’re interested, please contact us through our book’s <a href="https://openmlsys.github.io/html-en/">OpenMLSys Community</a>. Let’s work together to create a machine learning systems book that advances the world.</p>
+<p>Luo Mai</p>
+<p>Edinburgh, United Kingdom</p>
+<p>4th May 2022</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>This chapter aims to provide readers with a comprehensive understanding
+of machine learning systems by describing the applications of machine
+learning and summarizing the design objectives and basic composition
+principles of such systems.</p>
+<pre><code class="language-toc">:maxdepth: 2
+
+Machine_Learning_Applications
+Design_Objectives_of_Machine_Learning_Frameworks
+Machine_Learning_Framework_Architecture
+Application_Scenarios_of_Machine_Learning_Systems
+Book_Organization_and_Intended_Audience
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="programming-model"><a class="header" href="#programming-model">Programming Model</a></h1>
+<p>Machine learning frameworks comprise various components that facilitate
+the efficient development of algorithms, data processing, model
+deployment, performance optimization, and hardware acceleration. When
+designing the application programming interfaces (APIs) for these
+components, a key consideration is striking the right balance between
+framework performance and usability. To achieve optimal performance,
+developers utilize C or C++, as these programming languages enable
+efficient invocation of the APIs provided by the operating system and
+hardware accelerators.</p>
+<p>Regarding usability, machine learning framework users, including data
+scientists, biologists, chemists, and physicists, often possess strong
+industrial backgrounds and are skilled in using high-level scripting
+languages like Python, Matlab, R, and Julia. While these languages offer
+remarkable programming usability, they lack deep optimization
+capabilities for underlying hardware or operating systems compared to C
+and C++. Therefore, the core design objective of machine learning
+frameworks encompasses two aspects: providing easy-to-use APIs for
+implementing algorithms using high-level languages like Python, and
+providing low-level APIs centered around C and C++ to assist framework
+developers in implementing numerous high-performance components and
+efficiently executing them on hardware. This chapter describes
+strategies for achieving this design objective.</p>
+<p>The chapter aims to achieve the following learning objectives:</p>
+<ol>
+<li>
+<p>Understanding the workflows and programming principles of machine
+learning frameworks.</p>
+</li>
+<li>
+<p>Understanding the design of neural network models and layers.</p>
+</li>
+<li>
+<p>Understanding how machine learning frameworks bridge Python and
+C/C++ functions.</p>
+</li>
+<li>
+<p>Understanding the support for functional programming in machine
+learning frameworks.</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Machine_Learning_Workflow
+Neural_Network_Programming
+Functional_Programming
+Bridging_Python_and_C_C++_Functions
+Chapter_Summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="computational-graph"><a class="header" href="#computational-graph">Computational Graph</a></h1>
+<p>In this chapter, we look at the following question: How does a machine
+learning system efficiently execute such a program on hardware? We can
+break this down into three sub-questions: How do we schedule and execute
+the model described by a machine learning program? How do we improve the
+model scheduling and execution efficiency? And can we implement
+automatic gradient computation for updating the model? The key to
+answering these questions is computational graph technology. To explain
+this technology, this chapter explains the following key aspects:</p>
+<ol>
+<li>
+<p>Computational graph basics</p>
+</li>
+<li>
+<p>Generation of static and dynamic computational graphs</p>
+</li>
+<li>
+<p>Common execution methods of computational graphs</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Computational_Graph_Functions
+Computational_Graph_Basics
+Generating_a_Computational_Graph
+Scheduling_and_Executing_Computational_Tasks
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="part-i-framework-design"><a class="header" href="#part-i-framework-design">Part I Framework Design</a></h1>
+<p>:label:<code>part-i-framework-design</code></p>
+<p>In Part 1, we present a top-down approach to designing a machine
+learning framework. We begin by introducing the design of programming
+models for machine learning frameworks, followed by a discussion on
+representing a machine learning program as a computational graph. The
+machine learning program undergoes compilation by an AI compiler, which
+employs a range of frontend and backend techniques. Additionally, we
+will delve into the system components within a machine learning
+framework that facilitate data processing, model deployment, and
+distributed training.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ai-compiler-frontend"><a class="header" href="#ai-compiler-frontend">AI Compiler Frontend</a></h1>
+<p>Tailored for machine learning frameworks, an AI compiler is designed to
+convert Python-based machine learning programs into their optimized
+forms, enabling efficient native execution on heterogeneous processors.
+This chapter first outlines the typical architecture of an AI compiler
+before delving into the design of the compiler’s frontend. The compiler
+frontend incorporates various techniques, including intermediate
+representations (IRs), automatic differentiation, type systems, static
+analysis, and compilation optimization.</p>
+<p>The learning objectives of this chapter include:</p>
+<ul>
+<li>
+<p>Understanding the typical architecture of an AI compiler.</p>
+</li>
+<li>
+<p>Understanding the types and implementation of IRs in machine
+learning frameworks.</p>
+</li>
+<li>
+<p>Understanding the methods of automatic differentiation implemented
+in AI compilers.</p>
+</li>
+<li>
+<p>Understanding type systems and static analysis in AI compilers.</p>
+</li>
+<li>
+<p>Understanding common frontend compilation optimization methods used
+by AI compilers.</p>
+</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview_of_AI_Compilers
+Overview_of_AI_Compiler_Frontends
+Intermediate_Representation
+Automatic_Differentiation
+Type_Systems_and_Static_Analysis
+Frontend_Compilation_Optimization
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ai-compiler-backend"><a class="header" href="#ai-compiler-backend">AI Compiler Backend</a></h1>
+<p>In this chapter, we will explore the design of the AI compiler backend.
+The objective of an AI compiler backend is to enhance the efficiency of
+AI program execution by optimizing the Intermediate Representation (IR)
+generated by the compiler frontend. This optimization enables the full
+utilization of hardware capabilities. The backend achieves this goal by
+applying optimizations to IR code based on hardware capabilities.
+Furthermore, it selects suitable operators based on the capabilities of
+target hardware to execute computations efficiently, while also
+allocating memory to optimize data reuse and locality. Additionally, the
+backend often incorporates an operator compiler, which optimizes the
+execution strategy for code statements associated with operators.</p>
+<p>This chapter aims to achieve the following learning objectives:</p>
+<ul>
+<li>
+<p>Understand the role and architecture of an AI compiler backend.</p>
+</li>
+<li>
+<p>Understand typical methods for optimizing computational graphs.</p>
+</li>
+<li>
+<p>Understand typical methods for selecting operators.</p>
+</li>
+<li>
+<p>Understand typical methods for memory allocation.</p>
+</li>
+<li>
+<p>Understand the architecture and functionalities of operator
+compilers.</p>
+</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Graph_Optimization
+Operator_Selection
+Memory_Allocation
+Operator_Compiler
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hardware-accelerator"><a class="header" href="#hardware-accelerator">Hardware Accelerator</a></h1>
+<p>In the field of AI frameworks, hardware accelerators play a vital role
+in enabling efficient neural network computations. This chapter delves
+into the design of modern hardware accelerators, their programming
+techniques, and the typical approaches to optimize accelerator
+performance.</p>
+<p>This chapter has the following learning objectives:</p>
+<ol>
+<li>
+<p>Understand the architecture of a modern hardware accelerator.</p>
+</li>
+<li>
+<p>Understand the methods of programming hardware accelerators.</p>
+</li>
+<li>
+<p>Understand the typical techniques used to optimize the performance
+of accelerators.</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Components_of_Hardware_Accelerators
+Programming_Methods
+Performance_Optimization_Methods
+Chapter_Summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="data-processing-framework"><a class="header" href="#data-processing-framework">Data Processing Framework</a></h1>
+<p>In the previous two chapters, we introduced the frontend and backend of compilers, elaborating on the optimization process of transforming source programs into target programs. Beyond enabling high-performance execution on accelerator chips during training and inference, we also need to efficiently deliver data to these chips to achieve optimal end-to-end performance. Machine learning model training and inference require loading datasets from storage devices (such as local disks, memory, and remote storage systems), performing a series of processing transformations on the datasets, and sending the processed results to GPUs, Huawei Ascend, or other accelerators for model computation. Performance issues at any step in this pipeline can negatively impact training and inference throughput. In this chapter, we will focus on how to design and implement a data system tailored for machine learning scenarios, helping users easily construct various complex data pipelines while ensuring sufficiently high execution performance so that data preprocessing does not become a performance bottleneck for model training and inference.</p>
+<p>This chapter introduces the data module in machine learning systems from three dimensions: usability, efficiency, and order preservation. In the first two sections, we discuss how to build a user-friendly data module, including how to design programming abstractions that allow users to describe complex preprocessing workflows in just a few lines of code, and how to provide rich built-in operators for usability while flexibly supporting user-defined operators to cover long-tail requirements. After users construct their data processing workflows, the data module is responsible for efficiently scheduling and executing the data pipeline to achieve optimal data processing throughput. Efficiently executing the data pipeline is a challenging task, as we face both I/O performance issues in data loading and computational performance issues in data processing. To address these challenges, we will introduce file format designs for high-throughput data loading, as well as parallel architecture designs that fully leverage multi-core CPU computing power. Moreover, unlike conventional data-parallel computing tasks, most machine learning scenarios have special <code>order preservation</code> requirements for data input and output sequences. We will dedicate a section to introducing what order preservation is and how to design corresponding components within the data module’s parallel architecture to meet this requirement. After studying the above content, readers will gain a deep understanding of how to build an efficient and user-friendly data module for machine learning scenarios. Finally, as extended content, we will draw on practical experience from both academia and industry to introduce how to scale our data processing module to meet training performance requirements when single-machine processing performance is insufficient. The learning objectives of this chapter include:</p>
+<ul>
+<li>
+<p>Understand the key components and their functions in the machine learning data module architecture</p>
+</li>
+<li>
+<p>Understand the design of different data module user programming interfaces</p>
+</li>
+<li>
+<p>Master file format design for high-performance data loading</p>
+</li>
+<li>
+<p>Master the parallel architecture of the data module in machine learning systems</p>
+</li>
+<li>
+<p>Master the concept and solutions for data order preservation in machine learning system data modules</p>
+</li>
+<li>
+<p>Understand two approaches for scaling single-machine data processing performance</p>
+</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+requirements
+program_model
+performance
+data_order
+extension
+summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ch:deploy"><a class="header" href="#ch:deploy">Model Deployment</a></h1>
+<p>In earlier chapters, we discussed the basic components of the machine
+learning model training system. In this chapter, we look at the basics
+of model deployment, a process whereby a trained model is deployed in a
+runtime environment for inference. We explore the conversion from a
+training model into an inference model, model compression methods that
+adapt to hardware restrictions, model inference and performance
+optimization, and model security protection.</p>
+<p>The key aspects this chapter explores are as follows:</p>
+<ol>
+<li>
+<p>Conversion and optimization from a training model to an inference
+model.</p>
+</li>
+<li>
+<p>Common methods for model compression: quantization, sparsification,
+and knowledge distillation.</p>
+</li>
+<li>
+<p>Model inference process and common methods for performance
+optimization.</p>
+</li>
+<li>
+<p>Common methods for model security protection.</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Conversion_to_Inference_Model_and_Model_Optimization
+Model_Compression
+Advanced_Efficient_Techniques
+Model_Inference
+Security_Protection_of_Models
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="distributed-training"><a class="header" href="#distributed-training">Distributed Training</a></h1>
+<p>As the field of machine learning continues to accelerate at a rapid
+pace, it has given rise to increasingly sophisticated models. These
+models are characterized by a staggering quantity of parameters, the
+gigantic size of a training dataset, and highly sophisticated
+structures, which in turn place significant demands on both computing
+and memory resources. Consequently, the limitations of single-machine
+systems have become increasingly apparent, and they no longer suffice
+for training these large machine learning models. This necessitates the
+advent of distributed training systems, designed to alleviate the strain
+on resources.</p>
+<p>In this chapter, we dive deep into the fundamentals, design aspects, and
+practical implementations of distributed machine learning systems. We
+commence our discussion by elucidating what distributed training systems
+entail, followed by an exploration of the rationale behind their design
+and the potential benefits they offer. Subsequently, we scrutinize the
+most commonly adopted methods of distributed training, encompassing data
+parallelism, model parallelism, and pipeline parallelism. Each of these
+methods can typically be implemented via one of two techniques:
+collective communication or parameter servers, both of which come with
+their unique sets of merits and drawbacks.</p>
+<p>The key learning objectives of this chapter are as follows:</p>
+<ol>
+<li>
+<p>Grasping the advantages offered by distributed training systems.</p>
+</li>
+<li>
+<p>Understanding widely-used parallelism methods, namely, data
+parallelism, model parallelism, hybrid parallelism, and pipeline
+parallelism.</p>
+</li>
+<li>
+<p>Comprehending the architecture of a machine learning cluster.</p>
+</li>
+<li>
+<p>Understanding collective communication operators and their
+applications in distributed training systems.</p>
+</li>
+<li>
+<p>Developing an understanding of parameter server architectures.</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Parallelism_Methods
+Pipeline_Parallelism_with_Micro-Batching
+Architecture_of_Machine_Learning_Clusters
+Collective_Communication
+Parameter_Server
+Federated_Learning
+Training_Large_Language_Models
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="part-ii-application-scenarios"><a class="header" href="#part-ii-application-scenarios">Part II Application Scenarios</a></h1>
+<p>:label:<code>part-ii-application-scenarios</code></p>
+<p>In Part II, we will introduce various scenarios of applying machine
+learning frameworks. These scenarios include federated learning systems,
+recommender systems, reinforcement learning systems, and robotic
+systems.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="recommender-system"><a class="header" href="#recommender-system">Recommender System</a></h1>
+<p>Recommender systems serve as intelligent agents, offering suggestions
+for items most relevant to a specific user. To do so, they scrutinize
+data items such as user characteristics, item features, and the
+interactions between the two. Over the past few years, powerhouse
+companies like Google, Facebook, and Alibaba have harnessed deep
+learning technologies to enhance the capabilities of recommender models.
+By deploying deep learning methodologies, these systems are endowed with
+the capability to effectively learn from data through gradient-based
+methods. Moreover, these systems are able to exploit large neural
+networks, including transformers and emerging large language models.
+This, in turn, bolsters the system’s proficiency in dissecting complex,
+multi-modal data.</p>
+<p>In this chapter, we will delve into the foundational elements of deep
+learning recommender systems (DLRSs). We will elucidate key operational
+processes within these systems, primarily focusing on the multi-stage
+generation of recommendations and the updating of model parameters.
+Lastly, we will delve into a real-world recommender system, shedding
+light on strategic approaches used to tackle practical challenges.</p>
+<p>This chapter has the following learning objectives:</p>
+<ol>
+<li>
+<p>Understand the architecture of a recommender system and its
+essential components.</p>
+</li>
+<li>
+<p>Understand multi-stage recommendation and model update in a
+recommender system.</p>
+</li>
+<li>
+<p>Attain insights into the challenges faced by practical recommender
+systems and discover their corresponding solutions.</p>
+</li>
+</ol>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+System_Components
+Recommendation_Pipeline
+Model_Update
+Supporting_Real-time_Machine_Learning
+Chapter_Summary
+Further_Reading
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="federated-learning-systems"><a class="header" href="#federated-learning-systems">Federated Learning Systems</a></h1>
+<p>In this chapter, we introduce an important branch of deep learning — federated learning and its related system knowledge. The learning objectives of this chapter include:</p>
+<ul>
+<li>Master the basic definitions of federated learning and become familiar with existing mainstream open-source federated learning frameworks.</li>
+<li>Understand horizontal federated learning algorithms.</li>
+<li>Understand vertical federated learning algorithms.</li>
+<li>Understand federated learning encryption algorithms.</li>
+<li>Understand cutting-edge federated learning algorithms and future research directions.</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+overview
+horizontal_fl
+vertical_fl
+privacy_encryption_algorithm
+outlook
+summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="reinforcement-learning-system"><a class="header" href="#reinforcement-learning-system">Reinforcement Learning System</a></h1>
+<p>Reinforcement learning (RL) has emerged as a subfield of machine
+learning that focuses on how autonomous agents can learn to make optimal
+decisions through interactions with their environments. By designating
+rewards or penalties for each action taken, RL provides a framework for
+training intelligent systems to maximize cumulative reward over time.</p>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview
+Introduction_to_Reinforcement_Learning
+Single-Node_Reinforcement_Learning_System
+Distributed_Reinforcement_Learning_System
+Multi-agent_Reinforcement_Learning
+Multi-agent_Reinforcement_Learning_System
+Chapter_Summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="explainable-ai-systems"><a class="header" href="#explainable-ai-systems">Explainable AI Systems</a></h1>
+<p>Over the past decade, driven by the cost-performance ratio of computational power and data scale surpassing critical thresholds, connectionist model architectures represented by deep neural networks and statistical learning paradigms (hereinafter referred to as deep learning) have achieved breakthrough advances in feature representation capabilities, greatly advancing the development of artificial intelligence and achieving remarkable results in many scenarios. For example, face recognition accuracy has reached over 97%, and Google’s intelligent voice assistant achieved a 92.9% correct response rate in 2019 tests. In these typical scenarios, deep learning’s intelligent performance has surpassed that of ordinary humans (and even experts), reaching a tipping point for technology replacement. In recent years, in domains where business logic is technology-friendly or where ethical regulations are temporarily sparse—such as security, real-time scheduling, process optimization, competitive gaming, and information feed distribution—artificial intelligence and deep learning have achieved rapid technical and commercial breakthroughs.</p>
+<p>Having tasted success, no domain wants to miss out on the benefits of technological progress. However, when the commercial application of deep learning enters domains that are technology-sensitive and closely related to human survival or safety—such as autonomous driving, finance, healthcare, and judicial high-risk application scenarios—the existing business logic encounters resistance during technology replacement, leading to slowdowns or even failures in commercialization. The root cause is that the business logic and underlying ethical regulations of these scenarios center on stable, traceable accountability and responsibility distribution; yet the models produced by deep learning are black boxes from which we cannot extract any information about model behavior from the model’s structure or weights, rendering the accountability and distribution mechanisms in these scenarios inoperative and causing technical and structural difficulties for AI in business applications. Moreover, model interpretability has attracted national-level attention, with relevant institutions issuing related policies and regulations.</p>
+<p>Therefore, from both the commercial promotion and regulatory perspectives, we need to open up the black box model and provide explanations for models. Explainable AI is precisely the technology that addresses this class of problems.</p>
+<p>The learning objectives of this chapter include:</p>
+<ul>
+<li>
+<p>Understand the goals and application scenarios of explainable AI</p>
+</li>
+<li>
+<p>Master the common types of explainable AI methods and their representative techniques</p>
+</li>
+<li>
+<p>Reflect on the future development of explainable AI methods</p>
+</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+explainable_ai
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="robotic-system"><a class="header" href="#robotic-system">Robotic System</a></h1>
+<p>This chapter introduces robotics — a major direction of machine
+learning — and robotic systems. The key aspects explored in this
+chapter are as follows:</p>
+<ul>
+<li>
+<p>Basic knowledge of robotic systems</p>
+</li>
+<li>
+<p>Robotic perception system, planning system, and control system</p>
+</li>
+<li>
+<p>General Robot Operating System (ROS)</p>
+</li>
+</ul>
+<pre><code class="language-toc">:maxdepth: 2
+
+Overview_of_Robotic_Systems
+Robot_Operating_System
+Case_Study
+Modern_Robot_Learning
+Chapter_Summary
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="appendix-introduction-to-machine-learning"><a class="header" href="#appendix-introduction-to-machine-learning">Appendix: Introduction to Machine Learning</a></h1>
+<p>This book assumes that readers have a basic foundation in machine learning algorithms. Therefore, this chapter only provides a brief introduction to machine learning. Among the topics covered, the gradient descent method is particularly important for understanding machine learning systems and is essential knowledge.</p>
+<pre><code class="language-toc">:maxdepth: 2
+:numbered:
+
+neural_network
+gradient_descent
+classic_machine_learning
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/version-selector-d80632d5.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

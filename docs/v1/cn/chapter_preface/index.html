@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>前言 - 机器学习系统：设计和实现（第一版）</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-dda61407.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">机器学习系统：设计和实现（第一版）</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="前言"><a class="header" href="#前言">前言</a></h1>
+<h2 id="缘起"><a class="header" href="#缘起">缘起</a></h2>
+<p>我在2020年来到了爱丁堡大学信息学院，爱丁堡大学是AI（Artificial Intelligence, 人工智能）研究的发源地之一，很多学生慕名而来学习机器学习技术。爱丁堡大学拥有许多出色的机器学习课程（如自然语言处理、计算机视觉、计算神经学等），同时也拥有一系列关于计算机系统的基础课程（如操作系统、编程语言、编译器、计算机体系架构等）。但是当我在教学的过程中问起学生：机器学习是如何利用计算机系统实现计算加速和部署？许多学生会投来疑惑的眼神。这促使我思考在爱丁堡大学乃至于其他世界顶尖大学的教学大纲中，是不是缺一门衔接机器学习和计算机系统的课程。</p>
+<p>我的第一反应是基于一门已有的课程来进行拓展。那时，加州大学伯克利分校的AI Systems（人工智能系统）课程较为知名。这门课描述了机器学习系统的不同研究方向，内容以研读论文为主。可惜的是，许多论文已经无法经受住时间的检验。更重要的是，这门课缺乏对于知识的整体梳理，未能形成完整的知识体系架构。学习完这门课程，学生未能对于从头搭建机器学习系统有明确的思路。我将目光投向其他学校，华盛顿大学曾短期开过Deep Learning Systems（深度学习系统）课程，这门课程讲述了机器学习程序的编译过程。而由于这门课程以讲述Apache TVM深度学习编译器为主要目的，对于机器学习系统缺乏完整的教学。另外，斯坦福大学的课程Machine Learning Systems Design（机器学习系统设计）因为课程设计人的研究领域以数据库为主，因此该课程专注于数据清洗、数据管理、数据标注等主题。</p>
+<p>当时觉得比较合适的是微软亚洲研究院的AI Systems课程。这门课程讲述了机器学习系统背后的设计理念。但是当我准备将其教授给本科生的时候，我发现这门课对于机器学习系统核心设计理念讲解得很浅，同时要求学生有大量计算机系统的背景知识，实际上它更适合教授给博士生。上述的课程共同问题是：其课程结构都以研读相关论文为主，因此教授的内容都是高深和零散的，而不是通俗易懂，知识脉络清晰的教科书，这给学习机器学习系统造成了极大的困难。</p>
+<p>回首2020年，我们已经拥有了优秀的操作系统、数据库、分布式系统等基础性教材。同时，在机器学习相关算法方面也有了一系列教材。然而，无论是国内外，我很难找到一本系统性讲述机器学习系统的教材。因此，许多公司和高校实验室不得不花费大量的人力和物力从头培养学生和工程师，使他们加强对于机器学习底层基础设施的认识。这类教材的缺乏已经制约了高校的人才培养，不利于高校培养出符合业界学界和时代发展的人才了。因此，我开始思考：我们是不是应该推出一本机器学习系统的教科书了呢？</p>
+<h2 id="开端"><a class="header" href="#开端">开端</a></h2>
+<p>带着写书的构想，我开始和朋友沟通。大家都非常认可编写这类书的巨大价值，但是现实的情况是：很少有人愿意做这么一件费力的事情。我当时的博士后导师也劝我：你现在处在教职生涯的初期，追求高影响力的学术论文是当务之急，写一本书要耗费大量的时间和精力，最后可能也无法出版面世。而我和同行交流时也发现：他们更愿意改进市面上已经有的教科书，即做有迹可循的事情，而不是摸着石头过河，做从无到有的事情。特别是对于机器学习系统这个快速发展，频繁试错的领域，能不能写出经受时间检验的书也是一个未知数。</p>
+<p>考虑到写作的巨大挑战，我将写书的想法藏于心中，直到一次回国和MindSpore的架构师金雪锋聊天。和雪锋的相识大约是在2019年的圣诞节，雪锋来伦敦访问，他正在领导MindSpore的开发（当时MindSpore 1.0还没有发布）。而对于机器学习系统的开发，我也有很深的兴趣。我在2018年也和好友一起从头搭建一个机器学习框架（类似于PyTorch），虽然最终资源不足无疾而终，不过许多的思考成就了我之后发表的多篇机器学习系统论文。和雪锋聊起来，我们都对AI系统开发之难深有同感。我们共同的感慨就是：找到懂机器学习系统开发的人太难了。现今的学生都一心学习机器学习算法，很多学生对于底层的运作原理理解得很浅。而当他们在实际中应用机器学习技术时才意识到系统的重要性，那时想去学习，却没有了充沛的学习时间。我对雪锋苦笑道：“我是准备写一本机器学习系统教材的，但是可能还要等3，4年才能完成。” 雪锋说：“我也有这个想法啊。你要是写的话，我能帮助到你吗？”</p>
+<p>这句话点醒了我。传统的图书写作，往往依赖于一，两个教授将学科十余年的发展慢慢总结整理成书。这种模式类似于传统软件开发的瀑布流方式。可是，在科技的世界，这已经变了！软件的发展从传统的瀑布流进化到如今的开源敏捷开发。而图书的写作为什么还要停留在传统方式呢？MXNet开源社区编写的专注于深度学习算法的图书<em>Deep Dive into Deep Learning</em>就是一个很好的例子啊。我因此马上找到当年一起创立TensorLayer开源社区的小伙伴：北京大学的董豪，我们一拍即合，说干就干。雪锋也很高兴我和董豪愿意开始做这件事，也邀请了他的同事干志良来帮忙。我们终于开始图书的写作了！</p>
+<p>经过几轮的讨论，我们将书名定为《机器学习系统：设计和实现》。我们希望通过教给学生机器学习系统设计原理，同时也为学生提供大量的系统实现经验分享，让他们在将来工作和科研中遇到实际问题知道该如何分析和解决。</p>
+<h2 id="社区的构建"><a class="header" href="#社区的构建">社区的构建</a></h2>
+<p>考虑到机器学习系统本身就是一个不断发展并且孕育细分领域的学科。我从一开始就在思考：如何设计一个可扩展（Scalable）的社区架构保证这本书的可持续发展呢？因为我专注于大规模软件系统，故决定借鉴几个分布式系统的设计要点构建社区：</p>
+<ul>
+<li>
+<p><strong>预防单点故障和瓶颈</strong>：现代分布式系统往往采用控制层和数据层分离的设计避免单点故障和瓶颈。那么我们在设计高度可扩展的写作社区的时候也要如此。因此，我们设计了如下分布式机制：编辑决定花最多的时间来寻找优秀的、主动的、负责任的书稿章节负责人。章节负责人可以进一步寻找其他作者共同协作。章节负责人和章节作者进行密切的沟通，按照给定时间节点，全速异步推进。编辑和章节负责人设定了每周讨论同步写作的进展，确保并行完成的章节内容质量能够持续符合编辑和社区的整体预期。</p>
+</li>
+<li>
+<p><strong>迭代式改进</strong>：深度学习的优化算法随机梯度下降本质上是在复杂问题中利用局部梯度进行海量迭代，最终找到局部最优解。因此我利用了同样的思路设计图书质量的迭代提高。我们首先在Overleaf上写作好书籍的初版（类似于初始参数）。接下来，将图书的内容做成标准的Git代码仓库。建立机制鼓励开源社区和广大读者开启GitHub问题（Issue）和拉取请求（Pull Request，PR），持续改进图书质量，而我们设置好完善的书籍构建工具、持续集成工具、贡献者讨论会等，就可以让图书的质量持续提高实现随机梯度下降（Stochastic Gradient Descent）一样的结果最优性。</p>
+</li>
+<li>
+<p><strong>高可用性</strong>：构建7 $\times$ 24小时在线的写作平台，让图书参与者可以在全球任何时区、任何语言平台下都能参与开发图书，倾听社区的反馈。因此将Git仓库放置在GitHub上，并准备之后在Gitee做好镜像。这样，就搭建了一套高可用的写作平台了。</p>
+</li>
+<li>
+<p><strong>内容中立</strong>：一个分布式系统要能长久运行，其中的每一个节点都要同等对待，遇到故障才能用统一的办法进行故障恢复。考虑到图书写作中的故障（设计无法经受时间检验，写作人中途不得不退出等）可能来源于方方面面，我们让不同背景的参与者共同完成每一个章节，确保写出中立、客观、包容的内容，并且写作不会因为故障而中断。</p>
+</li>
+</ul>
+<h2 id="现状和未来"><a class="header" href="#现状和未来">现状和未来</a></h2>
+<p>机制一旦建立好，写作就自动化地跑起来了，参与者也越来越多，我带过的学生袁秀龙、丁子涵、符尧、任杰、梁文腾也很用心参与编写，董豪邀请了鹏城实验室的韩佳容和赖铖，志良邀请了许多MindSpore的小伙伴进来做贡献，许多资深的机器学习系统设计者也和我们在各个渠道展开讨论，提供了非常多宝贵的写作建议。另外，学界和产业界的反响也很热烈。海外很多优秀的学生（斯坦福大学的孙建凯、卡耐基梅隆大学的廖培元、剑桥大学的王瀚宸、爱丁堡大学的穆沛），产业界的朋友（英国葛兰素史克公司机器学习团队的肖凯严）都加入了我们的写作。同时，学界的教授（英国伦敦帝国理工学院的Peter Pietzuch教授、香港科技大学的陈雷教授等）也持续给我们提供了写作意见，改进了图书质量。</p>
+<p>充分发动了“分布式系统”的力量后，图书的内容得以持续高质量地添加。当我们开源了图书以后，图书的受众快速增长，GitHub上关注度的增长让我们受宠若惊。在社区的推动下，图书的中文版、英文版、阿拉伯语版都已经开始推进。这么多年来，我第一次意识到我在分布式系统和机器学习中学习到的知识，在解决现实复杂问题的时候是如此的有用！</p>
+<p>很多时候，当我们面对未知而巨大的困难时，个人的力量真的很渺小。而和朋友、社区一起就变成了强大的力量，让我们鼓起勇气，走出了最关键的第一步！希望我的一些思考，能给其他复杂问题的求解带来一些小小的启发。</p>
+<p>截止2022年5月，本书已经拥有了以下贡献者参与了各章节的编写：<strong>导论</strong>（麦络、董豪、干志良）、<strong>编程模型</strong>（赖铖、麦络、董豪）、<strong>计算图</strong>（韩佳容、麦络、董豪）、<strong>AI编译器和前端技术</strong>（梁志博、张清华、黄炳坚、余坚峰、干志良）、<strong>AI编译器后端和运行时</strong>（褚金锦、穆沛、蔡福璧）、<strong>硬件加速器</strong>（张任伟、任杰、梁文腾、刘超、陈钢、黎明奇）、<strong>数据处理</strong>（袁秀龙）、<strong>模型部署</strong>（韩刚强、唐业辉、翟智强、李姗妮）、<strong>分布式训练</strong>（麦络、廖培元）、<strong>联邦学习系统</strong>（吴天诚、王瀚宸）、<strong>推荐系统</strong>（符尧、裴贝、麦络）、<strong>强化学习系统</strong>（丁子涵）、<strong>可解释AI系统</strong>（李昊阳、李小慧）、<strong>机器人系统</strong>（孙建凯、肖凯严）。</p>
+<p>最后，我们非常欢迎新成员的加入以提升书籍质量，扩展内容。感兴趣的读者可以通过书籍的<a href="https://github.com/openmlsys/">OpenMLSys社区</a> 联系我们。我们非常期待和大家一起努力，编写出一本推动业界发展的机器学习系统图书！</p>
+<p>麦络</p>
+<p>英国爱丁堡</p>
+<p>2022年5月4日</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_introduction/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_introduction/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-d80632d5.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
