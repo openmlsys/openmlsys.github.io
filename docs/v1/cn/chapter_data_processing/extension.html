@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+            window.path_to_searchindex_js = "../searchindex-ae786687.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -221,7 +221,7 @@ ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevi
 // 执行数据处理流水
 ret = preprocessor(image, &amp;image);
 </code></pre>
-<p>相比较Dvpp只支持图像的部分预处理操作，英伟达公司研发的DALI :cite:<code>nvidia_dali</code>是一个更加通用的基于GPU的数据预处理加速框架。DALI中包含如下三个核心概念：</p>
+<p>相比较Dvpp只支持图像的部分预处理操作，英伟达公司研发的DALI [nvidia_dali]是一个更加通用的基于GPU的数据预处理加速框架。DALI中包含如下三个核心概念：</p>
 <ul>
 <li>
 <p>DataNode:表示一组Tensor的集合</p>
@@ -234,15 +234,10 @@ ret = preprocessor(image, &amp;image);
 </li>
 </ul>
 <p>实际使用中用户通过设置算子的运行模式(mode)来配置算子的计算是用CPU还是GPU完成计算，同时DALI中有如下限制：当一个算子为mixed模式或者gpu模式时，其所有的下游算子强制要求必须为gpu模式执行。</p>
-<dl>
-<dt id=""><a class="header" href="#"><img src="../img/ch07/7.5/dali_overview.png" alt="NVIDIA DALI概览"></a></dt>
-<dd>
-<p>width:<code>800px</code></p>
-</dd>
-<dd>
-<p>label:<code>dali_overview</code></p>
-</dd>
-</dl>
+<p><a id="dali_overview"></a></p>
+<p><img src="../img/ch07/7.5/dali_overview.png" alt="NVIDIA DALI概览"></p>
+<p align="center">图8.5.1 NVIDIA DALI概览</p>
+
 <p>下面展示一段使用DALI构建数据处理流水线的示例代码，我们从文件中读取图片数据经过混合模式的解码再经过运算在GPU上的旋转和缩放算子处理后返回给用户处理
 结果。由于其展示出的优异性能，
 DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。</p>
@@ -261,15 +256,10 @@ outputs = pipe.run()
 </code></pre>
 <h3 id="基于分布式的数据预处理"><a class="header" href="#基于分布式的数据预处理">基于分布式的数据预处理</a></h3>
 <p>分布式数据预处理是另一种解决CPU算力性能不足的可选方案。一种常见的做法是借助Spark、Dask等现有大数据计算框架进行数据预处理并将结果写入分布式文件系统，而训练的机器只需要读取预处理的结果数据并进行训练即可。</p>
-<dl>
-<dt id="-1"><a class="header" href="#-1"><img src="../img/ch07/7.5/distribute.png" alt="基于第三方分布式计算框架的分布式数据预处理"></a></dt>
-<dd>
-<p>width:<code>800px</code></p>
-</dd>
-<dd>
-<p>label:<code>distributed_data_preprocess_based_on_3rd_party_software</code></p>
-</dd>
-</dl>
+<p><a id="distributed_data_preprocess_based_on_3rd_party_software"></a></p>
+<p><img src="../img/ch07/7.5/distribute.png" alt="基于第三方分布式计算框架的分布式数据预处理"></p>
+<p align="center">图8.5.2 基于第三方分布式计算框架的分布式数据预处理</p>
+
 <p>该方案虽然在业内被广泛使用，却面临着三个问题：</p>
 <ul>
 <li>
@@ -283,7 +273,7 @@ outputs = pipe.run()
 </li>
 </ul>
 <p>为了更适配机器学习场景的数据预处理，分布式机器学习框架Ray借助其自身的任务调度能力实现了简单的分布式的数据预处理——
-Ray Dataset :cite:<code>moritz2018ray</code>，由于数据预处理和训练处在同一个框架内，在降低了用户的编程负担的同时也通过数据的零拷贝共享消除了序列化/反序列化带来的额外开销。Ray Dataset支持如map、batch、map、filter等简单并行数据集变换算子、以及如mean等一些基础的聚合操作算子。同时Ray
+Ray Dataset [moritz2018ray]，由于数据预处理和训练处在同一个框架内，在降低了用户的编程负担的同时也通过数据的零拷贝共享消除了序列化/反序列化带来的额外开销。Ray Dataset支持如map、batch、map、filter等简单并行数据集变换算子、以及如mean等一些基础的聚合操作算子。同时Ray
 Dataset也支持排序、随机打乱、GroupBy等全局混洗操作，该方案目前处在研究开发中，还未被广泛的采用，感兴趣的读者可以翻阅相关资料进一步的了解。</p>
 <pre><code class="language-python"> ray.data.read_parquet("foo.parquet") \
     .filter(lambda x: x &lt; 0) \

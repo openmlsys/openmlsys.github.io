@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+            window.path_to_searchindex_js = "../searchindex-ae786687.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -315,7 +315,7 @@ from std_msgs.msg import String
         timer_period = 1.
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.count = 0
-    
+
     def timer_callback(self):
         msg = String()
         msg.data = f'Hello World: {self.count}'
@@ -333,7 +333,6 @@ from std_msgs.msg import String
     rclpy.spin(hello_world_node)
     hello_world_node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
@@ -379,7 +378,6 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
-
 class MessageSubscriber(Node):
 
     def __init__(self):
@@ -387,10 +385,9 @@ class MessageSubscriber(Node):
         self.msg_subscriber = self.create_subscription(
             String, 'hello_world_topic', self.subscriber_callback, 10
         )
-    
+
     def subscriber_callback(self, msg):
         self.get_logger().info(f'Received "{msg.data}"')
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -398,7 +395,6 @@ def main(args=None):
     rclpy.spin(message_subscriber)
     message_subscriber.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == "__main__":
     main()
@@ -426,7 +422,6 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
-
 class ParametrisedHelloWorldNode(Node):
 
     def __init__(self):
@@ -436,7 +431,7 @@ class ParametrisedHelloWorldNode(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.count = 0
         self.declare_parameter('name', 'world')
-    
+
     def timer_callback(self):
         name = self.get_parameter('name').get_parameter_value().string_value
         msg = String()
@@ -445,14 +440,12 @@ class ParametrisedHelloWorldNode(Node):
         self.get_logger().info(f'Publishing: "{msg.data}"')
         self.count += 1
 
-
 def main(args=None):
     rclpy.init(args=args)
     hello_world_node = ParametrisedHelloWorldNode()
     rclpy.spin(hello_world_node)
     hello_world_node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
@@ -541,7 +534,6 @@ colcon build --packages-select my_interfaces
 import rclpy
 from rclpy.node import Node
 
-
 class ConcatTwoStrService(Node):
 
     def __init__(self):
@@ -554,14 +546,12 @@ class ConcatTwoStrService(Node):
 
         return response
 
-
 def main(args=None):
     rclpy.init(args=args)
     concat_two_str_service = ConcatTwoStrService()
     rclpy.spin(concat_two_str_service)
     concat_two_str_service.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
@@ -578,7 +568,6 @@ from my_interfaces.srv import ConcatTwoStr
 import rclpy
 from rclpy.node import Node
 
-
 class ConcatTwoStrClientAsync(Node):
 
     def __init__(self):
@@ -592,7 +581,6 @@ class ConcatTwoStrClientAsync(Node):
         self.req.str1 = sys.argv[1]
         self.req.str2 = sys.argv[2]
         self.future = self.cli.call_async(self.req)
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -616,7 +604,6 @@ def main(args=None):
 
     concat_two_str_client_async.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
@@ -675,7 +662,6 @@ from rclpy.node import Node
 
 from my_interfaces.action import MySum
 
-
 class MySumActionServer(Node):
 
     def __init__(self):
@@ -697,14 +683,12 @@ class MySumActionServer(Node):
         result.sum = feedback_msg.sum_so_far
         return result
 
-
 def main(args=None):
     rclpy.init(args=args)
 
     my_sum_action_server = MySumActionServer()
 
     rclpy.spin(my_sum_action_server)
-
 
 if __name__ == '__main__':
     main()
@@ -725,7 +709,6 @@ from rclpy.node import Node
 
 from my_interfaces.action import MySum
 
-
 class MySumActionClient(Node):
 
     def __init__(self):
@@ -742,27 +725,26 @@ class MySumActionClient(Node):
             goal_msg, feedback_callback=self.feedback_callback
         )
         self._send_goal_future.add_done_callback(self.goal_response_callback)
-    
+
     def goal_response_callback(self, future):
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().info('Goal rejected...')
             return
-        
+
         self.get_logger().info('Goal accepted.')
 
         self._get_result_future = goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
-    
+
     def get_result_callback(self, future):
         result = future.result().result
         self.get_logger().info(f'Result: {result.sum}')
         rclpy.shutdown()
-    
+
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
         self.get_logger().info(f'Received feedback: {feedback.sum_so_far}')
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -772,7 +754,6 @@ def main(args=None):
     action_client.send_goal([int(elm) for elm in sys.argv[1:]])
 
     rclpy.spin(action_client)
-
 
 if __name__ == '__main__':
     main()

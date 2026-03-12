@@ -52,7 +52,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-366ed487.js";
+            window.path_to_searchindex_js = "searchindex-a2a854ea.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-030d3c28.js"></script>
@@ -195,39 +195,728 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="machine-learning-systems-design-and-implementation-1st-edition"><a class="header" href="#machine-learning-systems-design-and-implementation-1st-edition">Machine Learning Systems: Design and Implementation (1st Edition)</a></h1>
-<pre><code class="language-eval_rst">.. raw:: html
-   :file: frontpage.html
-</code></pre>
-<pre><code class="language-toc">:maxdepth: 2
-:numbered:
+<style>
+.openmlsys-frontpage {
+  width: 100%;
+  margin: 0 auto 3rem;
+  margin-inline: auto;
+}
+.openmlsys-frontpage-switch-row {
+  margin: 12px 0 0;
+  display: flex;
+  justify-content: center;
+}
+.openmlsys-frontpage-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 82px;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(31, 35, 40, 0.15);
+  background: #f6f8fa;
+  color: #24292f;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 0 rgba(31, 35, 40, 0.04);
+}
+.openmlsys-frontpage-switch:hover {
+  background: #f3f4f6;
+  border-color: rgba(31, 35, 40, 0.2);
+}
+.openmlsys-frontpage .mdl-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.openmlsys-frontpage .mdl-cell {
+  box-sizing: border-box;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.openmlsys-frontpage .mdl-cell--1-col {
+  flex: 0 0 48px;
+}
+.openmlsys-frontpage .mdl-cell--3-col {
+  flex: 0 1 calc(16.666% - 20px);
+  max-width: calc(16.666% - 20px);
+}
+.openmlsys-frontpage .authors.mdl-grid {
+  justify-content: center;
+}
+.openmlsys-frontpage .mdl-cell--5-col {
+  flex: 1 1 calc(41.666% - 24px);
+  max-width: calc(41.666% - 18px);
+}
+.openmlsys-frontpage .mdl-cell--12-col {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+.openmlsys-frontpage .mdl-cell--middle {
+  align-self: center;
+}
+.openmlsys-frontpage .mdl-color-text--primary {
+  color: var(--links, #0b6bcb);
+}
+.openmlsys-frontpage img {
+  max-width: 100%;
+  height: auto;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.openmlsys-frontpage + ul,
+.openmlsys-frontpage + ul ul {
+  max-width: 960px;
+  margin-inline: auto;
+}
+.content main {
+  max-width: min(100%, max(65%, var(--content-max-width)));
+}
+@media (max-width: 1000px) {
+  .openmlsys-frontpage .mdl-cell,
+  .openmlsys-frontpage .mdl-cell--1-col,
+  .openmlsys-frontpage .mdl-cell--3-col,
+  .openmlsys-frontpage .mdl-cell--5-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+</style>
+<div class="openmlsys-frontpage">
+<style>h1, .side-doc-outline  { display: none; } .document .page-content { width: 100%; } h2, h3, h4 { letter-spacing: 2px; } .mdl-grid { align-items: center; justify-content: center; text-align: center; padding: 150px 0 0 0; } h2.toc { padding: 150px 0 0 0; } .header h2 { font-size: 2rem; padding-bottom: 35px; } .header p { font-size: 1.25rem; letter-spacing: 0px; line-height: 1.5rempx; padding-bottom: 10px; } .header .mdl-button { margin: 0px 10px; letter-spacing: 2px; font-size: 16px; margin: 1rem 1.5rem; height: 40px; width: 120px; } .author-item { max-width: 300px; width: 100%; display: flex; flex-direction: column; align-items: center; } .author-item h3 { padding-top: 25px; padding-bottom: 10px; } .author-item img { border-radius: 50%; width: 120px; height: 120px; object-fit: cover; } .authors.mdl-grid { align-items: flex-start; row-gap: calc(24px + 1.5em); } .authors .mdl-cell:not(.author-group-title) { display: flex; align-items: flex-start; justify-content: center; } .author-group-title { display: block; width: 100%; } .author-group-title h3, .author-group-title h4 { width: 100%; margin: 0 0 0.75em; } .author-group-title h4:last-child { margin-bottom: 0; } .authors h4 { width: 100%; } .authors h2 { padding-bottom: 18px; } .running-item  { max-width: 300px; } .running-item img { height: 40px; } .running-item p { padding: 20px; } .running.mdl-grid { padding: 20px 0 0 0; } .logos img { display: inline; max-height: 70px; max-width: 100px; margin-left: auto; margin-right: auto; } .logos { padding-top: 1em; padding-bottom: 2em; } .logos .mdl-grid { padding: 0; } .features .logos .mdl-cell { padding: 10px 0; } .features .mdl-cell { padding: 0 36px; } .features h2, .features-2 h2 { padding-bottom: 24px; } .features-2 p { padding: 0 200px; } .institute.mdl-grid { padding: 24px; } .institute .mdl-cell { text-align: left; padding: 0; } #logoimg { padding-top: 0em; padding-bottom: 2em; width: 100%; } #map { height: 400px; width: 100%; } #mapimg { width: 100%; } a { font-size: normal; } @media (max-width: 1000px) { .mdl-grid, h2.toc { padding: 50px 0 0 0; } .header img, .features-2 img { max-width: 300px; } .header .mdl-cell--1-col { display: none; } .features img { max-width: 350px; } .features-2 p { padding: 0 24px; } .features .mdl-cell { padding: 0 8px; } } .collapsible { background-color: #EEE; color: black; cursor: pointer; padding: 6px; width: 100%; border: none; text-align: left; outline: none; font-size: 16px; } .collapsible-active, .collapsible:hover { background-color: #DDD; } .expansion { padding: 3px 6px; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; } .cover h2 { font-size: 24px; margin-bottom: 0px; padding-bottom: 20px; } .cover p.version { font-size: 18px; padding: 0 0 9px 0; } .cover p { margin: 0; padding:  20px 0 0px 0; font-size: 20px; }</style>
+<div class="mdl-grid header">
+  
+<div class="mdl-cell mdl-cell--3-col">
+    <img src="static/image/logo.png" class="img-fluid" alt="">
+  </div>
 
-chapter_preface/index
-chapter_introduction/index
-chapter_programming_interface/index
-chapter_computational_graph/index
+  
+<div class="mdl-cell mdl-cell--1-col">
+  </div>
 
-chapter_preface_advanced/index
+  
+<div class="mdl-cell mdl-cell--5-col mdl-cell--middle cover">
+    
+<h2 class="mdl-color-text--primary">Machine Learning Systems: Design and Implementation</h2>
 
-chapter_frontend_and_ir/index
-chapter_backend_and_runtime/index
-chapter_accelerator/index
-chapter_data_processing/index
-chapter_model_deployment/index
-chapter_distributed_training/index
+    
+<p>The first open-source book to comprehensively cover machine learning systems</p>
 
-chapter_preface_extension/index
+    
+<p><a class="github-button" href="https://github.com/openmlsys/openmlsys-zh" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star openmlsys/openmlsys-zh on GitHub">Star</a></p>
 
-chapter_recommender_system/index
-chapter_federated_learning/index
-chapter_reinforcement_learning/index
-chapter_explainable_AI/index
-chapter_rl_sys/index
+    
+<p class="openmlsys-frontpage-switch-row"><a class="openmlsys-frontpage-switch" href="cn">中文</a></p>
 
-</code></pre>
-<pre><code class="language-toc">:maxdepth: 1
+  </div>
 
-appendix_machine_learning_introduction/index
-</code></pre>
+</div>
+
+<div class="authors mdl-grid" id="author">
+  
+<div class="author-group-title mdl-cell mdl-cell--12-col mdl-cell--top">
+  
+<h2>Core Authors</h2>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/1136455?v=4" />
+      
+<h3><a href="https://github.com/luomai">Mai Luo</a></h3>
+
+      
+<p>University of Edinburgh</p>
+
+    </div>
+
+  </div>
+
+    
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/10713581?v=4" />
+      
+<h3><a href="https://github.com/zsdonghao">Hao Dong</a></h3>
+
+      
+<p>Peking University, Peng Cheng Laboratory</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/jinxuefeng.png" />
+      
+<h3>Xuefeng Jin</h3>
+
+      
+<p>MindSpore Architect</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/90942796?v=4" />
+      
+<h3><a href="https://github.com/ganzhiliang">Zhiliang Gan</a></h3>
+
+      
+<p>MindSpore Architect</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="author-group-title mdl-cell mdl-cell--12-col mdl-cell--top">
+  
+<h2>Chapter Authors</h2>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/21324004?v=4" />
+      
+<h3><a href="https://github.com/Laicheng0830">Cheng Lai</a></h3>
+
+      
+<p>Peng Cheng Laboratory</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/73918561?v=4" />
+      
+<h3><a href="https://github.com/hanjr92">Jiarong Han</a></h3>
+
+      
+<p>Peng Cheng Laboratory</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/31511840?v=4" />
+      
+<h3><a href="https://github.com/future-xy">Yao Fu</a></h3>
+
+      
+<p>University of Edinburgh</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/39682259?v=4" />
+      
+<h3><a href="https://github.com/eedalong">Xiulong Yuan</a></h3>
+
+      
+<p>Tsinghua University</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/22659010?v=4" />
+      
+<h3><a href="https://github.com/quantumiracle">Zihan Ding</a></h3>
+
+      
+<p>Princeton University</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/25477396?v=4" />
+      
+<h3><a href="https://github.com/Jiankai-Sun">Jiankai Sun</a></h3>
+
+      
+<p>Stanford University</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/34192321?v=4" />
+      
+<h3><a href="https://liaopeiyuan.com/">Peiyuan Liao</a></h3>
+
+      
+<p>Carnegie Mellon University</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/91313652?v=4" />
+      
+<h3><a href="https://github.com/Went-Liang">Wenteng Liang</a></h3>
+
+      
+<p>Beijing University of Posts and Telecommunications</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/49299030?v=4" />
+      
+<h3><a href="https://github.com/JieRen98">Jie Ren</a></h3>
+
+      
+<p>University of Edinburgh</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/wanghanchen.png" />
+      
+<h3><a href="https://github.com/hansen7">Hanchen Wang</a></h3>
+
+      
+<p>University of Cambridge</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/10811136?v=4" />
+      
+<h3><a href="https://github.com/ds1231h">Pei Mu</a></h3>
+
+      
+<p>University of Edinburgh</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/zhangqinghua.png" />
+      
+<h3>Qinghua Zhang</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/18185293?v=4" />
+      
+<h3>Zhibo Liang</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/20573763?v=4" />
+      
+<h3>Jianfeng Yu</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/5563661?v=4" />
+      
+<h3>Jinjin Chu</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/68210792?v=4" />
+      
+<h3>Fubi Cai</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/zhangrenwei.png" />
+      
+<h3>Renwei Zhang</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/2681256?v=4" />
+      
+<h3>Chao Liu</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/5202350?v=4" />
+      
+<h3>Gang Chen</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/61316635?v=4" />
+      
+<h3>Mingqi Li</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/36526001?v=4" />
+      
+<h3>Gangqiang Han</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/55628940?v=4" />
+      
+<h3>Yehui Tang</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/zhaizhiqiang.png" />
+      
+<h3>Zhiqiang Zhai</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/wutiancheng.png" />
+      
+<h3>Tiancheng Wu</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/59854698?v=4" />
+      
+<h3>Xiaohui Li</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/20376974?v=4" />
+      
+<h3>Haoyang Li</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/17228522?v=4" />
+      
+<h3>Zhipeng Tan</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="https://avatars.githubusercontent.com/u/105415060?v=4" />
+      
+<h3>Shanni Li</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="mdl-cell mdl-cell--3-col mdl-cell--top">
+    
+<div class="author-item">
+      <img src="static/image/guozhijian.png" />
+      
+<h3>Zhijian Guo</h3>
+
+      
+<p>Huawei Engineer</p>
+
+    </div>
+
+  </div>
+
+  
+<div class="author-group-title mdl-cell mdl-cell--12-col mdl-cell--top">
+    
+<h3> Thanks to our <a href="https://github.com/openmlsys/openmlsys-zh/graphs/contributors">contributors</a></h3>
+
+    
+<h3> and everyone who reported valuable <a href="https://github.com/openmlsys/openmlsys-zh/issues">errata and suggestions</a></h3>
+
+    
+<h4><a href="https://github.com/openmlsys/openmlsys-zh">Contribute to this Book</a></h4>
+
+  </div>
+
+</div>
+
+<h2 class="toc">Table of Contents</h2>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("collapsible-active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+</div>
+
+<ul>
+<li>
+<p><a href="#preface">Preface</a></p>
+</li>
+<li>
+<p><a href="#introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#programming-model">Programming Model</a></p>
+</li>
+<li>
+<p><a href="#computational-graph">Computational Graph</a></p>
+</li>
+<li>
+<p><a href="#part-i-framework-design">Part I Framework Design</a></p>
+</li>
+<li>
+<p><a href="#ai-compiler-frontend">AI Compiler Frontend</a></p>
+</li>
+<li>
+<p><a href="#ai-compiler-backend">AI Compiler Backend</a></p>
+</li>
+<li>
+<p><a href="#hardware-accelerator">Hardware Accelerator</a></p>
+</li>
+<li>
+<p><a href="#data-processing-framework">Data Processing Framework</a></p>
+</li>
+<li>
+<p><a href="#ch:deploy">Model Deployment {#ch:deploy}</a></p>
+</li>
+<li>
+<p><a href="#distributed-training">Distributed Training</a></p>
+</li>
+<li>
+<p><a href="#part-ii-application-scenarios">Part II Application Scenarios</a></p>
+</li>
+<li>
+<p><a href="#recommender-system">Recommender System</a></p>
+</li>
+<li>
+<p><a href="#federated-learning-systems">Federated Learning Systems</a></p>
+</li>
+<li>
+<p><a href="#reinforcement-learning-system">Reinforcement Learning System</a></p>
+</li>
+<li>
+<p><a href="#explainable-ai-systems">Explainable AI Systems</a></p>
+</li>
+<li>
+<p><a href="#robotic-system">Robotic System</a></p>
+</li>
+<li>
+<p><a href="#appendix-introduction-to-machine-learning">Appendix: Introduction to Machine Learning</a></p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="preface"><a class="header" href="#preface">Preface</a></h1>
 <h2 id="background"><a class="header" href="#background">Background</a></h2>
@@ -273,14 +962,6 @@ The stochastic gradient descent (SGD) optimization algorithm in deep learning us
 of machine learning systems by describing the applications of machine
 learning and summarizing the design objectives and basic composition
 principles of such systems.</p>
-<pre><code class="language-toc">:maxdepth: 2
-
-Machine_Learning_Applications
-Design_Objectives_of_Machine_Learning_Frameworks
-Machine_Learning_Framework_Architecture
-Application_Scenarios_of_Machine_Learning_Systems
-Book_Organization_and_Intended_Audience
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="programming-model"><a class="header" href="#programming-model">Programming Model</a></h1>
 <p>Machine learning frameworks comprise various components that facilitate
@@ -323,15 +1004,6 @@ C/C++ functions.</p>
 learning frameworks.</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Machine_Learning_Workflow
-Neural_Network_Programming
-Functional_Programming
-Bridging_Python_and_C_C++_Functions
-Chapter_Summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="computational-graph"><a class="header" href="#computational-graph">Computational Graph</a></h1>
 <p>In this chapter, we look at the following question: How does a machine
@@ -353,18 +1025,9 @@ this technology, this chapter explains the following key aspects:</p>
 <p>Common execution methods of computational graphs</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Computational_Graph_Functions
-Computational_Graph_Basics
-Generating_a_Computational_Graph
-Scheduling_and_Executing_Computational_Tasks
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="part-i-framework-design"><a class="header" href="#part-i-framework-design">Part I Framework Design</a></h1>
-<p>:label:<code>part-i-framework-design</code></p>
+<h1 id="part-i-framework-design"><a class="header" href="#part-i-framework-design-1">Part I Framework Design</a></h1>
+<p><a id="part-i-framework-design-1"></a></p>
 <p>In Part 1, we present a top-down approach to designing a machine
 learning framework. We begin by introducing the design of programming
 models for machine learning frameworks, followed by a discussion on
@@ -405,17 +1068,6 @@ in AI compilers.</p>
 by AI compilers.</p>
 </li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview_of_AI_Compilers
-Overview_of_AI_Compiler_Frontends
-Intermediate_Representation
-Automatic_Differentiation
-Type_Systems_and_Static_Analysis
-Frontend_Compilation_Optimization
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-compiler-backend"><a class="header" href="#ai-compiler-backend">AI Compiler Backend</a></h1>
 <p>In this chapter, we will explore the design of the AI compiler backend.
@@ -448,16 +1100,6 @@ execution strategy for code statements associated with operators.</p>
 compilers.</p>
 </li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Graph_Optimization
-Operator_Selection
-Memory_Allocation
-Operator_Compiler
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="hardware-accelerator"><a class="header" href="#hardware-accelerator">Hardware Accelerator</a></h1>
 <p>In the field of AI frameworks, hardware accelerators play a vital role
@@ -478,14 +1120,6 @@ performance.</p>
 of accelerators.</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Components_of_Hardware_Accelerators
-Programming_Methods
-Performance_Optimization_Methods
-Chapter_Summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="data-processing-framework"><a class="header" href="#data-processing-framework">Data Processing Framework</a></h1>
 <p>In the previous two chapters, we introduced the frontend and backend of compilers, elaborating on the optimization process of transforming source programs into target programs. Beyond enabling high-performance execution on accelerator chips during training and inference, we also need to efficiently deliver data to these chips to achieve optimal end-to-end performance. Machine learning model training and inference require loading datasets from storage devices (such as local disks, memory, and remote storage systems), performing a series of processing transformations on the datasets, and sending the processed results to GPUs, Huawei Ascend, or other accelerators for model computation. Performance issues at any step in this pipeline can negatively impact training and inference throughput. In this chapter, we will focus on how to design and implement a data system tailored for machine learning scenarios, helping users easily construct various complex data pipelines while ensuring sufficiently high execution performance so that data preprocessing does not become a performance bottleneck for model training and inference.</p>
@@ -509,16 +1143,25 @@ Chapter_Summary
 <li>
 <p>Understand two approaches for scaling single-machine data processing performance</p>
 </li>
+<li>
+<p><a href="chapter_data_processing/requirements.html">Overview</a></p>
+</li>
+<li>
+<p><a href="chapter_data_processing/program_model.html">Usability Design</a></p>
+</li>
+<li>
+<p><a href="chapter_data_processing/performance.html">Efficiency Design</a></p>
+</li>
+<li>
+<p><a href="chapter_data_processing/data_order.html">Order Preservation Design</a></p>
+</li>
+<li>
+<p><a href="chapter_data_processing/extension.html">Scaling Single-Machine Data Processing Performance</a></p>
+</li>
+<li>
+<p><a href="chapter_data_processing/summary.html">Summary</a></p>
+</li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-requirements
-program_model
-performance
-data_order
-extension
-summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ch:deploy"><a class="header" href="#ch:deploy">Model Deployment</a></h1>
 <p>In earlier chapters, we discussed the basic components of the machine
@@ -546,17 +1189,6 @@ optimization.</p>
 <p>Common methods for model security protection.</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Conversion_to_Inference_Model_and_Model_Optimization
-Model_Compression
-Advanced_Efficient_Techniques
-Model_Inference
-Security_Protection_of_Models
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="distributed-training"><a class="header" href="#distributed-training">Distributed Training</a></h1>
 <p>As the field of machine learning continues to accelerate at a rapid
@@ -600,22 +1232,9 @@ applications in distributed training systems.</p>
 <p>Developing an understanding of parameter server architectures.</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Parallelism_Methods
-Pipeline_Parallelism_with_Micro-Batching
-Architecture_of_Machine_Learning_Clusters
-Collective_Communication
-Parameter_Server
-Federated_Learning
-Training_Large_Language_Models
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="part-ii-application-scenarios"><a class="header" href="#part-ii-application-scenarios">Part II Application Scenarios</a></h1>
-<p>:label:<code>part-ii-application-scenarios</code></p>
+<h1 id="part-ii-application-scenarios"><a class="header" href="#part-ii-application-scenarios-1">Part II Application Scenarios</a></h1>
+<p><a id="part-ii-application-scenarios-1"></a></p>
 <p>In Part II, we will introduce various scenarios of applying machine
 learning frameworks. These scenarios include federated learning systems,
 recommender systems, reinforcement learning systems, and robotic
@@ -655,35 +1274,44 @@ recommender system.</p>
 systems and discover their corresponding solutions.</p>
 </li>
 </ol>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-System_Components
-Recommendation_Pipeline
-Model_Update
-Supporting_Real-time_Machine_Learning
-Chapter_Summary
-Further_Reading
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="federated-learning-systems"><a class="header" href="#federated-learning-systems">Federated Learning Systems</a></h1>
 <p>In this chapter, we introduce an important branch of deep learning — federated learning and its related system knowledge. The learning objectives of this chapter include:</p>
 <ul>
-<li>Master the basic definitions of federated learning and become familiar with existing mainstream open-source federated learning frameworks.</li>
-<li>Understand horizontal federated learning algorithms.</li>
-<li>Understand vertical federated learning algorithms.</li>
-<li>Understand federated learning encryption algorithms.</li>
-<li>Understand cutting-edge federated learning algorithms and future research directions.</li>
+<li>
+<p>Master the basic definitions of federated learning and become familiar with existing mainstream open-source federated learning frameworks.</p>
+</li>
+<li>
+<p>Understand horizontal federated learning algorithms.</p>
+</li>
+<li>
+<p>Understand vertical federated learning algorithms.</p>
+</li>
+<li>
+<p>Understand federated learning encryption algorithms.</p>
+</li>
+<li>
+<p>Understand cutting-edge federated learning algorithms and future research directions.</p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/overview.html">Overview</a></p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/horizontal_fl.html">Horizontal Federated Learning</a></p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/vertical_fl.html">Vertical Federated Learning</a></p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/privacy_encryption_algorithm.html">Privacy Encryption Algorithms</a></p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/outlook.html">Outlook</a></p>
+</li>
+<li>
+<p><a href="chapter_federated_learning/summary.html">Summary</a></p>
+</li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-overview
-horizontal_fl
-vertical_fl
-privacy_encryption_algorithm
-outlook
-summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="reinforcement-learning-system"><a class="header" href="#reinforcement-learning-system">Reinforcement Learning System</a></h1>
 <p>Reinforcement learning (RL) has emerged as a subfield of machine
@@ -691,16 +1319,6 @@ learning that focuses on how autonomous agents can learn to make optimal
 decisions through interactions with their environments. By designating
 rewards or penalties for each action taken, RL provides a framework for
 training intelligent systems to maximize cumulative reward over time.</p>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview
-Introduction_to_Reinforcement_Learning
-Single-Node_Reinforcement_Learning_System
-Distributed_Reinforcement_Learning_System
-Multi-agent_Reinforcement_Learning
-Multi-agent_Reinforcement_Learning_System
-Chapter_Summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="explainable-ai-systems"><a class="header" href="#explainable-ai-systems">Explainable AI Systems</a></h1>
 <p>Over the past decade, driven by the cost-performance ratio of computational power and data scale surpassing critical thresholds, connectionist model architectures represented by deep neural networks and statistical learning paradigms (hereinafter referred to as deep learning) have achieved breakthrough advances in feature representation capabilities, greatly advancing the development of artificial intelligence and achieving remarkable results in many scenarios. For example, face recognition accuracy has reached over 97%, and Google’s intelligent voice assistant achieved a 92.9% correct response rate in 2019 tests. In these typical scenarios, deep learning’s intelligent performance has surpassed that of ordinary humans (and even experts), reaching a tipping point for technology replacement. In recent years, in domains where business logic is technology-friendly or where ethical regulations are temporarily sparse—such as security, real-time scheduling, process optimization, competitive gaming, and information feed distribution—artificial intelligence and deep learning have achieved rapid technical and commercial breakthroughs.</p>
@@ -717,11 +1335,10 @@ Chapter_Summary
 <li>
 <p>Reflect on the future development of explainable AI methods</p>
 </li>
+<li>
+<p><a href="chapter_explainable_AI/explainable_ai.html">Background</a></p>
+</li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-explainable_ai
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="robotic-system"><a class="header" href="#robotic-system">Robotic System</a></h1>
 <p>This chapter introduces robotics — a major direction of machine
@@ -738,24 +1355,14 @@ chapter are as follows:</p>
 <p>General Robot Operating System (ROS)</p>
 </li>
 </ul>
-<pre><code class="language-toc">:maxdepth: 2
-
-Overview_of_Robotic_Systems
-Robot_Operating_System
-Case_Study
-Modern_Robot_Learning
-Chapter_Summary
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="appendix-introduction-to-machine-learning"><a class="header" href="#appendix-introduction-to-machine-learning">Appendix: Introduction to Machine Learning</a></h1>
 <p>This book assumes that readers have a basic foundation in machine learning algorithms. Therefore, this chapter only provides a brief introduction to machine learning. Among the topics covered, the gradient descent method is particularly important for understanding machine learning systems and is essential knowledge.</p>
-<pre><code class="language-toc">:maxdepth: 2
-:numbered:
-
-neural_network
-gradient_descent
-classic_machine_learning
-</code></pre>
+<ul>
+<li><a href="appendix_machine_learning_introduction/neural_network.html">Neural Networks</a></li>
+<li><a href="appendix_machine_learning_introduction/gradient_descent.html">Gradient Descent and Backpropagation</a></li>
+<li><a href="appendix_machine_learning_introduction/classic_machine_learning.html">Classic Machine Learning Methods</a></li>
+</ul>
 
                     </main>
 

@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+            window.path_to_searchindex_js = "../searchindex-ae786687.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -203,12 +203,11 @@
 <p><strong>纵向联邦学习</strong>适用于样本重叠多、特征重叠少的场景。比如，有两个不同机构，一家是保险公司，另一家是医院。它们的用户群体很有可能包含该地的大部分居民。它们两方的用户交集可能较大。由于保险公司记录的是用户的收支行为与信用评级，而医院则拥有用户的疾病与购药记录，因此它们的用户特征交集较小。纵向联邦学习就是将这些不同特征在加密的状态下加以聚合，以增强模型能力的方法。</p>
 <p><strong>联邦迁移学习</strong>的核心是找到源领域和目标领域之间的相似性。比如有两个不同机构，一家是位于中国的银行，另一家是位于美国的电商。由于受到地域限制，这两家机构的用户群体交集很小。同时，由于机构类型的不同，二者的数据特征也只有小部分重合。在这种情况下，要想进行有效的联邦学习，就必须引入迁移学习。联邦迁移学习可以解决单边数据规模小和标签样本少的问题，并提升模型的效果。</p>
 <h3 id="部署场景"><a class="header" href="#部署场景">部署场景</a></h3>
-<p>联邦学习和参数服务器（数据中心分布式学习）架构非常相似，都是采用中心化的服务器和分散的客户端去构建同一个机器学习模型。此外，根据部署场景的不同，联邦学习还可以细分为跨组织（Cross-silo）与跨设备（Cross-device）联邦学习。一般而言，跨组织联邦学习的用户一般是企业、机构单位级别的，而跨设备联邦学习针对的则是便携式电子设备、移动端设备等。 :numref:<code>ch10-federated-learning-different-connection</code>展示了三者的区别和联系：</p>
-<dl>
-<dt id=""><a class="header" href="#"><img src="../img/ch10/ch10-federated-learning-different-connection.png" alt="数据中心分布式训练、跨组织和跨设备联邦学习的区别和联系"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>ch10-federated-learning-different-connection</code></dd>
-</dl>
+<p>联邦学习和参数服务器（数据中心分布式学习）架构非常相似，都是采用中心化的服务器和分散的客户端去构建同一个机器学习模型。此外，根据部署场景的不同，联邦学习还可以细分为跨组织（Cross-silo）与跨设备（Cross-device）联邦学习。一般而言，跨组织联邦学习的用户一般是企业、机构单位级别的，而跨设备联邦学习针对的则是便携式电子设备、移动端设备等。 <a href="#ch10-federated-learning-different-connection">图13.1.1</a>展示了三者的区别和联系：</p>
+<p><a id="ch10-federated-learning-different-connection"></a></p>
+<p><img src="../img/ch10/ch10-federated-learning-different-connection.png" alt="数据中心分布式训练、跨组织和跨设备联邦学习的区别和联系"></p>
+<p align="center">图13.1.1 数据中心分布式训练、跨组织和跨设备联邦学习的区别和联系</p>
+
 <h3 id="常用框架"><a class="header" href="#常用框架">常用框架</a></h3>
 <p>随着用户和开发人员对联邦学习技术的需求不断增长，联邦学习工具和框架的数量也越来越多。下面将介绍一些主流的联邦学习框架。</p>
 <p><a href="https://www.tensorflow.org/federated">TFF</a> (TensorFlow Federated)是谷歌牵头开发的联邦学习开源框架，用于在分散数据上进行机器学习和其他计算。TFF的开发是为了促进联邦学习的开放研究和实验。在许多参与的客户中训练共享的全局模型，这些客户将其训练数据保存在本地。例如，联邦学习已被用于训练移动键盘的预测模型，而无需将敏感的键入数据上载到服务器。</p>

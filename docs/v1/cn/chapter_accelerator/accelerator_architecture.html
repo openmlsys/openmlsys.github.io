@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+            window.path_to_searchindex_js = "../searchindex-ae786687.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -196,12 +196,11 @@
                         <h2 id="加速器基本组成原理"><a class="header" href="#加速器基本组成原理">加速器基本组成原理</a></h2>
 <p>上节主要介绍了加速器的意义以及设计思路，讲述了加速器与通用处理器在设计上的区别，可以看到加速器的硬件结构与CPU的硬件结构有着根本的不同，通常都是由多种片上缓存以及多种运算单元组成。本章节主要以GPU的Volta架构作为样例进行介绍。</p>
 <h3 id="硬件加速器的架构"><a class="header" href="#硬件加速器的架构">硬件加速器的架构</a></h3>
-<p>现代GPU在十分有限的面积上实现了极强的计算能力和极高的储存器以及IO带宽。在一块高端的GPU中，晶体管数量已经达到主流CPU的两倍，而且显存已经达到了16GB以上，工作频率也达到了1GHz。GPU的体系架构由两部分组成，分别是流处理阵列和存储器系统，两部分通过一个片上互联网络连接。流处理器阵列和存储器系统都可以单独扩展，规格可以根据产品的市场定位单独裁剪。如GV100的组成 :cite:<code>2017NVIDIA</code>如 :numref:<code>gv100</code>所示：</p>
-<dl>
-<dt id=""><a class="header" href="#"><img src="../img/ch06/V100_cn.png" alt="Volta GV100"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>gv100</code></dd>
-</dl>
+<p>现代GPU在十分有限的面积上实现了极强的计算能力和极高的储存器以及IO带宽。在一块高端的GPU中，晶体管数量已经达到主流CPU的两倍，而且显存已经达到了16GB以上，工作频率也达到了1GHz。GPU的体系架构由两部分组成，分别是流处理阵列和存储器系统，两部分通过一个片上互联网络连接。流处理器阵列和存储器系统都可以单独扩展，规格可以根据产品的市场定位单独裁剪。如GV100的组成 [2017NVIDIA]如 <a href="#gv100">图7.2.1</a>所示：</p>
+<p><a id="gv100"></a></p>
+<p><img src="../img/ch06/V100_cn.png" alt="Volta GV100"></p>
+<p align="center">图7.2.1 Volta GV100</p>
+
 <ul>
 <li>6个GPU处理集群（GPU Processing Cluster，GPC）, 每个GPC含有：
 <ul>
@@ -220,7 +219,7 @@
 </li>
 <li>8个512位内存控制器</li>
 </ul>
-<p>一个完整的GV100 GPU含有84个SM，5376个32位浮点运算单元，5376个32位整型运算单元，2688个64位浮点运算单元，672个张量运算单元和336个纹理单元。一对内存控制器控制一个HBM2 DRAM堆栈。 :numref:<code>gv100</code>中展示的为带有84个SM的GV100 GPU(不同的厂商可以使用不同的配置)，Tesla V100则含有80个SM。</p>
+<p>一个完整的GV100 GPU含有84个SM，5376个32位浮点运算单元，5376个32位整型运算单元，2688个64位浮点运算单元，672个张量运算单元和336个纹理单元。一对内存控制器控制一个HBM2 DRAM堆栈。 <a href="#gv100">图7.2.1</a>中展示的为带有84个SM的GV100 GPU(不同的厂商可以使用不同的配置)，Tesla V100则含有80个SM。</p>
 <h3 id="硬件加速器的存储单元"><a class="header" href="#硬件加速器的存储单元">硬件加速器的存储单元</a></h3>
 <p>与传统的CPU模型相似，从一个计算机系统主内存DRAM中获取数据的速度相对于处理器的运算速度较慢。对于加速器而言，如果没有缓存进行快速存取，DRAM的带宽非常不足。如果无法快速地在DRAM上获取程序和数据，加速器将因空置而降低利用率。为了缓解DRAM的带宽问题，GPU提供了不同层次的若干区域供程序员存放数据，每块区域的内存都有自己的最大带宽以及延迟。开发者需根据不同存储器之间的存储速度的数量级的变化规律，选用适当类型的内存以及最大化地利用它们，从而发挥硬件的最大算力，减少计算时间。</p>
 <ul>
@@ -241,8 +240,8 @@
 </li>
 </ul>
 <h3 id="硬件加速器的计算单元"><a class="header" href="#硬件加速器的计算单元">硬件加速器的计算单元</a></h3>
-<p>:label:<code>compute-unit-title</code></p>
-<p>为了支持不同的神经网络模型，加速器会提供以下几种计算单元，不同的网络层可以根据需要选择使用合适的计算单元，如 :numref:<code>compute-unit</code>所示</p>
+<p><a id="compute-unit-title"></a></p>
+<p>为了支持不同的神经网络模型，加速器会提供以下几种计算单元，不同的网络层可以根据需要选择使用合适的计算单元，如 <a href="#compute-unit">图7.2.2</a>所示</p>
 <ul>
 <li>
 <p><strong>标量计算单元</strong>：与标准的精简指令运算集（Reduced Instruction Set Computer，RISC）相似，一次计算一个标量元素。</p>
@@ -257,35 +256,31 @@
 <p><strong>三维向量计算单元</strong>：一次完成一个矩阵的乘法，专为神经网络应用设计的计算单元，更充分利用数据重复特性，隐藏数据通信带宽与数据计算的差距。</p>
 </li>
 </ul>
-<dl>
-<dt id="-1"><a class="header" href="#-1"><img src="../img/ch06/compute_unit_cn.png" alt="多种计算单元"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>compute-unit</code></dd>
-</dl>
-<p>GPU计算单元主要由标量计算单元和三维向量计算单元组成。如 :numref:<code>SM</code>所示,对于每个SM，其中64个32位浮点运算单元、64个32位整数运算单元、32个64位浮点运算单元均为标量计算单元。而8个张量计算核心则是专为神经网络应用设计的三维向量计算单元。</p>
-<dl>
-<dt id="-2"><a class="header" href="#-2"><img src="../img/ch06/SM_cn.png" alt="Volta GV100 流多处理器（SM）"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>SM</code></dd>
-</dl>
-<p>张量计算核心每个时钟周期完成一次$4\times4$的矩阵乘累加计算,如 :numref:<code>tensorcore</code>所示：</p>
+<p><a id="compute-unit"></a></p>
+<p><img src="../img/ch06/compute_unit_cn.png" alt="多种计算单元"></p>
+<p align="center">图7.2.2 多种计算单元</p>
+
+<p>GPU计算单元主要由标量计算单元和三维向量计算单元组成。如 <a href="#SM">图7.2.3</a>所示,对于每个SM，其中64个32位浮点运算单元、64个32位整数运算单元、32个64位浮点运算单元均为标量计算单元。而8个张量计算核心则是专为神经网络应用设计的三维向量计算单元。</p>
+<p><a id="SM"></a></p>
+<p><img src="../img/ch06/SM_cn.png" alt="Volta GV100 流多处理器（SM）"></p>
+<p align="center">图7.2.3 Volta GV100 流多处理器（SM）</p>
+
+<p>张量计算核心每个时钟周期完成一次\(4\times4\)的矩阵乘累加计算,如 <a href="#tensorcore">图7.2.4</a>所示：</p>
 <pre><code class="language-cpp">    D = A * B + C
 </code></pre>
-<dl>
-<dt id="-3"><a class="header" href="#-3"><img src="../img/ch06/tensor_core.svg" alt="张量计算核心$4&#92;times4$矩阵乘累加计算"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>tensorcore</code></dd>
-</dl>
-<p>其中A,B,C和D都是$4\times4$的矩阵，矩阵乘累加的输入矩阵A和B是FP16的矩阵，累加矩阵C和D可以是FP16也可以是FP32。 V100的张量计算核心是可编程的矩阵乘法和累加计算单元，可以提供多达125 Tensor TFLOPS(Tera Floating-point Operations Per Second)的训练和推理应用。相比于普通的FP32计算单元可以提速10倍以上。</p>
+<p><a id="tensorcore"></a></p>
+<p><img src="../img/ch06/tensor_core.svg" alt="张量计算核心&#92;(4&#92;times4&#92;)矩阵乘累加计算"></p>
+<p align="center">图7.2.4 张量计算核心\\(4\times4\\)矩阵乘累加计算</p>
+
+<p>其中A,B,C和D都是\(4\times4\)的矩阵，矩阵乘累加的输入矩阵A和B是FP16的矩阵，累加矩阵C和D可以是FP16也可以是FP32。 V100的张量计算核心是可编程的矩阵乘法和累加计算单元，可以提供多达125 Tensor TFLOPS(Tera Floating-point Operations Per Second)的训练和推理应用。相比于普通的FP32计算单元可以提速10倍以上。</p>
 <h3 id="dsa芯片架构"><a class="header" href="#dsa芯片架构">DSA芯片架构</a></h3>
 <p>为了满足飞速发展的深度神经网络对芯片算力的需求，业界也纷纷推出了特定领域架构DSA芯片设计。以华为公司昇腾系列AI处理器为例，本质上是一个片上系统（System on Chip，SoC），主要应用在图像、视频、语音、文字处理相关的场景。主要的架构组成部件包括特制的计算单元、大容量的存储单元和相应的控制单元。该芯片由以下几个部分构成：芯片系统控制CPU（Control CPU）、AI计算引擎（包括AI Core和AI CPU）、多层级的片上系统缓存（Cache）或缓冲区（Buffer）、数字视觉预处理模块（Digital Vision Pre-Processing，DVPP）等。</p>
-<p>昇腾AI芯片的计算核心主要由AI Core构成，负责执行标量、向量和张量相关的计算密集型算子。AI Core采用了达芬奇架构 :cite:<code>2021Ascend</code>，基本结构如 :numref:<code>davinci_architecture</code>所示，从控制上可以看成是一个相对简化的现代微处理器基本架构。它包括了三种基础计算单元：矩阵计算单元（Cube Unit）、向量计算单元（Vector Unit）和标量计算单元（Scalar Unit）。这三种计算单元分别对应了张量、向量和标量三种常见的计算模式，在实际的计算过程中各司其职，形成了三条独立的执行流水线，在系统软件的统一调度下互相配合达到优化计算效率的目的。
-同GPU类似，在矩阵乘加速设计上，在AICore中也提供了矩阵计算单元作为昇腾AI芯片的核心计算模块，意图高效解决矩阵计算的瓶颈问题。矩阵计算单元提供强大的并行乘加计算能力，可以用一条指令完成两个$16\times16$矩阵的相乘运算，等同于在极短时间内进行了$16\times16\times16=4096$个乘加运算，并且可以实现FP16的运算精度。</p>
-<dl>
-<dt id="-4"><a class="header" href="#-4"><img src="../img/ch06/davinci_architecture.svg" alt="达芬奇架构设计"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>davinci_architecture</code></dd>
-</dl>
+<p>昇腾AI芯片的计算核心主要由AI Core构成，负责执行标量、向量和张量相关的计算密集型算子。AI Core采用了达芬奇架构 [2021Ascend]，基本结构如 <a href="#davinci_architecture">图7.2.5</a>所示，从控制上可以看成是一个相对简化的现代微处理器基本架构。它包括了三种基础计算单元：矩阵计算单元（Cube Unit）、向量计算单元（Vector Unit）和标量计算单元（Scalar Unit）。这三种计算单元分别对应了张量、向量和标量三种常见的计算模式，在实际的计算过程中各司其职，形成了三条独立的执行流水线，在系统软件的统一调度下互相配合达到优化计算效率的目的。
+同GPU类似，在矩阵乘加速设计上，在AICore中也提供了矩阵计算单元作为昇腾AI芯片的核心计算模块，意图高效解决矩阵计算的瓶颈问题。矩阵计算单元提供强大的并行乘加计算能力，可以用一条指令完成两个\(16\times16\)矩阵的相乘运算，等同于在极短时间内进行了\(16\times16\times16=4096\)个乘加运算，并且可以实现FP16的运算精度。</p>
+<p><a id="davinci_architecture"></a></p>
+<p><img src="../img/ch06/davinci_architecture.svg" alt="达芬奇架构设计"></p>
+<p align="center">图7.2.5 达芬奇架构设计</p>
+
 
                     </main>
 

@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-57d9832f.js";
+            window.path_to_searchindex_js = "../searchindex-ae786687.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -198,35 +198,31 @@
 <h3 id="前端编译优化简介"><a class="header" href="#前端编译优化简介">前端编译优化简介</a></h3>
 <p>大多数编译优化器会由一系列的“趟“（Pass）来组成。每个“趟“以中间表示为输入，又以新生成的中间表示为输出。一个“趟“还可以由几个小的“趟“所组成。一个“趟“可以运行一次，也可以运行多次。</p>
 <p>在编译优化中，优化操作的选择以及顺序对于编译的整体具有非常关键的作用。优化操作的选择决定了优化器能够感知中间表示中的哪些低效性，也决定了编译器将要如何去重写中间表示以消除这种低效性。优化操作的顺序决定了各趟操作的执行顺序。编译器可以根据具体需要运行不同的编译优化操作。也可以根据编译优化级别来调整优化的次数，种类以及顺序。</p>
-<dl>
-<dt id=""><a class="header" href="#"><img src="../img/ch04/编译优化-pass结构.svg" alt="编译优化的“趟“结构"></a></dt>
-<dd>width:<code>800px</code></dd>
-<dd>label:<code>pass_structure</code></dd>
-</dl>
+<p><a id="pass_structure"></a></p>
+<p><img src="../img/ch04/编译优化-pass结构.svg" alt="编译优化的“趟“结构"></p>
+<p align="center">图5.6.1 编译优化的"趟"结构</p>
+
 <h3 id="常见编译优化方法介绍及实现"><a class="header" href="#常见编译优化方法介绍及实现">常见编译优化方法介绍及实现</a></h3>
 <p>前端编译优化的方法有很多，机器学习框架也有很多不同于传统编译器的优化方式。在本小节当中，我们会介绍三种常见且通用的前端编译优化方法。</p>
 <p>1. 无用与不可达代码消除</p>
-<p>如 :numref:<code>pass_useless_code_elimination</code>所示。无用代码是指输出结果没有被任何其他代码所使用的代码。不可达代码是指没有有效的控制流路径包含该代码。删除无用或不可达的代码可以使得中间表示更小，提高程序的编译与执行速度。无用与不可达代码一方面有可能来自于程序编写者的编写失误，也有可能是其他编译优化所产生的结果。</p>
-<dl>
-<dt id="-1"><a class="header" href="#-1"><img src="../img/ch04/编译优化-无用代码消除.svg" alt="无用代码消除"></a></dt>
-<dd>width:<code>600px</code></dd>
-<dd>label:<code>pass_useless_code_elimination</code></dd>
-</dl>
+<p>如 <a href="#pass_useless_code_elimination">图5.6.2</a>所示。无用代码是指输出结果没有被任何其他代码所使用的代码。不可达代码是指没有有效的控制流路径包含该代码。删除无用或不可达的代码可以使得中间表示更小，提高程序的编译与执行速度。无用与不可达代码一方面有可能来自于程序编写者的编写失误，也有可能是其他编译优化所产生的结果。</p>
+<p><a id="pass_useless_code_elimination"></a></p>
+<p><img src="../img/ch04/编译优化-无用代码消除.svg" alt="无用代码消除"></p>
+<p align="center">图5.6.2 无用代码消除</p>
+
 <p>2. 常量传播、常量折叠</p>
-<p>常量传播：如 :numref:<code>pass_constant_broadcast</code>所示，如果某些量为已知值的常量，那么可以在编译时刻将使用这些量的地方进行替换。</p>
-<p>常量折叠：如 :numref:<code>pass_constant_broadcast</code>所示，多个量进行计算时，如果能够在编译时刻直接计算出其结果，那么变量将由常量替换。</p>
-<dl>
-<dt id="-2"><a class="header" href="#-2"><img src="../img/ch04/编译优化-常量传播与常量折叠.svg" alt="常量传播与常量折叠"></a></dt>
-<dd>width:<code>600px</code></dd>
-<dd>label:<code>pass_constant_broadcast</code></dd>
-</dl>
+<p>常量传播：如 <a href="#pass_constant_broadcast">图5.6.3</a>所示，如果某些量为已知值的常量，那么可以在编译时刻将使用这些量的地方进行替换。</p>
+<p>常量折叠：如 <a href="#pass_constant_broadcast">图5.6.3</a>所示，多个量进行计算时，如果能够在编译时刻直接计算出其结果，那么变量将由常量替换。</p>
+<p><a id="pass_constant_broadcast"></a></p>
+<p><img src="../img/ch04/编译优化-常量传播与常量折叠.svg" alt="常量传播与常量折叠"></p>
+<p align="center">图5.6.3 常量传播与常量折叠</p>
+
 <p>3. 公共子表达式消除</p>
-<p>如 :numref:<code>pass_CSE</code>所示，如果一个表达式E已经计算过了，并且从先前的计算到现在E中所有变量的值都没有发生变化，那么E就成为了公共子表达式。对于这种表达式，没有必要花时间再对它进行计算，只需要直接用前面计算过的表达式结果代替E就可以了。</p>
-<dl>
-<dt id="-3"><a class="header" href="#-3"><img src="../img/ch04/编译优化-公共子表达式消除.svg" alt="公共子表达式消除"></a></dt>
-<dd>width:<code>600px</code></dd>
-<dd>label:<code>pass_CSE</code></dd>
-</dl>
+<p>如 <a href="#pass_CSE">图5.6.4</a>所示，如果一个表达式E已经计算过了，并且从先前的计算到现在E中所有变量的值都没有发生变化，那么E就成为了公共子表达式。对于这种表达式，没有必要花时间再对它进行计算，只需要直接用前面计算过的表达式结果代替E就可以了。</p>
+<p><a id="pass_CSE"></a></p>
+<p><img src="../img/ch04/编译优化-公共子表达式消除.svg" alt="公共子表达式消除"></p>
+<p align="center">图5.6.4 公共子表达式消除</p>
+
 
                     </main>
 
