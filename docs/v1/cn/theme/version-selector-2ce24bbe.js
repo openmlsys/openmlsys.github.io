@@ -15,11 +15,12 @@
     currentLang = "zh";
   }
 
-  // Build base paths
+  // Build base paths — always navigate to root of target version
   function basePath(version, lang) {
-    var docsRoot = path.replace(/\/v1\/.*/, "/").replace(/\/cn\/.*/, "/");
-    docsRoot = docsRoot.replace(/(\/docs\/?).*/, "/docs/");
-    if (!docsRoot.endsWith("/")) docsRoot += "/";
+    // Determine site root: everything before /v1/, /cn/, or first path segment after /docs/
+    var root = "/";
+    var docsMatch = path.match(/^(\/docs\/)/);
+    if (docsMatch) root = docsMatch[1];
 
     var p = docsRoot;
     if (version === "v1") p += "v1/";
