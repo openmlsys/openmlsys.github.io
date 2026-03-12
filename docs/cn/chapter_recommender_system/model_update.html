@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -184,15 +197,24 @@
 <h3 id="持续更新模型的需求"><a class="header" href="#持续更新模型的需求">持续更新模型的需求</a></h3>
 <p>在学习过程中，我们用到的数据集通常都是静态的，例如ImageNet <sup id="cite-russakovsky2015imagenet"><a href="#ref-russakovsky2015imagenet">[1]</a></sup>，WikiText <sup id="cite-merity2016pointer"><a href="#ref-merity2016pointer">[2]</a></sup>。其中的数据分布通常是不变的，因此训练一个模型使其关键指标，如准确率（Accuracy）和困惑度（Perplexity），达到一定要求之后训练任务就结束了。然而在线服务中使用的推荐模型需要面临高度动态的场景。这里的动态主要指两个方面：</p>
 <ol>
-<li>推荐模型所服务的用户和所囊括的物品是在不断变化的，每时每刻都会有新的用户和新的物品。如图 <code>user-embedding-missing</code>所示，如果嵌入表中没有新用户所对应的嵌入项，那么推荐模型就很难服务于这个用户；同理如果新加入的物品没有在推荐模型的嵌入表中，如图 <code>content-embedding-missing</code>所示，就无法出现在推荐流水线中，从而导致不能被推荐给目标用户。</li>
+<li>推荐模型所服务的用户和所囊括的物品是在不断变化的，每时每刻都会有新的用户和新的物品。如图 <a href="#user-embedding-missing">图12.3.1</a>所示，如果嵌入表中没有新用户所对应的嵌入项，那么推荐模型就很难服务于这个用户；同理如果新加入的物品没有在推荐模型的嵌入表中，如图 <a href="#content-embedding-missing">图12.3.2</a>所示，就无法出现在推荐流水线中，从而导致不能被推荐给目标用户。</li>
 <li>推荐模型所面临的用户兴趣是在不断变化的，如果推荐模型不能及时地改变权重以适应用户新的兴趣，那么推荐效果就会下降。例如在一个新闻推荐的应用中，每天的热点新闻都是不一样的，如果推荐模型总是推荐旧的热点，用户的点击率就会持续下降。</li>
 </ol>
+<p><a id="user-embedding-missing"></a></p>
 <p><img src="../img/ch10/ch-recsys/user_embedding_missing.png" alt="用户嵌入项缺失"></p>
+<p align="center">图12.3.1 用户嵌入项缺失</p>
+
+<p><a id="content-embedding-missing"></a></p>
 <p><img src="../img/ch10/ch-recsys/content_embedding_missing.png" alt="物品嵌入项缺失"></p>
+<p align="center">图12.3.2 物品嵌入项缺失</p>
+
 <p>以上问题虽然也可以通过人工制定的规则来处理，例如，在直接在推荐结果中加入新物品，或者基于统计的热点物品，但是这些规则只能在短时间内一定程度上缓解问题，而不能彻底解决问题，因为基于人工规则的推荐性能和推荐模型存在较大差距。</p>
 <h3 id="离线更新"><a class="header" href="#离线更新">离线更新</a></h3>
-<p>传统的推荐系统采用基于模型检查点的离线更新的方式，更新频率从每天到每小时不等，如图 <code>offline-update</code>所示。</p>
+<p>传统的推荐系统采用基于模型检查点的离线更新的方式，更新频率从每天到每小时不等，如图 <a href="#offline-update">图12.3.3</a>所示。</p>
+<p><a id="offline-update"></a></p>
 <p><img src="../img/ch10/ch-recsys/offline_update.png" alt="离线更新"></p>
+<p align="center">图12.3.3 离线更新</p>
+
 <p>具体来讲，在训练一段时间之后，有如下步骤：</p>
 <ol>
 <li>从训练数据中心的参数服务器上保存一份模型检查点到磁盘中；</li>

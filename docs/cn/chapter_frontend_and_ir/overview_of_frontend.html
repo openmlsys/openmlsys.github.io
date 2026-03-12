@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -180,8 +193,11 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="ai编译器前端技术概述"><a class="header" href="#ai编译器前端技术概述">AI编译器前端技术概述</a></h2>
-<p><code>compiler_frontend_struc</code>展示了机器学习编译器前端的基础结构。其中，对源程序的解析过程与传统编译器是大致相同的，本章节不对这部分进行更细致的讨论。机器学习框架的编译器前端的独特之处主要在于对自动微分功能的支持。为了满足自动微分功能带来的新需求，机器学习框架需要在传统中间表示的基础上设计新的中间表示结构。因此，本章节的介绍重点会放在中间表示和自动微分这两个部分，随后会简要探讨类型系统、静态分析和前端优化等编译器的基础概念。</p>
+<p><a href="#compiler_frontend_struc">图5.2.1</a>展示了机器学习编译器前端的基础结构。其中，对源程序的解析过程与传统编译器是大致相同的，本章节不对这部分进行更细致的讨论。机器学习框架的编译器前端的独特之处主要在于对自动微分功能的支持。为了满足自动微分功能带来的新需求，机器学习框架需要在传统中间表示的基础上设计新的中间表示结构。因此，本章节的介绍重点会放在中间表示和自动微分这两个部分，随后会简要探讨类型系统、静态分析和前端优化等编译器的基础概念。</p>
+<p><a id="compiler_frontend_struc"></a></p>
 <p><img src="../img/ch04/编译器前端基础架构.svg" alt="译器前端基础结构"></p>
+<p align="center">图5.2.1 译器前端基础结构</p>
+
 <h3 id="中间表示"><a class="header" href="#中间表示">中间表示</a></h3>
 <p>中间表示是编译器用于表示源代码的数据结构或代码，是程序编译过程中介于源语言和目标语言之间的程序表示。传统机器学习框架的中间表示分为三大类，分别是线性中间表示，图中间表示以及混合中间表示。然而，传统编译器的中间表示难以完全满足机器学习框架对于中间表示的一系列需求。因此，机器学习框架的开发者在传统中间表示的设计基础上不断扩展，提出了很多适用于机器学习框架的中间表示。</p>
 <h3 id="自动微分"><a class="header" href="#自动微分">自动微分</a></h3>

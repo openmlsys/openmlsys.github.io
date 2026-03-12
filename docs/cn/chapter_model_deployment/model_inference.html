@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -215,8 +228,12 @@
 </li>
 </ul>
 <h3 id="并行计算"><a class="header" href="#并行计算">并行计算</a></h3>
+<p><a id="ch08-sec-parallel_inference"></a></p>
 <p>为提升推理的性能，需要重复利用多核的能力，所以一般推理框架会引入多线程机制。主要的思路是将算子的输入数据进行切分，通过多线程去执行不同数据切片，实现算子并行计算，从而成倍提升算子计算性能。</p>
+<p><a id="ch08-fig-parallel"></a></p>
 <p><img src="../img/ch08/parallel.png" alt="矩阵乘数据切分"></p>
+<p align="center">图9.4.1 矩阵乘数据切分</p>
+
 <p>如图所示，对于矩阵乘可以按左矩阵的行进行切分，可以利用三个线程分别计算A1*B，A2*B，A3*B，实现矩阵乘多线程并行计算。</p>
 <p>为方便算子并行计算，同时避免频繁创建销毁线程的开销，推理框架一般会使用线程池机制。业界有两种较为通用的做法：</p>
 <ul>
@@ -224,6 +241,7 @@
 <li>推理框架实现针对算子并行计算的线程池，相对OpenMP提供的接口会更有针对性，性能会更高，且更轻量。</li>
 </ul>
 <h3 id="算子优化"><a class="header" href="#算子优化">算子优化</a></h3>
+<p><a id="ch08-sec-kernel_optimization"></a></p>
 <p>在部署AI模型时，用户通常期望模型执行训练或推理的时间尽可能地短，以获得更优越的性能。对于深度学习网络，框架调度的时间占比往往很小，性能的瓶颈就在算子的执行。下面从硬件指令和算法角度介绍一些算子优化的方法。</p>
 <h4 id="硬件指令优化"><a class="header" href="#硬件指令优化">硬件指令优化</a></h4>
 <p>绝大多数的设备上都有CPU，因此算子在CPU上的时间尤为重要，下面介绍一下在ARM CPU硬件指令优化的方法。</p>
@@ -232,12 +250,18 @@
 <p>在实际应用中，最好是程序的大部分用高级语言编写，运行性能要求很高的部分用汇编语言来编写，通过混合编程实现优势互补。深度学习的卷积、矩阵乘等算子涉及大量的计算，使用汇编语言能够给模型训练和推理性能带来数十到数百倍量级的提升。</p>
 <p>下面以ARMv8系列处理器为例，介绍和硬件指令相关的优化。</p>
 <p>2. 寄存器与NEON指令</p>
-<p>ARMv8系列的CPU上有32个NEON寄存器v0-v31，如 <code>ch08-fig-register</code>所示，NEON寄存器v0可存放128bit的数据，即4个float32，8个float16，16个int8等。</p>
+<p>ARMv8系列的CPU上有32个NEON寄存器v0-v31，如 <a href="#ch08-fig-register">图9.4.2</a>所示，NEON寄存器v0可存放128bit的数据，即4个float32，8个float16，16个int8等。</p>
+<p><a id="ch08-fig-register"></a></p>
 <p><img src="../img/ch08/register.png" alt="ARMv8处理器NEON寄存器v0的结构"></p>
-<p>针对该处理器，可以采用SIMD(Single Instruction，Multiple Data，单指令、多数据)提升数据存取计算的速度。相比于单数据操作指令，NEON指令可以一次性操作NEON寄存器的多个数据。例如：对于浮点数的fmla指令，用法为fmla v0.4s, v1.4s, v2.4s，如图 <code>ch08-fig-fmla</code>所示，用于将v1和v2两个寄存器中相对应的float值相乘累加到v0的值上。</p>
+<p align="center">图9.4.2 ARMv8处理器NEON寄存器v0的结构</p>
+
+<p>针对该处理器，可以采用SIMD(Single Instruction，Multiple Data，单指令、多数据)提升数据存取计算的速度。相比于单数据操作指令，NEON指令可以一次性操作NEON寄存器的多个数据。例如：对于浮点数的fmla指令，用法为fmla v0.4s, v1.4s, v2.4s，如图 <a href="#ch08-fig-fmla">图9.4.3</a>所示，用于将v1和v2两个寄存器中相对应的float值相乘累加到v0的值上。</p>
+<p><a id="ch08-fig-fmla"></a></p>
 <p><img src="../img/ch08/fmla.png" alt="fmla指令计算功能"></p>
+<p align="center">图9.4.3 fmla指令计算功能</p>
+
 <p>3. 汇编语言优化</p>
-<p>对于已知功能的汇编语言程序来说，计算类指令通常是固定的，性能的瓶颈就在非计算指令上。如图 <code>ch08-fig-storage</code>所示，计算机各存储设备类似于一个金字塔结构，最顶层空间最小，但是速度最快，最底层速度最慢，但是空间最大。L1-L3统称为cache(高速缓冲存储器)，CPU访问数据时，会首先访问位于CPU内部的cache，没找到再访问CPU之外的主存，此时引入了缓存命中率的概念来描述在cache中完成数据存取的占比。要想提升程序的性能，缓存命中率要尽可能的高。</p>
+<p>对于已知功能的汇编语言程序来说，计算类指令通常是固定的，性能的瓶颈就在非计算指令上。如图 <a href="model_converter_and_optimizer.html#ch08-fig-storage">图9.2.1</a>所示，计算机各存储设备类似于一个金字塔结构，最顶层空间最小，但是速度最快，最底层速度最慢，但是空间最大。L1-L3统称为cache(高速缓冲存储器)，CPU访问数据时，会首先访问位于CPU内部的cache，没找到再访问CPU之外的主存，此时引入了缓存命中率的概念来描述在cache中完成数据存取的占比。要想提升程序的性能，缓存命中率要尽可能的高。</p>
 <p>下面简单列举一些提升缓存命中率、优化汇编性能的手段：</p>
 <p>（1）循环展开：尽可能使用更多的寄存器，以代码体积换性能；</p>
 <p>（2）指令重排：打乱不同执行单元的指令以提高流水线的利用率，提前有延迟的指令以减轻延迟，减少指令前后的数据依赖等；</p>
@@ -246,33 +270,45 @@
 <p>（5）使用预取指令：将要使用到的数据从主存提前载入缓存，减少访问延迟。</p>
 <h4 id="算法优化"><a class="header" href="#算法优化">算法优化</a></h4>
 <p>多数AI模型的推理时间主要耗费在卷积、矩阵乘算子的计算上，占到了整网百分之九十甚至更多的时间。本小节主要介绍卷积算子算法方面的优化手段，可以应用到各种硬件设备上。</p>
-<p>卷积的计算可以转换为两个矩阵相乘，在前述 <code>ch08-sec-parallel_inference</code>小节中，已经详细介绍了矩阵乘运算的优化。对于不同的硬件，确定合适的矩阵分块，优化数据访存与指令并行，可以最大限度的发挥硬件的算力，提升推理性能。</p>
+<p>卷积的计算可以转换为两个矩阵相乘，在前述 <a href="#ch08-sec-parallel_inference">ch08-sec-parallel_inference</a>小节中，已经详细介绍了矩阵乘运算的优化。对于不同的硬件，确定合适的矩阵分块，优化数据访存与指令并行，可以最大限度的发挥硬件的算力，提升推理性能。</p>
 <p>1.Img2col</p>
-<p>将卷积的计算转换为矩阵乘，一般采用Img2col的方法实现。在常见的神经网络中，卷积的输入通常都是4维的，默认采用的数据排布方式为NHWC，如图 <code>ch08-fig-conv_nhwc</code>所示，是一个卷积示意图。输入维度为（1,IH,IW,IC），卷积核维度为（OC,KH,KW,IC），输出维度为（1,OH,OW,OC）。</p>
+<p>将卷积的计算转换为矩阵乘，一般采用Img2col的方法实现。在常见的神经网络中，卷积的输入通常都是4维的，默认采用的数据排布方式为NHWC，如图 <a href="#ch08-fig-conv_nhwc">图9.4.4</a>所示，是一个卷积示意图。输入维度为（1,IH,IW,IC），卷积核维度为（OC,KH,KW,IC），输出维度为（1,OH,OW,OC）。</p>
+<p><a id="ch08-fig-conv_nhwc"></a></p>
 <p><img src="../img/ch08/conv_nhwc.png" alt="通用卷积示意图"></p>
-<p>对卷积的Img2col规则如下。如图 <code>ch08-fig-img2col_input</code>所示，对该输入做重排，得到的矩阵见右侧，行数对应输出的OH<em>OW的个数；对于每个行向量，就对应到一个输出点。计算每个输出点，需要IC</em>KH<em>KW个输入数据，Img2col先排列第一个输入通道的KH</em>KW个输入数据，再排列第二个输入通道的数据，直到第IC个通道。</p>
+<p align="center">图9.4.4 通用卷积示意图</p>
+
+<p>对卷积的Img2col规则如下。如图 <a href="#ch08-fig-img2col_input">图9.4.5</a>所示，对该输入做重排，得到的矩阵见右侧，行数对应输出的OH<em>OW的个数；对于每个行向量，就对应到一个输出点。计算每个输出点，需要IC</em>KH<em>KW个输入数据，Img2col先排列第一个输入通道的KH</em>KW个输入数据，再排列第二个输入通道的数据，直到第IC个通道。</p>
+<p><a id="ch08-fig-img2col_input"></a></p>
 <p><img src="../img/ch08/img2col_input.png" alt="输入Img2col的矩阵"></p>
-<p>如 <code>ch08-fig-img2col_weight</code>所示，对权重数据做重排。将1个卷积核展开为权重矩阵的一列，因此共有OC列，每个列向量上先排列第一个输入通道上KH*KW的数据，再依次排列后面的通道直到IC。通过重排，卷积的计算就可以转换为两个矩阵相乘的求解。在实际实现时，Img2col和GEMM的数据重排会同时进行，以节省运行时间。</p>
+<p align="center">图9.4.5 输入Img2col的矩阵</p>
+
+<p>如 <a href="#ch08-fig-img2col_weight">图9.4.6</a>所示，对权重数据做重排。将1个卷积核展开为权重矩阵的一列，因此共有OC列，每个列向量上先排列第一个输入通道上KH*KW的数据，再依次排列后面的通道直到IC。通过重排，卷积的计算就可以转换为两个矩阵相乘的求解。在实际实现时，Img2col和GEMM的数据重排会同时进行，以节省运行时间。</p>
+<p><a id="ch08-fig-img2col_weight"></a></p>
 <p><img src="../img/ch08/img2col_weight.png" alt="卷积核Img2col的矩阵"></p>
+<p align="center">图9.4.6 卷积核Img2col的矩阵</p>
+
 <p>2.Winograd算法</p>
-<p>卷积计算归根到底是矩阵乘法，两个二维矩阵相乘的时间复杂度是$O(n^3)$。Winograd算法可以降低矩阵乘法的复杂度。</p>
-<p>以一维卷积运算为例，记为\textit{\textbf{F}}($m$，$r$)，其中，$m$代表输出的个数，$r$为卷积核的个数。输入为$italic(bold(d))=[d_0  d_1  d_2  d_3]$，卷积核为$g=[g_0  g_1  g_2]^(upright(T))$，该卷积计算可以写成矩阵形式如式 (1)所示，需要6次乘法和4次加法。</p>
-<p>$$F(2, 3)=[ mat(d_0, d_1, d_2; d_1, d_2, d_3) ] [ mat(g_0; g_1; g_2) ]=[ mat(y_0; y_1) ]quad upright(“(1)”)$$</p>
-<p>可以观察到，卷积运算转换为矩阵乘法时输入矩阵中存在着重复元素$d_1$和$d_2$，因此，卷积转换的矩阵乘法相对一般的矩阵乘有了优化空间。可以通过计算中间变量$m_0-m_3$得到矩阵乘的结果，见式 (2)：</p>
-<p>$$F(2, 3)=[ mat(d_0, d_1, d_2; d_1, d_2, d_3) ] [ mat(g_0; g_1; g_2) ]=[ mat(m_0+m_1+m_2; m_1-m_2-m_3) ]quad upright(“(2)”)$$</p>
-<p>其中，$m_0-m_3$的分别见公式 (3)：</p>
-<p>$$m_0=(d_0-d_2)<em>g_0  <br>m_1=(d_1+d_2)</em>(frac(g_0+g_1+g_2, 2))  <br>m_2=(d_2-d_1)*(frac(g_0-g_1+g_2, 2))  <br>m_3=(d_1-d_3)*g_2 quad upright(“(3)”)$$</p>
-<p>通过$m_0-m_3$间接计算r1，r2，需要的运算次数包括：输入$d$的4次加法；输出$m$的4次乘法和4次加法。在推理阶段，权重的数值是常量，因此卷积核上的运算可以在图编译阶段计算，不计入在线的run时间。所以总的运算次数为4次乘法和8次加法，与直接运算的6次乘法和4次加法相比，乘法次数减少，加法次数增加。在计算机中，乘法一般比加法慢，通过减少乘法次数，增加少量加法，可以实现加速。</p>
+<p>卷积计算归根到底是矩阵乘法，两个二维矩阵相乘的时间复杂度是\(O(n^3)\)。Winograd算法可以降低矩阵乘法的复杂度。</p>
+<p>以一维卷积运算为例，记为\textit{\textbf{F}}(\(m\)，\(r\))，其中，\(m\)代表输出的个数，\(r\)为卷积核的个数。输入为\(\textit{\textbf{d}}=[d_0 \ d_1 \ d_2 \ d_3]\)，卷积核为\(g=[g_0 \ g_1 \ g_2]^{\rm T}\)，该卷积计算可以写成矩阵形式如式 (1)所示，需要6次乘法和4次加法。</p>
+<p>\[F(2, 3)=\left[ \begin{matrix} d_0 &amp; d_1 &amp; d_2 \\ d_1 &amp; d_2 &amp; d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=\left[ \begin{matrix} y_0 \\ y_1 \end{matrix} \right]\tag{1}\label{ch08-equ-conv_matmul_one_dimension}\]</p>
+<p>可以观察到，卷积运算转换为矩阵乘法时输入矩阵中存在着重复元素\(d_1\)和\(d_2\)，因此，卷积转换的矩阵乘法相对一般的矩阵乘有了优化空间。可以通过计算中间变量\(m_0-m_3\)得到矩阵乘的结果，见式 (2)：</p>
+<p>\[F(2, 3)=\left[ \begin{matrix} d_0 &amp; d_1 &amp; d_2 \\ d_1 &amp; d_2 &amp; d_3 \end{matrix} \right] \left[ \begin{matrix} g_0 \\ g_1 \\ g_2 \end{matrix} \right]=\left[ \begin{matrix} m_0+m_1+m_2 \\ m_1-m_2-m_3 \end{matrix} \right]\tag{2}\label{ch08-equ-conv-2-winograd}\]</p>
+<p>其中，\(m_0-m_3\)的分别见公式 (3)：</p>
+<p>\[\begin{aligned}m_0=(d_0-d_2)*g_0 \\m_1=(d_1+d_2)*(\frac{g_0+g_1+g_2}{2}) \\m_2=(d_2-d_1)*(\frac{g_0-g_1+g_2}{2}) \\m_3=(d_1-d_3)*g_2\end{aligned}\tag{3}\label{ch08-equ-winograd-param}\]</p>
+<p>通过\(m_0-m_3\)间接计算r1，r2，需要的运算次数包括：输入\(d\)的4次加法；输出\(m\)的4次乘法和4次加法。在推理阶段，权重的数值是常量，因此卷积核上的运算可以在图编译阶段计算，不计入在线的run时间。所以总的运算次数为4次乘法和8次加法，与直接运算的6次乘法和4次加法相比，乘法次数减少，加法次数增加。在计算机中，乘法一般比加法慢，通过减少乘法次数，增加少量加法，可以实现加速。</p>
 <p>计算过程写成矩阵形式如式 (4)所示，其中，⊙为对应位置相乘，A、B、G都是常量矩阵。这里写成矩阵计算是为了表达清晰，实际使用时，按照公式 (3)手写展开的计算速度更快。</p>
-<p>$$bold(Y)=bold(A^T)(bold(G) g)*(bold(B^T) d) quad upright(“(4)”)$$</p>
-<p>$$bold(B^T)=[ mat(1, 0, -1, 0; 0, 1, 1, 0; 0, -1, 1, 0; 0, 1, 0, -1) ]quad upright(“(5)”)$$</p>
-<p>$$bold(G)=[ mat(1, 0, 0; 0.5, 0.5, 0.5; 0.5, -0.5, 0.5; 0, 0, 1) ]quad upright(“(6)”)$$</p>
-<p>$$bold(A^T)=[ mat(1, 1, -1, 0; 0, 1, -1, -1) ]  <br>quad upright(“(7)”)$$</p>
+<p>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g)*(\mathbf{B^T}d)\tag{4}\label{ch08-equ-winograd-matrix}\]</p>
+<p>\[\mathbf{B^T}=\left[ \begin{matrix} 1 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \end{matrix} \right]\tag{5}\label{ch08-equ-winograd-matrix-bt}\]</p>
+<p>\[\mathbf{G}=\left[ \begin{matrix} 1 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 \\ 0.5 &amp; -0.5 &amp; 0.5 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right]\tag{6}\label{ch08-equ-winograd-matrix-g}\]</p>
+<p>\[\mathbf{A^T}=\left[ \begin{matrix} 1 &amp; 1 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; -1 &amp; -1  \end{matrix} \right] \\\tag{7}\label{ch08-equ-winograd-matrix-at}\]</p>
 <p>通常深度学习领域通常使用的都是2D卷积，将F(2，3)扩展到F(2x2，3x3)，可以写成矩阵形式，如公式 (8)所示。此时，Winograd算法的乘法次数为16，而直接卷积的乘法次数为36，降低了2.25倍的乘法计算复杂度。</p>
-<p>$$bold(Y)=bold(A^T)(bold(G) g bold(G^T))*(bold(B^T) d bold(B)) bold(A) quad upright(“(8)”)$$</p>
-<p>Winograd算法的整个计算过程在逻辑上可以分为4步，如 <code>ch08-fig-winograd</code>所示：</p>
+<p>\[\mathbf{Y}=\mathbf{A^T}(\mathbf{G}g\mathbf{G^T})*(\mathbf{B^T}d\mathbf{B})\mathbf{A}\tag{8}\label{ch08-equ-winograd-two-dimension-matrix}\]</p>
+<p>Winograd算法的整个计算过程在逻辑上可以分为4步，如 <a href="#ch08-fig-winograd">图9.4.7</a>所示：</p>
+<p><a id="ch08-fig-winograd"></a></p>
 <p><img src="../img/ch08/winograd.png" alt="winograd步骤示意图"></p>
-<p>针对任意的输出大小，要使用$italic(bold(F))(2 times 2，3 times 3)$的Winograd算法，需要将输出切分成$2 times 2$的块，找到对应的输入，按照上述的四个步骤，就可以求出对应的输出值。当然，Winograd算法并不局限于求解$italic(bold(F))(2 times 2，3 times 3)$，针对任意的$italic(bold(F))(m times m，r times r)$，都可以找到适当的常量矩阵$italic(bold(A))$、$italic(bold(B))$、$italic(bold(G))$，通过间接计算的方式减少乘法次数。但是随着$m$、$r$的增大，输入、输出涉及的加法以及常量权重的乘法次数都在增加，那么乘法次数带来的计算量下降会被加法和常量乘法所抵消。因此，在实际使用场景中，还需要根据Winograd的实际收益来选择。</p>
+<p align="center">图9.4.7 winograd步骤示意图</p>
+
+<p>针对任意的输出大小，要使用\(\textit{\textbf{F}}(2\times2，3\times3)\)的Winograd算法，需要将输出切分成\(2\times2\)的块，找到对应的输入，按照上述的四个步骤，就可以求出对应的输出值。当然，Winograd算法并不局限于求解\(\textit{\textbf{F}}(2\times2，3\times3)\)，针对任意的\(\textit{\textbf{F}}(m\times m，r\times r)\)，都可以找到适当的常量矩阵\(\textit{\textbf{A}}\)、\(\textit{\textbf{B}}\)、\(\textit{\textbf{G}}\)，通过间接计算的方式减少乘法次数。但是随着\(m\)、\(r\)的增大，输入、输出涉及的加法以及常量权重的乘法次数都在增加，那么乘法次数带来的计算量下降会被加法和常量乘法所抵消。因此，在实际使用场景中，还需要根据Winograd的实际收益来选择。</p>
 <p>本小节主要介绍了模型推理时的数据处理和性能优化手段。选择合适的数据处理方法，可以更好地提取输入特征，处理输出结果。并行计算以及算子级别的硬件指令与算法优化可以最大限度的发挥硬件的算力。除此之后，内存的占用及访问速率也是影响推理性能的重要因素，因此推理时需要设计合理的内存复用策略，内存复用的策略已经在编译器后端章节已经做了阐述。</p>
 
                     </main>

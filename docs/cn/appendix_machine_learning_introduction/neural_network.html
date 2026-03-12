@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -181,87 +194,123 @@
                     <main>
                         <h2 id="神经网络"><a class="header" href="#神经网络">神经网络</a></h2>
 <h3 id="感知器"><a class="header" href="#感知器">感知器</a></h3>
+<p><a id="single_neuron"></a></p>
 <p><img src="../img/ch_basic/single_neuron2.png" alt="有三个输入和单一输出的神经元"></p>
-<p><code>single_neuron</code>是一个神经元的例子，输入数据$x$根据连线上的权重$w$做加权求和得到输出$z$，我们把这样的模型叫作<strong>感知器</strong>（Perceptron）。
-因为输入和输出之间只有一层神经连接，这个模型也叫做单层感知器。 <code>single_neuron</code>的模型计算可以写为：$z = w_(1) x_(1)+ w_(2) x_(2) + w_(3) x_(3)$。</p>
-<p>当输入数据用列向量$x=[x_1,x_2,x_3]^T$表示，模型权重用行向量$w=[w_1,w_2,w_3]$表示，那么输出的标量$z$可以写为：</p>
-<p>$$z =
-mat(delim: “[”, w_1,w_2,w_3)
-mat(delim: “[”, x_1; x_2; x_3)
-=w x$$</p>
-<p>我们可以利用输出标量$z$为输入的加权组合来实现特定任务。
-比如，可以对“好苹果“和“坏苹果“进行分类，输入的$x_1,x_2,x_3$分别代表三种不同的特征：1）红色的程度，2）有没有洞，3）大小。如果苹果的大小对这个判断没有影响，那么对应的权重就为零。
-这个神经网络的训练，其实就是选择合适的权重，来实现我们的任务。比如我们可以选择合适的权重，使得当$z$小于等于$0$时代表“坏苹果“，而当$z$大于$0$时则是“好苹果“。
-则最终的分类输出标签$y$如下，为$1$时代表好，$0$代表坏。这个神经元的输入和输出之间只有一层，所以可以成为单层神经网络。</p>
-<p>$$
+<p align="center">图17.1.1 有三个输入和单一输出的神经元</p>
+
+<p><a href="#single_neuron">图17.1.1</a>是一个神经元的例子，输入数据\(x\)根据连线上的权重\(w\)做加权求和得到输出\(z\)，我们把这样的模型叫作<strong>感知器</strong>（Perceptron）。
+因为输入和输出之间只有一层神经连接，这个模型也叫做单层感知器。 <a href="#single_neuron">图17.1.1</a>的模型计算可以写为：\(z = w_{1}x_{1}+ w_{2}x_{2} + w_{3}x_{3}\)。</p>
+<p>当输入数据用列向量\({x}=[x_1,x_2,x_3]^T\)表示，模型权重用行向量\({w}=[w_1,w_2,w_3]\)表示，那么输出的标量\(z\)可以写为：</p>
+<p>\[z =
+\begin{bmatrix}
+w_1,w_2,w_3\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\
+x_2\\
+x_3
+\end{bmatrix}
+={w}{x}\]</p>
+<p>我们可以利用输出标量\(z\)为输入的加权组合来实现特定任务。
+比如，可以对“好苹果“和“坏苹果“进行分类，输入的\(x_1,x_2,x_3\)分别代表三种不同的特征：1）红色的程度，2）有没有洞，3）大小。如果苹果的大小对这个判断没有影响，那么对应的权重就为零。
+这个神经网络的训练，其实就是选择合适的权重，来实现我们的任务。比如我们可以选择合适的权重，使得当\(z\)小于等于\(0\)时代表“坏苹果“，而当\(z\)大于\(0\)时则是“好苹果“。
+则最终的分类输出标签\(y\)如下，为\(1\)时代表好，\(0\)代表坏。这个神经元的输入和输出之间只有一层，所以可以成为单层神经网络。</p>
+<p>\[
 y =
-cases(1 &amp;  z&gt;0, 0 &amp; z &lt;= 0)$$</p>
+\begin{cases}
+1 &amp;  z&gt;0 \\
+0 &amp; z \leq 0 \\
+\end{cases}\]</p>
 <h3 id="决策边界vs偏置"><a class="header" href="#决策边界vs偏置">决策边界vs.偏置</a></h3>
-<p>通过选择合适的权重以$z$大于或小于$0$来对输入数据做分类的话，可以在数据空间上获得一个<strong>决策边界</strong>
-（Decision Boundary）。如 <code>single_neuron_decision_boundary2</code>所示，以神经元输出$z=0$作为输出标签$y$的决策边界，
+<p>通过选择合适的权重以\(z\)大于或小于\(0\)来对输入数据做分类的话，可以在数据空间上获得一个<strong>决策边界</strong>
+（Decision Boundary）。如 <a href="#single_neuron_decision_boundary2">single_neuron_decision_boundary2</a>所示，以神经元输出\(z=0\)作为输出标签\(y\)的决策边界，
 没有偏置时决策边界必然经过坐标原点，如果数据样本点不以原点来分开，会导致分类错误。
-为了解决这个问题，可以在神经元上加入一个<strong>偏置</strong>（Bias）。 <code>single_neuron_bias2</code>
-是一个有偏置$b$的神经元模型，可以用 (1)表达：
-$$z = w_(1) x_(1)+ w_(2) x_(2)+ w_(3) x_(3) + b quad upright(“(1)”)$$</p>
-<p><img src="../img/ch_basic/single_neuron_decision_boundary2.png" alt="两个输入（左）和三个输入（右）时的决策边界。不同形状的点代表不同类别的数据，需要找到$z=0$作为决策边界来把不同数据点分开。两个输入时决策边界是一直线，三个输入时决策边界是一个平面，高维度输入时决策边界称为超平面（Hyperplane）。 左： $z=w_(1) x_(1)+w_(2) x_(2)+b$。右：$z=w_(1) x_(1)+w_(2) x_(2)+w_(3) x_(3)+b$。没有偏置时，决策边界必然经过原点，所以不能分开不同类别的数据样本。"></p>
+为了解决这个问题，可以在神经元上加入一个<strong>偏置</strong>（Bias）。 <a href="#single_neuron_bias2">图17.1.2</a>
+是一个有偏置\(b\)的神经元模型，可以用 (1)表达：
+\[z = w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b\tag{1}\label{singleneuron_bias}\]</p>
+<p><img src="../img/ch_basic/single_neuron_decision_boundary2.png" alt="两个输入（左）和三个输入（右）时的决策边界。不同形状的点代表不同类别的数据，需要找到&#92;(z=0&#92;)作为决策边界来把不同数据点分开。两个输入时决策边界是一直线，三个输入时决策边界是一个平面，高维度输入时决策边界称为超平面（Hyperplane）。 左： &#92;(z=w_{1}x_{1}+w_{2}x_{2}+b&#92;)。右：&#92;(z=w_{1}x_{1}+w_{2}x_{2}+w_{3}x_{3}+b&#92;)。没有偏置时，决策边界必然经过原点，所以不能分开不同类别的数据样本。"></p>
+<p><a id="single_neuron_decision_boundary2"></a></p>
+<p><a id="single_neuron_bias2"></a></p>
 <p><img src="../img/ch_basic/single_neuron_bias2.png" alt="一个有偏置的单层神经网络"></p>
+<p align="center">图17.1.2 一个有偏置的单层神经网络</p>
+
 <p>有了偏置以后，决策边界（直线、平面或超平面）可以不经过坐标原点，因此能更好地分类样本。
 准确来说，决策边界把这些样本数据分成两个不同的类别，这个边界是
-${x_1, x_2, x_3 | w_(1) x_(1)+ w_(2) x_(2)+ w_(3) x_(3) + b = 0}$。</p>
+\({x_1, x_2, x_3 | w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b = 0}\)。</p>
 <h3 id="逻辑回归"><a class="header" href="#逻辑回归">逻辑回归</a></h3>
 <p>上述神经元的输入和输出是线性关系，为了提供非线性的数据表达能力，可以在神经元输出上加上<strong>激活函数</strong>（Activation
 Function），最常见的激活函数有Sigmoid、Tanh、ReLU和Softmax等。
-比如，上述神经元以$z=0$为分界来做分类任务，那么我们可不可以让神经元输出一个概率呢？比如输出$0~1$，$1$代表输入数据$100%$为某一类。
-为了让神经元输出$0~1$，可以在$z$上加一个逻辑函数<strong>Sigmoid</strong>，
+比如，上述神经元以\(z=0\)为分界来做分类任务，那么我们可不可以让神经元输出一个概率呢？比如输出\(0~1\)，\(1\)代表输入数据\(100%\)为某一类。
+为了让神经元输出\(0~1\)，可以在\(z\)上加一个逻辑函数<strong>Sigmoid</strong>，
 如 (2)所示，Sigmoid把数值限制在0和1之中，通过一个简单的临界值（如：0.5）来决定最终输出的标签是否属于某个类别。这个方法叫做<strong>逻辑回归</strong>（Logistic
 Regression）。</p>
-<p>$$a = f(z) = frac(1, 1+upright(e)^(-z)) quad upright(“(2)”)$$</p>
+<p>\[a = f({z}) = \frac{1}{1+{\rm e}^{-{z}}}\tag{2}\label{sigmoid}\]</p>
 <h3 id="多个神经元"><a class="header" href="#多个神经元">多个神经元</a></h3>
+<p><a id="two_neurons2"></a></p>
 <p><img src="../img/ch_basic/two_neurons2.png" alt="多个神经元"></p>
-<p>上述网络只有一个输出，若多个神经元在一起就可以有多个输出。 <code>two_neurons2</code>是有两个输出的网络，每个输出都和所有输入相连，所以也被称<strong>全连接层</strong>（Fully-Connected(FC) Layer），
+<p align="center">图17.1.3 多个神经元</p>
+
+<p>上述网络只有一个输出，若多个神经元在一起就可以有多个输出。 <a href="#two_neurons2">图17.1.3</a>是有两个输出的网络，每个输出都和所有输入相连，所以也被称<strong>全连接层</strong>（Fully-Connected(FC) Layer），
 可由下述式子 (3)表示X。</p>
-<p>$$z_(1) &amp;= w_(11) x_(1) + w_(12) x_(2) + w_(13) x_(3) + b_1   <br>z_(2) &amp;= w_(21) x_(1) + w_(22) x_(2) + w_(23) x_(3) + b_2 quad upright(“(3)”)$$</p>
+<p>\[z_{1} &amp;= w_{11}x_{1} + w_{12}x_{2} + w_{13}x_{3} + b_1 \notag \\ z_{2} &amp;= w_{21}x_{1} + w_{22}x_{2} + w_{23}x_{3} + b_2\tag{3}\label{fc_cal}\]</p>
 <p>如下式子表示了矩阵方法的实现：</p>
-<h1 id="-z--matdelim--z_1-z_2"><a class="header" href="#-z--matdelim--z_1-z_2">$$
-z =
-mat(delim: “[”, z_1; z_2)</a></h1>
-<p>mat(delim: “[”, w_(11), w_(12), w_(13); w_(21), w_(22), w_(23))
-mat(delim: “[”, x_1; x_2; x_3)
+<h1 bmatrix="" id="-z--beginbmatrix-z_1--z_2-end"><a class="header" href="#-z--beginbmatrix-z_1--z_2-end">\[
+{z} =
+\begin{bmatrix}
+z_1 \\
+z_2
+\end</a></h1>
+<p>\begin{bmatrix}
+w_{11} &amp; w_{12} &amp; w_{13}\\
+w_{21} &amp; w_{22} &amp; w_{23}\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\
+x_2\\
+x_3
+\end{bmatrix}
 +
-mat(delim: “[”, b_1; b_2)
-= W x + b$$</p>
-<p>多输出的网络可以实现多分类问题，比如有10个数值输出，每个数值分别代表一类物品的概率，每个输出在$0$到$1$之间，10个输出之和为$1$。
-可用 (4)的<strong>Softmax</strong> 函数来实现，$K$为输出的个数：</p>
-<p>$$f(z)<em>(i) = frac(upright(e)^(z</em>(i)), sum_(k=1)^(K) upright(e)^(z_(k))) quad upright(“(4)”)$$</p>
+\begin{bmatrix}
+b_1 \\ b_2
+\end{bmatrix}
+= {W}{x} + {b}\]</p>
+<p>多输出的网络可以实现多分类问题，比如有10个数值输出，每个数值分别代表一类物品的概率，每个输出在\(0\)到\(1\)之间，10个输出之和为\(1\)。
+可用 (4)的<strong>Softmax</strong> 函数来实现，\(K\)为输出的个数：</p>
+<p>\[f({z})_{i} = \frac{{\rm e}^{z_{i}}}{\sum_{k=1}^{K}{\rm e}^{z_{k}}}\tag{4}\label{e_softmax}\]</p>
 <h3 id="多层感知器"><a class="header" href="#多层感知器">多层感知器</a></h3>
-<p><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。$a^l_i$表示神经元输出$z$经过激活函数后的值，其中$l$代表层的序号（$L$代表输出层），$i$代表输出的序号"></p>
+<p><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。&#92;(a^l_i&#92;)表示神经元输出&#92;(z&#92;)经过激活函数后的值，其中&#92;(l&#92;)代表层的序号（&#92;(L&#92;)代表输出层），&#92;(i&#92;)代表输出的序号"></p>
 <p><strong>多层感知器</strong>（Multi-Layer
 Perceptron，MLP） <sup id="cite-rosenblatt1958perceptron"><a href="#ref-rosenblatt1958perceptron">[1]</a></sup>通过叠加多层全连接层来提升网络的表达能力。相比单层网络，多层感知器有很多中间层的输出并不暴露给最终输出，这些层被称为<strong>隐含层</strong>（Hidden
-Layers）。这个例子中的网络可以通过下方的串联式矩阵运算实现，其中$W^l$和$b^l$代表不同层的权重矩阵和偏置，$l$代表层号，$L$代表输出层。</p>
-<p>$$z = f(W^L f(W^3 f(W^2 f(W^1 x + b^1) + b^2) + b^3) + b^L)$$</p>
+Layers）。这个例子中的网络可以通过下方的串联式矩阵运算实现，其中\(W^l\)和\(b^l\)代表不同层的权重矩阵和偏置，\(l\)代表层号，\(L\)代表输出层。</p>
+<p>\[{z} = f({W^L}f({W^3}f({W^2}f({W^1}{x} + {b^1}) + {b^2}) + {b^3}) + {b^L})\]</p>
 <p>在深度学习时代，网络模型基本都是多层的神经网络层连接起来的，输入数据经过多层的特征提取，可以学到不同抽象层级的<strong>特征向量</strong>（Feature
 Vector）。下面我们介绍一下其他常用的神经网络层。</p>
 <h3 id="卷积网络"><a class="header" href="#卷积网络">卷积网络</a></h3>
-<p><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为$4 times 4 times 3$（高 $times$ 宽 $times$ 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为$3 times 3 times 3 times 1$（高 $times$ 宽$times$输入通道数$times$输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"></p>
+<p><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为&#92;(4 &#92;times 4 &#92;times 3&#92;)（高 &#92;(&#92;times&#92;) 宽 &#92;(&#92;times&#92;) 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为&#92;(3 &#92;times 3 &#92;times 3 &#92;times 1&#92;)（高 &#92;(&#92;times&#92;) 宽&#92;(&#92;times&#92;)输入通道数&#92;(&#92;times&#92;)输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"></p>
+<p><a id="conv_computation_v4"></a></p>
 <p><strong>卷积神经网络</strong> （Convolutional Neural
 Network，CNN） <sup id="cite-lecun1989backpropagation"><a href="#ref-lecun1989backpropagation">[2]</a></sup>由多层<strong>卷积层</strong>（Convolutional
 Layer）组成，常用于计算机视觉任务 <sup id="cite-krizhevsky2012imagenet"><a href="#ref-krizhevsky2012imagenet">[3]</a></sup><sup id="cite-he2016deep"><a href="#ref-he2016deep">[4]</a></sup>。
-<code>conv_computation_v4</code>描述了一个卷积运算的例子。
+<a href="#conv_computation_v4">conv_computation_v4</a>描述了一个卷积运算的例子。
 根据卷积的特点，我们可以知道两个事实：1）一个卷积核的通道数，等于输入的通道数；2）输出的通道数，等于卷积核的数量。</p>
-<p><code>conv_computation_v4</code>例子中，卷积核每次滑动一个数值的范围来进行卷积操作，我们称它的<strong>步长</strong>（Stride）为1。此外，如果希望输入的边缘数值也能被考虑在内的话，则需要对边缘做<strong>填零</strong>（Zero
-Padding）操作。 <code>conv_computation_v4</code>例子中，如果输入的每个通道上下左右都填充一圈零，那么输出的大小则为$4 times 4 times 1$。填零的圈数取决于卷积核的大小，卷积核越大则填零圈数越大。</p>
+<p><a href="#conv_computation_v4">conv_computation_v4</a>例子中，卷积核每次滑动一个数值的范围来进行卷积操作，我们称它的<strong>步长</strong>（Stride）为1。此外，如果希望输入的边缘数值也能被考虑在内的话，则需要对边缘做<strong>填零</strong>（Zero
+Padding）操作。 <a href="#conv_computation_v4">conv_computation_v4</a>例子中，如果输入的每个通道上下左右都填充一圈零，那么输出的大小则为\(4\times 4\times 1\)。填零的圈数取决于卷积核的大小，卷积核越大则填零圈数越大。</p>
 <p>为了对输入的图像数据做特征提取，卷积核数量往往比输入数据的通道数据要多，这样的话输出数据的数值会很多，计算量变大。然而图像数据中相邻像素的特征往往相似，所以我们可以对相邻的输出特征进行聚合操作。<strong>池化层</strong>就是为了实现这个目的，我们通常有两种池化方法最大值池化（Max
 Pooling）和平均值池化（Mean
-Pooling）。如 <code>pooling_v3</code>所示，假设池化的卷积核高宽为$2 times 2$，输入$4 times 4$的数据，步长为2（步长为1时，则输出等于输入），则输出为$2 times 2$。</p>
-<p><img src="../img/ch_basic/pooling_v3.png" alt="$2 times 2$ 最大值池化和平均值池化的例子，它们的步长为2，输入大小是$4 times 4$"></p>
+Pooling）。如 <a href="#pooling_v3">pooling_v3</a>所示，假设池化的卷积核高宽为\(2\times2\)，输入\(4\times4\)的数据，步长为2（步长为1时，则输出等于输入），则输出为\(2\times2\)。</p>
+<p><img src="../img/ch_basic/pooling_v3.png" alt="&#92;(2 &#92;times 2&#92;) 最大值池化和平均值池化的例子，它们的步长为2，输入大小是&#92;(4 &#92;times 4&#92;)"></p>
+<p><a id="pooling_v3"></a></p>
 <p>卷积层和全连接层都是很常用的，但是卷积层在输入是高维度的图像时，需要的参数量远远小于全连接层。卷积层的运算和全连接层是类似的，前者基于高维度张量运算，后者基于二维矩阵运算。</p>
 <h3 id="时序模型"><a class="header" href="#时序模型">时序模型</a></h3>
 <p>现实生活中除了图像还有大量时间序列数据，例如视频、股票价格等等。<strong>循环神经网络</strong>（Recurrent
-Neural Networks，RNN） <sup id="cite-rumelhart1986learning"><a href="#ref-rumelhart1986learning">[5]</a></sup>是一种处理序列数据的深度学习模型结构。序列数据是一串连续的数据${x_1, x_2, dots, x_n}$，比如每个$x$代表一个句子中的单词。</p>
-<p>为了可以接收一连串的输入序列，如 <code>rnn_simple_cell2</code>所示，朴素循环神经网络使用了循环单元（Cell）作为计算单元，用隐状态（Hidden
-State）来存储过去输入的信息。具体来说，对输入模型的每个数据$x$，根据公式 (5)，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
-<p>$$h_t = W[x_t; h_(t-1)] + b quad upright(“(5)”)$$</p>
-<p><img src="../img/ch_basic/rnn_simple_cell2.png" alt="朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态$h_(t-1)$和当前的输入$x_t$，求得当前的隐状态$h_t$。"></p>
+Neural Networks，RNN） <sup id="cite-rumelhart1986learning"><a href="#ref-rumelhart1986learning">[5]</a></sup>是一种处理序列数据的深度学习模型结构。序列数据是一串连续的数据\({x_1, x_2, \dots, x_n}\)，比如每个\(x\)代表一个句子中的单词。</p>
+<p>为了可以接收一连串的输入序列，如 <a href="#rnn_simple_cell2">图17.1.4</a>所示，朴素循环神经网络使用了循环单元（Cell）作为计算单元，用隐状态（Hidden
+State）来存储过去输入的信息。具体来说，对输入模型的每个数据\(x\)，根据公式 (5)，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
+<p>\[{h}_t = {W}[{x}_t; {h}_{t-1}] + {b}\tag{5}\label{aligned}\]</p>
+<p><a id="rnn_simple_cell2"></a></p>
+<p><img src="../img/ch_basic/rnn_simple_cell2.png" alt="朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态&#92;({h}_{t-1}&#92;)和当前的输入&#92;({x}_t&#92;)，求得当前的隐状态&#92;({h}_t&#92;)。"></p>
+<p align="center">图17.1.4 朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态\\({h}\_{t-1}\\)和当前的输入\\({x}\_t\\)，求得当前的隐状态\\({h}\_t\\)。</p>
+
 <p>然而这种简单的朴素循环神经网络有严重的信息遗忘问题。比如说我们的输入是“我是中国人，我的母语是___“，隐状态记住了“中国人“的信息，使得网络最后可以预测出“中文“一词；但是如果句子很长的时候，隐状态可能记不住太久之前的信息了，比如说“我是中国人，我去英国读书，后来在法国工作，我的母语是___”，这时候在最后的隐状态中关于“中国人“的信息可能会被因为多次的更新而遗忘了。
 为了解决这个问题，后面有人提出了各种各样的改进方法，其中最有名的是长短期记忆（Long
 Short-Term Memory，LSTM） <sup id="cite-Hochreiter1997lstm"><a href="#ref-Hochreiter1997lstm">[6]</a></sup>。关于时序的模型还有很多很多，比如近年来出现的Transformer <sup id="cite-vaswani2017attention"><a href="#ref-vaswani2017attention">[7]</a></sup>等等。</p>

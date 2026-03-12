@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -181,8 +194,6 @@
                     <main>
                         <h3 id="总结"><a class="header" href="#总结">总结</a></h3>
 <p>在这一章，我们简单介绍了机器人系统的基本概念，包括通用机器人操作系统、感知系统、规划系统和控制系统等，给读者对机器人问题的基本认识。对通用机器人操作系统部分，我们回顾了其中的基本概念，并通过代码实例让读者对ROS能有直接的体验，体会到搭建一个简单机器人系统的乐趣。当前，机器人是一个快速发展的人工智能分支，许多实际问题都需要通过机器人算法和系统设计的进一步发展得到解决。</p>
-<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
-<p>:bibliography:<code>../references/rlsys.bib</code></p>
 
                     </main>
 

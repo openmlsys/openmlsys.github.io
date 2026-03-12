@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -220,7 +233,10 @@ ret = preprocessor(image, &amp;image);
 </li>
 </ul>
 <p>实际使用中用户通过设置算子的运行模式(mode)来配置算子的计算是用CPU还是GPU完成计算，同时DALI中有如下限制：当一个算子为mixed模式或者gpu模式时，其所有的下游算子强制要求必须为gpu模式执行。</p>
+<p><a id="dali_overview"></a></p>
 <p><img src="../img/ch07/7.5/dali_overview.png" alt="NVIDIA DALI概览"></p>
+<p align="center">图8.5.1 NVIDIA DALI概览</p>
+
 <p>下面展示一段使用DALI构建数据处理流水线的示例代码，我们从文件中读取图片数据经过混合模式的解码再经过运算在GPU上的旋转和缩放算子处理后返回给用户处理
 结果。由于其展示出的优异性能，
 DALI被广泛的用于高性能推理服务和多卡训练性能的优化上。</p>
@@ -239,7 +255,10 @@ outputs = pipe.run()
 </code></pre>
 <h3 id="基于分布式的数据预处理"><a class="header" href="#基于分布式的数据预处理">基于分布式的数据预处理</a></h3>
 <p>分布式数据预处理是另一种解决CPU算力性能不足的可选方案。一种常见的做法是借助Spark、Dask等现有大数据计算框架进行数据预处理并将结果写入分布式文件系统，而训练的机器只需要读取预处理的结果数据并进行训练即可。</p>
+<p><a id="distributed_data_preprocess_based_on_3rd_party_software"></a></p>
 <p><img src="../img/ch07/7.5/distribute.png" alt="基于第三方分布式计算框架的分布式数据预处理"></p>
+<p align="center">图8.5.2 基于第三方分布式计算框架的分布式数据预处理</p>
+
 <p>该方案虽然在业内被广泛使用，却面临着三个问题：</p>
 <ul>
 <li>
@@ -264,7 +283,7 @@ Dataset也支持排序、随机打乱、GroupBy等全局混洗操作，该方案
 <hr>
 <h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
 <ol>
-<li id="ref-moritz2018ray">Moritz, Philipp and Nishihara, Robert and Wang, Stephanie and Tumanov, Alexey and Liaw, Richard and Liang, Eric and Elibol, Melih and Yang, Zongheng and Paul, William and Jordan, Michael I and others. <em>Ray: A distributed framework for emerging $\$AI$\$ applications</em>. 13th $\$USENIX$\$ Symposium on Operating Systems Design and Implementation ($\$OSDI$\$ 18). 2018. <a href="#cite-moritz2018ray">↩</a></li>
+<li id="ref-moritz2018ray">Moritz, Philipp and Nishihara, Robert and Wang, Stephanie and Tumanov, Alexey and Liaw, Richard and Liang, Eric and Elibol, Melih and Yang, Zongheng and Paul, William and Jordan, Michael I and others. <em>Ray: A distributed framework for emerging \\(\\\)AI\\(\\\) applications</em>. 13th \\(\\\)USENIX\\(\\\) Symposium on Operating Systems Design and Implementation (\\(\\\)OSDI\\(\\\) 18). 2018. <a href="#cite-moritz2018ray">↩</a></li>
 
 </ol>
 

@@ -8,6 +8,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,15 +42,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-526c3190.js";
+            window.path_to_searchindex_js = "searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-31a2f041.js"></script>

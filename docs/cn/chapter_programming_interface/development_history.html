@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -180,8 +193,11 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="机器学习系统编程模型的演进"><a class="header" href="#机器学习系统编程模型的演进">机器学习系统编程模型的演进</a></h2>
+<p><a id="img_framedh"></a></p>
 <p><img src="../img/ch02/framework_development_history.svg" alt="机器学习编程库发展历程"></p>
-<p>随着机器学习系统的诞生，如何设计易用且高性能的API接口就一直成为了系统设计者首要解决的问题。在早期的机器学习框架中（如 <code>img_framedh</code>所示），人们选择用Lua（Torch）和Python（Theano）等高层次编程语言来编写机器学习程序。这些早期的机器学习框架提供了机器学习必须的模型定义，自动微分等功能，其适用于编写小型和科研为导向的机器学习应用。</p>
+<p align="center">图2.1.1 机器学习编程库发展历程</p>
+
+<p>随着机器学习系统的诞生，如何设计易用且高性能的API接口就一直成为了系统设计者首要解决的问题。在早期的机器学习框架中（如 <a href="#img_framedh">图2.1.1</a>所示），人们选择用Lua（Torch）和Python（Theano）等高层次编程语言来编写机器学习程序。这些早期的机器学习框架提供了机器学习必须的模型定义，自动微分等功能，其适用于编写小型和科研为导向的机器学习应用。</p>
 <p>深度神经网络在2011年来快速崛起，很快在各个AI应用领域（计算机视觉、语音识别、自然语言处理等）取得了突破性的成绩。训练深度神经网络需要消耗大量的算力，而以Lua和Python为主导开发的Torch和Theano无法发挥这些算力的最大性能。与此同时，计算加速卡（如英伟达GPU）的通用API接口（例如CUDA C）日趋成熟，且构建于CPU多核技术之上的多线程库（POSIX Threads）也被广大开发者所接受。因此，许多的机器学习用户希望基于C和C++来开发高性能的深度学习应用。这一类需求被Caffe等一系列以C和C++作为核心API的框架所满足。</p>
 <p>然而，机器学习模型往往需要针对部署场景、数据类型、识别任务等需求进行深度定制，而这类定制任务需要被广大的AI应用领域开发者所实现。这类开发者的背景多样，往往不能熟练使用C和C++。因此Caffe这一类与C和C++深度绑定的编程框架，成为了制约框架快速推广的巨大瓶颈。</p>
 <p>在2015年底，谷歌率先推出了TensorFlow。相比于传统的Torch，TensorFlow提出前后端分离相对独立的设计，利用高层次编程语言Python作为面向用户的主要前端语言，而利用C和C++实现高性能后端。大量基于Python的前端API确保了TensorFlow可以被大量的数据科学家和机器学习科学家接受，同时帮助TensorFlow能够快速融入Python为主导的大数据生态（大量的大数据开发库如Numpy、Pandas、SciPy、Matplotlib和PySpark）。同时，Python具有出色的和C/C++语言的互操作性，这种互操作性已经在多个Python库中得到验证。因此，TensorFlow兼有Python的灵活性和生态，同时也通过C/C++后端得以实现高性能。这种设计在日后崛起的PyTorch、MindSpore和PaddlePaddle等机器学习框架得到传承。</p>

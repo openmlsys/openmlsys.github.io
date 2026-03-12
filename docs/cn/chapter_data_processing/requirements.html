@@ -7,6 +7,18 @@
 
 
         <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +41,16 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/dark-mode-images-3cd683db.css">
-        <link rel="stylesheet" href="../theme/typst-e7733abe.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-526c3190.js";
+            window.path_to_searchindex_js = "../searchindex-2663fb80.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31a2f041.js"></script>
@@ -200,7 +213,10 @@ Load）过程，第一个阶段（Extract）需要从存储设备中加载数据
 <p><strong>数据发送组件(Send)</strong>：负责将处理后的数据发送到GPU/华为昇腾Ascend等加速器中以进行后续的模型计算和更新。高性能的数据模块往往选择将数据向设备的搬运与加速器中的计算异步执行，以提升整个训练的吞吐率。</p>
 </li>
 </ul>
+<p><a id="pipeline"></a></p>
 <p><img src="../img/ch07/7.1/pipeline.png" alt="数据模块的核心组件"></p>
+<p align="center">图8.1.1 数据模块的核心组件</p>
+
 <p>实现上述的组件只是数据模块的基础，我们还要对如下方面进行重点设计：</p>
 <h4 id="易用性"><a class="header" href="#易用性">易用性</a></h4>
 <p>AI模型训练/推理过程中涉及到的数据处理非常灵活：一方面，不同的应用场景中数据集类型千差万别，特点各异，在加载数据集时，数据模块要支持图像、文本、音频、视频等多种类型的特定存储格式，还要支持内存、本地磁盘、分布式文件系统以及对象存储系统等多种存储设备类型，模块需要对上述复杂情况下数据加载中的IO差异进行抽象统一，减少用户的学习成本。另一方面，不同的数据类型往往也有着不同的数据处理需求。现有常见机器学习任务中，图像任务常常对图像进行缩放、翻转、模糊化等处理，文本任务需要对文本进行切分、向量化等操作，而语音任务需要对语音进行快速傅立叶变换、混响增强、变频等预处理。为帮助用户解决绝大部分场景下的数据处理需求，数据模块需要支持足够丰富的面向各种类型的数据预处理算子。然而新的算法和数据处理需求在不断快速涌现，我们需要支持用户在数据模块中方便的使用自定义处理算子，以应对数据模块未覆盖到的场景，达到灵活性和高效性的最佳平衡。</p>
