@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -281,7 +281,7 @@ b_1 \\ b_2
 <h3 id="多层感知器"><a class="header" href="#多层感知器">多层感知器</a></h3>
 <p><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。&#92;(a^l_i&#92;)表示神经元输出&#92;(z&#92;)经过激活函数后的值，其中&#92;(l&#92;)代表层的序号（&#92;(L&#92;)代表输出层），&#92;(i&#92;)代表输出的序号"></p>
 <p><strong>多层感知器</strong>（Multi-Layer
-Perceptron，MLP） [rosenblatt1958perceptron]通过叠加多层全连接层来提升网络的表达能力。相比单层网络，多层感知器有很多中间层的输出并不暴露给最终输出，这些层被称为<strong>隐含层</strong>（Hidden
+Perceptron，MLP） <sup id="cite-rosenblatt1958perceptron"><a href="#ref-rosenblatt1958perceptron">[1]</a></sup>通过叠加多层全连接层来提升网络的表达能力。相比单层网络，多层感知器有很多中间层的输出并不暴露给最终输出，这些层被称为<strong>隐含层</strong>（Hidden
 Layers）。这个例子中的网络可以通过下方的串联式矩阵运算实现，其中\(W^l\)和\(b^l\)代表不同层的权重矩阵和偏置，\(l\)代表层号，\(L\)代表输出层。</p>
 <p>\[{z} = f({W^L}f({W^3}f({W^2}f({W^1}{x} + {b^1}) + {b^2}) + {b^3}) + {b^L})\]</p>
 <p>在深度学习时代，网络模型基本都是多层的神经网络层连接起来的，输入数据经过多层的特征提取，可以学到不同抽象层级的<strong>特征向量</strong>（Feature
@@ -290,8 +290,8 @@ Vector）。下面我们介绍一下其他常用的神经网络层。</p>
 <p><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为&#92;(4 &#92;times 4 &#92;times 3&#92;)（高 &#92;(&#92;times&#92;) 宽 &#92;(&#92;times&#92;) 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为&#92;(3 &#92;times 3 &#92;times 3 &#92;times 1&#92;)（高 &#92;(&#92;times&#92;) 宽&#92;(&#92;times&#92;)输入通道数&#92;(&#92;times&#92;)输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"></p>
 <p><a id="conv_computation_v4"></a></p>
 <p><strong>卷积神经网络</strong> （Convolutional Neural
-Network，CNN） [lecun1989backpropagation]由多层<strong>卷积层</strong>（Convolutional
-Layer）组成，常用于计算机视觉任务 [krizhevsky2012imagenet, he2016deep]。
+Network，CNN） <sup id="cite-lecun1989backpropagation"><a href="#ref-lecun1989backpropagation">[2]</a></sup>由多层<strong>卷积层</strong>（Convolutional
+Layer）组成，常用于计算机视觉任务 <sup id="cite-krizhevsky2012imagenet"><a href="#ref-krizhevsky2012imagenet">[3]</a></sup><sup id="cite-he2016deep"><a href="#ref-he2016deep">[4]</a></sup>。
 <a href="#conv_computation_v4">conv_computation_v4</a>描述了一个卷积运算的例子。
 根据卷积的特点，我们可以知道两个事实：1）一个卷积核的通道数，等于输入的通道数；2）输出的通道数，等于卷积核的数量。</p>
 <p><a href="#conv_computation_v4">conv_computation_v4</a>例子中，卷积核每次滑动一个数值的范围来进行卷积操作，我们称它的<strong>步长</strong>（Stride）为1。此外，如果希望输入的边缘数值也能被考虑在内的话，则需要对边缘做<strong>填零</strong>（Zero
@@ -304,7 +304,7 @@ Pooling）。如 <a href="#pooling_v3">pooling_v3</a>所示，假设池化的卷
 <p>卷积层和全连接层都是很常用的，但是卷积层在输入是高维度的图像时，需要的参数量远远小于全连接层。卷积层的运算和全连接层是类似的，前者基于高维度张量运算，后者基于二维矩阵运算。</p>
 <h3 id="时序模型"><a class="header" href="#时序模型">时序模型</a></h3>
 <p>现实生活中除了图像还有大量时间序列数据，例如视频、股票价格等等。<strong>循环神经网络</strong>（Recurrent
-Neural Networks，RNN） [rumelhart1986learning]是一种处理序列数据的深度学习模型结构。序列数据是一串连续的数据\({x_1, x_2, \dots, x_n}\)，比如每个\(x\)代表一个句子中的单词。</p>
+Neural Networks，RNN） <sup id="cite-rumelhart1986learning"><a href="#ref-rumelhart1986learning">[5]</a></sup>是一种处理序列数据的深度学习模型结构。序列数据是一串连续的数据\({x_1, x_2, \dots, x_n}\)，比如每个\(x\)代表一个句子中的单词。</p>
 <p>为了可以接收一连串的输入序列，如 <a href="#rnn_simple_cell2">图17.1.4</a>所示，朴素循环神经网络使用了循环单元（Cell）作为计算单元，用隐状态（Hidden
 State）来存储过去输入的信息。具体来说，对输入模型的每个数据\(x\)，根据公式 (5)，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
 <p>\[{h}_t = {W}[{x}_t; {h}_{t-1}] + {b}\tag{5}\label{aligned}\]</p>
@@ -314,7 +314,26 @@ State）来存储过去输入的信息。具体来说，对输入模型的每个
 
 <p>然而这种简单的朴素循环神经网络有严重的信息遗忘问题。比如说我们的输入是“我是中国人，我的母语是___“，隐状态记住了“中国人“的信息，使得网络最后可以预测出“中文“一词；但是如果句子很长的时候，隐状态可能记不住太久之前的信息了，比如说“我是中国人，我去英国读书，后来在法国工作，我的母语是___”，这时候在最后的隐状态中关于“中国人“的信息可能会被因为多次的更新而遗忘了。
 为了解决这个问题，后面有人提出了各种各样的改进方法，其中最有名的是长短期记忆（Long
-Short-Term Memory，LSTM） [Hochreiter1997lstm]。关于时序的模型还有很多很多，比如近年来出现的Transformer [vaswani2017attention]等等。</p>
+Short-Term Memory，LSTM） <sup id="cite-Hochreiter1997lstm"><a href="#ref-Hochreiter1997lstm">[6]</a></sup>。关于时序的模型还有很多很多，比如近年来出现的Transformer <sup id="cite-vaswani2017attention"><a href="#ref-vaswani2017attention">[7]</a></sup>等等。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-rosenblatt1958perceptron">Rosenblatt, Frank. <em>The perceptron: a probabilistic model for information storage and organization in the brain.</em>. Psychological Review. 1958. <a href="#cite-rosenblatt1958perceptron">↩</a></li>
+
+<li id="ref-lecun1989backpropagation">LeCun, Yann and Boser, Bernhard and Denker, John S and Henderson, Donnie and Howard, Richard E and Hubbard, Wayne and Jackel, Lawrence D. <em>Backpropagation applied to handwritten zip code recognition</em>. Neural computation. 1989. <a href="#cite-lecun1989backpropagation">↩</a></li>
+
+<li id="ref-krizhevsky2012imagenet">Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E. <em>Imagenet classification with deep convolutional neural networks</em>. Advances in Neural Information Processing Systems. 2012. <a href="#cite-krizhevsky2012imagenet">↩</a></li>
+
+<li id="ref-he2016deep">He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian. <em>Deep Residual Learning for Image Recognition</em>. Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2016. <a href="#cite-he2016deep">↩</a></li>
+
+<li id="ref-rumelhart1986learning">Rumelhart, David E and Hinton, Geoffrey E and Williams, Ronald J. <em>Learning representations by back-propagating errors</em>. Nature. 1986. <a href="#cite-rumelhart1986learning">↩</a></li>
+
+<li id="ref-Hochreiter1997lstm">Hochreiter, Sepp and Hochreiter, S and Schmidhuber, J\"urgen and Schmidhuber, J. <em>Long Short-Term Memory.</em>. Neural Computation. 1997. <a href="#cite-Hochreiter1997lstm">↩</a></li>
+
+<li id="ref-vaswani2017attention">Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, \Lukasz and Polosukhin, Illia. <em>Attention is all you need</em>. Advances in Neural Information Processing Systems. 2017. <a href="#cite-vaswani2017attention">↩</a></li>
+
+</ol>
+
 
                     </main>
 

@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -205,7 +205,7 @@
 
 <p>随着编译器技术的不断演进，中间表示主要经历了三个发展阶段。在早期阶段，中间表示是封闭在编译器内部的，供编译器编写者使用。在中期阶段，随着编译器的开源，中间表示逐步开源公开，主要供编译器设计者、分析工具设计者使用。现阶段，中间表示朝着软件生态构建的方向发展，旨在构建统一的中间表示。</p>
 <h3 id="中间表示的种类"><a class="header" href="#中间表示的种类">中间表示的种类</a></h3>
-<p>上一节介绍了中间表示的基本概念，初步阐述了中间表示的重要作用和发展历程。接下来从组织结构的角度出发，介绍通用编译器的中间表示的类型以及各自特点 [2020MLIR]，如下表所示。中间表示组织结构的设计，对编译阶段的分析优化、代码生成等有着重要影响。编译器的设计需求不同，采用的中间表示组织结构也有所不同。</p>
+<p>上一节介绍了中间表示的基本概念，初步阐述了中间表示的重要作用和发展历程。接下来从组织结构的角度出发，介绍通用编译器的中间表示的类型以及各自特点 <sup id="cite-2020MLIR"><a href="#ref-2020MLIR">[1]</a></sup>，如下表所示。中间表示组织结构的设计，对编译阶段的分析优化、代码生成等有着重要影响。编译器的设计需求不同，采用的中间表示组织结构也有所不同。</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -221,7 +221,7 @@
 <p>1) 线性中间表示</p>
 <p>线性中间表示类似抽象机的汇编代码，将被编译代码表示为操作的有序序列，对操作序列规定了一种清晰且实用的顺序。由于大多数处理器采用线性的汇编语言，线性中间表示广泛应用于编译器设计。</p>
 <p>常用线性中间表示有堆栈机代码(Stack-Machine Code)和三地址代码(Three
-Address Code) [2007Compilers] 。堆栈机代码是一种单地址代码，提供了简单紧凑的表示。堆栈机代码的指令通常只有一个操作码，其操作数存在一个栈中。大多数操作指令从栈获得操作数，并将其结果推入栈中。三地址代码，简称为3AC，模拟了现代RISC机器的指令格式。它通过一组四元组实现，每个四元组包括一个运算符和三个地址(两个操作数、一个目标)。对于表达式a-b*5，堆栈机代码和三地址代码如 <a href="#linear_ir">图5.3.2</a>所示。</p>
+Address Code) <sup id="cite-2007Compilers"><a href="#ref-2007Compilers">[2]</a></sup> 。堆栈机代码是一种单地址代码，提供了简单紧凑的表示。堆栈机代码的指令通常只有一个操作码，其操作数存在一个栈中。大多数操作指令从栈获得操作数，并将其结果推入栈中。三地址代码，简称为3AC，模拟了现代RISC机器的指令格式。它通过一组四元组实现，每个四元组包括一个运算符和三个地址(两个操作数、一个目标)。对于表达式a-b*5，堆栈机代码和三地址代码如 <a href="#linear_ir">图5.3.2</a>所示。</p>
 <p><a id="linear_ir"></a></p>
 <p><img src="../img/ch04/中间表示-线性中间表示.png" alt="堆栈机代码和三地址代码"></p>
 <p align="center">图5.3.2 堆栈机代码和三地址代码</p>
@@ -236,10 +236,10 @@ Graph，DAG)、控制流图(Control-Flow Graph，CFG)等。</p>
 <p align="center">图5.3.3 AST图和DAG图</p>
 
 <p>3、混合中间表示</p>
-<p>混合中间表示是线性中间表示和图中间表示的结合，这里以LLVM IR [2004LLVM] 为例进行说明。LLVM(Low Level Virtual
+<p>混合中间表示是线性中间表示和图中间表示的结合，这里以LLVM IR <sup id="cite-2004LLVM"><a href="#ref-2004LLVM">[3]</a></sup> 为例进行说明。LLVM(Low Level Virtual
 Machine)是2000年提出的开源编译器框架项目，旨在为不同的前端后端提供统一的中间表示。LLVM
 IR使用线性中间表示表示基本块，使用图中间表示表示这些块之间的控制流，如 <a href="#LLVM_IR">图5.3.4</a>所示。基本块中，每条指令以静态单赋值(Static
-Single Assignment， SSA) [Richard1995A]
+Single Assignment， SSA) <sup id="cite-Richard1995A"><a href="#ref-Richard1995A">[4]</a></sup>
 形式呈现，这些指令构成一个指令线性列表。SSA形式要求每个变量只赋值一次，并且每个变量在使用之前定义。控制流图中，每个节点为一个基本块，基本块之间通过边实现控制转移。</p>
 <p><a id="LLVM_IR"></a></p>
 <p><img src="../img/ch04/中间表示-LLVMIR.png" alt="LLVM IR"></p>
@@ -256,7 +256,7 @@ IR，能够很好地满足通用编译器的基本功能需求，包括类型系
 <p>3)
 计算图模式。主流机器学习框架如TensorFlow、PyTorch、MindSpore等都提供了静态图和动态图两种计算图模式，静态计算图模式先创建定义计算图，再显式执行，有利于对计算图进行优化，高效但不灵活。动态计算图模式则是每使用一个算子后，该算子会在计算图中立即执行得到结果，使用灵活、便于调试，但运行速度较低。机器学习框架的中间表示设计同时支持静态图和动态图，可以针对待解决的任务需求，选择合适的模式构建算法模型。</p>
 <p>4)
-支持高阶函数和闭包 [2010C]。高阶函数和闭包是函数式编程的重要特性，高阶函数是指使用其它函数作为参数、或者返回一个函数作为结果的函数，闭包是指代码块和作用域环境的结合，可以在另一个作用域中调用一个函数的内部函数，并访问到该函数作用域中的成员。支持高阶函数和闭包，可以抽象通用问题、减少重复代码、提升框架表达的灵活性和简洁性。</p>
+支持高阶函数和闭包 <sup id="cite-2010C"><a href="#ref-2010C">[5]</a></sup>。高阶函数和闭包是函数式编程的重要特性，高阶函数是指使用其它函数作为参数、或者返回一个函数作为结果的函数，闭包是指代码块和作用域环境的结合，可以在另一个作用域中调用一个函数的内部函数，并访问到该函数作用域中的成员。支持高阶函数和闭包，可以抽象通用问题、减少重复代码、提升框架表达的灵活性和简洁性。</p>
 <p>5)
 编译优化。机器学习框架的编译优化主要包括硬件无关的优化、硬件相关的优化、部署推理相关的优化等，这些优化都依赖于中间表示的实现。</p>
 <p>6) JIT(Just In
@@ -338,7 +338,7 @@ IR，支持循环、分支、递归、闭包函数求导以及三阶求导，并
 
 <p>4、MLIR</p>
 <p>针对这个问题，TensorFlow团队提出了MLIR(Multi-Level Intermediate
-Represent，多级中间表示) [2020MLIR]。MLIR不是一种具体的中间表示定义，而是为中间表示提供一个统一的抽象表达和概念。 开发者可以使用MLIR开发的一系列基础设施，来定义符合自己需求的中间表示， 因此我们可以把MLIR理解为“编译器的编译器”。MLIR不局限于TensorFlow框架， 还可以用于构建连接其他语言与后端（如LLVM）的中间表示。
+Represent，多级中间表示) <sup id="cite-2020MLIR"><a href="#ref-2020MLIR">[1]</a></sup>。MLIR不是一种具体的中间表示定义，而是为中间表示提供一个统一的抽象表达和概念。 开发者可以使用MLIR开发的一系列基础设施，来定义符合自己需求的中间表示， 因此我们可以把MLIR理解为“编译器的编译器”。MLIR不局限于TensorFlow框架， 还可以用于构建连接其他语言与后端（如LLVM）的中间表示。
 MLIR深受LLVM设计理念的影响，但与LLVM不同的是， MLIR是一个更开放的生态系统。 在MLIR中， 没有预设的操作与抽象类型， 这使得开发者可以更自由地定义中间表示，并更有针对性地解决其领域的问题。MLIR通过Dialect的概念来支持这种可拓展性， Dialect在特定的命名空间下为抽象提供了分组机制，分别为每种中间表示定义对应的产生式并绑定相应的Operation， 从而生成一个MLIR类型的中间表示。Operation是MLIR中抽象和计算的核心单元，其具有特定的语意，可以用于表示LLVM中所有核心的IR结构， 例如指令， 函数以及模块等。 如下就是一个MLIR定义下的Operation：</p>
 <pre><code>%tensor = "toy.transpose"(%tensor) {inplace = true} : (tensor&lt;2x3xf64&gt;) -&gt; tensor&lt;3x2xf64&gt; loc("example/file/path":12:1)
 </code></pre>
@@ -358,7 +358,7 @@ IR。MindIR没有采用多层中间表示的结构，而是通过统一的中间
 <p>（1）基于图的（Graph
 based）。与TensorFlow类似，程序使用图来表示，使其容易去做优化。但跟TensorFlow不一样的是，在MindSpore中，函数是“一等公民“。函数可以被递归调用，也可以被当做参数传到其他的函数中，或者从其他函数中返回，使得MindSpore可以表达一系列的控制流结构。</p>
 <p>（2）纯函数的（Purely functional）。</p>
-<p>纯函数是指函数的结果只依赖函数的参数。若函数依赖或影响外部的状态，比如，函数会修改外部全局变量，或者函数的结果依赖全局变量的值，则称函数具有副作用 [spuler1994compiler]。若使用了带有副作用的函数，代码的执行顺序必须得到严格的保证，否则可能会得到错误的结果，比如对全局变量的先写后读变成了先读后写。同时，副作用的存在也会影响自动微分，因为反向部分需要从前向部分获取中间变量，需要确保该中间变量的正确。因此需要保证自动微分的函数是纯函数。</p>
+<p>纯函数是指函数的结果只依赖函数的参数。若函数依赖或影响外部的状态，比如，函数会修改外部全局变量，或者函数的结果依赖全局变量的值，则称函数具有副作用 <sup id="cite-spuler1994compiler"><a href="#ref-spuler1994compiler">[6]</a></sup>。若使用了带有副作用的函数，代码的执行顺序必须得到严格的保证，否则可能会得到错误的结果，比如对全局变量的先写后读变成了先读后写。同时，副作用的存在也会影响自动微分，因为反向部分需要从前向部分获取中间变量，需要确保该中间变量的正确。因此需要保证自动微分的函数是纯函数。</p>
 <p>由于Python语言具有高度动态性的特点，纯函数式编程对用户使用上有一些编程限制。有些机器学习框架的自动微分功能只支持对纯函数求导，且要求用户自行保证这一点。如果用户代码中写了带有副作用的函数，那么求导的结果可能会不符合预期。MindIR支持副作用的表达，能够将副作用的表达转换为纯函数的表达，从而在保持ANF函数式语义不变的同时，确保执行顺序的正确性，从而实现自由度更高的自动微分。</p>
 <p>（3）支持闭包表示的（Closure
 representation）。反向模式的自动微分，需要存储基本操作的中间结果到闭包中，然后再去进行组合连接。所以有一个自然的闭包表示尤为重要。闭包是指代码块和作用域环境的结合，在MindIR中，代码块是以函数图呈现的，而作用域环境可以理解为该函数被调用时的上下文环境。</p>
@@ -398,6 +398,23 @@ def test_f(x, y):
 
 <p>MindIR同时支持静态计算图和动态计算图的构建方式，更好地兼顾了灵活性与高性能。相比传统计算图，MindIR不仅可以表达算子之间的数据依赖，还可以表达丰富的函数式语义，具备更自然的自动微分实现方式。MindIR原生支持闭包，并且支持高阶函数的表达。在处理控制流时，MindIR将控制流转换为高阶函数的数据流，不仅支持数据流的自动微分，还支持条件跳转、循环和递归等控制流的自动微分，从而提升MindSpore的自动微分能力。</p>
 <p>在JIT即时编译方面，MindIR采用了基于图表示的形式，将控制流和数据流合一，支持更高效的JIT优化。在编译优化方面，MindIR引入优化器对计算图进行优化，采用前端-优化器-后端的三段式表达形式，支持硬件无关的优化(如类型推导、表达式化简等)、硬件相关的优化（如自动并行、内存优化、图算融合、流水线执行等）以及部署推理相关的优化（如量化、剪枝等），显著提升了MindSpore的编译执行能力。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-2020MLIR">Lattner, C.  and  Amini, M.  and  Bondhugula, U.  and  Cohen, A.  and  Davis, A.  and  Pienaar, J.  and  Riddle, R.  and  Shpeisman, T.  and  Vasilache, N.  and  Zinenko, O.. <em>MLIR: A Compiler Infrastructure for the End of Moore's Law</em>. 2020. <a href="#cite-2020MLIR">↩</a></li>
+
+<li id="ref-2007Compilers">Aho, A. V.  and  Lam, M. S.  and  Ullman, J. D.  and  Sethi, R.. <em>Compilers: Principles, Techniques, and Tools (Rental), 2nd Edition</em>. 2007. <a href="#cite-2007Compilers">↩</a></li>
+
+<li id="ref-2004LLVM">Lattner, C.  and  Adve, V.. <em>LLVM: A Compilation Framework for Lifelong Program Analysis &amp; Transformation</em>. Code Generation and Optimization, 2004. CGO 2004. International Symposium on. 2004. <a href="#cite-2004LLVM">↩</a></li>
+
+<li id="ref-Richard1995A">Richard and A. and Kelsey. <em>A correspondence between continuation passing style and static single assignment form</em>. Acm Sigplan Notices. 1995. <a href="#cite-Richard1995A">↩</a></li>
+
+<li id="ref-2010C">Jaervi, Jaakko  and  Freeman, J.. <em>C++ lambda expressions and closures</em>. Science of Computer Programming. 2010. <a href="#cite-2010C">↩</a></li>
+
+<li id="ref-spuler1994compiler">Spuler, David A and Sajeev, A Sayed Muhammed. <em>Compiler detection of function call side effects</em>. Informatica. 1994. <a href="#cite-spuler1994compiler">↩</a></li>
+
+</ol>
+
 
                     </main>
 

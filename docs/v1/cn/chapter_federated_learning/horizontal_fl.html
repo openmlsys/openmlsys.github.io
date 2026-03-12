@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -200,7 +200,7 @@
 <p>②：服务器执行安全聚合，不了解任何参与者的梯度信息。</p>
 <p>③：服务器将汇总后的结果发送给参与者。</p>
 <p>④：参与者用解密的梯度更新他们各自的模型。</p>
-<p>和传统分布式学习相比，联邦学习存在训练结点不稳定和通信代价大的难点。这些难点导致了联邦学习无法和传统分布式学习一样：在每次单步训练之后，同步不同训练结点上的权重。为了提高计算通信比并降低频繁通信带来的高能耗，谷歌公司在2017年 [fedavg]提出了联邦平均算法(Federated Averaging，FedAvg)。 :numfef:<code>ch10-federated-learning-fedavg</code>展示了FedAvg的整体流程。在每轮训练过程中，客户端进行了多次单步训练。然后服务端聚合多个客户端的权重，并取加权平均。</p>
+<p>和传统分布式学习相比，联邦学习存在训练结点不稳定和通信代价大的难点。这些难点导致了联邦学习无法和传统分布式学习一样：在每次单步训练之后，同步不同训练结点上的权重。为了提高计算通信比并降低频繁通信带来的高能耗，谷歌公司在2017年 <sup id="cite-fedavg"><a href="#ref-fedavg">[1]</a></sup>提出了联邦平均算法(Federated Averaging，FedAvg)。 :numfef:<code>ch10-federated-learning-fedavg</code>展示了FedAvg的整体流程。在每轮训练过程中，客户端进行了多次单步训练。然后服务端聚合多个客户端的权重，并取加权平均。</p>
 <p><a id="ch10-federated-learning-fedavg"></a></p>
 <p><img src="../img/ch10/ch10-federated-learning-fedavg.png" alt="联邦平均算法"></p>
 <p align="center">图13.2.1 联邦平均算法</p>
@@ -234,6 +234,20 @@
 <p>2.松耦合组网：使用FL-Server集群。每个FL-Server接收和下发权重给部分FL-Client，减少单个FL-Server的带宽压力。此外，支持FL-Client以松散的方式接入。任意FL-Client的中途退出都不会影响全局任务，并且FL-Client在任意时刻访问任意FL-Server都能获得训练所需的全量数据。</p>
 <p>3.加密模块：MindSpore Federated为了防止模型梯度的泄露，部署了多种加密算法：本地差分隐私（Local Differential Privacy，LDP）、基于多方安全计算（MPC）的安全聚合算法和华为自研的基于符号的维度选择差分隐私算法（Sign-based Dimension Selection，SignDS）。</p>
 <p>4.通信压缩模块：MindSpore Federated分别在FL-Server下发模型参数和FL-Client上传模型参数时，使用量化和稀疏等手段将权重压缩编码成较小的数据格式，并在对端将压缩编码后的数据解码为原始的数据。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-fedavg">Brendan McMahan and
+               Eider Moore and
+               Daniel Ramage and
+               Seth Hampson and
+               Blaise Ag\"uera y Arcas. <em>Communication-Efficient Learning of Deep Networks from Decentralized
+               Data</em>. Proceedings of the 20th International Conference on Artificial Intelligence
+               and Statistics, AISTATS 2017, 20-22 April 2017, Fort Lauderdale,
+               FL, USA. 2017. <a href="#cite-fedavg">↩</a></li>
+
+</ol>
+
 
                     </main>
 

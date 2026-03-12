@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -215,11 +215,11 @@
 <p>使用特征存储的一个显著优势是复用数据处理模块的结果并减少存储冗余，即避免每个模块都要单独对原始数据进行加工处理并维护一个数据存储系统来保存可能会用到的特征。然而其带来的一个更大的益处是可以保证整个系统中的各个组件拥有一致的特征视图。设想一个极端场景，假如训练模块自己维护的数据库中性别“男”对应的值是1，而“女”对应0，而推理模块恰好相反，这样会导致模型推理得到灾难性的结果。</p>
 <p>特征存储是机器学习系统中的重要基础组件，工业界有许多成熟的产品，例如SageMaker，Databricks等，也有许多优秀的开源系统，例如Hopsworks，Feast等。关于特征存储更加详细的介绍可以参考拓展阅读中提供的资料。</p>
 <h3 id="稠密神经网络"><a class="header" href="#稠密神经网络">稠密神经网络</a></h3>
-<p>稠密神经网络（Dense Neural Network，DNN）是推荐模型的核心，负责探索各个特征之间隐含的联系从而为用户推荐出可能感兴趣的物品。一般在推荐系统中，简单的多层感知机（Multilayer Perceptron，MLP）模型就已经显示出了强大的效果并被应用在谷歌 [cheng2016wide]、Meta [naumov2019deep]等各大公司的推荐模型中。虽然MLP的大矩阵相乘操作属于计算密集型任务，对于计算能力要求很高，但是推荐模型中的MLP尺寸一般不超过数MB，对存储要求不高。</p>
-<p>虽然MLP已经取得了不错的效果，在推荐系统领域，近年来应用各种新型深度神经网络的尝试从未止步，更加精巧复杂的网络结构层出不穷，近年来也有工作尝试应用Transformer模型完成推荐任务 [de2021transformers4rec]。在可以预见的未来，推荐模型中的稠密神经网络也必然会增长到数GB乃至TB。</p>
+<p>稠密神经网络（Dense Neural Network，DNN）是推荐模型的核心，负责探索各个特征之间隐含的联系从而为用户推荐出可能感兴趣的物品。一般在推荐系统中，简单的多层感知机（Multilayer Perceptron，MLP）模型就已经显示出了强大的效果并被应用在谷歌 <sup id="cite-cheng2016wide"><a href="#ref-cheng2016wide">[1]</a></sup>、Meta <sup id="cite-naumov2019deep"><a href="#ref-naumov2019deep">[2]</a></sup>等各大公司的推荐模型中。虽然MLP的大矩阵相乘操作属于计算密集型任务，对于计算能力要求很高，但是推荐模型中的MLP尺寸一般不超过数MB，对存储要求不高。</p>
+<p>虽然MLP已经取得了不错的效果，在推荐系统领域，近年来应用各种新型深度神经网络的尝试从未止步，更加精巧复杂的网络结构层出不穷，近年来也有工作尝试应用Transformer模型完成推荐任务 <sup id="cite-de2021transformers4rec"><a href="#ref-de2021transformers4rec">[3]</a></sup>。在可以预见的未来，推荐模型中的稠密神经网络也必然会增长到数GB乃至TB。</p>
 <h3 id="嵌入表"><a class="header" href="#嵌入表">嵌入表</a></h3>
 <p>嵌入表是几乎所有推荐模型的共有组件，负责将无法直接参与计算的离散特征数据，例如：用户和物品ID、用户性别、物品类别等，转化为高维空间中的一条向量。推荐模型中的嵌入表的结构和自然语言处理模型中的类似，不同的是自然语言处理模型中的深度神经网络贡献了主要的参数量，而在推荐模型中，如图 <a href="#recommendation-models">图12.1.3</a>所示，嵌入表贡献主要的参数量。这是因为，推荐系统中有大量的离散特征，而每个离散特征的每一种可能的取值都需要有对应的嵌入项。例如，性别特征的取值可能是“女”，“男”，“未知”，则需要三个嵌入项。假设每条嵌入项是一个64维的单精度浮点数向量，如果一个推荐系统服务一亿用户，那么仅仅对应的用户嵌入表（其中的每条嵌入项对应一个用户）的大小就有\(4*64*10^8～=23.8\)GB。除了用户嵌入表，还有商品嵌入表（其中的每条嵌入项对应一个商品），以及用户和商品的各项特征的嵌入表。总的嵌入表大小可以轻易达到几百GB甚至几十TB。
-而正如上文提到的，推荐系统中通常用的MLP模型尺寸较小。例如一个在Ali-CCP数据集 [ma2018entire]上训练的DLRM [naumov2019deep]的嵌入表大小超过1.44GB，而稠密神经网络仅有大约100KB。</p>
+而正如上文提到的，推荐系统中通常用的MLP模型尺寸较小。例如一个在Ali-CCP数据集 <sup id="cite-ma2018entire"><a href="#ref-ma2018entire">[4]</a></sup>上训练的DLRM <sup id="cite-naumov2019deep"><a href="#ref-naumov2019deep">[2]</a></sup>的嵌入表大小超过1.44GB，而稠密神经网络仅有大约100KB。</p>
 <p><a id="recommendation-models"></a></p>
 <p><img src="../img/ch10/ch-recsys/ch10-recommendation-models.png" alt="推荐模型的基本结构"></p>
 <p align="center">图12.1.3 推荐模型的基本结构</p>
@@ -237,6 +237,19 @@
 <p>在推荐系统中，参数服务器除了协调训练过程，还要负责支持模型推理。在模型推理过程中，推理服务器需要访问参数服务器上的模型参数以计算推荐结果。因此为了降低推理过程的延迟，通常会在推理服务器所在的数据中心（以下称之为推理数据中心）中的参数服务器上保存至少一份模型参数的副本，结构如图 <a href="#parameter-server-in-recommendation">图12.1.4</a>所示。这种做法还有利于容灾——当一个数据中心因为某些原因被迫下线无法访问时，可以将用户请求重定向至其他的推理数据中心。</p>
 <h3 id="推理服务器"><a class="header" href="#推理服务器">推理服务器</a></h3>
 <p>推荐系统中的推理服务器负责从客户端接受用户的推荐请求，然后根据请求从参数服务器拉取模型参数，从特征存储中拉取用户和物品特征，然后计算推荐结果。本节为了方便理解，假设用户请求由一个推理服务器处理，实际上在大规模推荐系统中，推理结果由（多个推理服务器上的）多个模型组成的推荐流水线给出。具体的细节将会在下一节多阶段推荐系统中介绍。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-cheng2016wide">Cheng, Heng-Tze and Koc, Levent and Harmsen, Jeremiah and Shaked, Tal and Chandra, Tushar and Aradhye, Hrishi and Anderson, Glen and Corrado, Greg and Chai, Wei and Ispir, Mustafa and others. <em>Wide \&amp; deep learning for recommender systems</em>. Proceedings of the 1st workshop on deep learning for recommender systems. 2016. <a href="#cite-cheng2016wide">↩</a></li>
+
+<li id="ref-naumov2019deep">Naumov, Maxim and Mudigere, Dheevatsa and Shi, Hao-Jun Michael and Huang, Jianyu and Sundaraman, Narayanan and Park, Jongsoo and Wang, Xiaodong and Gupta, Udit and Wu, Carole-Jean and Azzolini, Alisson G and others. <em>Deep learning recommendation model for personalization and recommendation systems</em>. arXiv preprint arXiv:1906.00091. 2019. <a href="#cite-naumov2019deep">↩</a></li>
+
+<li id="ref-de2021transformers4rec">de Souza Pereira Moreira, Gabriel and Rabhi, Sara and Lee, Jeong Min and Ak, Ronay and Oldridge, Even. <em>Transformers4rec: Bridging the gap between nlp and sequential/session-based recommendation</em>. Proceedings of the 15th ACM Conference on Recommender Systems. 2021. <a href="#cite-de2021transformers4rec">↩</a></li>
+
+<li id="ref-ma2018entire">Ma, Xiao and Zhao, Liqin and Huang, Guan and Wang, Zhi and Hu, Zelin and Zhu, Xiaoqiang and Gai, Kun. <em>Entire space multi-task model: An effective approach for estimating post-click conversion rate</em>. The 41st International ACM SIGIR Conference on Research \&amp; Development in Information Retrieval. 2018. <a href="#cite-ma2018entire">↩</a></li>
+
+</ol>
+
 <hr>
 <ol class="footnote-definition"></ol>
 

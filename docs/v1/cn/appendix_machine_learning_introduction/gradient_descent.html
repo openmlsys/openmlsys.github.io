@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -213,7 +213,7 @@ Rate）。
 在实践中，梯度下降最终得到的最小值很大可能是一个局部最小值，而不是全局最小值。不过由于深度神经网络能提供一个很强的数据表达能力，所以局部最小值可以很接近全局最小值，损失值可以足够小。</p>
 <p><img src="../img/ch_basic/gradient_descent2.png" alt="梯度下降介绍。（左图）只有一个可以训练的参数&#92;(w&#92;)；（右图）有两个可以训练的参数&#92;({w}=[w_1,w_2]&#92;)。在不断更新迭代参数后，损失值&#92;(&#92;mathcal{L}&#92;)会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。"></p>
 <p><a id="gradient_descent2"></a></p>
-<p>那么接下来，在深度神经网络中如何实现梯度下降呢，这需要计算出网络中每层参数的偏导数\(\frac{\partial \mathcal{L}}{\partial {w}}\)，我们可以用<strong>反向传播</strong>（Back-Propagation） [rumelhart1986learning, lecun2015deep]来实现。
+<p>那么接下来，在深度神经网络中如何实现梯度下降呢，这需要计算出网络中每层参数的偏导数\(\frac{\partial \mathcal{L}}{\partial {w}}\)，我们可以用<strong>反向传播</strong>（Back-Propagation） <sup id="cite-rumelhart1986learning"><a href="#ref-rumelhart1986learning">[1]</a></sup><sup id="cite-lecun2015deep"><a href="#ref-lecun2015deep">[2]</a></sup>来实现。
 接下来，
 我们引入一个中间量\({\delta}=\frac{\partial \mathcal{L}}{\partial {z}}\)来表示损失函数\(\mathcal{L}\)
 对于神经网络输出\({z}\)（未经过激活函数，不是\(a\)）的偏导数，
@@ -287,8 +287,23 @@ Rule），细节如下：</p>
 Descent，SGD）来计算损失值。具体来说，我们计算损失值不用全部训练数据，而是从训练集中随机选取一些数据样本来计算损失值，比如选取16、32、64或者128个数据样本，样本的数量被称为<strong>批大小</strong>（Batch
 Size）。
 此外，学习率的设定也非常重要。如果学习率太大，可能无法接近最小值的山谷，如果太小，训练又太慢。
-自适应学习率，例如Adam [KingmaAdam2014]、RMSProp [tieleman2012rmsprop]和
-Adagrad [duchi2011adagrad]等，在训练的过程中通过自动的方法来修改学习率，实现训练的快速收敛，到达最小值点。</p>
+自适应学习率，例如Adam <sup id="cite-KingmaAdam2014"><a href="#ref-KingmaAdam2014">[3]</a></sup>、RMSProp <sup id="cite-tieleman2012rmsprop"><a href="#ref-tieleman2012rmsprop">[4]</a></sup>和
+Adagrad <sup id="cite-duchi2011adagrad"><a href="#ref-duchi2011adagrad">[5]</a></sup>等，在训练的过程中通过自动的方法来修改学习率，实现训练的快速收敛，到达最小值点。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-rumelhart1986learning">Rumelhart, David E and Hinton, Geoffrey E and Williams, Ronald J. <em>Learning representations by back-propagating errors</em>. Nature. 1986. <a href="#cite-rumelhart1986learning">↩</a></li>
+
+<li id="ref-lecun2015deep">LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey. <em>Deep learning</em>. Nature. 2015. <a href="#cite-lecun2015deep">↩</a></li>
+
+<li id="ref-KingmaAdam2014">Kingma, Diederik and Ba, Jimmy. <em>Adam: A Method for Stochastic Optimization</em>. Proceedings of the International Conference on Learning Representations (ICLR). 2014. <a href="#cite-KingmaAdam2014">↩</a></li>
+
+<li id="ref-tieleman2012rmsprop">Tieleman, T and Hinton, G. <em>Divide the gradient by a running average of its recent magnitude. COURSERA: Neural networks for machine learning</em>. 2017. <a href="#cite-tieleman2012rmsprop">↩</a></li>
+
+<li id="ref-duchi2011adagrad">Duchi, John and Hazan, Elad and Singer, Yoram. <em>Adaptive subgradient methods for online learning and stochastic optimization</em>. Journal of Machine Learning Research (JMLR). 2011. <a href="#cite-duchi2011adagrad">↩</a></li>
+
+</ol>
+
 
                     </main>
 

@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -214,8 +214,8 @@
 </ul>
 <h4 id="算子编译器使能加速器"><a class="header" href="#算子编译器使能加速器">算子编译器使能加速器</a></h4>
 <p>DSA架构的多维度AI加速器通常提供了更多的指令选择（三维向量计算指令、二维向量计算指令、一维向量计算指令），以及更加复杂的数据流处理，通过提供接口调用的方式对程序开发人员带来较大的挑战。此外，由于调度、切分的复杂度增加，直接提供算子库的方式由于缺少根据目标形状（Shape）调优的能力，往往无法在所有形状下均得到最优的性能。因此，对于DSA加速器，业界通常采用算子编译器的解决方案。</p>
-<p>随着深度学习模型的迭代更新及各类AI芯片的层出不穷，基于人工优化算子的方式给算子开发团队带来沉重的负担。因此，开发一种能够将High-level的算子表示编译成目标硬件可执行代码的算子编译器，逐渐成为学术界及工业界的共识。算子编译器前端通常提供了特定领域描述语言（DSL），用于定义算子的计算范式；类似于传统编译器，算子编译器也会将算子计算表示转换为中间表示，如HalideIR [ragan2013halide]、TVM [chen2018tvm]的TIR、Schedule Tree [verdoolaege2010isl]等，基于模板（手动）、搜索算法或优化求解算法（自动）等方式完成循环变换、循环切分等调度相关优化，以及硬件指令映射、内存分配、指令流水等后端pass优化，最后通过代码生成模块将IR转换为DSA加速器可执行的设备端核函数。</p>
-<p>当前业界的算子编译器/编译框架主要有TVM/Ansor [zheng2020ansor]、MLIR [lattner2020mlir]、以及华为昇腾芯片上的TBE/AKG [zhao2021akg]等。</p>
+<p>随着深度学习模型的迭代更新及各类AI芯片的层出不穷，基于人工优化算子的方式给算子开发团队带来沉重的负担。因此，开发一种能够将High-level的算子表示编译成目标硬件可执行代码的算子编译器，逐渐成为学术界及工业界的共识。算子编译器前端通常提供了特定领域描述语言（DSL），用于定义算子的计算范式；类似于传统编译器，算子编译器也会将算子计算表示转换为中间表示，如HalideIR <sup id="cite-ragan2013halide"><a href="#ref-ragan2013halide">[1]</a></sup>、TVM <sup id="cite-chen2018tvm"><a href="#ref-chen2018tvm">[2]</a></sup>的TIR、Schedule Tree <sup id="cite-verdoolaege2010isl"><a href="#ref-verdoolaege2010isl">[3]</a></sup>等，基于模板（手动）、搜索算法或优化求解算法（自动）等方式完成循环变换、循环切分等调度相关优化，以及硬件指令映射、内存分配、指令流水等后端pass优化，最后通过代码生成模块将IR转换为DSA加速器可执行的设备端核函数。</p>
+<p>当前业界的算子编译器/编译框架主要有TVM/Ansor <sup id="cite-zheng2020ansor"><a href="#ref-zheng2020ansor">[4]</a></sup>、MLIR <sup id="cite-lattner2020mlir"><a href="#ref-lattner2020mlir">[5]</a></sup>、以及华为昇腾芯片上的TBE/AKG <sup id="cite-zhao2021akg"><a href="#ref-zhao2021akg">[6]</a></sup>等。</p>
 <ul>
 <li><strong>TVM/Ansor</strong></li>
 </ul>
@@ -227,7 +227,7 @@
 <ul>
 <li><strong>MLIR</strong></li>
 </ul>
-<p>前面的章节介绍过，Google开发的MLIR并不是一个单一的算子编译器，而是一套编译器基础设施，提供了工具链的组合与复用能力。基于MLIR，DSA加速器厂商可以快速的搭建其定制化算子编译器。如Google论文 [vasilache2022composable]中所述，当前的算子编译器大多提供了一整套自顶向下的编译优化pass，包括调度优化、切分优化、窥孔优化、后端优化、指令生成等，彼此之间大多无法复用，导致新的场景中通常又得从头开发。而在MLIR中，将功能相近的IR优化pass封装为方言（Dialect），并且提供了多个代码生成相关的基础方言，如vector、memref、tensor、scf、affine、linalg等。硬件厂商可以基于这些方言，快速构建一整套lower优化及codegen流程。如 <a href="#MLIR_Lowing">图7.3.2</a>所示，利用scf、affine、linalg等方言，对结构化的计算IR完成循环并行优化、切分、向量化等，最后基于LLVM完成指令映射。</p>
+<p>前面的章节介绍过，Google开发的MLIR并不是一个单一的算子编译器，而是一套编译器基础设施，提供了工具链的组合与复用能力。基于MLIR，DSA加速器厂商可以快速的搭建其定制化算子编译器。如Google论文 <sup id="cite-vasilache2022composable"><a href="#ref-vasilache2022composable">[7]</a></sup>中所述，当前的算子编译器大多提供了一整套自顶向下的编译优化pass，包括调度优化、切分优化、窥孔优化、后端优化、指令生成等，彼此之间大多无法复用，导致新的场景中通常又得从头开发。而在MLIR中，将功能相近的IR优化pass封装为方言（Dialect），并且提供了多个代码生成相关的基础方言，如vector、memref、tensor、scf、affine、linalg等。硬件厂商可以基于这些方言，快速构建一整套lower优化及codegen流程。如 <a href="#MLIR_Lowing">图7.3.2</a>所示，利用scf、affine、linalg等方言，对结构化的计算IR完成循环并行优化、切分、向量化等，最后基于LLVM完成指令映射。</p>
 <p><a id="MLIR_Lowing"></a></p>
 <p><img src="../img/ch06/MLIR-Lowing_cn.png" alt="MLIR_Lowing"></p>
 <p align="center">图7.3.2 MLIR_Lowing</p>
@@ -241,7 +241,7 @@ Schedule工具，开放了自定义算子编程DSL，用于自动完成复杂算
 <p><img src="../img/ch06/TBE_cn.png" alt="张量加速引擎"></p>
 <p align="center">图7.3.3 张量加速引擎</p>
 
-<p>AKG则是MindSpore社区的开源算子编译工具。与上述介绍的算子编译器不同，AKG基于Polyhedral多面体编译技术 [bastoul2004code]，支持在CPU、GPU和Ascend多种硬件上自动生成满足并行性与数据局部性的调度。Polyhedral编译技术的核心思想是将程序中循环的迭代空间映射为高维空间多面体，通过分析语句读写依赖关系，将循环调度优化问题转换为整数规划求解问题。 AKG的编译流程如 <a href="#akg">图7.3.4</a>所示，主要包含规范化、自动调度优化、指令映射、后端优化几个模块。AKG同样基于TVM实现，支持TVM compute/Hybrid DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合子图。通过IR规范化，将DSL/子图IR转换为Polyhedral编译的调度树。在Poly模块中，利用其提供的调度算法，实现循环的自动融合、自动重排等变换，为融合算子自动生成满足并行性、数据局部性的初始调度。为了能够快速适配不同的硬件后端，在Poly模块内将优化pass识别为硬件无关的通用优化与硬件相关的特定优化，编译时按照硬件特征拼接组合，实现异构硬件后端的快速适配。</p>
+<p>AKG则是MindSpore社区的开源算子编译工具。与上述介绍的算子编译器不同，AKG基于Polyhedral多面体编译技术 <sup id="cite-bastoul2004code"><a href="#ref-bastoul2004code">[8]</a></sup>，支持在CPU、GPU和Ascend多种硬件上自动生成满足并行性与数据局部性的调度。Polyhedral编译技术的核心思想是将程序中循环的迭代空间映射为高维空间多面体，通过分析语句读写依赖关系，将循环调度优化问题转换为整数规划求解问题。 AKG的编译流程如 <a href="#akg">图7.3.4</a>所示，主要包含规范化、自动调度优化、指令映射、后端优化几个模块。AKG同样基于TVM实现，支持TVM compute/Hybrid DSL编写的算子表示，以及MindSpore图算融合模块优化后的融合子图。通过IR规范化，将DSL/子图IR转换为Polyhedral编译的调度树。在Poly模块中，利用其提供的调度算法，实现循环的自动融合、自动重排等变换，为融合算子自动生成满足并行性、数据局部性的初始调度。为了能够快速适配不同的硬件后端，在Poly模块内将优化pass识别为硬件无关的通用优化与硬件相关的特定优化，编译时按照硬件特征拼接组合，实现异构硬件后端的快速适配。</p>
 <p><a id="akg"></a></p>
 <p><img src="../img/ch06/akg_cn.png" alt="AKG"></p>
 <p align="center">图7.3.4 AKG</p>
@@ -341,6 +341,27 @@ tensor_b = tvm.placeholder(b_shape, name='tensor_b', dtype=in_dtype)
 tensor_bias = tvm.placeholder(bias_shape, name='tensor_bias', dtype=dst_dtype)
 res = te.lang.cce.matmul(tensor_a, tensor_b, False, False, False, dst_dtype=dst_dtype, tensor_bias=tensor_bias)
 </code></pre>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-ragan2013halide">Ragan-Kelley, Jonathan and Barnes, Connelly and Adams, Andrew and Paris, Sylvain and Durand, Fredo and Amarasinghe, Saman. <em>Halide: a language and compiler for optimizing parallelism, locality, and recomputation in image processing pipelines</em>. Acm Sigplan Notices. 2013. <a href="#cite-ragan2013halide">↩</a></li>
+
+<li id="ref-chen2018tvm">Chen, Tianqi and Moreau, Thierry and Jiang, Ziheng and Shen, Haichen and Yan, Eddie Q and Wang, Leyuan and Hu, Yuwei and Ceze, Luis and Guestrin, Carlos and Krishnamurthy, Arvind. <em>TVM: end-to-end optimization stack for deep learning</em>. arXiv preprint arXiv:1802.04799. 2018. <a href="#cite-chen2018tvm">↩</a></li>
+
+<li id="ref-verdoolaege2010isl">Verdoolaege, Sven. <em>isl: An integer set library for the polyhedral model</em>. International Congress on Mathematical Software. 2010. <a href="#cite-verdoolaege2010isl">↩</a></li>
+
+<li id="ref-zheng2020ansor">Zheng, Lianmin and Jia, Chengfan and Sun, Minmin and Wu, Zhao and Yu, Cody Hao and Haj-Ali, Ameer and Wang, Yida and Yang, Jun and Zhuo, Danyang and Sen, Koushik and others. <em>Ansor: Generating \\(\\\)High-Performance\\(\\\) Tensor Programs for Deep Learning</em>. 14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20). 2020. <a href="#cite-zheng2020ansor">↩</a></li>
+
+<li id="ref-lattner2020mlir">Lattner, Chris and Amini, Mehdi and Bondhugula, Uday and Cohen, Albert and Davis, Andy and Pienaar, Jacques and Riddle, River and Shpeisman, Tatiana and Vasilache, Nicolas and Zinenko, Oleksandr. <em>MLIR: A compiler infrastructure for the end of Moore's law</em>. arXiv preprint arXiv:2002.11054. 2020. <a href="#cite-lattner2020mlir">↩</a></li>
+
+<li id="ref-zhao2021akg">Zhao, Jie and Li, Bojie and Nie, Wang and Geng, Zhen and Zhang, Renwei and Gao, Xiong and Cheng, Bin and Wu, Chen and Cheng, Yun and Li, Zheng and others. <em>AKG: automatic kernel generation for neural processing units using polyhedral transformations</em>. Proceedings of the 42nd ACM SIGPLAN International Conference on Programming Language Design and Implementation. 2021. <a href="#cite-zhao2021akg">↩</a></li>
+
+<li id="ref-vasilache2022composable">Vasilache, Nicolas and Zinenko, Oleksandr and Bik, Aart JC and Ravishankar, Mahesh and Raoux, Thomas and Belyaev, Alexander and Springer, Matthias and Gysi, Tobias and Caballero, Diego and Herhut, Stephan and others. <em>Composable and Modular Code Generation in MLIR: A Structured and Retargetable Approach to Tensor Compiler Construction</em>. arXiv preprint arXiv:2202.03293. 2022. <a href="#cite-vasilache2022composable">↩</a></li>
+
+<li id="ref-bastoul2004code">Bastoul, Cedric. <em>Code generation in the polyhedral model is easier than you think</em>. Proceedings. 13th International Conference on Parallel Architecture and Compilation Techniques, 2004. PACT 2004.. 2004. <a href="#cite-bastoul2004code">↩</a></li>
+
+</ol>
+
 
                     </main>
 

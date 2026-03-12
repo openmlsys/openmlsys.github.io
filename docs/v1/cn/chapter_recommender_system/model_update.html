@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -196,7 +196,7 @@
                         <h2 id="模型更新"><a class="header" href="#模型更新">模型更新</a></h2>
 <p>通过以上两节的学习，我们了解了推荐系统的基本组件和运行流程。然而在实际的生产环境中，因为种种原因，推荐系统必须经常性地对模型参数进行更新。在保证上亿在线用户的使用体验的前提下，更新超大规模推荐模型是极具挑战性的。本节首先介绍为何推荐系统需要持续更新模型参数，然后介绍一种主流的离线更新方法，以及一个支持在线更新的推荐系统。</p>
 <h3 id="持续更新模型的需求"><a class="header" href="#持续更新模型的需求">持续更新模型的需求</a></h3>
-<p>在学习过程中，我们用到的数据集通常都是静态的，例如ImageNet [russakovsky2015imagenet]，WikiText [merity2016pointer]。其中的数据分布通常是不变的，因此训练一个模型使其关键指标，如准确率（Accuracy）和困惑度（Perplexity），达到一定要求之后训练任务就结束了。然而在线服务中使用的推荐模型需要面临高度动态的场景。这里的动态主要指两个方面：</p>
+<p>在学习过程中，我们用到的数据集通常都是静态的，例如ImageNet <sup id="cite-russakovsky2015imagenet"><a href="#ref-russakovsky2015imagenet">[1]</a></sup>，WikiText <sup id="cite-merity2016pointer"><a href="#ref-merity2016pointer">[2]</a></sup>。其中的数据分布通常是不变的，因此训练一个模型使其关键指标，如准确率（Accuracy）和困惑度（Perplexity），达到一定要求之后训练任务就结束了。然而在线服务中使用的推荐模型需要面临高度动态的场景。这里的动态主要指两个方面：</p>
 <ol>
 <li>推荐模型所服务的用户和所囊括的物品是在不断变化的，每时每刻都会有新的用户和新的物品。如图 <a href="#user-embedding-missing">图12.3.1</a>所示，如果嵌入表中没有新用户所对应的嵌入项，那么推荐模型就很难服务于这个用户；同理如果新加入的物品没有在推荐模型的嵌入表中，如图 <a href="#content-embedding-missing">图12.3.2</a>所示，就无法出现在推荐流水线中，从而导致不能被推荐给目标用户。</li>
 <li>推荐模型所面临的用户兴趣是在不断变化的，如果推荐模型不能及时地改变权重以适应用户新的兴趣，那么推荐效果就会下降。例如在一个新闻推荐的应用中，每天的热点新闻都是不一样的，如果推荐模型总是推荐旧的热点，用户的点击率就会持续下降。</li>
@@ -230,6 +230,15 @@
 <li>需要使用在线训练范式的场景。传统的推荐系统通常采用离线训练的方式，即累计一段时间（例如，一天）的训练数据来训练模型，并将训练好的模型在低峰期（例如，凌晨）上线。最近越来越多的研究和实践表明，增大训练频率可以有效提升推荐效果。将训练频率增加到最高的结果就是在线训练，即流式处理训练数据并送给模型，模型持续地基于在线样本调整参数，模型更新被即时用于服务于用户。模型更新作为在线训练的一个主要环节，必须要降低延迟以达到更好的训练效果。</li>
 </ol>
 <p>在下一小节，我们将详细分析一个前沿的推荐系统是如何解决模型快速更新的问题的。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-russakovsky2015imagenet">Russakovsky, Olga and Deng, Jia and Su, Hao and Krause, Jonathan and Satheesh, Sanjeev and Ma, Sean and Huang, Zhiheng and Karpathy, Andrej and Khosla, Aditya and Bernstein, Michael. <em>Imagenet Large Scale Visual Recognition Challenge</em>. International Journal of Computer Vision (IJCV). 2015. <a href="#cite-russakovsky2015imagenet">↩</a></li>
+
+<li id="ref-merity2016pointer">Merity, Stephen and Xiong, Caiming and Bradbury, James and Socher, Richard. <em>Pointer sentinel mixture models</em>. arXiv preprint arXiv:1609.07843. 2016. <a href="#cite-merity2016pointer">↩</a></li>
+
+</ol>
+
 
                     </main>
 

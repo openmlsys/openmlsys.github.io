@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -195,8 +195,8 @@
                     <main>
                         <h2 id="通用机器人操作系统"><a class="header" href="#通用机器人操作系统">通用机器人操作系统</a></h2>
 <p><a id="ROS2_arch"></a></p>
-<p><img src="../img/ch13/ROS2_arch.png" alt="ROS/ROS2架构概述 [maruyama2016exploring]"></p>
-<p align="center">图16.2.1 ROS/ROS2架构概述 [maruyama2016exploring]</p>
+<p><img src="../img/ch13/ROS2_arch.png" alt="ROS/ROS2架构概述 &lt;sup id=&quot;cite-maruyama2016exploring&quot;&gt;&lt;a href=&quot;#ref-maruyama2016exploring&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p align="center">图16.2.1 ROS/ROS2架构概述 <sup id="cite-maruyama2016exploring"><a href="#ref-maruyama2016exploring">[1]</a></sup></p>
 
 <p>在这一章节中，我们来大致了解一下机器人操作系统(ROS)。机器人操作系统(ROS)起源于斯坦福大学人工智能实验室的一个机器人项目。它是一个自由、开源的框架，提供接口、工具来构建先进的机器人。由于机器人领域的快速发展和复杂化，代码复用和模块化的需求日益强烈，ROS适用于机器人这种多节点多任务的复杂场景。目前也有一些机器人、无人机甚至无人车都开始采用ROS作为开发平台。在机器人学习方面，ROS/ROS2可以与深度学习结合，有开发人员为ROS/ROS2开发了的深度学习节点，并支持NVIDIA Jetson和TensorRT。NVIDIA Jetson是NVIDIA为自主机器开发的一个嵌入式系统，包括CPU、GPU、PMIC、DRAM 和闪存的一个模组化系统，可以将自主机器软件运作系统运行速率提升。TensorRT 是由 Nvidia 发布的机器学习框架，用于在其硬件上运行机器学习推理。</p>
 <p>作为一个适用于机器人编程的框架，ROS把原本松散的零部件耦合在了一起，为他们提供了通信架构。虽然叫做``操作系统”，ROS更像是一个中间件，给各种基于ROS的应用程序建立起了沟通的桥梁，通过这个中间件，机器人的感知、决策、控制算法可以组织和运行。ROS采用了分布式的设计思想，支持C++、Pyhton等多种编程语言，方便移植。对ROS来讲，最小的进程单元是节点，由节点管理器来管理。参数配置存储在参数服务器中。ROS的通信方式包含：主题（Topic）、服务（Service）、参数服务器（Parameter Server）、动作库（ActionLib）这四种。</p>
@@ -241,6 +241,13 @@
 <p><a id="ros2_actions"></a></p>
 <p><img src="../img/ch13/ros2_actions.png" alt="ROS2动作"></p>
 <p align="center">图16.2.5 ROS2动作</p>
+
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-maruyama2016exploring">Maruyama, Yuya and Kato, Shinpei and Azumi, Takuya. <em>Exploring the performance of ROS2</em>. Proceedings of the 13th ACM SIGBED International Conference on Embedded Software (EMSOFT). 2016. <a href="#cite-maruyama2016exploring">↩</a></li>
+
+</ol>
 
 <hr>
 <ol class="footnote-definition">

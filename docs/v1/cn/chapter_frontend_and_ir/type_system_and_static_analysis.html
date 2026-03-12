@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -202,9 +202,9 @@
 <p>3）抽象。在安全的前提下，一个强大的类型系统的标准是抽象能力。通过合理设计抽象，开发者可以更关注更高层次的设计。</p>
 <p>4）可读性。阅读代码时，明确的类型声明有助于理解程序代码。</p>
 <p>机器学习框架一般使用Python语言作为描述网络模型结构的前端语言。Python语言是一门动态强类型的语言，入门简单易学习，开发代码简洁高效，但由于其解释执行的方式，运行速度往往较慢。Python前端语言给用户带来了动态灵活的语义和高效的开发效率，但是若想要生成运行高效的后端代码，后端框架需要优化友好的静态强类型中间表示。因此，需要一种高效可靠的静态分析方法作为桥梁，将Python前端表示转换成等价的静态强类型中间表示，以此给用户同时带来高效的开发效率和运行效率，例如Hindley–Milner（HM）类型系统。这是一种具有参数多态性的简单类型lambda演算的类型系统。它最初由J.
-Roger Hindley 提出 [1969The]，并由Robin Milner
-进行扩展和验证 [1978A] 。后来，路易斯·达马斯（Luis
-Damas）对HM类型推导方法进行了详尽的分析和证明 [1982Principal]，并将其扩展到支持具有多态引用的系统。Hindley–Milner类型系统的目标是在没有给定类型注解的情况下，自动推导出任意表达式的类型。其算法具有抽象性和通用性，采用简洁的符号表示，能够根据表达式形式推导出明确直观的定义，常用于类型推导和类型检查。因此，Hindley–Milner类型系统广泛应用于编程语言设计中，比如Haskell和Ocaml。</p>
+Roger Hindley 提出 <sup id="cite-1969The"><a href="#ref-1969The">[1]</a></sup>，并由Robin Milner
+进行扩展和验证 <sup id="cite-1978A"><a href="#ref-1978A">[2]</a></sup> 。后来，路易斯·达马斯（Luis
+Damas）对HM类型推导方法进行了详尽的分析和证明 <sup id="cite-1982Principal"><a href="#ref-1982Principal">[3]</a></sup>，并将其扩展到支持具有多态引用的系统。Hindley–Milner类型系统的目标是在没有给定类型注解的情况下，自动推导出任意表达式的类型。其算法具有抽象性和通用性，采用简洁的符号表示，能够根据表达式形式推导出明确直观的定义，常用于类型推导和类型检查。因此，Hindley–Milner类型系统广泛应用于编程语言设计中，比如Haskell和Ocaml。</p>
 <h3 id="静态分析概述"><a class="header" href="#静态分析概述">静态分析概述</a></h3>
 <p>在设计好类型系统后，编译器需要使用静态分析系统来对中间表示进行静态检查与分析。语法解析模块（parser）将程序代码解析为抽象语法树（AST）并生成中间表示。此时的中间表示缺少类型系统中定义的抽象信息，因此引入静态分析模块，对中间表示进行处理分析，并且生成一个静态强类型的中间表示，用于后续的编译优化、自动并行以及自动微分等。在编译器前端的编译过程中，静态分析可能会被执行多次，有些框架还会通过静态分析的结果判断是否终止编译优化。</p>
 <p>静态分析模块基于抽象释义对中间表示进行类型推导、常量传播、泛型特化等操作，这些专业术语的含义分别为：</p>
@@ -215,6 +215,17 @@ Damas）对HM类型推导方法进行了详尽的分析和证明 [1982Principal]
 <p><a id="static_analysis_module"></a></p>
 <p><img src="../img/ch04/静态分析-静态分析模块.png" alt="静态分析模块"></p>
 <p align="center">图5.5.1 静态分析模块</p>
+
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-1969The">Hindley, R.. <em>The Principal Type-Scheme of an Object in Combinatory Logic</em>. Transactions of the American Mathematical Society. 1969. <a href="#cite-1969The">↩</a></li>
+
+<li id="ref-1978A">Milner, R.. <em>A theory of type polymorphism in programming</em>. Journal of Computer and System Sciences. 1978. <a href="#cite-1978A">↩</a></li>
+
+<li id="ref-1982Principal">Damas, L.  and  Milner, R.. <em>Principal Type Schemes for Functional Programming Languages</em>. 1982. <a href="#cite-1982Principal">↩</a></li>
+
+</ol>
 
 
                     </main>

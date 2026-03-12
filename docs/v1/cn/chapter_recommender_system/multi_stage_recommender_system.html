@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -205,7 +205,7 @@
 <h3 id="召回"><a class="header" href="#召回">召回</a></h3>
 <p>在召回阶段，模型以用户特征作为输入，从所有备选物品中粗略筛选出一部分用户可能感兴趣的物品作为输出。召回阶段的主要目的是将候选物品范围缩小，减轻下一阶段排序模型的运行负担。</p>
 <h4 id="1-双塔模型"><a class="header" href="#1-双塔模型">1. 双塔模型</a></h4>
-<p>接下来以如图 <a href="#two-tower-model">图12.2.2</a>所示双塔模型 [yi2019sampling]为例介绍召回的流程。双塔模型具有两个MLP，分别对用户特征和物品特征进行编码，称之为用户塔<sup class="footnote-reference" id="fr-1-1"><a href="#footnote-1">1</a></sup> 和物品塔。对于输入数据，连续特征可以直接作为MLP的输入，而离散特征需要通过嵌入表映射为一个稠密向量再输入到MLP中。用户塔和物品塔对特征进行处理得到用户向量和物品向量用于表示不同用户或物品。双塔模型使用一个评分函数衡量用户向量和物品向量之间的相似度。</p>
+<p>接下来以如图 <a href="#two-tower-model">图12.2.2</a>所示双塔模型 <sup id="cite-yi2019sampling"><a href="#ref-yi2019sampling">[1]</a></sup>为例介绍召回的流程。双塔模型具有两个MLP，分别对用户特征和物品特征进行编码，称之为用户塔<sup class="footnote-reference" id="fr-1-1"><a href="#footnote-1">1</a></sup> 和物品塔。对于输入数据，连续特征可以直接作为MLP的输入，而离散特征需要通过嵌入表映射为一个稠密向量再输入到MLP中。用户塔和物品塔对特征进行处理得到用户向量和物品向量用于表示不同用户或物品。双塔模型使用一个评分函数衡量用户向量和物品向量之间的相似度。</p>
 <p><a id="two-tower-model"></a></p>
 <p><img src="../img/ch10/ch-recsys/two_tower_model.png" alt="双塔模型结构图"></p>
 <p align="center">图12.2.2 双塔模型结构图</p>
@@ -230,7 +230,7 @@
 <li>重排阶段会根据一定的商业逻辑（例如，增加新物品的曝光率或者过滤掉用户已经购买过的物品、看过的视频等）和规则（打乱推荐的物品、减少相似物品推荐）对精排的结果进行进一步处理以从整体上提升推荐服务的质量，而不是仅仅关注单个物品的点击率。</li>
 </ol>
 <h4 id="1-dlrm"><a class="header" href="#1-dlrm">1. DLRM</a></h4>
-<p>接下来以DLRM [naumov2019deep]为例，介绍排序模型如何处理特征数据。如图 <a href="#dlrm-model">图12.2.3</a>所示，DLRM包括嵌入表、两层MLP和一层交互层<sup class="footnote-reference" id="fr-2-1"><a href="#footnote-2">2</a></sup>。</p>
+<p>接下来以DLRM <sup id="cite-naumov2019deep"><a href="#ref-naumov2019deep">[2]</a></sup>为例，介绍排序模型如何处理特征数据。如图 <a href="#dlrm-model">图12.2.3</a>所示，DLRM包括嵌入表、两层MLP和一层交互层<sup class="footnote-reference" id="fr-2-1"><a href="#footnote-2">2</a></sup>。</p>
 <p><a id="dlrm-model"></a></p>
 <p><img src="../img/ch10/ch-recsys/dlrm_model.png" alt="DLRM结构图"></p>
 <p align="center">图12.2.3 DLRM结构图</p>
@@ -252,6 +252,15 @@ F1 = 2 \times \frac{recall \times precision}{recall + precision}
 \]</p>
 <h4 id="4-推理流程"><a class="header" href="#4-推理流程">4. 推理流程</a></h4>
 <p>推理时，首先将召回的物品的特征和相应的该用户的特征拼接起来，然后输入DLRM。根据模型的预测分数，选择概率最高的一部分物品输出。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-yi2019sampling">Yi, Xinyang and Yang, Ji and Hong, Lichan and Cheng, Derek Zhiyuan and Heldt, Lukasz and Kumthekar, Aditee and Zhao, Zhe and Wei, Li and Chi, Ed. <em>Sampling-bias-corrected neural modeling for large corpus item recommendations</em>. Proceedings of the 13th ACM Conference on Recommender Systems. 2019. <a href="#cite-yi2019sampling">↩</a></li>
+
+<li id="ref-naumov2019deep">Naumov, Maxim and Mudigere, Dheevatsa and Shi, Hao-Jun Michael and Huang, Jianyu and Sundaraman, Narayanan and Park, Jongsoo and Wang, Xiaodong and Gupta, Udit and Wu, Carole-Jean and Azzolini, Alisson G and others. <em>Deep learning recommendation model for personalization and recommendation systems</em>. arXiv preprint arXiv:1906.00091. 2019. <a href="#cite-naumov2019deep">↩</a></li>
+
+</ol>
+
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-1">

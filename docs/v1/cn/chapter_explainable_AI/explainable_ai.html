@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -237,21 +237,21 @@
 </ul>
 <p>我们根据自身的实践经验和理解，将可解释AI定义为：一套面向机器学习（主要是深度神经网络）的技术合集，包括可视化、数据挖掘、逻辑推理、知识图谱等，目的是通过此技术合集，使深度神经网络呈现一定的可理解性，以满足相关使用者对模型及应用服务产生的信息诉求（如因果或背景信息），从而为使用者对人工智能服务建立认知层面的信任。</p>
 <h2 id="可解释ai算法现状介绍"><a class="header" href="#可解释ai算法现状介绍">可解释AI算法现状介绍</a></h2>
-<p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考 [2020tkde_li]总结归纳了可解释AI的算法类型，如 <a href="#XAI_methods">图15.1.2</a>所示。</p>
+<p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考 <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>总结归纳了可解释AI的算法类型，如 <a href="#XAI_methods">图15.1.2</a>所示。</p>
 <p><a id="XAI_methods"></a></p>
 <p><img src="../img/ch11/XAI_methods.PNG" alt="可解释AI（XAI）算法分支"></p>
 <p align="center">图15.1.2 可解释AI（XAI）算法分支</p>
 
 <p>对模型进行解释有多种多样的方法，这里依据解释过程是否引入数据集以外的外部知识，将其分为数据驱动的解释方法和知识感知的解释方法。</p>
 <p><strong>数据驱动的解释</strong></p>
-<p>数据驱动的解释是指纯粹从数据本身生成解释的方法，而不需要先验知识等外部信息。为了提供解释，数据驱动的方法通常从选择数据集（具有全局或局部分布）开始。然后，将选定的数据集或其变体输入到黑盒模型（在某些情况下，选取数据集不是所必需的。例如， [erhan2009visualizing]提出的最大激活值方法），通过对黑盒模型的相应预测进行一定的分析(例如，对预测w.r.t.输入特征进行求导）来生成解释。根据可解释性的范围，这些方法可以进一步分为全局方法或局部方法，即它们是解释所有数据点的全局模型行为还是预测子集行为。特别地，基于实例的方法提供了一种特殊类型的解释–它们直接返回数据实例作为解释。虽然从解释范围的分类来看，基于实例的方法也可以适合全局方法（代表性样本）或局部方法（反事实），但我们单独列出它们，以强调它们提供解释的特殊方式。</p>
+<p>数据驱动的解释是指纯粹从数据本身生成解释的方法，而不需要先验知识等外部信息。为了提供解释，数据驱动的方法通常从选择数据集（具有全局或局部分布）开始。然后，将选定的数据集或其变体输入到黑盒模型（在某些情况下，选取数据集不是所必需的。例如， <sup id="cite-erhan2009visualizing"><a href="#ref-erhan2009visualizing">[2]</a></sup>提出的最大激活值方法），通过对黑盒模型的相应预测进行一定的分析(例如，对预测w.r.t.输入特征进行求导）来生成解释。根据可解释性的范围，这些方法可以进一步分为全局方法或局部方法，即它们是解释所有数据点的全局模型行为还是预测子集行为。特别地，基于实例的方法提供了一种特殊类型的解释–它们直接返回数据实例作为解释。虽然从解释范围的分类来看，基于实例的方法也可以适合全局方法（代表性样本）或局部方法（反事实），但我们单独列出它们，以强调它们提供解释的特殊方式。</p>
 <p>全局方法旨在提供对模型逻辑的理解以及所有预测的完整推理，基于对其特征、学习到的组件和结构的整体视图等等。有几个方向可以探索全局可解释性。为了便于理解，我们将它们分为以下三个子类：
 (i)
-模型提取——从原始黑盒模型中提取出一个可解释的模型，比如通过模型蒸馏的方式将原有黑盒模型蒸馏到可解释的决策树 [frosst2017distilling] [zhang2019interpreting]，从而使用决策树中的规则解释该原始模型；
+模型提取——从原始黑盒模型中提取出一个可解释的模型，比如通过模型蒸馏的方式将原有黑盒模型蒸馏到可解释的决策树 <sup id="cite-frosst2017distilling"><a href="#ref-frosst2017distilling">[3]</a></sup> <sup id="cite-zhang2019interpreting"><a href="#ref-zhang2019interpreting">[4]</a></sup>，从而使用决策树中的规则解释该原始模型；
 (ii)
 基于特征的方法——估计特征的重要性或相关性，如 <a href="#xai_global_feature_importance">图15.1.3</a>所示,
-该类型解释可提供如“信用逾期记录是模型依赖的最重要特征”的解释，从而协助判定模型是否存在偏见. 一种典型的全局特征解释方法是SHAP（其仅能针对树模型输出全局解释）[lundberg2017unified]。
-(iii) 透明模型设计——修改或重新设计黑盒模型以提高其可解释性。这类方法目前也逐渐成为探索热点，近期的相关工作包括ProtoPNet [chen2019looks], Interpretable CNN [zhang2018interpretable], ProtoTree [nauta2021neural]等。</p>
+该类型解释可提供如“信用逾期记录是模型依赖的最重要特征”的解释，从而协助判定模型是否存在偏见. 一种典型的全局特征解释方法是SHAP（其仅能针对树模型输出全局解释）<sup id="cite-lundberg2017unified"><a href="#ref-lundberg2017unified">[5]</a></sup>。
+(iii) 透明模型设计——修改或重新设计黑盒模型以提高其可解释性。这类方法目前也逐渐成为探索热点，近期的相关工作包括ProtoPNet <sup id="cite-chen2019looks"><a href="#ref-chen2019looks">[6]</a></sup>, Interpretable CNN <sup id="cite-zhang2018interpretable"><a href="#ref-zhang2018interpretable">[7]</a></sup>, ProtoTree <sup id="cite-nauta2021neural"><a href="#ref-nauta2021neural">[8]</a></sup>等。</p>
 <p><a id="xai_global_feature_importance"></a></p>
 <p><img src="../img/ch11/xai_global_feature_importance.png" alt="全局特征重要性解释"></p>
 <p align="center">图15.1.3 全局特征重要性解释</p>
@@ -262,16 +262,16 @@
 <p><img src="../img/ch11/xai_lime.png" alt="局部近似方法示例"></p>
 <p align="center">图15.1.4 局部近似方法示例</p>
 
-<p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如 <a href="#xai_gradient_based">图15.1.5</a>所示,通过梯度回传，计算模型输出对输入的梯度\(\frac{d(f(x))}{dx}\) 作为模型解释。常见的基于梯度传播的方法有基本Gradient方法，GuidedBackprop [zeiler2014visualizing], GradCAM [selvaraju2017grad]等.
-而基于前向传播的方法通过扰动特征后, 进行前向推理的输出差异来量化输出与特征的相关性。其中，常见的几种方法有RISE [petsiuk2018rise]，ScoreCAM [wang2020score]等。</p>
+<p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如 <a href="#xai_gradient_based">图15.1.5</a>所示,通过梯度回传，计算模型输出对输入的梯度\(\frac{d(f(x))}{dx}\) 作为模型解释。常见的基于梯度传播的方法有基本Gradient方法，GuidedBackprop <sup id="cite-zeiler2014visualizing"><a href="#ref-zeiler2014visualizing">[9]</a></sup>, GradCAM <sup id="cite-selvaraju2017grad"><a href="#ref-selvaraju2017grad">[10]</a></sup>等.
+而基于前向传播的方法通过扰动特征后, 进行前向推理的输出差异来量化输出与特征的相关性。其中，常见的几种方法有RISE <sup id="cite-petsiuk2018rise"><a href="#ref-petsiuk2018rise">[11]</a></sup>，ScoreCAM <sup id="cite-wang2020score"><a href="#ref-wang2020score">[12]</a></sup>等。</p>
 <p><a id="xai_gradient_based"></a></p>
 <p><img src="../img/ch11/xai_gradient_based.PNG" alt="局部近似方法示例"></p>
 <p align="center">图15.1.5 局部近似方法示例</p>
 
 <p><strong>知识感知的解释</strong></p>
 <p>数据驱动的解释方法能够从数据集或输入和输出之间的关系提供全面的解释。在此基础上，还可以利用外部知识来丰富解释并使其更加人性化。没有机器学习背景知识的门外汉可能很难直接理解特征的重要性，以及特征和目标之间的联系。借助外部领域知识，我们不仅可以生成表明特征重要性的解释，还可以描述某些特征比其他特征更重要的原因。因此，在过去几年中，基于知识感知的可解释AI方法引起了越来越多的关注。与从多种情景中收集的原始数据集相比，知识通常被视为人类根据生活经验或严格的理论推理得出的实体或关系。一般来说，知识可以有多种形式。它可以保留在人的头脑中，也可以用自然语言、音频或规则记录，具有严格的逻辑。为了对这些方法进行系统回顾，我们在此根据知识来源将它们分为两类：通用知识方法和知识库（KB）方法。前者以非结构化数据为知识源来构建解释，后者以结构化知识库为基础来构建解释。</p>
-<p>提供知识的一个相对直接的方法是通过人类的参与。事实上，随着人工智能研究和应用的爆炸式增长，人类在人工智能系统中的关键作用已经慢慢显现。这样的系统被称为以人为中心的人工智能系统。 [riedl2019human]认为，以人为中心的人工智能不仅能让人工智能系统从社会文化的角度更好地了解人类，还能让人工智能系统帮助人类了解自己。为了实现这些目标，人工智能需要满足可解释性和透明度等几个属性。</p>
-<p>具体来说，人类能够通过提供相当多的人类定义的概念来在人工智能系统中发挥作用。 [kim2018interpretability]利用概念激活向量（CAV）来测试概念在分类任务中的重要性（TCAV）。CAV是与感兴趣目标概念的激活与否决策边界垂直的矢量，该矢量可以这样获取: 输入目标概念的正负样本, 进行线性回归, 得到决策边界, 从而得到CAV。以“斑马”的“条纹”概念为例，用户首先收集包含有“条纹”的数据样本及不含“条纹”的数据样本，输入到网络中，获取中间层的激活值，基于正负样本的标签（\(1\)代表含有概念，\(0\)代表不含概念）对中间层激活值进行拟合，获取决策边界，CAV即为该决策边界的垂直向量。</p>
+<p>提供知识的一个相对直接的方法是通过人类的参与。事实上，随着人工智能研究和应用的爆炸式增长，人类在人工智能系统中的关键作用已经慢慢显现。这样的系统被称为以人为中心的人工智能系统。 <sup id="cite-riedl2019human"><a href="#ref-riedl2019human">[13]</a></sup>认为，以人为中心的人工智能不仅能让人工智能系统从社会文化的角度更好地了解人类，还能让人工智能系统帮助人类了解自己。为了实现这些目标，人工智能需要满足可解释性和透明度等几个属性。</p>
+<p>具体来说，人类能够通过提供相当多的人类定义的概念来在人工智能系统中发挥作用。 <sup id="cite-kim2018interpretability"><a href="#ref-kim2018interpretability">[14]</a></sup>利用概念激活向量（CAV）来测试概念在分类任务中的重要性（TCAV）。CAV是与感兴趣目标概念的激活与否决策边界垂直的矢量，该矢量可以这样获取: 输入目标概念的正负样本, 进行线性回归, 得到决策边界, 从而得到CAV。以“斑马”的“条纹”概念为例，用户首先收集包含有“条纹”的数据样本及不含“条纹”的数据样本，输入到网络中，获取中间层的激活值，基于正负样本的标签（\(1\)代表含有概念，\(0\)代表不含概念）对中间层激活值进行拟合，获取决策边界，CAV即为该决策边界的垂直向量。</p>
 <p>如 <a href="#xai_tcav">图15.1.6</a>所示，为了计算TCAV评分，代表第\(l\)层概念对类\(k\)预测的重要性的“概念敏感度”可以首先计算为方向导数\(S_{C,k,l}(\mathbf{x})\)：
 \[\begin{split}
 S_{C,k,l}(\mathbf{x}) =  &amp;\lim_{\epsilon\rightarrow 0}\frac{h_{l,k}(f_{l}(\mathbf{x})+\epsilon \mathbf{v}^{l}_{C})-h_{l,k}(f_{l}(\mathbf{x}))}{\epsilon} \\ = &amp;\nabla h_{l,k}(f_{l}(\mathbf{x})) \cdot \mathbf{v}^{l}_{C}
@@ -285,8 +285,8 @@ TCAV就可以通过计算类\(k\)的具有正\(S_{C,k,l}\)’s的样本的比率
 \label{eq:TCAV}\]
 结合\(t\)-分布假设方法，如果\(\textbf{TCAV}_{Q_{C,k,l}}\)大于0.5，则表明概念\(C\)对类\(k\)有重大影响。</p>
 <p><a id="xai_tcav"></a></p>
-<p><img src="../img/ch11/xai_tcav.png" alt="TCAV流程(图片来源于 [2020tkde_li])"></p>
-<p align="center">图15.1.6 TCAV流程(图片来源于 [2020tkde_li])</p>
+<p><img src="../img/ch11/xai_tcav.png" alt="TCAV流程(图片来源于 &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"></p>
+<p align="center">图15.1.6 TCAV流程(图片来源于 <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>)</p>
 
 <p>人类的知识可以是主观的，而KB可以是客观的。在当前研究中，KB通常被建模为知识图谱(KG)。以下以MindSpore支持的可解释推荐模型TB-Net为例，讲解如何使用知识图谱构建可解释模型。知识图谱可以捕捉实体之间丰富的语义关系。TB-Net的目的之一就是确定哪一对实体（即，物品-物品）对用户产生最重大的影响，并通过什么关系和关键节点进行关联。不同于现有的基于KG嵌入的方法（RippleNet使用KG补全方法预测用户与物品之间的路径），TB-Net提取真实路径，以达到推荐结果的高准确性和优越的可解释性。</p>
 <p><a id="tb_net"></a></p>
@@ -381,6 +381,39 @@ lime_outputs = lime(inputs, targets, show=True)
 <p>最后，我们相信跨学科合作将是有益的。XAI的发展不仅需要计算机科学家来开发先进的算法，还需要物理学家、生物学家和认知科学家来揭开人类认知的奥秘，以及特定领域的专家来贡献他们的领域知识。</p>
 <h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
 <p>:bibliography:<code>../references/explainable.bib</code></p>
+<hr>
+<h2 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h2>
+<ol>
+<li id="ref-2020tkde_li">Li, Xiao-Hui and Cao, Caleb Chen and Shi, Yuhan and Bai, Wei and Gao, Han and Qiu, Luyu and Wang, Cong and Gao, Yuanyuan and Zhang, Shenjia and Xue, Xun and Chen, Lei. <em>A Survey of Data-driven and Knowledge-aware eXplainable AI</em>. IEEE Transactions on Knowledge and Data Engineering. 2020. <a href="#cite-2020tkde_li">↩</a></li>
+
+<li id="ref-erhan2009visualizing">Erhan, Dumitru and Bengio, Yoshua and Courville, Aaron and Vincent, Pascal. <em>Visualizing higher-layer features of a deep network</em>. University of Montreal. 2009. <a href="#cite-erhan2009visualizing">↩</a></li>
+
+<li id="ref-frosst2017distilling">Frosst, Nicholas and Hinton, Geoffrey. <em>Distilling a neural network into a soft decision tree</em>. arXiv preprint arXiv:1711.09784. 2017. <a href="#cite-frosst2017distilling">↩</a></li>
+
+<li id="ref-zhang2019interpreting">Zhang, Quanshi and Yang, Yu and Ma, Haotian and Wu, Ying Nian. <em>Interpreting cnns via decision trees</em>. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2019. <a href="#cite-zhang2019interpreting">↩</a></li>
+
+<li id="ref-lundberg2017unified">Lundberg, Scott M and Lee, Su-In. <em>A unified approach to interpreting model predictions</em>. Advances in neural information processing systems. 2017. <a href="#cite-lundberg2017unified">↩</a></li>
+
+<li id="ref-chen2019looks">Chen, Chaofan and Li, Oscar and Tao, Daniel and Barnett, Alina and Rudin, Cynthia and Su, Jonathan K. <em>This looks like that: deep learning for interpretable image recognition</em>. Advances in neural information processing systems. 2019. <a href="#cite-chen2019looks">↩</a></li>
+
+<li id="ref-zhang2018interpretable">Zhang, Quanshi and Wu, Ying Nian and Zhu, Song-Chun. <em>Interpretable convolutional neural networks</em>. Proceedings of the IEEE conference on computer vision and pattern recognition. 2018. <a href="#cite-zhang2018interpretable">↩</a></li>
+
+<li id="ref-nauta2021neural">Nauta, Meike and van Bree, Ron and Seifert, Christin. <em>Neural prototype trees for interpretable fine-grained image recognition</em>. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021. <a href="#cite-nauta2021neural">↩</a></li>
+
+<li id="ref-zeiler2014visualizing">Zeiler, Matthew D and Fergus, Rob. <em>Visualizing and understanding convolutional networks</em>. European conference on computer vision. 2014. <a href="#cite-zeiler2014visualizing">↩</a></li>
+
+<li id="ref-selvaraju2017grad">Selvaraju, Ramprasaath R and Cogswell, Michael and Das, Abhishek and Vedantam, Ramakrishna and Parikh, Devi and Batra, Dhruv. <em>Grad-cam: Visual explanations from deep networks via gradient-based localization</em>. Proceedings of the IEEE international conference on computer vision. 2017. <a href="#cite-selvaraju2017grad">↩</a></li>
+
+<li id="ref-petsiuk2018rise">Petsiuk, Vitali and Das, Abir and Saenko, Kate. <em>Rise: Randomized input sampling for explanation of black-box models</em>. arXiv preprint arXiv:1806.07421. 2018. <a href="#cite-petsiuk2018rise">↩</a></li>
+
+<li id="ref-wang2020score">Wang, Haofan and Wang, Zifan and Du, Mengnan and Yang, Fan and Zhang, Zijian and Ding, Sirui and Mardziel, Piotr and Hu, Xia. <em>Score-CAM: Score-weighted visual explanations for convolutional neural networks</em>. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops. 2020. <a href="#cite-wang2020score">↩</a></li>
+
+<li id="ref-riedl2019human">Riedl, Mark O.. <em>Human-centered artificial intelligence and machine learning</em>. Human Behavior and Emerging Technologies. 2019. <a href="#cite-riedl2019human">↩</a></li>
+
+<li id="ref-kim2018interpretability">Been Kim and Martin Wattenberg and Justin Gilmer and Carrie Cai and James Wexler and Fernanda Viegas and Rory Sayres. <em>Interpretability Beyond Feature Attribution: Quantitative Testing with Concept Activation Vectors (TCAV)</em>. 2018. <a href="#cite-kim2018interpretability">↩</a></li>
+
+</ol>
+
 
                     </main>
 

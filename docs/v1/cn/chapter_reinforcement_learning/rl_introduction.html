@@ -51,7 +51,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ae786687.js";
+            window.path_to_searchindex_js = "../searchindex-2b64e0dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-dda61407.js"></script>
@@ -194,7 +194,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="强化学习介绍"><a class="header" href="#强化学习介绍">强化学习介绍</a></h2>
-<p>近年来，强化学习作为机器学习的一个分支受到越来越多的关注。2013 年 DeepMind 公司的研究人员提出了深度 Q 学习 [mnih2013playing]（Deep Q-learning），成功让 AI 从图像中学习玩电子游戏。自此以后，以 DeepMind 为首的科研机构推出了像 AlphaGo 围棋 AI 这类的引人瞩目的强化学习成果，并在 2016 年与世界顶级围棋高手李世石的对战中取得了胜利。自那以后，强化学习领域连续取得了一系列成就，如星际争霸游戏智能体 AlphaStar、Dota 2 游戏智能体 OpenAI Five、多人零和博弈德州扑克的 Pluribus、机器狗运动控制算法等。在这一系列科研成就的背后，是整个强化学习领域算法在这些年内快速迭代进步的结果，基于模拟器产生的大量数据使得对数据“饥饿”（Data Hungry）的深度神经网络能够表现出很好的拟合效果，从而将强化学习算法的能力充分发挥出来，在以上领域中达到或者超过人类专家的学习表现。目前，强化学习已经从电子游戏逐步走向更广阔的应用场景，如机器人控制、机械手灵巧操作、能源系统调度、网络负载分配、股票期货交易等一系列更加现实和富有意义的领域，对传统控制方法和启发式决策理论发起冲击。</p>
+<p>近年来，强化学习作为机器学习的一个分支受到越来越多的关注。2013 年 DeepMind 公司的研究人员提出了深度 Q 学习 <sup id="cite-mnih2013playing"><a href="#ref-mnih2013playing">[1]</a></sup>（Deep Q-learning），成功让 AI 从图像中学习玩电子游戏。自此以后，以 DeepMind 为首的科研机构推出了像 AlphaGo 围棋 AI 这类的引人瞩目的强化学习成果，并在 2016 年与世界顶级围棋高手李世石的对战中取得了胜利。自那以后，强化学习领域连续取得了一系列成就，如星际争霸游戏智能体 AlphaStar、Dota 2 游戏智能体 OpenAI Five、多人零和博弈德州扑克的 Pluribus、机器狗运动控制算法等。在这一系列科研成就的背后，是整个强化学习领域算法在这些年内快速迭代进步的结果，基于模拟器产生的大量数据使得对数据“饥饿”（Data Hungry）的深度神经网络能够表现出很好的拟合效果，从而将强化学习算法的能力充分发挥出来，在以上领域中达到或者超过人类专家的学习表现。目前，强化学习已经从电子游戏逐步走向更广阔的应用场景，如机器人控制、机械手灵巧操作、能源系统调度、网络负载分配、股票期货交易等一系列更加现实和富有意义的领域，对传统控制方法和启发式决策理论发起冲击。</p>
 <p><a id="ch12/ch12-rl-framework"></a></p>
 <p><img src="../img/ch12/ch12-rl.png" alt="强化学习框架"></p>
 <p align="center">图14.1.1 强化学习框架</p>
@@ -209,6 +209,13 @@
 \]</p>
 <p>即当前状态转移只依赖于上一时刻状态，而不依赖于整个历史。这里的状态转移函数\(\mathcal{T}\)中省略了动作\(a\)，马尔可夫性质是环境转移过程的属性，其独立于产生动作的决策过程。</p>
 <p>基于马尔可夫性质，可以进一步推导出在某一时刻最优策略不依赖于整个决策历史，而只依赖于当前最新状态的结论。这一结论在强化学习算法设计中有着重要意义，它简化了最优策略的求解过程。</p>
+<hr>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ol>
+<li id="ref-mnih2013playing">Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Graves, Alex and Antonoglou, Ioannis and Wierstra, Daan and Riedmiller, Martin. <em>Playing atari with deep reinforcement learning</em>. arXiv preprint arXiv:1312.5602. 2013. <a href="#cite-mnih2013playing">↩</a></li>
+
+</ol>
+
 
                     </main>
 
