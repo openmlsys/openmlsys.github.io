@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -203,12 +203,12 @@
 在典型的深度学习模型中，一般计算密集型和访存密集型算子是相伴出现的，最简单的例子是“Conv + ReLU”。Conv卷积算子是计算密集型，ReLU算子是访存密集型算子，ReLU算子可以直接取Conv算子的计算结果进行计算，因此可以将二者融合成一个算子来进行计算，从而减少内存访问延时和带宽压力，提高执行效率。</p>
 <p>例如：“Conv + Conv + Sum + ReLU”的融合，从 <a href="#conv_sum_relu">图6.2.1</a>中可以看到融合后的算子减少了两个内存的读和写的操作，优化了Conv的输出和Sum的输出的读和写的操作。</p>
 <p><a id="conv_sum_relu"></a></p>
-<p><img src="../img/ch05/conv_sum_relu.png" alt="Elementwise算子融合"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/conv_sum_relu.png" alt="Elementwise算子融合"><span class="img-wrapper"><img src="../img/ch05/conv_sum_relu.png" alt="Elementwise算子融合"></span></label></p>
 <p align="center">图6.2.1 Elementwise算子融合</p>
 
 <p>除了上述针对特定算子类型结构的融合优化外，基于自动算子生成技术，还可以实现更灵活、更极致的通用优化。以 MindSpore 的图算融合技术为例，图算融合通过“算子拆解、算子聚合、算子重建”三个主要阶段让计算图中的计算更密集，并进一步减少低效的内存访问。</p>
 <p><a id="graph_kernel"></a></p>
-<p><img src="../img/ch05/graph_kernel.png" alt="图算融合"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_kernel.png" alt="图算融合"><span class="img-wrapper"><img src="../img/ch05/graph_kernel.png" alt="图算融合"></span></label></p>
 <p align="center">图6.2.2 图算融合</p>
 
 <p><a href="#graph_kernel">图6.2.2</a>中，算子拆解阶段（Expander）将计算图中一些复杂算子（composite
@@ -227,13 +227,13 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 <p>在一些特定的硬件上，IR中计算节点没有直接对应的硬件算子，只能通过子图的变换来达到子图中所有算子在对应的硬件上的存在。例如在MindSpore中，昇腾芯片上的Concat算子，只支持有限的输入个数（63个），因此当前端IR上的输入个数大于限制输入的时候，需要将该计算节点拆分成等价的多个Concat节点，如 <a href="#concat">图6.2.3</a>所示：
 当Concat有100个输入时，单个算子只支持最多63个输入，此时会将该计算节点拆分成两个Concat节点，分别为63个输入和37个输入的两个算子。</p>
 <p><a id="concat"></a></p>
-<p><img src="../img/ch05/concat.png" alt="Concat算子拆分"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/concat.png" alt="Concat算子拆分"><span class="img-wrapper"><img src="../img/ch05/concat.png" alt="Concat算子拆分"></span></label></p>
 <p align="center">图6.2.3 Concat算子拆分</p>
 
 <p>2、数据排布格式的限制</p>
 <p>针对不同特点的计算平台和不同的算子，为了追求最好的性能，一般都需要选择不同的数据排布格式（Format），而这些排布格式可能跟框架缺省的排布格式是不一样的。在这种情况下，一般的做法是算子在执行完成后对输出插入一个格式转换操作，把排布格式转换回框架的缺省排布格式，这就引入了额外的内存操作。以 <a href="#transdata">图6.2.4</a>为例，在昇腾平台上Conv算子在输入和输出的内存排布为5HD时是性能最优的，所以可以看到Conv算子输出结果的格式是5HD，然后通过一个转换操作转回了框架缺省的NCHW，紧接着，后面又是一个Conv算子，它需要5HD的输入，所以又做了一个NCHW到5HD的转换。我们很容易看出，虚线框内的两个转换操作互为逆操作，可以相互抵消。通过对计算图的模式匹配，可以将该类型的操作消除。</p>
 <p><a id="transdata"></a></p>
-<p><img src="../img/ch05/transdata.png" alt="数据排布格式转换消除"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/transdata.png" alt="数据排布格式转换消除"><span class="img-wrapper"><img src="../img/ch05/transdata.png" alt="数据排布格式转换消除"></span></label></p>
 <p align="center">图6.2.4 数据排布格式转换消除</p>
 
 
@@ -281,11 +281,11 @@ Op2）。图算融合通过对计算图结构的拆解和聚合，可以实现�
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

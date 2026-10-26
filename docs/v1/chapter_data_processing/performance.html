@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Efficiency Design - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="efficiency-design"><a class="header" href="#efficiency-design">Efficiency Design</a></h2>
+<p>In the previous section, we focused on the programming abstractions and interface design of the data module, ensuring that users can conveniently describe data processing workflows based on the APIs we provide without needing to worry too much about implementation and execution details. In this section, we will further explore the design details of key data module components such as data loading and pipeline scheduling to ensure that users can achieve optimal data processing performance. Throughout this section, we will also draw on practical experience from major existing machine learning systems to help readers deepen their understanding of these critical design approaches.</p>
+<p>As shown in <a href="#async_data_process">图8.3.1</a>, deep learning model training requires the data module to first load datasets from storage devices, perform a series of preprocessing transformations in memory, and finally send the processed data to accelerator chips for model computation. Currently, a large body of work focuses on accelerating model computation on chips through new hardware designs or operator compilation techniques, with relatively little attention paid to data processing pipeline performance issues. However, in many cases, the execution time of data preprocessing occupies a substantial proportion of the entire training task, preventing GPUs, Huawei Ascend, and other accelerators from being fully utilized. Research has shown that approximately 30% of computation time in enterprise data center workloads is spent on data preprocessing steps <sup id="cite-murray2021tf"><a href="#ref-murray2021tf">[1]</a></sup>, and other studies have found that model training tasks on some public datasets spend 65% of their time on data preprocessing <sup id="cite-mohan2020analyzing"><a href="#ref-mohan2020analyzing">[2]</a></sup>. This clearly demonstrates that data module performance has a decisive impact on overall training throughput.</p>
+<p><a id="async_data_process"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/async_data_process.png" alt="Asynchronous parallel execution of data loading, preprocessing, and model computation"><span class="img-wrapper"><img src="../img/ch07/7.3/async_data_process.png" alt="Asynchronous parallel execution of data loading, preprocessing, and model computation"></span></label></p>
+<p align="center">图8.3.1 Asynchronous parallel execution of data loading, preprocessing, and model computation</p>
+
+<p>To pursue maximum training throughput, existing systems generally choose to execute data loading, data preprocessing computation, and on-chip model computation asynchronously in parallel. These three steps form a typical producer-consumer upstream-downstream relationship. We denote the data loading rate from storage devices as F, the data preprocessing rate as P, and the on-chip data consumption rate as G. Ideally, we want G &lt; min(F, P), so that the accelerator chip is never blocked waiting for data. However, in practice, we often encounter situations where either the data loading rate F is too low (known as I/O Bound) or the data preprocessing rate P is too low (known as CPU Bound), causing G &gt; min(F, P) and leaving the chip underutilized. To address these critical performance issues, this section will focus on two topics:</p>
+<ul>
+<li>
+<p>How to design appropriate file formats and loading methods for the specific I/O requirements of machine learning scenarios to optimize the data loading rate F.</p>
+</li>
+<li>
+<p>How to design parallel architectures that fully leverage the computing power of modern multi-core CPUs to improve the data processing rate P.</p>
+</li>
+</ul>
+<p>At the end of this section, we will also examine a challenging problem: how to leverage the computational graph compilation techniques learned in previous chapters to optimize the user’s data processing computation graph, further achieving optimal data processing throughput performance. Now, let us embark on this section’s brainstorming journey together.</p>
+<h3 id="efficiency-of-data-loading"><a class="header" href="#efficiency-of-data-loading">Efficiency of Data Loading</a></h3>
+<p>First, let us examine how to address the performance challenges of data loading. The first problem we face is the I/O differences caused by diverse data types and non-uniform storage formats. For example, text data may be stored in txt format, and image data may be stored in raw format or compressed formats such as JPEG. We obviously cannot design an optimal data loading scheme for every possible storage scenario. However, we can propose a unified storage format (which we call the Unirecord format) to shield against I/O differences across different data types, and then design and optimize data loading schemes based on this format. In practice, users simply need to convert their original datasets to our unified data format to benefit from efficient read performance.</p>
+<p><a id="unified_record_format"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/uni_record.png" alt="Unified data format"><span class="img-wrapper"><img src="../img/ch07/7.3/uni_record.png" alt="Unified data format"></span></label></p>
+<p align="center">图8.3.2 Unified data format</p>
+
+<p>So what other characteristics should our Unirecord have beyond unifying user storage formats? Data access in machine learning model training has the following characteristics:</p>
+<ul>
+<li>
+<p>Within each epoch, all data is traversed in a random order, with each data sample visited exactly once</p>
+</li>
+<li>
+<p>Across all epochs, the data must be traversed in different random orders</p>
+</li>
+</ul>
+<p>The above access patterns require that our Unirecord storage format supports efficient random access. When our dataset can fit entirely in RAM, random access to Unirecord is not a major issue. However, when the dataset is too large and must be stored on local disks or distributed file systems, we need to design specific solutions. An intuitive approach is to divide a Unirecord file into an index block and a data block. The index block records metadata for each data sample, such as its size, offset within the file, and checksum values. The data block stores the actual data for each sample. When we need to perform random access on a Unirecord-format file, we first load the file’s index block into memory (which is typically much smaller than the entire file) and build an in-memory index table for the data in the file. Then, when we need to randomly access a data sample, we first look up the sample’s offset, size, and other information in the index table and read the data from disk based on this information. This loading approach satisfies our random access requirements on disk. Next, we will use the practical experience of MindRecord proposed by MindSpore as an example to introduce the design of a unified file format and help deepen understanding of this topic.</p>
+<p><a id="file_random_access"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/file_indexing.png" alt="File format design supporting random access"><span class="img-wrapper"><img src="../img/ch07/7.3/file_indexing.png" alt="File format design supporting random access"></span></label></p>
+<p align="center">图8.3.3 File format design supporting random access</p>
+
+<h4 id="introduction-to-mindrecord"><a class="header" href="#introduction-to-mindrecord">Introduction to MindRecord</a></h4>
+<p>MindRecord is the unified data format introduced by MindSpore, with the goal of normalizing user datasets and optimizing the training data loading process. This file format has the following characteristics:</p>
+<ul>
+<li>
+<p>Enables unified storage and access of diverse user data, making training data loading more convenient.</p>
+</li>
+<li>
+<p>Aggregated data storage for efficient reading, while being easy to manage and transfer.</p>
+</li>
+<li>
+<p>Efficient data encoding and decoding operations, transparent and imperceptible to users.</p>
+</li>
+<li>
+<p>Flexible control over partition sizes, facilitating distributed training.</p>
+</li>
+</ul>
+<p>Similar to the Unirecord design described earlier, a MindRecord file also consists of data files and index files. The data file contains a file header, scalar data pages, and block data pages for storing users’ normalized training data. The index file contains index information generated based on scalar data (such as image labels, image filenames, etc.) for convenient retrieval and statistical analysis of dataset information. To ensure random access performance for a single MindRecord file, MindSpore recommends that each MindRecord file be smaller than 20 GB. If a dataset exceeds 20 GB, users can specify the corresponding parameters during MindRecord dataset generation to shard the original dataset into multiple MindRecord files.</p>
+<p><a id="mindrecord_format"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/MindRecord_format.png" alt="MindRecord file format composition"><span class="img-wrapper"><img src="../img/ch07/7.3/MindRecord_format.png" alt="MindRecord file format composition"></span></label></p>
+<p align="center">图8.3.4 MindRecord file format composition</p>
+
+<p>The detailed information about the key components of the data file portion in a MindRecord file is as follows:</p>
+<ul>
+<li>
+<p><strong>File Header</strong>
+The file header is primarily used to store the file header size, scalar data page size, block data page size, Schema information, index fields, statistical information, file partition information, and the correspondence between scalar data and block data. It serves as the metadata of the MindRecord file.</p>
+</li>
+<li>
+<p><strong>Scalar Data Pages</strong>
+Scalar data pages are primarily used to store integer, string, and floating-point data, such as image labels, image filenames, image dimensions, and other information that is suitable for scalar storage.</p>
+</li>
+<li>
+<p><strong>Block Data Pages</strong>
+Block data pages are primarily used to store binary strings, NumPy arrays, and similar data, such as binary image files themselves and dictionaries converted from text.</p>
+</li>
+</ul>
+<p>During training, MindRecord’s reader can quickly locate and find the position of data based on index files, and read and decode the data. Additionally, MindRecord possesses certain retrieval capabilities, allowing users to filter and obtain data samples that meet their expectations by specifying query conditions.</p>
+<p>For distributed training scenarios, MindRecord loads metadata based on the Header in data files and index files to obtain the IDs of all samples and their offset information within data files. It then performs data partitioning based on user-input num_shards (number of training nodes) and shard_id (current node ID), obtaining 1/num_shards of the data for the current node. In other words, during distributed training, multiple nodes each read only 1/num_shards of the dataset, and the effect of training on the entire dataset is achieved through AllReduce on the computation side. Furthermore, if users enable the shuffle operation, the shuffle seed is kept consistent across all nodes within each epoch, ensuring that the ID shuffle results for all samples are consistent, which in turn ensures correct data partitioning.</p>
+<p><a id="mindrecord_partition"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/partition.png" alt="MindRecord Partition strategy"><span class="img-wrapper"><img src="../img/ch07/7.3/partition.png" alt="MindRecord Partition strategy"></span></label></p>
+<p align="center">图8.3.5 MindRecord Partition strategy</p>
+
+<h3 id="efficiency-of-data-computation"><a class="header" href="#efficiency-of-data-computation">Efficiency of Data Computation</a></h3>
+<p>After addressing the data loading performance issue, let us continue to study how to improve data computation performance (i.e., maximizing the data processing rate P mentioned earlier). We will use the data preprocessing pipeline mentioned above as an example to study how to design the data module’s scheduling and execution of user computation graphs to achieve optimal performance.</p>
+<p><a id="serialized_data_process"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/single_pipeline.png" alt="Diagram of serialized sequential execution of data preprocessing"><span class="img-wrapper"><img src="../img/ch07/7.3/single_pipeline.png" alt="Diagram of serialized sequential execution of data preprocessing"></span></label></p>
+<p align="center">图8.3.6 Diagram of serialized sequential execution of data preprocessing</p>
+
+<p>Since deep learning chips such as GPUs and Huawei Ascend do not possess general-purpose data processing capabilities,
+we currently still rely primarily on CPUs to complete preprocessing computation. Mainstream AI servers are equipped with multiple multi-core CPUs, and the data module needs to design reasonable parallel architectures to fully leverage multi-core computing power, thereby improving data preprocessing performance and minimizing accelerator stalls caused by waiting for data. In this section, we will introduce two common parallel architectures: pipeline-level parallelism and operator-level parallelism. Pipeline parallelism has a clear structure, is easy to understand and implement, and is primarily adopted by machine learning systems like PyTorch that implement data modules in Python. Influenced by the scheduling and execution architecture designs of classic data-parallel systems, other systems such as Google’s TensorFlow and Huawei’s MindSpore primarily adopt operator-level parallelism for fine-grained CPU resource allocation to fully utilize multi-core computing power. However, fine-grained allocation means we need to set reasonable parallelism parameters for all operators involved in the data processing pipeline, which poses a significant challenge for users. Consequently, frameworks like MindSpore also provide automatic tuning of key parameters in the data flow graph. Through dynamic analysis at runtime, the system automatically searches for optimal operator parallelism parameters, greatly reducing the user’s programming burden. Let us now discuss each approach in detail.</p>
+<h4 id="pipeline-parallelism"><a class="header" href="#pipeline-parallelism">Pipeline Parallelism</a></h4>
+<p>The first common parallelism approach is pipeline-level parallelism, where the user’s constructed computation pipeline is executed sequentially within a single thread/process, while multiple threads/processes are launched to execute multiple pipelines in parallel. If users need to process a total of N data samples, then with pipeline parallelism degree M, each process/thread only needs to process (N/M) samples. Pipeline parallelism has a simple architecture and is easy to implement. Within the entire parallel architecture, each executing process/thread only needs to communicate across processes/threads at the beginning and end of data execution. The data module distributes pending data tasks to each pipeline process/thread and finally aggregates the results to send to the chip for model computation. From the user’s perspective, usage is also relatively convenient, requiring only the specification of the key parallelism degree parameter. Let us use PyTorch as an example for detailed elaboration.</p>
+<p><a id="pipeline_parallisim"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/pipeline_parallisim.png" alt="Diagram of pipeline-level parallel execution"><span class="img-wrapper"><img src="../img/ch07/7.3/pipeline_parallisim.png" alt="Diagram of pipeline-level parallel execution"></span></label></p>
+<p align="center">图8.3.7 Diagram of pipeline-level parallel execution</p>
+
+<p>In PyTorch, users only need to implement a Dataset Python class to write the data processing logic. The Dataloader launches the corresponding number of Python processes based on the user-specified parallelism parameter num_workers to invoke the user-defined Dataset class for data preprocessing. The Dataloader has two types of process roles: worker processes and the main process, along with two types of inter-process communication queues: index_queue and worker_result_queue. During training, the main process sends the list of pending data tasks to each worker process through index_queue. Each worker process executes the data preprocessing logic of the user-written Dataset class and returns the processed results to the main process through worker_result_queue.</p>
+<p><a id="pytorch_dataloader"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/pytorch_dataloader.png" alt="PyTorch Dataloader parallel execution architecture"><span class="img-wrapper"><img src="../img/ch07/7.3/pytorch_dataloader.png" alt="PyTorch Dataloader parallel execution architecture"></span></label></p>
+<p align="center">图8.3.8 PyTorch Dataloader parallel execution architecture</p>
+
+<p>Next, we present a code snippet of using PyTorch’s Dataloader for parallel data preprocessing. We can see that we only need to implement the Dataset class to describe the data preprocessing logic and specify num_workers to achieve pipeline-level parallel data preprocessing.</p>
+<pre><code class="language-python"># Describe the data preprocessing workflow
+class TensorDataset:
+    def __init__(self, inps):
+        sef.inps = inps
+
+    def __getitem__(self, idx):
+        data = self.inps[idx]
+        data = data + 1
+        return data
+
+    def __len__(self):
+        return self.inps.shape[0]
+
+inps = torch.arange(10 * 5, dtype=torch.float32).view(10, 5)
+dataset = TensorDataset(inps)
+
+# Set parallelism degree to 3
+loader = DataLoader(dataset, batch_size=2, num_workers=3)
+
+for batch_idx, sample in enumerate(loader):
+    print(sample)
+</code></pre>
+<p>Finally, it should be noted that PyTorch Dataloader’s execution involves extensive inter-process communication. Although PyTorch has implemented shared memory-based inter-process communication for Tensor-type data to accelerate this step, when the communication data volume is large, cross-process communication can still significantly impact end-to-end data preprocessing throughput performance. Of course, this is not an architectural issue with pipeline parallelism itself, but rather a consequence of CPython’s Global Interpreter Lock (GIL), which forces pipeline parallelism at the Python level to use process parallelism rather than thread parallelism. To address this issue, the PyTorch team is currently attempting to remove the GIL from CPython to achieve thread-based pipeline parallelism for improved communication efficiency . Interested readers can explore this topic further.</p>
+<h4 id="operator-parallelism"><a class="header" href="#operator-parallelism">Operator Parallelism</a></h4>
+<p>In pipeline parallelism, computing resources (CPU cores) are allocated at the pipeline granularity. In contrast, operator parallelism allocates resources at the operator granularity, pursuing a more fine-grained resource allocation approach. We aim to assign higher parallelism to operators with greater computation costs and lower parallelism to operators with lesser computation costs, achieving more efficient and reasonable CPU resource utilization. The idea of operator parallelism is in the same spirit as classic data-parallel computing system parallelism. Taking classic MapReduce execution as an example, we can see that this can also be considered a form of operator parallelism (map operators and reduce operators), where the parallelism degree of map operators and reduce operators is determined by the computation cost of each operator phase.</p>
+<p><a id="mapreduce"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/map_reduce.png" alt="Classic MapReduce parallel execution architecture"><span class="img-wrapper"><img src="../img/ch07/7.3/map_reduce.png" alt="Classic MapReduce parallel execution architecture"></span></label></p>
+<p align="center">图8.3.9 Classic MapReduce parallel execution architecture</p>
+
+<p>In the figure below, we present the operator parallelism architecture diagram for the data preprocessing pipeline introduced at the beginning of this section. Based on the computation cost of each operator, we set the image decoding operator parallelism to 3, image resizing parallelism to 2, image random rotation operator parallelism to 4, image normalization operator parallelism to 3, and image channel transposition operator parallelism to 1. We aim to achieve efficient and full utilization of computing resources by precisely allocating resources to operators with different computation costs. In specific implementations, operator parallelism generally uses thread-level parallelism, with all operators communicating through shared memory using inter-thread queues and similar methods.</p>
+<p><a id="operator_parallisim"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch07/7.3/operator_parallisim.png" alt="Operator parallel execution architecture"><span class="img-wrapper"><img src="../img/ch07/7.3/operator_parallisim.png" alt="Operator parallel execution architecture"></span></label></p>
+<p align="center">图8.3.10 Operator parallel execution architecture</p>
+
+<p>Among existing machine learning system data modules, tf.data and MindData both adopt the operator parallelism approach. Due to more efficient resource utilization and high-performance data flow scheduling implemented in C++, operator parallelism approaches often demonstrate better performance. Performance evaluations of tf.data show that it has nearly twice the performance advantage compared to PyTorch’s Dataloader <sup id="cite-murray2021tf"><a href="#ref-murray2021tf">[1]</a></sup>.
+Next, we use a MindSpore-based implementation of the data preprocessing pipeline described at the beginning of this section to demonstrate how to set the parallelism degree for each operator in an operator-parallel data pipeline.</p>
+<pre><code class="language-python">import mindspore.dataset as ds
+import mindspore.dataset.transforms.c_transforms as c_transforms
+import mindspore.dataset.transforms.vision.c_transforms as vision
+
+# Load data
+dataset_dir = "path/to/imagefolder_directory"
+dataset = ds.ImageFolderDatasetV2(dataset_dir, num_parallel_workers=8)
+transforms_list = [vision.Decode(),
+                   vision.Resize((256, 256)),
+                   vision.RandomRotation((0, 15)),
+                   vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)),
+                   vision.HWC2CHW()]
+onehot_op = c_transforms.OneHot(num_classes)
+# Decoding operator parallelism degree: 3
+dataset = dataset.map(input_columns="image", operations=vision.Decode(), num_parallel_workers=3)
+# Resizing operator parallelism degree: 2
+dataset = dataset.map(input_columns="image", operations=vision.Resize((256, 256)), num_parallel_workers=2)
+# Random rotation operator parallelism degree: 4
+dataset = dataset.map(input_columns="image", operations=vision.RandomRotation((0, 15)), num_parallel_workers=4)
+# Normalization operator parallelism degree: 3
+dataset = dataset.map(input_columns="image", operations=vision.Normalize((100,  115.0, 121.0), (71.0, 68.0, 70.0)), num_parallel_workers=3)
+# Channel transposition operator parallelism degree: 1
+dataset = dataset.map(input_columns="image", operations=vision.HWC2CHW(), num_parallel_workers=1)
+dataset = dataset.map(input_columns="label", operations=onehot_op)
+</code></pre>
+<p>We observe that while operator parallelism has higher performance potential, it requires us to set reasonable parallelism parameters for each operator. This not only places high demands on users but also increases the risk of performance degradation due to unreasonable parameter settings. To make operator parallelism easier for users, both tf.data and MindData have added dynamic tuning of key pipeline parameters, computing reasonable parameters based on runtime performance monitoring of the pipeline execution to achieve optimal data preprocessing throughput as much as possible <sup id="cite-murray2021tf"><a href="#ref-murray2021tf">[1]</a></sup>.</p>
+<h4 id="data-processing-computation-graph-optimization"><a class="header" href="#data-processing-computation-graph-optimization">Data Processing Computation Graph Optimization</a></h4>
+<p>In the preceding text, we focused on efficiently executing the user’s constructed data preprocessing computation graph through parallel architectures. However, we can consider the following question: Is the computation graph given by the user an efficient one?
+If not, can we optimize and rewrite the user’s data computation graph under the premise of equivalent transformation to obtain a computation graph with expected better execution performance? Indeed, this shares the same philosophy as the model computation graph compilation optimization we studied in previous chapters — that is, achieving better execution performance by analyzing and transforming the computation graph IR to obtain a more optimal IR representation. Common data graph optimization strategies include operator fusion and map operation vectorization. Operator fusion merges operator combinations such as map+map, map+batch, map+filter, and filter+filter into equivalent composite operators, combining computations that originally required execution in two thread groups into composite computations executed in a single thread group. This reduces inter-thread synchronization and communication overhead, achieving better performance. Map operation vectorization transforms the common dataset.map(f).batch(b) operation combination into dataset.batch(b).map(parallel_for(f)), leveraging modern CPUs’ parallelism-friendly SIMD instruction sets to accelerate data preprocessing.</p>
+<hr>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<ol>
+<li id="ref-murray2021tf">Murray, Derek G and Simsa, Jiri and Klimovic, Ana and Indyk, Ihor. <em>tf. data: A machine learning data processing framework</em>. arXiv preprint arXiv:2101.12127. 2021. <a href="#cite-murray2021tf">↩</a></li>
+
+<li id="ref-mohan2020analyzing">Mohan, Jayashree and Phanishayee, Amar and Raniwala, Ashish and Chidambaram, Vijay. <em>Analyzing and mitigating data stalls in dnn training</em>. arXiv preprint arXiv:2007.06775. 2020. <a href="#cite-mohan2020analyzing">↩</a></li>
+
+</ol>
+
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_data_processing/program_model.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_data_processing/data_order.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_data_processing/program_model.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_data_processing/data_order.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

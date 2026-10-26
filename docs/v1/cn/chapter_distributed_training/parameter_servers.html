@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -200,7 +200,7 @@
 假设我们有一个模型，可以切分为两个参数分区。每个分区被分配给一个参数服务器负责参数同步。
 在训练的过程中，每个训练服务器都会有完整的模型，根据本地的训练数据集切片（Dataset Shard）训练出梯度。这个梯度会被推送（Push）到各自参数服务器。参数服务器等到两个训练服务器都完成梯度推送，开始计算平均梯度，更新参数。它们然后通知训练服务器来拉取（Pull）最新的参数，开始下一轮训练迭代。</p>
 <p><a id="ch10-parameter-servers"></a></p>
-<p><img src="../img/ch09/ch10-parameter-servers.png" alt="参数服务器架构"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch09/ch10-parameter-servers.png" alt="参数服务器架构"><span class="img-wrapper"><img src="../img/ch09/ch10-parameter-servers.png" alt="参数服务器架构"></span></label></p>
 <p align="center">图10.5.1 参数服务器架构</p>
 
 <h3 id="异步训练"><a class="header" href="#异步训练">异步训练</a></h3>
@@ -256,11 +256,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

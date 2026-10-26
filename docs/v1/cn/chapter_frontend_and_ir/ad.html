@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -215,7 +215,7 @@ Error）。舍入误差会随着\(h\)变小而逐渐增大。当h较大时，截
 符号微分常被应用于现代代数系统工具中，例如Mathematica、Maxima和Maple，以及机器学习框架，如Theano。符号微分虽然消除了手工微分硬编码的缺陷。但因为对表达式进行严格的递归变换和展开，不复用产生的变换结果，很容易产生表达式膨胀（expression
 swell  <sup id="cite-10.5555/60181.60188"><a href="#ref-10.5555/60181.60188">[5]</a></sup> ）问题。如 <a href="#symbolic_differentiation">图5.4.1</a> 所示，用符号微分计算递归表达式\(l_{n+1}=4l_n(1-l_n)\)，\(l_1=x\)的导数表达式，其结果随着迭代次数增加快速膨胀。</p>
 <p><a id="symbolic_differentiation"></a></p>
-<p><img src="../img/ch04/符号微分的表达式膨胀问题.png" alt="符号微分的表达式膨胀问题"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch04/符号微分的表达式膨胀问题.png" alt="符号微分的表达式膨胀问题"><span class="img-wrapper"><img src="../img/ch04/符号微分的表达式膨胀问题.png" alt="符号微分的表达式膨胀问题"></span></label></p>
 <p align="center">图5.4.1 符号微分的表达式膨胀问题</p>
 
 <p>并且符号微分需要表达式被定义成闭合式的（closed-form），不能带有或者严格限制控制流的语句表达，使用符号微分会很大程度上地限制了机器学习框架网络的设计与表达。</p>
@@ -233,12 +233,12 @@ Mode）。对于一个复合函数\(y=a(b(c(x)))\),其梯度值\(\frac{dy}{dx}\)
 \[y=f(x_1,x_2)=ln(x_1)+{x_1}{x_2}-sin(x_2)\]</p>
 <p>该函数对应的计算图如 <a href="#example_compute_graph">图5.4.2</a>：</p>
 <p><a id="example_compute_graph"></a></p>
-<p><img src="../img/ch04/自动微分-示例计算图.svg" alt="示例计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch04/自动微分-示例计算图.svg" alt="示例计算图"><span class="img-wrapper"><img src="../img/ch04/自动微分-示例计算图.svg" alt="示例计算图"></span></label></p>
 <p align="center">图5.4.2 示例计算图</p>
 
 <p>（1）前向模式</p>
 <p><a id="forward_AD"></a></p>
-<p><img src="../img/ch04/自动微分-前向模式自动微分示例.png" alt="前向模式自动微分示例"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch04/自动微分-前向模式自动微分示例.png" alt="前向模式自动微分示例"><span class="img-wrapper"><img src="../img/ch04/自动微分-前向模式自动微分示例.png" alt="前向模式自动微分示例"></span></label></p>
 <p align="center">图5.4.3 前向模式自动微分示例</p>
 
 <p>前向模式的计算过程如 <a href="#forward_AD">图5.4.3</a>所示，左侧是源程序分解后得到的基本操作集合，右侧展示了运用链式法则和已知的求导规则，从上至下计算每一个中间变量\({\dot{v}_i}=\frac{\partial v_i}{\partial x_1}\)，从而计算出最后的变量\({\dot{v}_5}=\frac{\partial y}{\partial x_1}\)。</p>
@@ -270,7 +270,7 @@ r_n
 \end{bmatrix}\]</p>
 <p>（2）反向模式</p>
 <p><a id="backward_AD"></a></p>
-<p><img src="../img/ch04/自动微分-反向模式自动微分示例.png" alt="反向模式自动微分示例"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch04/自动微分-反向模式自动微分示例.png" alt="反向模式自动微分示例"><span class="img-wrapper"><img src="../img/ch04/自动微分-反向模式自动微分示例.png" alt="反向模式自动微分示例"></span></label></p>
 <p align="center">图5.4.4 反向模式自动微分示例</p>
 
 <p>反向模式的计算过程如上 <a href="#backward_AD">图5.4.4</a>所示，左侧是源程序分解后得到的基本操作集合，右侧展示了运用链式法则和已知的求导规则，从\(\bar{v}_5=\bar{y}=\frac{\partial y}{\partial y}=1\)开始，
@@ -466,11 +466,11 @@ def get_bprop_relu(self):
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

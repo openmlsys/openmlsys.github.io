@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Privacy Encryption Algorithms - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="privacy-encryption-algorithms"><a class="header" href="#privacy-encryption-algorithms">Privacy Encryption Algorithms</a></h2>
+<p>During the federated learning process, user data is only used for training on local devices and does not need to be uploaded to the central FL-Server. This can prevent the direct leakage of users’ personal data. However, in the federated learning framework, uploading model weights to the cloud in plaintext still poses the risk of indirectly leaking user privacy. After obtaining the plaintext weights uploaded by users, adversaries can recover users’ personal training data through reconstruction, model inversion, and other attacks, leading to user privacy leakage.</p>
+<p>The MindSpore Federated framework provides secure aggregation algorithms based on Local Differential Privacy (LDP), Multi-Party Computation (MPC), and Huawei’s proprietary Sign-based Dimension Selection differential privacy algorithm (SignDS), which add noise or perturbation to the local model weights before uploading them to the cloud. These algorithms address the privacy leakage problem in federated learning while ensuring model usability.</p>
+<h3 id="ldp-based-secure-aggregation"><a class="header" href="#ldp-based-secure-aggregation">LDP-Based Secure Aggregation</a></h3>
+<p>Differential privacy is a mechanism for protecting user data privacy. Differential privacy is defined as:
+\[
+Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D’) \in S]+\delta
+\]</p>
+<p>For two datasets \(D\) and \(D’\) that differ by only one record, the probability that the output of a randomized algorithm \(\mathcal{K}\) falls within a subset of set \(S\) satisfies the above formula. \(\epsilon\) is the differential privacy budget, \(\delta\) is the perturbation parameter, and smaller values of \(\epsilon\) and \(\delta\) indicate that the output distributions of \(\mathcal{K}\) on \(D\) and \(D’\) are closer.</p>
+<p>In federated learning, suppose the model weight matrix after local training on an FL-Client is \(W\). Since the model “memorizes” the characteristics of the training set during training, an adversary can use \(W\) to reconstruct the user’s training dataset.</p>
+<p>MindSpore Federated provides an LDP-based secure aggregation algorithm to prevent privacy data leakage when local model weights are uploaded to the cloud.</p>
+<p>The FL-Client generates a differential noise matrix \(G\) with the same dimensions as the local model weight matrix \(W\), and then adds the two together to obtain a weight matrix \(W_p\) that satisfies the differential privacy definition:</p>
+<p>\[
+W_p=W+G
+\]</p>
+<p>The FL-Client uploads the noisy model weight matrix \(W_p\) to the cloud-side FL-Server for federated aggregation. The noise matrix \(G\) essentially adds a layer of masking to the original model, reducing the risk of the model leaking sensitive data while also affecting the convergence of model training. How to achieve a better balance between model privacy and usability remains an open research question. Experiments show that when the number of participants \(n\) is sufficiently large (generally above 1000), most noise can cancel each other out, and the local differential privacy mechanism has no significant impact on the accuracy and convergence of the aggregated model.</p>
+<h3 id="mpc-based-secure-aggregation"><a class="header" href="#mpc-based-secure-aggregation">MPC-Based Secure Aggregation</a></h3>
+<p>Although differential privacy technology can adequately protect user data privacy, when the number of participating FL-Clients is small or the Gaussian noise amplitude is large, model accuracy can be significantly affected. To simultaneously satisfy both model protection and model convergence requirements, MindSpore Federated provides an MPC-based secure aggregation scheme.</p>
+<p>Although differential privacy technology can adequately protect user data privacy, when the number of participating FL-Clients is small or the Gaussian noise amplitude is large, model accuracy can be significantly affected. To simultaneously satisfy both model protection and model convergence requirements, MindSpore Federated provides an MPC-based secure aggregation scheme.</p>
+<p>In this training mode, suppose the set of participating FL-Clients is \(U\). For any FL-Client \(u\) and \(v\), they negotiate a pair of random perturbations \(p_{uv}\) and \(p_{vu}\) that satisfy</p>
+<p>\[
+\label{puv}
+p_{uv}=
+\begin{cases}
+-p_{vu}, &amp;u{\neq}v\\
+0, &amp;u=v
+\end{cases}
+\]
+Thus, each FL-Client \(u\) adds the perturbations negotiated with other users to its original model weights \(x_u\) before uploading them to the FL-Server:</p>
+<p>\[
+x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}
+\]</p>
+<p>Consequently, the FL-Server aggregation result \(\overline{x}\) is:
+\[
+\label{eq:juhejieguo}
+\overline{x}=\sum\limits_{u{\in}U}(x_{u}+\sum\limits_{v{\in}U}p_{uv})=\sum\limits_{u{\in}U}x_{u}+\sum\limits_{u{\in}U}\sum\limits_{v{\in}U}p_{uv}=\sum\limits_{u{\in}U}x_{u}
+\]
+The above process only introduces the main idea of the aggregation algorithm. The MPC-based aggregation scheme is lossless in terms of accuracy, at the cost of additional communication rounds.</p>
+<h3 id="ldp-signds-algorithm-based-secure-aggregation"><a class="header" href="#ldp-signds-algorithm-based-secure-aggregation">LDP-SignDS Algorithm-Based Secure Aggregation</a></h3>
+<p>For the previous dimension-wise noise-adding LDP algorithm, the noise scale added to each dimension is essentially proportional to the number of model parameters. Therefore, for high-dimensional models, a very large number of participants may be needed to mitigate the impact of noise on model convergence. To address this “dimension dependence” issue, MindSpore Federated further provides the <strong>Sign-based Dimension Selection (SignDS)</strong> <sup id="cite-jiang2022signds"><a href="#ref-jiang2022signds">[1]</a></sup> algorithm based on dimension selection.</p>
+<p>The main idea of the SignDS algorithm is as follows: for each true local update \(\Delta\in\mathbb{R}^{d}\), the FL-Client first selects a small subset of the most significantly updated dimensions to construct a Top-K set \(S_k\), and then selects a dimension set \(J\) based on this to return to the FL-Server. The FL-Server constructs a corresponding sparse update \(\Delta^\prime\) based on the dimension set \(J\) and aggregates all sparse updates to update the global model. Since local model updates are correlated with local data information, directly selecting the true largest update dimensions may lead to privacy leakage. To address this, the SignDS algorithm provides privacy guarantees in two aspects. On one hand, the algorithm uses an Exponential Mechanism (EM <sup id="cite-mcsherry2007mechanism"><a href="#ref-mcsherry2007mechanism">[2]</a></sup>)-based dimension selection algorithm <strong>EM-MDS</strong>, ensuring that the selected dimension set satisfies strict \(\epsilon\)-LDP guarantees; on the other hand, when constructing sparse updates, a constant value is assigned to the selected dimensions instead of directly using the actual update values, ensuring that the sparse updates are no longer directly correlated with local data. Since the dimension selection satisfies \(\epsilon\)-LDP and the update values assigned to the selected dimensions are independent of local data, by the post-processing property of differential privacy <sup id="cite-dwork2014algorithmic"><a href="#ref-dwork2014algorithmic">[3]</a></sup>, the constructed sparse updates also satisfy \(\epsilon\)-LDP guarantees. <strong>Compared to the previous dimension-wise noise-adding LDP algorithm, the SignDS algorithm can significantly improve training accuracy for high-dimensional models. Moreover, since FL-Clients only need to upload a small subset of dimension values rather than all model weights, the uplink communication volume of federated learning is also greatly reduced.</strong></p>
+<p>Below, we provide detailed introductions to the construction of the Top-K set \(S_k\) and the EM-MDS dimension selection algorithm.</p>
+<p>First, since actual update values can be positive or negative, directly assigning the same constant value to all selected dimensions may significantly change the model update direction and affect model convergence. To solve this problem, SignDS proposes a sign-based Top-K set construction strategy. Specifically, the algorithm introduces an additional sign variable \(s\in\\{-1,1\\}\). This variable is randomly sampled with equal probability by the FL-Client and is used to determine the Top-K set \(S_k\) of the local update \(\Delta\). If \(s=1\), we sort \(\Delta\) by <strong>actual update values</strong> and record the \(k\) dimensions with the <strong>largest</strong> updates as \(S_k\). We further randomly select a subset of dimensions from \(S_k\) and use \(s=1\) as the update value for these dimensions to construct the sparse update. Intuitively, the update values of dimensions in \(S_k\) are likely to be greater than zero. Therefore, assigning \(s=1\) to the selected dimensions will not cause a large deviation in the model update direction, thereby mitigating the impact on model accuracy. Similarly, when \(s=-1\), we select the \(k\) dimensions with the <strong>smallest</strong> updates as \(S_k\) and assign \(s=-1\) to the selected dimensions.</p>
+<p>Next, we further introduce the EM-MDS algorithm for dimension selection. In brief, the purpose of the EM-MDS algorithm is to randomly select a dimension set \(J\in\mathcal{J}\) from the output dimension domain \(\mathcal{J}\) with a certain probability \(\mathcal{P}\), where different dimension sets correspond to different probabilities. We assume that \(J\) contains a total of \(h\) dimensions, of which \(\nu\) dimensions belong to the Top-K set (i.e., \(|S_k \cap J|=\nu\), where \(\nu\in[0,h]\)), and the other \(h-\nu\) dimensions belong to the non-Top-K set. Intuitively, the larger \(\nu\) is, the more Top-K dimensions \(J\) contains, and the better the model convergence. Therefore, we want to assign higher probabilities to dimension sets with larger \(\nu\). Based on this idea, we define the score function as:
+\[
+u(S_{k}, J) = 𝟙(|S_k\cap J| \geq \nu_{th}) =  𝟙(\nu \geq \nu_{th})
+\tag{1}\label{score_function}
+\]</p>
+<p>\(u(S_{k}, J)\) measures whether the number of Top-K dimensions contained in the output dimension set \(J\) exceeds a certain threshold \(\nu_{th}\) (\(\nu_{th}\in[1,h]\)): it equals 1 if exceeded, and 0 otherwise. Furthermore, the sensitivity of \(u(S_{k}, J)\) can be computed as:</p>
+<p>\[
+\phi = \max_{J\in\mathcal{J}} ||u(S_{k}, J) - u(S^\prime_{k}, J)||= 1 - 0 = 1
+\tag{2}\label{sensitivity}
+\]</p>
+<p>Note that (2) holds for any pair of different Top-K sets \(S_k\) and \(S_k^\prime\).</p>
+<p>Based on the above definitions, the EM-MDS algorithm is described as follows:</p>
+<p><em>Given the Top-K set \(S_k\) of the true local update \(\Delta\in\mathbb{R}^{d}\) and the privacy budget \(\epsilon\), the sampling probability of the output dimension set \(J\in\mathcal{J}\) is:</em></p>
+<p>\[
+\mathcal{P}=\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J^\prime))}
+=
+\frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}
+=
+\frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau} + \sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon)}
+\tag{3}\label{emmds}
+\]</p>
+<p><em>where \(\nu\) is the number of Top-K dimensions contained in \(J\), \(\nu_{th}\) is the score function threshold, \(J^\prime\) is any output dimension set, and \(\omega_{\tau}=\binom{k}{\tau}\binom{d-k}{h-\tau}\) is the number of all sets containing \(\tau\) Top-K dimensions.</em></p>
+<p>We further provide the privacy proof of the EM-MDS algorithm:</p>
+<p>For each FL-Client, given a randomly sampled sign value \(x\), let the Top-K sets of any two local updates \(\Delta\) and \(\Delta^\prime\) be denoted as \(S_k\) and \(S_k^\prime\). For any output dimension set \(J\in\mathcal{J}\), let \(\nu=|S_k \cap J|\) and \(\nu^\prime=|S_k^\prime \cap J|\) be the intersection sizes of \(J\) with the two Top-K dimension sets. According to (3), the following inequality holds:</p>
+<p>\[
+\frac{\mathrm{Pr}[J|\Delta]}{\mathrm{Pr}[J|\Delta^\prime]} = \frac{\mathrm{Pr}[J|S_{k}]}{\mathrm{Pr}[J|S^\prime_{k}]} = \frac{\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S_{k}, J^\prime))}}{\frac{\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S^\prime_{k}, J))}{\sum_{J^\prime\in\mathcal{J}}\mathrm{exp}(\frac{\epsilon}{\phi}\cdot u(S^\prime_{k}, J^\prime))}}
+= \frac{\frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}}{\frac{
+\mathrm{exp}(\epsilon\cdot 𝟙(\nu^\prime \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=h}\omega_{\tau}\cdot \mathrm{exp}(\epsilon\cdot 𝟙(\tau\geq\nu_{th}))}} \\
+= \frac{\mathrm{exp}(\epsilon\cdot 𝟙(\nu \geq \nu_{th}))}{
+\mathrm{exp}(\epsilon\cdot 𝟙(\nu^\prime \geq \nu_{th}))}
+\leq \frac{\mathrm{exp}(\epsilon\cdot 1)}{\mathrm{exp}(\epsilon\cdot 0)} = \mathrm{exp}(\epsilon)
+\]</p>
+<p><em>This proves that the EM-MDS algorithm satisfies the \(\epsilon\)-LDP guarantee.</em></p>
+<p>It is worth noting that computing (3) requires first determining the Top-K dimension count threshold \(\nu_{th}\). To this end, we first derive the probability distribution and expectation of the number of Top-K dimensions contained in any output dimension set \(J\) given the threshold \(\nu_{th}\):</p>
+<p>\[
+\mathrm{Pr}(\nu=\tau|\nu_{th})=
+\begin{cases}
+\omega_{\tau} / \Omega \quad \quad \quad \quad \quad \mathrm{ } &amp;if \quad \tau\in[0,\nu_{th}) \\
+\omega_{\tau}\cdot\mathrm{exp}(\epsilon) / \Omega \quad \quad &amp;if \quad \tau\in[\nu_{th},h]
+\end{cases}
+\tag{4}\label{discrete-prob}
+\]</p>
+<p>\[
+\mathbb{E}[\nu|\nu_{th}] = \sum_{\tau=0}^{\tau=h}\tau\cdot \mathrm{Pr}(\nu=\tau|\nu_{th})
+\tag{5}\label{expectation}
+\]</p>
+<p>Here, \(\Omega\) is the denominator part of \(\mathcal{P}\) in (3). Intuitively, the higher \(\mathbb{E}[\nu|\nu_{th}]\) is, the greater the probability that the randomly sampled set \(J\) contains Top-K dimensions, and thus the better the model utility. Therefore, we determine the threshold that maximizes \(\mathbb{E}[\nu|\nu_{th}]\) as the target threshold \(\nu_{th}^{\*}\), i.e.:</p>
+<p>\[
+\nu_{th}^{\*} = \underset{\nu_{th}\in[1, h]}{\operatorname{argmax}} \mathbb{E}[\nu|\nu_{th}]
+\tag{6}\label{threshold}
+\]</p>
+<p>Finally, we describe the detailed workflow of the SignDS algorithm in <a href="#signds_workflow">图13.4.1</a>. Given a local model update \(\Delta\), we first randomly sample a sign value \(s\) and construct the Top-K set \(S_k\). Next, we determine the threshold \(\nu_{th}^{\*}\) according to (6) and select the output set \(J\) following the probability defined in (3). Considering that the output domain \(\mathcal{J}\) contains \(\binom{d}{k}\) possible dimension sets, directly sampling a combination from \(\mathcal{J}\) with a certain probability would require very high computational and space costs. Therefore, we adopt an inverse sampling algorithm to improve computational efficiency. Specifically, we first sample a random value \(\beta\sim U(0,1)\) from the standard uniform distribution, and determine the number of Top-K dimensions \(\nu\) in the output dimension set based on the cumulative distribution function \(CDF_{\tau}\) of \(p(\nu=\tau|\nu_{th})\) in (4). Finally, we randomly select \(\nu\) dimensions from the Top-K set \(S_k\) and randomly sample \(h-\nu\) dimensions from the non-Top-K set to construct the final output dimension set \(J\).</p>
+<p><a id="signds_workflow"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch10/ch10-federated-learning-signds.PNG" alt="SignDS Workflow"><span class="img-wrapper"><img src="../img/ch10/ch10-federated-learning-signds.PNG" alt="SignDS Workflow"></span></label></p>
+<p align="center">图13.4.1 SignDS Workflow</p>
+
+<hr>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<ol>
+<li id="ref-jiang2022signds">Jiang, Xue and Zhou, Xuebing and Grossklags, Jens. <em>SignDS-FL: Local Differentially Private Federated Learning with Sign-based Dimension Selection</em>. ACM Transactions on Intelligent Systems and Technology (TIST). 2022. <a href="#cite-jiang2022signds">↩</a></li>
+
+<li id="ref-mcsherry2007mechanism">McSherry, Frank and Talwar, Kunal. <em>Mechanism design via differential privacy</em>. IEEE Symposium on Foundations of Computer Science. 2007. <a href="#cite-mcsherry2007mechanism">↩</a></li>
+
+<li id="ref-dwork2014algorithmic">Dwork, Cynthia and Roth, Aaron. <em>The algorithmic foundations of differential privacy</em>. Foundations and Trends in Theoretical Computer Science. 2014. <a href="#cite-dwork2014algorithmic">↩</a></li>
+
+</ol>
+
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_federated_learning/vertical_fl.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_federated_learning/outlook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_federated_learning/vertical_fl.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_federated_learning/outlook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

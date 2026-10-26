@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,7 +199,7 @@
 <h3 id="量化"><a class="header" href="#量化">量化</a></h3>
 <p>模型量化是指以较低的推理精度损失将连续取值（通常为float32或者大量可能的离散值）的浮点型权重近似为有限多个离散值（通常为int8）的过程，如图 <a href="#ch08-fig-quant_minmax">图9.3.1</a>，T是量化前的数据范围。通过以更少的位数表示浮点数据，模型量化可以减少模型尺寸，进而减少在推理时的内存消耗，并且在一些低精度运算较快的处理器上可以增加推理速度。</p>
 <p><a id="ch08-fig-quant_minmax"></a></p>
-<p><img src="../img/ch08/quant-minmax.png" alt="量化原理"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch08/quant-minmax.png" alt="量化原理"><span class="img-wrapper"><img src="../img/ch08/quant-minmax.png" alt="量化原理"></span></label></p>
 <p align="center">图9.3.1 量化原理</p>
 
 <p>计算机中不同数据类型的占用比特数及其表示的数据范围各不相同。可以根据实际业务需求将原模型量化成不同比特数的模型，一般深度神经网络的模型用单精度浮点数表示，如果能用有符号整数来近似原模型的参数，那么被量化的权重参数存储大小就可以降到原先的四分之一，用来量化的比特数越少，量化后的模型压缩率越高。工业界目前最常用的量化位数是8比特，低于8比特的量化被称为低比特量化。1比特是模型压缩的极限，可以将模型压缩为1/32，在推理时也可以使用高效的XNOR和BitCount位运算来提升推理速度。</p>
@@ -278,7 +278,7 @@
 <h4 id="稀疏策略"><a class="header" href="#稀疏策略">稀疏策略</a></h4>
 <p>明确了模型稀疏的对象之后，下一步需要确定模型稀疏的具体策略，具体来说，就是需要决定何时对模型进行稀疏以及如何对模型进行稀疏。目前最常见模型稀疏的一般流程为：预训练、剪枝、微调。具体而言，首先需要训练得到一个收敛的稠密模型，然后在此基础上进行稀疏和微调。选择在预训练之后进行稀疏动作的原因基于这样一个共识，即预训练模型的参数蕴含了学习到的知识，继承这些知识然后进行稀疏要比直接从初始化模型进行稀疏效果更好。除了基于预训练模型进行进一步修剪之外，训练和剪枝交替进行也是一种常用的策略。相比于一步修剪的方法，这种逐步的修剪方式，使得训练和剪枝紧密结合，可以更有效地发现冗余的卷积核，被广泛采用于现代神经网络剪枝方法中。</p>
 <p>以下通过一个具体实例(Deep Compression([@han2015deep])） 来说明如何进行网络修剪：如 <a href="#ch08-fig-deepcomp">ch08-fig-deepcomp</a>所示，在去掉大部分的权值之后，深度卷积神经网络的精度将会低于其原始的精度。对剪枝后稀疏的神经网络进行微调，可以进一步提升压缩后网络的精度。剪枝后的模型可以进一步进行量化，使用更低比特的数据来表示权值；此外，结合霍夫曼（Huffman）编码可以进一步地降低深度神经网络的存储。</p>
-<p><img src="../img/ch08/deepcomp.png" alt="Deep Compression([@han2015deep])"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch08/deepcomp.png" alt="Deep Compression([@han2015deep])"><span class="img-wrapper"><img src="../img/ch08/deepcomp.png" alt="Deep Compression([@han2015deep])"></span></label></p>
 <p><a id="ch08-fig-deepcomp"></a></p>
 <p>除了直接去除冗余的神经元之外，基于字典学习的方法也可以用来去掉深度卷积神经网络中无用的权值。通过学习一系列卷积核的基，可以把原始卷积核变换到系数域上并且它们稀疏。比如，Bagherinezhad等人([@bagherinezhad2017lcnn])将原始卷积核分解成卷积核的基和稀疏系数的加权线性组合。</p>
 <h3 id="知识蒸馏"><a class="header" href="#知识蒸馏">知识蒸馏</a></h3>
@@ -289,7 +289,7 @@
 <p>其中，\(\mathcal{H}(\cdot,\cdot)\)是交叉熵函数，\(o_S\)和\(o_T\)分别是学生网络和教师网络的输出，\(\mathbf{y}\)是标签。公式 (1)中的第一项使得学生神经网络的分类结果接近预期的真实标签，而第二项的目的是提取教师神经网络中的有用信息并传递给学生神经网络，\(\lambda\)是一个权值参数用来平衡两个目标函数。\(\tau(\cdot)\)是一个软化（soften）函数，将网络输出变得更加平滑。</p>
 <p>公式 (1)仅仅从教师神经网络分类器输出的数据中提取有价值的信息，并没有从其他中间层去将教师神经网络的信息进行挖掘。因此，Romero等人[@FitNet]）进一步地开发了一种学习轻型学生神经网络的方法，该算法可以从教师神经网络中任意的一层来传递有用的信息给学生神经网络。此外，事实上，并不是所有的输入数据对卷积神经网络的计算和完成后续的任务都是有用的。例如，在一张包含一个动物的图像中，对分类和识别结果比较重要的是动物所在的区域，而不是那些无用的背景信息。所以，有选择性地从教师神经网络的特征图中提取信息是一个更高效的方式。于是，Zagoruyko和Komodakis（[@attentionTS]）提出了一种基于感知（Attention）损失函数的学习方法来提升学生神经网络的性能，该方法在学习学生神经网络的过程中，引入了感知模块（Attention），选择性地将教师神经网络中的信息传递给学生神经网络，并帮助其进行训练。感知图用来表达输入图像不同位置对最终分类结果的重要性。感知模块从教师网络生成感知图，并迁移到学生网络，如图</p>
 <p><a id="ch08-fig-distillation"></a></p>
-<p><img src="../img/ch08/distillation.png" alt="一种基于感知（attention）的教师神经网络-学生神经网络学习算法"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch08/distillation.png" alt="一种基于感知（attention）的教师神经网络-学生神经网络学习算法"><span class="img-wrapper"><img src="../img/ch08/distillation.png" alt="一种基于感知（attention）的教师神经网络-学生神经网络学习算法"></span></label></p>
 <p align="center">图9.3.2 一种基于感知（attention）的教师神经网络-学生神经网络学习算法</p>
 
 <p>知识蒸馏是一种有效的帮助小网络优化的方法，能够进一步和剪枝、量化等其他压缩方法结合，训练得到精度高、计算量小的高效模型。</p>
@@ -338,11 +338,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -211,7 +211,7 @@ Descent）。如 <a href="#gradient_descent2">gradient_descent2</a>所示，
 \({w}:={w}-\alpha\frac{\partial \mathcal{L}}{\partial {w}}\)完成优化。这个优化的过程其实就可以降低损失值以达到任务目标，其中\(\alpha\)是控制优化幅度的<strong>学习率</strong>（Learning
 Rate）。
 在实践中，梯度下降最终得到的最小值很大可能是一个局部最小值，而不是全局最小值。不过由于深度神经网络能提供一个很强的数据表达能力，所以局部最小值可以很接近全局最小值，损失值可以足够小。</p>
-<p><img src="../img/ch_basic/gradient_descent2.png" alt="梯度下降介绍。（左图）只有一个可以训练的参数&#92;(w&#92;)；（右图）有两个可以训练的参数&#92;({w}=[w_1,w_2]&#92;)。在不断更新迭代参数后，损失值&#92;(&#92;mathcal{L}&#92;)会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/gradient_descent2.png" alt="梯度下降介绍。（左图）只有一个可以训练的参数&#92;(w&#92;)；（右图）有两个可以训练的参数&#92;({w}=[w_1,w_2]&#92;)。在不断更新迭代参数后，损失值&#92;(&#92;mathcal{L}&#92;)会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。"><span class="img-wrapper"><img src="../img/ch_basic/gradient_descent2.png" alt="梯度下降介绍。（左图）只有一个可以训练的参数&#92;(w&#92;)；（右图）有两个可以训练的参数&#92;({w}=[w_1,w_2]&#92;)。在不断更新迭代参数后，损失值&#92;(&#92;mathcal{L}&#92;)会逐渐地减小。但是由于存在很多局部最优解，我们往往不能更新到全局最优解。"></span></label></p>
 <p><a id="gradient_descent2"></a></p>
 <p>那么接下来，在深度神经网络中如何实现梯度下降呢，这需要计算出网络中每层参数的偏导数\(\frac{\partial \mathcal{L}}{\partial {w}}\)，我们可以用<strong>反向传播</strong>（Back-Propagation） <sup id="cite-rumelhart1986learning"><a href="#ref-rumelhart1986learning">[1]</a></sup><sup id="cite-lecun2015deep"><a href="#ref-lecun2015deep">[2]</a></sup>来实现。
 接下来，
@@ -349,11 +349,11 @@ Adagrad <sup id="cite-duchi2011adagrad"><a href="#ref-duchi2011adagrad">[5]</a>
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

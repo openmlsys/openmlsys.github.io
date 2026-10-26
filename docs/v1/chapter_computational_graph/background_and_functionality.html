@@ -1,0 +1,696 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Computational Graph Basics - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="computational-graph-basics"><a class="header" href="#computational-graph-basics">Computational Graph Basics</a></h1>
+<p>A computational graph contains operators (as units of operations) and
+tensors (as units of data). The operator nodes in a graph are connected
+with directed edges, which indicate the state of each tensor and
+dependencies between operators.
+Figure <a href="#ch04/ch04-simpleDAG">图3.2.1</a> shows a computational graph example
+of \(\bf{Z}\)=ReLU\((\bf{X}\times\bf{Y})\).</p>
+<p><a id="ch04/ch04-simpleDAG"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/simpledag.png" alt="Simple computationalgraph"><span class="img-wrapper"><img src="../img/ch03/simpledag.png" alt="Simple computationalgraph"></span></label></p>
+<p align="center">图3.2.1 Simple computationalgraph</p>
+
+<h2 id="tensors-and-operators"><a class="header" href="#tensors-and-operators">Tensors and Operators</a></h2>
+<p>In mathematics, tensors are a generalization of scalars and vectors.
+Machine learning defines multidimensional data as tensors. The rank of a
+tensor refers to the number of axes (or dimensions) the tensor has. A
+scalar is a rank-0 tensor containing a single value, without axes; a
+vector is a rank-1 tensor with one axis; and a three-channel RGB color
+image is a rank-3 tensor with three axes. See Figure
+<a href="#ch04/ch04-tensor">图3.2.2</a>.</p>
+<p><a id="ch04/ch04-tensor"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/tensor.png" alt="Tensors"><span class="img-wrapper"><img src="../img/ch03/tensor.png" alt="Tensors"></span></label></p>
+<p align="center">图3.2.2 Tensors</p>
+
+<dl>
+<dt id="in-a-machine-learning-framework-a-tensor-stores-not-only-data-itself-but-also-attributes-such-as-the-data-type-data-shape-rank-and-gradient-transfer-status-table-ch04ch4-tensor-describes-the-main-attributes-of-a-tensor"><a class="header" href="#in-a-machine-learning-framework-a-tensor-stores-not-only-data-itself-but-also-attributes-such-as-the-data-type-data-shape-rank-and-gradient-transfer-status-table-ch04ch4-tensor-describes-the-main-attributes-of-a-tensor">In a machine learning framework, a tensor stores not only data itself
+but also attributes such as the data type, data shape, rank, and
+gradient transfer status. Table
+<a href="#ch04/ch4-tensor">ch04/ch4-tensor</a> describes the main attributes of a
+tensor.</a></dt>
+<dd>
+<p>Tensor attributes</p>
+</dd>
+</dl>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tensor Attribute</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>shape</td><td>Length of each dimension, for example, [3,3,3].</td></tr>
+<tr><td>dim</td><td>Number of axes (or dimensions). The value is 0 for a scalar and 1 for a vector.</td></tr>
+<tr><td>dtype</td><td>Data type, such as bool, uint8, int16, float32, and float64.</td></tr>
+<tr><td>device</td><td>Target device, such as a CPU or GPU.</td></tr>
+<tr><td>name</td><td>Tensor name.</td></tr>
+<tr><td><a id="ch04/ch4-tensor"></a></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<p>In the following, we explore each tensor attribute with image data as an
+example. Assume that our machine learning framework loads a 96-pixel by
+96-pixel RGB (3-channel) image and converts the image data into a tensor
+for storage. A <em>rank</em>-3 tensor of <em>shape</em> [96,96,3] is generated, with
+the three dimensions representing the image height, image width, and
+number of channels, respectively. The pixels in the RGB image are
+represented by unsigned integers ranging from 0 to 255. Therefore, the
+<em>dtype</em> of the resulting tensor is uint8. The image data is normalized
+before it is fed into a CNN for training. Specifically, its data type is
+reformatted to float32 so that it is compatible with the default data
+type of common machine learning frameworks.</p>
+<p>Before training, the machine learning framework determines the compute
+device (i.e., CPU, GPU, or other hardware) and stores the data and
+weight parameters necessary for training in the memory of the
+corresponding hardware — as specified by the <em>device</em> attribute.
+Typically, the device attribute of a tensor is automatically assigned by
+the machine learning framework based on the hardware environment.
+Tensors are either mutable or immutable. Mutable tensors store weight
+parameters and are updated based on gradient information, for example,
+convolution kernel tensors that participate in convolution operations.
+Immutable tensors store initial user data or data input to models, for
+example, the image data tensor mentioned above.</p>
+<p>What does a tensor look like in machine learning settings? Most tensors,
+like image data and convolution kernel tensors, are "rectangular" or
+"cubic" in shape. That is, such a tensor has the same number of
+elements along each of its axes. However, there are specialized tensors
+that have different shapes: ragged and sparse tensors. As shown in
+Figure <a href="#ch04/ch04-tensor1">图3.2.3</a>, a tensor is ragged if it has
+variable numbers of elements along some axes. Ragged tensors enable
+efficient storage and processing of irregularly shaped data, such as
+variable-length texts in natural language processing (NLP) applications.
+Sparse tensors often handle graph data of graph neural networks (GNNs)
+and are encoded using special formats such as the coordinate list (COO)
+to improve storage efficiency.</p>
+<p><a id="ch04/ch04-tensor1"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/tensorclass.svg" alt="Types of tensors"><span class="img-wrapper"><img src="../img/ch03/tensorclass.svg" alt="Types of tensors"></span></label></p>
+<p align="center">图3.2.3 Types of tensors</p>
+
+<p>Operators are the basic compute units of neural networks. They process
+tensor data and implement common computational logic in machine
+learning, including data transformation, conditional control,
+mathematical calculation, etc. Based on their functionalities, operators
+are classified into tensor operators, neural network operators, data
+flow operators, and control flow operators.</p>
+<ol>
+<li>
+<p><strong>Tensor operators</strong> involve tensor structure and mathematical
+operations. Typical tensor structure operations include reshaping
+tensors, permuting tensor dimensions, concatenating tensors, etc.
+For example, we may need to change the dimension order (between
+"channels first" and "channels last") of image data tensors in
+CNN applications. Mathematical operations are tensor-based and
+include matrix multiplication, norm calculation, determinant
+calculation, eigenvalue calculation, etc. They are often seen in the
+gradient computation of machine learning models.</p>
+</li>
+<li>
+<p><strong>Neural network operators</strong>, the foundation of neural network
+models, are the most common operators, including feature extraction,
+activation functions, loss functions, optimization algorithms, etc.
+Feature extraction refers to extracting feature tensors from input
+data in CNN tasks. With the nonlinear ability introduced by
+activation functions, neural networks can model highly complex
+relationships and patterns in data. Optimization algorithms are used
+to update model parameters so that the loss function is minimized.</p>
+</li>
+<li>
+<p><strong>Data flow operators</strong> cover data preprocessing and loading. Data
+preprocessing mainly refers to data resizing, padding,
+normalization, and argumentation of mostly visual and textual data,
+whereas data loading involves operations such as shuffling,
+batching, and pre-fetching of the dataset. Data flow operators
+transform raw input data into a format meaningful to the machine
+learning framework and efficiently load the data to the network for
+training or inference according to the defined number of iterations,
+reducing memory usage and wait time.</p>
+</li>
+<li>
+<p><strong>Control flow operators</strong>, usually found in flexible and complex
+models, are used to control data flows in computational graphs.
+Typical control flow operators are conditional operators and loop
+operators. They are provided by either the machine learning
+framework or the frontend language. Control flow operations affect
+data flows in both forward and backward computation of neural
+networks.</p>
+</li>
+</ol>
+<h2 id="computational-dependencies"><a class="header" href="#computational-dependencies">Computational Dependencies</a></h2>
+<p>In a computational graph, the dependencies between operators influence
+the execution sequence and parallelism of operators. The computational
+graphs involved in machine learning algorithms are directed acyclic
+graphs, where data flows must not lead to circular dependencies. With a
+circular dependency, the training program will run into an infinite loop
+and never terminate by itself. Data stuck in an infinite loop tends to
+either infinity or 0, yielding invalid results. To analyze the execution
+sequence and facilitate model topology design, the following describes
+the dependencies between the compute nodes in a computational graph.</p>
+<p>As shown in Figure <a href="#ch04/ch04-dependence">图3.2.4</a>, if the Matmul1 operator is
+removed from the graph, there will be no input to the downstream
+activation function, and the data flow will be interrupted. We can
+therefore conclude that the operators in this computational graph depend
+on each other with transitive relations.</p>
+<p><a id="ch04/ch04-dependence"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/dependence.svg" alt="Computationaldependencies"><span class="img-wrapper"><img src="../img/ch03/dependence.svg" alt="Computationaldependencies"></span></label></p>
+<p align="center">图3.2.4 Computationaldependencies</p>
+
+<p>Three types of dependencies are available.</p>
+<ol>
+<li>
+<p><strong>Direct dependency</strong>: For example, the ReLU1 node is directly
+dependent on the Matmul1 node. That is, ReLU1 can run properly only
+when it receives a direct output from Matmul1.</p>
+</li>
+<li>
+<p><strong>Indirect dependency</strong>: For example, the Add node indirectly
+depends on the Matmul1 node. Specifically, Matmul1’s output is
+processed by one or more intermediate nodes and then transmitted to
+the Add node. The Add node directly or indirectly depends on the
+intermediate nodes.</p>
+</li>
+<li>
+<p><strong>Mutual independence</strong>: For example, the graph shows no
+input/output dependency between Matmul1 and Matmul2, meaning that
+the two nodes are independent of each other.</p>
+</li>
+</ol>
+<p>In the computational graph shown in Figure
+<a href="#ch04/ch04-recurrent">图3.2.5</a>, the Add node indirectly depends on
+the Matmul node; conversely, the Matmul node directly depends on the Add
+node. The two nodes are stuck waiting for each other’s output to start
+their computation. When input data is manually assigned to the two nodes
+at the same time, they will compute endlessly, and the training process
+can never terminate by itself. A circular dependency produces a positive
+feedback data flow, where data values overflow to positive infinity,
+underflow to negative infinity, or tend to 0. These all lead to
+unexpected training results. As such, we should avoid circular
+dependencies between operators when designing deep learning models.</p>
+<p><a id="ch04/ch04-recurrent"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/recurrent.svg" alt="Circulardependency"><span class="img-wrapper"><img src="../img/ch03/recurrent.svg" alt="Circulardependency"></span></label></p>
+<p align="center">图3.2.5 Circulardependency</p>
+
+<p>In machine learning frameworks, the <em>unrolling</em> method is used to
+represent loop iterations. Figure
+<a href="#ch04/ch04-recurrent-1">图3.2.6</a> shows a computational graph
+involving three loop iterations. The subgraph of the loop body is
+replicated to three (according to the number of iterations) to produce
+an unrolled loop, where the resulting subgraphs are concatenated in the
+iteration sequence. The subgraph of one iteration has a direct
+dependency on that of the previous iteration. In one computational
+graph, tensors and operators are uniquely identified across the loop
+iterations, even for the same operation. Unlike circular dependencies,
+loop iterations do not involve mutual dependencies between operators
+with unique identifiers. When a subgraph is replicated to produce an
+unrolled loop, the replicated tensors and operators are assigned new
+identifiers to avoid circular dependencies.</p>
+<p><a id="ch04/ch04-recurrent-1"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/unroll.png" alt="Unrolled loop"><span class="img-wrapper"><img src="../img/ch03/unroll.png" alt="Unrolled loop"></span></label></p>
+<p align="center">图3.2.6 Unrolled loop</p>
+
+<h2 id="control-flows"><a class="header" href="#control-flows">Control Flows</a></h2>
+<p>A control flow maintains the sequence of computation tasks, thereby
+facilitating the design of flexible and complex models. By introducing a
+control flow to a model, we can execute a node iteratively any number of
+times or skip a node based on specific conditions. Many deep learning
+models rely on control flows for training and inference. For example,
+models built on recurrent neural networks (RNNs) and reinforcement
+learning rely on recurrence relations and input status conditions to
+complete the computation.</p>
+<p>Popular machine learning frameworks provide two major types of control
+flows:</p>
+<ol>
+<li>
+<p><strong>Frontend control flows</strong>: Python control flow statements are used
+to implement control decision-making in a computational graph.
+Frontend control flows are easy to use in model building. However,
+because the computation process of the machine learning framework
+runs on the backend hardware and the control flow is decoupled from
+the data flow, the computational graph cannot run entirely on the
+backend hardware. As such, control flow implementations using the
+frontend language are referred to as the <em>out-of-graph approach</em>.</p>
+</li>
+<li>
+<p><strong>Framework control primitives</strong>: Machine learning frameworks come
+with built-in low-level fine-grained control primitive operators.
+Such operators are executable on compute hardware. When they are
+introduced to a model, the computational graph can run entirely on
+the backend hardware. This type of control flow implementations are
+referred to as the <em>in-graph approach</em>.</p>
+</li>
+</ol>
+<p>To explain why we need these different approaches to implement control
+flows, let’s look at the differences between the two approaches.</p>
+<p>The out-of-graph approach is familiar to Python programmers. This
+flexible, intuitive approach allows direct use of Python commands such
+as <code>if-else</code>, <code>while</code>, and <code>for</code> in building control flows.</p>
+<p>The in-graph approach, by contrast, is more complicated. TensorFlow
+provides a range of in-graph control flow operators (such as <code>tf.cond</code>
+for conditional control, <code>tf.while_loop</code> for loop control, and <code>tf.case</code>
+for branch control). These operators are composites of lower-level
+primitive operators. The control flow representations adopted by the
+in-graph approach are in a different style from common programming —
+this improves computing performance but comes at the expense of
+usability.</p>
+<p>The out-of-graph approach is easier to use. However, not all backend
+compute hardware is compatible with the frontend runtime environment,
+and extra efforts may be needed to execute the frontend control flows.
+Nevertheless, control flows implemented using the in-graph approach are
+directly executable on hardware independent of the frontend environment,
+improving efficiency throughout the model building, optimization, and
+execution process.</p>
+<p>The two approaches serve different application scenarios. To run tasks
+such as model training, inference, and deployment on compute hardware
+independent of the frontend environment, the in-graph approach is
+recommended for building control flows. For model validation purposes,
+the out-of-graph approach allows for higher efficiency in generating
+model code from the model algorithm.</p>
+<p>Major machine learning frameworks support both the out-of-graph and
+in-graph approaches. In the following illustrations about the impact of
+control flows on forward and backward computation, we adopt the
+out-of-graph approach for control flow implementations, given that
+frontend control flows are more popular in practice. The most common
+control flows include conditional branches and loops. For a model
+containing control flow operations, the control flow is replicated to
+the gradient computational graph during backpropagation, so that the
+required tensor gradients can be accurately calculated.</p>
+<p>Code <code>ch04/code1</code> shows an example of simple conditional control,
+where <code>matmul</code> indicates the matrix multiplication operator.</p>
+<p><strong>ch04/code1</strong></p>
+<pre><code class="language-python">def control(A, B, C, conditional = True):
+    if conditional:
+        y = matmul(A, B)
+    else:
+        y = matmul(A, C)
+    return y
+</code></pre>
+<p>Figure <a href="#ch04/ch04-if">图3.2.7</a> depicts the forward and backward
+computational graphs of Code
+<code>ch04/code1</code>. When running a model containing <code>if</code>
+conditions, the program needs to know which branch of each condition is
+taken so that it can apply the gradient computation logic to the right
+branch. In the forward computational graph, tensor \(\bf{C}\) does not
+participate in computation due to conditional control. Similarly, in the
+backward computational graph, tensor \(\bf{C}\) is skipped in gradient
+computation.</p>
+<p><a id="ch04/ch04-if"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/if.png" alt="Computational graphs of conditionalcontrol"><span class="img-wrapper"><img src="../img/ch03/if.png" alt="Computational graphs of conditionalcontrol"></span></label></p>
+<p align="center">图3.2.7 Computational graphs of conditionalcontrol</p>
+
+<p>A control loop allows us to execute an operation in a loop zero or
+multiple times. When the loop is unrolled, each operation is assigned a
+unique identifier to identify different calls to the same operation.
+Each iteration directly depends on the result of the previous one.
+Therefore, one or more lists of tensors need to be maintained in the
+control loop for storing per-iteration intermediate results used in the
+forward pass and gradient computation. Code
+<code>ch04/code2</code> shows a control loop example. In its unrolled
+loop, \(\bf{X_i}\) and \(\bf{W_i}\) are the lists of intermediate result
+tensors to be maintained.</p>
+<p><strong>ch04/code2</strong></p>
+<pre><code class="language-python">def recurrent_control(X : Tensor, W : Sequence[Tensor], cur_num = 3):
+    for i in range(cur_num):
+        X = matmul(X, W[i])
+    return X
+# Unroll the loop to obtain an equivalent representation.
+def recurrent_control(X : Tensor, W : Sequence[Tensor]):
+    X1 = matmul(X, W)   # Let W = W[0], W1 = W[1], and W2 = W[2].
+    X2 = matmul(X1, W1)
+    Y = matmul(X2, W2)
+    return Y
+</code></pre>
+<p>The forward and backward computational graphs of Code
+<code>ch04/code2</code> are shown in Figure
+<a href="#ch04/ch04-while">图3.2.8</a>. The gradient of the control loop is
+also a loop, with the same number of iterations as the forward loop. The
+gradient value output by one iteration serves as the input value for
+calculating the gradient of the next iteration until the loop ends.</p>
+<p><a id="ch04/ch04-while"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/while.png" alt="Computational graphs of loopcontrol"><span class="img-wrapper"><img src="../img/ch03/while.png" alt="Computational graphs of loopcontrol"></span></label></p>
+<p align="center">图3.2.8 Computational graphs of loopcontrol</p>
+
+<h2 id="gradient-computation-using-the-chain-rule"><a class="header" href="#gradient-computation-using-the-chain-rule">Gradient Computation Using the Chain Rule</a></h2>
+<p>In the loop unrolling example in Section 3.2.3, when input tensor
+\(\bf{X}\) is fed into the neural network, the data is propagated forward
+one layer at a time in the computational graph, and the intermediate
+variables are calculated and stored until \(\bf{Y}\) is output after
+multilayer computation. In DNN training, the loss function result is
+calculated based on the output result of forward propagation and the
+label value. The model backpropagates the loss function information
+through the computational graph and updates the training parameters
+based on computed gradients. Typically, backpropagation works by
+computing the gradients of the loss function with respect to each
+parameter. Backpropagation based on other information can also work but
+is not discussed here.</p>
+<p>The chain rule method is used to calculate the gradients with respect to
+each parameter during backpropagation. In calculus, the chain rule
+provides a technique for finding the derivatives of composite functions.
+The derivative of a composite function at a given point is the product
+of the derivatives of each individual function at the corresponding
+point. Assume that <em>f</em> and <em>g</em> are functions mapped from the real number
+<em>x</em>. If \(y=g(x)\) and \(z=f(y)=f(g(x))\), the derivative of <em>z</em> with
+respect to <em>x</em> is</p>
+<p>\[\frac{\partial z}{\partial x}=\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}.\tag{1}\label{eq:ch04/chainrule}\]</p>
+<p>The backpropagation algorithm of neural networks executes the chain rule
+in the sequence defined by the backward computational graph. Generally,
+neural networks accept 3D tensor inputs and output 1D vectors.
+Therefore, we can generalize the gradient computation Equations
+\(\eqref{ch04/chainrule}\) of composite functions with respect to
+scalars as follows: Assuming that \(\bf{X}\) is an <em>m</em>-dimensional tensor,
+\(\bf{Y}\) is an <em>n</em>-dimensional tensor, \(\bf{z}\) is a 1D vector,
+\(\bf{Y}=g(\bf{X})\), and \(\bf{z}=f(\bf{Y})\), the partial derivative of
+\(\bf{z}\) with respect to each element of \(\bf{X}\) is</p>
+<p>\[\frac{\partial z}{\partial x_i}=\sum_j\frac{\partial z}{\partial y_j}\frac{ \partial y_j}{ \partial x_i}.\tag{2}\label{eq:ch04/chainrule-1}\]</p>
+<p>The equivalent form of Equation
+\(\eqref{ch04/chainrule-1}\) is</p>
+<p>\[\nabla_{\bf{X}}\bf{z} = (\frac{\partial \bf{Y}}{\partial\bf{X}})^{\top}\nabla_{\bf{Y}}\bf{z},\tag{3}\label{eq:ch04/chainrule-2}\]</p>
+<p>where, \(\nabla_{\bf{X}}z\) represents the gradient matrix of \(z\) with
+respect to \(\bf{X}\).</p>
+<p>Figure <a href="#ch04/ch04-chain">图3.2.9</a> shows the application of the chain rule
+in neural networks, illustrating both forward and backward passes in a
+single graph. The neural network performs matrix multiplication twice to
+obtain the predicted value \(\bf{Y}\), and then performs gradient
+backpropagation based on the error between the output value and label
+value to update the weight parameters to minimize the error. The weight
+parameters to be updated include \(\bf{W}\) and \(\bf{W_1}\).</p>
+<p><a id="ch04/ch04-chain"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/chain.png" alt="Backpropagation computationalgraph"><span class="img-wrapper"><img src="../img/ch03/chain.png" alt="Backpropagation computationalgraph"></span></label></p>
+<p align="center">图3.2.9 Backpropagation computationalgraph</p>
+
+<p>The mean square error (MSE) is selected as the loss function in this
+example. Two important questions arise here: How does the loss function
+transfer the gradient information to \(\bf{W}\) and \(\bf{W_1}\) using the
+chain rule method? And why do we need to calculate the gradients of
+non-parameter data \(\bf{X}\) and \(\bf{X_1}\)? To answer these questions,
+let’s analyze the computation details of forward and backward
+propagation. First, the loss value is calculated through forward
+propagation in three steps: (1) \(\bf{X_1}=\bf{XW}\); (2)
+\(\bf{Y}=\bf{X_1W_1}\); and (3) \(Loss=\frac{1}{2} (\bf{Y}-Label)^2\).</p>
+<p>The loss function is calculated to minimize the distance between the
+prediction value and the label value. According to the chain rule,
+backpropagation is performed through Equations
+\(\eqref{ch04/chainrule-3}\) and
+\(\eqref{ch04/chainrule-4}\) to calculate the gradients of the loss
+function with respect to parameters \(\bf{W}\) and \(\bf{W_1}\):</p>
+<p>\[\frac{\partial {\rm Loss}}{\partial \bf{W_1}}=\frac{\partial \bf{Y}}{\partial \bf{W_1}}\frac{\partial {\rm Loss}}{\partial \bf{Y}}\tag{4}\label{eq:ch04/chainrule-3}\]</p>
+<p>\[\frac{\partial {\rm Loss}}{\partial \bf{W}}=\frac{\partial \bf{X_1}}{\partial \bf{W}}\frac{\partial {\rm Loss}}{\partial \bf{Y}}\frac{\partial \bf{Y}}{\partial \bf{X_1}}\tag{5}\label{eq:ch04/chainrule-4}\]</p>
+<p>Both Equations
+\(\eqref{ch04/chainrule-3}\) and
+\(\eqref{ch04/chainrule-4}\) solve
+\(\frac{\partial {\rm Loss}}{\partial \bf{Y}}\), which corresponds to grad
+\(\bf{Y}\) in Figure <a href="#ch04/ch04-chain">图3.2.9</a>.
+\(\frac{\partial {\rm Loss}}{\partial \bf{Y}}\frac{\partial \bf{Y}}{\partial \bf{X_1}}\)
+in Equation
+\(\eqref{ch04/chainrule-4}\) corresponds to grad \(\bf{X_1}\) in
+Figure <a href="#ch04/ch04-chain">图3.2.9</a>. To calculate the gradient of model
+parameter \(\bf{W}\), the gradient of intermediate result \(\bf{X_1}\) is
+calculated. This also answers the second question raised above. The
+gradients of non-parameter intermediate results are calculated to
+facilitate gradient computation with regard to each parameter.</p>
+<p>Because \(\bf{X_1}=\bf{XW}\), \(\bf{Y}=\bf{X_1W_1}\), and
+Loss=\(\frac{1}{2}\)(\(\bf{Y}\)-Label)\(^2\), Equations
+\(\eqref{ch04/chainrule-3}\) and
+\(\eqref{ch04/chainrule-4}\) are expanded to
+\(\eqref{ch04/chainrule-5}\) and
+\(\eqref{ch04/chainrule-6}\) according to Equations
+\(\eqref{ch04/chainrule-2}\), respectively. Then, we can analyze how
+variables participate in gradient computation when the machine learning
+framework uses the chain rule to build a backward computational graph.</p>
+<p>\[\frac{\partial {\rm Loss}}{\partial \bf{W_1}}=\frac{\partial \bf{Y}}{\partial \bf{W_1}}\frac{\partial {\rm Loss}}{\partial \bf{Y}}=\bf{X_1}^\top(\bf{Y}-{\rm Label})\tag{6}\label{eq:ch04/chainrule-5}\]</p>
+<p>\[\frac{\partial {\rm Loss}}{\partial \bf{W}}=\frac{\partial \bf{X_1}}{\partial \bf{W}}\frac{\partial {\rm Loss}}{\partial \bf{Y}}\frac{\partial \bf{Y}}{\partial \bf{X_1}}=\bf{X}^\top(\bf{Y}-{\rm Label})\bf{W_1}^\top\tag{7}\label{eq:ch04/chainrule-6}\]</p>
+<p>Equation
+\(\eqref{ch04/chainrule-5}\) uses intermediate result \(\bf{X_1}\) in
+the forward computational graph when calculating the gradient of
+\(\bf{W_1}\). In equation
+\(\eqref{ch04/chainrule-6}\), both input \(\bf{X}\) and parameter
+\(\bf{W_1}\) are used for calculating the gradient of parameter \(\bf{W}\).
+This answers the first question. The gradient information transferred
+backward from downstream network layers, and the intermediate results
+and parameter values in forward computation, all have roles to play in
+calculating the gradient of each parameter in the graph.</p>
+<p>Based on Figure <a href="#ch04/ch04-chain">图3.2.9</a> and Equations
+\(\eqref{ch04/chainrule-3}\),
+\(\eqref{ch04/chainrule-4}\),
+\(\eqref{ch04/chainrule-5}\) and
+\(\eqref{ch04/chainrule-6}\), when the chain rule is used to
+construct a backward computational graph, the computation process is
+analyzed and the intermediate results and gradient transfer status in
+the model are stored. The machine learning framework improves the
+backpropagation efficiency by reusing buffered computation results.</p>
+<p>We can generalize the chain rule to wider applications. With flexible
+control flows, the machine learning framework can quickly analyze the
+computation processes of the forward data flow and backward gradient
+flow by using computational graph technology, effectively manage the
+lifetime of each intermediate result in memory, and improve the overall
+computation efficiency.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_computational_graph/components_of_computational_graph.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_computational_graph/generation_of_computational_graph.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_computational_graph/components_of_computational_graph.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_computational_graph/generation_of_computational_graph.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -220,7 +220,7 @@
 <p>按DARPA（美国国防部先进研究项目局）的描述，如 <a href="#xai_concept">图15.1.1</a>所示，
 可解释AI的概念在于：区别于现有的AI系统，可解释AI系统可以解决用户面对黑盒模型时遇到的问题，使得用户知其然并知其所以然。</p>
 <p><a id="xai_concept"></a></p>
-<p><img src="../img/ch11/xai_concept.png" alt="可解释AI概念（图片来源于Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16–53）"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_concept.png" alt="可解释AI概念（图片来源于Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16–53）"><span class="img-wrapper"><img src="../img/ch11/xai_concept.png" alt="可解释AI概念（图片来源于Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16–53）"></span></label></p>
 <p align="center">图15.1.1 可解释AI概念（图片来源于Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16–53）</p>
 
 <p>然而，不论是学术界还是工业界，对于可解释AI (eXplainable AI(XAI))都没有一个统一的定义。这里列举3种典型定义，供大家参考讨论：</p>
@@ -239,7 +239,7 @@
 <h2 id="可解释ai算法现状介绍"><a class="header" href="#可解释ai算法现状介绍">可解释AI算法现状介绍</a></h2>
 <p>随着可解释AI概念的提出，可解释AI越来越受到学术界及工业界的关注，下图展示了人工智能领域顶级学术会议中可解释AI关键字的趋势。为了让读者更好的对现有可解释AI算法有一个整体认知，我们这里参考 <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>总结归纳了可解释AI的算法类型，如 <a href="#XAI_methods">图15.1.2</a>所示。</p>
 <p><a id="XAI_methods"></a></p>
-<p><img src="../img/ch11/XAI_methods.PNG" alt="可解释AI（XAI）算法分支"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/XAI_methods.PNG" alt="可解释AI（XAI）算法分支"><span class="img-wrapper"><img src="../img/ch11/XAI_methods.PNG" alt="可解释AI（XAI）算法分支"></span></label></p>
 <p align="center">图15.1.2 可解释AI（XAI）算法分支</p>
 
 <p>对模型进行解释有多种多样的方法，这里依据解释过程是否引入数据集以外的外部知识，将其分为数据驱动的解释方法和知识感知的解释方法。</p>
@@ -253,19 +253,19 @@
 该类型解释可提供如“信用逾期记录是模型依赖的最重要特征”的解释，从而协助判定模型是否存在偏见. 一种典型的全局特征解释方法是SHAP（其仅能针对树模型输出全局解释）<sup id="cite-lundberg2017unified"><a href="#ref-lundberg2017unified">[5]</a></sup>。
 (iii) 透明模型设计——修改或重新设计黑盒模型以提高其可解释性。这类方法目前也逐渐成为探索热点，近期的相关工作包括ProtoPNet <sup id="cite-chen2019looks"><a href="#ref-chen2019looks">[6]</a></sup>, Interpretable CNN <sup id="cite-zhang2018interpretable"><a href="#ref-zhang2018interpretable">[7]</a></sup>, ProtoTree <sup id="cite-nauta2021neural"><a href="#ref-nauta2021neural">[8]</a></sup>等。</p>
 <p><a id="xai_global_feature_importance"></a></p>
-<p><img src="../img/ch11/xai_global_feature_importance.png" alt="全局特征重要性解释"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_global_feature_importance.png" alt="全局特征重要性解释"><span class="img-wrapper"><img src="../img/ch11/xai_global_feature_importance.png" alt="全局特征重要性解释"></span></label></p>
 <p align="center">图15.1.3 全局特征重要性解释</p>
 
 <p>全局解释可以提供黑盒模型的整体认知。但由于黑盒模型的高复杂性，在实践中往往很难通过模型提取/设计得到与原模型行为相近的简单透明模型，也往往很难对整个数据集抽象出统一的特征重要性。此外，在为单个观察生成解释时，全局解释也缺乏局部保真度，因为全局重要的特征可能无法准确解释单个样例的决定。因此，局部方法成为了近些年领域内重要的研究方向。局部方法尝试为单个实例或一组实例检验模型行为的合理性。当仅关注局部行为时，复杂模型也可以变得简单，因此即使是简单的函数也有可以为局部区域提供可信度高的解释。基于获得解释的过程，局部方法可以分为两类：局部近似和基于传播的方法。</p>
 <p>局部近似是通过在样本近邻区域模拟黑盒模型的行为生成可理解的子模型。相比于全局方法中的模型提取，局部近似仅需关注样本临近区域，因此更容易获得精确描述局部行为的子模型。如 <a href="#xai_lime">图15.1.4</a>所示，通过在关注数据点\(x\)附近生成\(m\)个数据点\((x_i^\prime, f(x_i^\prime)), for\  i=1,2, …m\)（这里\(f\)为黑盒模型决策函数）,用线性拟合这些数据点，可以得到一个线性模型\(g=\sum_i^k w_ix^i\)，这里\(k\)表示数据的特征维度。那么线性模型中的权重\(w_i\)即可用于表示数据\(x\)中第\(i\)个特征对于模型\(f\)的重要性。</p>
 <p><a id="xai_lime"></a></p>
-<p><img src="../img/ch11/xai_lime.png" alt="局部近似方法示例"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_lime.png" alt="局部近似方法示例"><span class="img-wrapper"><img src="../img/ch11/xai_lime.png" alt="局部近似方法示例"></span></label></p>
 <p align="center">图15.1.4 局部近似方法示例</p>
 
 <p>基于传播的方法通常是传播某些信息直接定位相关特征，这些方法包含了基于反向传播的方法和基于前向传播的方法。基于反向传播的方法通过梯度回传将输出的贡献归因于输入特征。如 <a href="#xai_gradient_based">图15.1.5</a>所示,通过梯度回传，计算模型输出对输入的梯度\(\frac{d(f(x))}{dx}\) 作为模型解释。常见的基于梯度传播的方法有基本Gradient方法，GuidedBackprop <sup id="cite-zeiler2014visualizing"><a href="#ref-zeiler2014visualizing">[9]</a></sup>, GradCAM <sup id="cite-selvaraju2017grad"><a href="#ref-selvaraju2017grad">[10]</a></sup>等.
 而基于前向传播的方法通过扰动特征后, 进行前向推理的输出差异来量化输出与特征的相关性。其中，常见的几种方法有RISE <sup id="cite-petsiuk2018rise"><a href="#ref-petsiuk2018rise">[11]</a></sup>，ScoreCAM <sup id="cite-wang2020score"><a href="#ref-wang2020score">[12]</a></sup>等。</p>
 <p><a id="xai_gradient_based"></a></p>
-<p><img src="../img/ch11/xai_gradient_based.PNG" alt="局部近似方法示例"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_gradient_based.PNG" alt="局部近似方法示例"><span class="img-wrapper"><img src="../img/ch11/xai_gradient_based.PNG" alt="局部近似方法示例"></span></label></p>
 <p align="center">图15.1.5 局部近似方法示例</p>
 
 <p><strong>知识感知的解释</strong></p>
@@ -285,17 +285,17 @@ TCAV就可以通过计算类\(k\)的具有正\(S_{C,k,l}\)’s的样本的比率
 \label{eq:TCAV}\]
 结合\(t\)-分布假设方法，如果\(\textbf{TCAV}_{Q_{C,k,l}}\)大于0.5，则表明概念\(C\)对类\(k\)有重大影响。</p>
 <p><a id="xai_tcav"></a></p>
-<p><img src="../img/ch11/xai_tcav.png" alt="TCAV流程(图片来源于 &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_tcav.png" alt="TCAV流程(图片来源于 &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"><span class="img-wrapper"><img src="../img/ch11/xai_tcav.png" alt="TCAV流程(图片来源于 &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"></span></label></p>
 <p align="center">图15.1.6 TCAV流程(图片来源于 <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>)</p>
 
 <p>人类的知识可以是主观的，而KB可以是客观的。在当前研究中，KB通常被建模为知识图谱(KG)。以下以MindSpore支持的可解释推荐模型TB-Net为例，讲解如何使用知识图谱构建可解释模型。知识图谱可以捕捉实体之间丰富的语义关系。TB-Net的目的之一就是确定哪一对实体（即，物品-物品）对用户产生最重大的影响，并通过什么关系和关键节点进行关联。不同于现有的基于KG嵌入的方法（RippleNet使用KG补全方法预测用户与物品之间的路径），TB-Net提取真实路径，以达到推荐结果的高准确性和优越的可解释性。</p>
 <p><a id="tb_net"></a></p>
-<p><img src="../img/ch11/tb_net.png" alt="TB-Net网络训练框架"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tb_net.png" alt="TB-Net网络训练框架"><span class="img-wrapper"><img src="../img/ch11/tb_net.png" alt="TB-Net网络训练框架"></span></label></p>
 <p align="center">图15.1.7 TB-Net网络训练框架</p>
 
 <p>TB-Net的框架如 <a href="#tb_net">图15.1.7</a>所示：其中，\(i_c\)代表待推荐物品，\(h_n\)代表历史记录中用户交互的物品，\(r\)和\(e\)代表图谱中的关系（relation）和实体（entity），它们的向量化表达拼接在一起形成关系矩阵和实体矩阵。首先，TB-Net通过\(i_c\)和\(h_n\)的相同特征值来构建用户\(u\)的子图谱，每一对\(i_c\)和\(h_n\)都由关系和实体所组成的路径来连接。然后，TB-Net的路径双向传导方法将物品、实体和关系向量的计算从路径的左侧和右侧分别传播到中间节点，即计算左右两个流向的向量汇集到同一中间实体的概率。该概率用于表示用户对中间实体的喜好程度，并作为解释的依据。最后，TB-Net识别子图谱中关键路径（即关键实体和关系），输出推荐结果和具有语义级别的解释。</p>
 <p>以游戏推荐为场景，随机对一个用户推荐新的游戏，如 <a href="#xai_kg_recommendation">xai_kg_recommendation</a>所示，其中Half-Life, DOTA 2, Team Fortress 2等为游戏名称。关系属性中，game.year 代表游戏发行年份，game.genres代表游戏属性，game.developer代表游戏的开发商，game.categories代表游戏分类。属性节点中，MOBA代表多人在线战术竞技游戏，Valve代表威尔乌游戏公司，Action代表动作类，Multi-player代表多人游戏，Valve Anti-Cheat enabled代表威尔乌防作弊类，Free代表免费，Cross-Platform代表跨平台。右边的游戏是用户历史记录中玩过的游戏。而测试数据中正确推荐的游戏是“Team Fortress 2”。</p>
-<p><img src="../img/ch11/xai_kg_recommendation.png" alt="Steam游戏推荐可解释示例 （用户玩过的游戏: Half-Life, DOAT 2. 推荐命中的游戏: “Team Fortress 2”。具有属性信息的节点如，game.geners: Action, free-to-play; game.developer: Valve; game.categories: Multiplayer, MOBA.）"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_kg_recommendation.png" alt="Steam游戏推荐可解释示例 （用户玩过的游戏: Half-Life, DOAT 2. 推荐命中的游戏: “Team Fortress 2”。具有属性信息的节点如，game.geners: Action, free-to-play; game.developer: Valve; game.categories: Multiplayer, MOBA.）"><span class="img-wrapper"><img src="../img/ch11/xai_kg_recommendation.png" alt="Steam游戏推荐可解释示例 （用户玩过的游戏: Half-Life, DOAT 2. 推荐命中的游戏: “Team Fortress 2”。具有属性信息的节点如，game.geners: Action, free-to-play; game.developer: Valve; game.categories: Multiplayer, MOBA.）"></span></label></p>
 <p><a id="xai_kg_recommendation"></a></p>
 <p>在 <a href="#xai_kg_recommendation">xai_kg_recommendation</a>中，有两个突出显示的相关概率（38.6%, 21.1%），它们是在推荐过程中模型计算的关键路径被激活的概率。红色箭头突出显示从“Team Fortress 2”到历史项目“Half-Life”之间的关键路径。它表明TB-Net能够通过各种关系连接向用户推荐物品，并找出关键路径作为解释。因此，将“Team Fortress 2”推荐给用户的解释可以翻译成固定话术：“Team Fortress 2”是游戏公司“Valve”开发的一款动作类、多人在线、射击类电子游戏。这与用户历史玩过的游戏“Half-Life”有高度关联。</p>
 <h2 id="可解释ai系统及实践"><a class="header" href="#可解释ai系统及实践">可解释AI系统及实践</a></h2>
@@ -311,7 +311,7 @@ TCAV就可以通过计算类\(k\)的具有正\(S_{C,k,l}\)’s的样本的比率
 <p>本节将以MindSpore XAI工具为例，讲解在实践中如何使用可解释AI工具为图片分类模型和表格数据分类模型提供解释，从而协助用户理解模型进行进一步的调试调优。
 MindSpore XAI工具的架构如下，其为基于MindSpore深度学习框架的一个可解释工具，可在Ascend及GPU设备上部署。
 <a id="mindspore_xai"></a></p>
-<p><img src="../img/ch11/mindspore_xai.png" alt="MindSpore XAI 架构图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/mindspore_xai.png" alt="MindSpore XAI 架构图"><span class="img-wrapper"><img src="../img/ch11/mindspore_xai.png" alt="MindSpore XAI 架构图"></span></label></p>
 <p align="center">图15.1.8 MindSpore XAI 架构图</p>
 
 <p>要使用MindSpore可解释AI，读者首先要通过pip安装MindSpore XAI包（支持MindSpore1.7 或以上，GPU及Ascend 处理器，推荐配合JupyterLab使用）:</p>
@@ -331,17 +331,17 @@ saliency = grad_cam(boat_image, targets=3)
 </code></pre>
 <p>如果输入的是一个维度为 \(1*3*224*224\) 的图片Tensor，那返回的saliency就是一个 \(1*1*224*224\)  的显著图Tensor。下面我们将几个例子展示如何使用可解释AI能力来更好理解图片分类模型的预测结果，获取作为分类预测依据的关键特征区域，从而判断得到分类结果的合理性和正确性，加速模型调优。</p>
 <p><a id="correct_correct"></a></p>
-<p><img src="../img/ch11/correct_correct.png" alt="预测结果正确，依据的关键特征合理的例子"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/correct_correct.png" alt="预测结果正确，依据的关键特征合理的例子"><span class="img-wrapper"><img src="../img/ch11/correct_correct.png" alt="预测结果正确，依据的关键特征合理的例子"></span></label></p>
 <p align="center">图15.1.9 预测结果正确，依据的关键特征合理的例子</p>
 
 <p>上图预测标签是“bicycle”，解释结果给出依据的关键特征   在车轮上，说明这个分类判断依据是合理的, 可以初步判定模型为可信的。</p>
 <p><a id="correct_wrong"></a></p>
-<p><img src="../img/ch11/correct_wrong.png" alt="预测结果正确，依据的关键特征不合理的例子"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/correct_wrong.png" alt="预测结果正确，依据的关键特征不合理的例子"><span class="img-wrapper"><img src="../img/ch11/correct_wrong.png" alt="预测结果正确，依据的关键特征不合理的例子"></span></label></p>
 <p align="center">图15.1.10 预测结果正确，依据的关键特征不合理的例子</p>
 
 <p>上图在预测标签中有1个标签是“person”，这个结果是对的；但是解释的时候，高亮区域在马头的上，那么这个关键特征依据很可能是错误的, 这个模型的可靠性还需进一步验证。</p>
 <p><a id="wrong_wrong"></a></p>
-<p><img src="../img/ch11/wrong_wrong.png" alt="预测结果错误，依据的关键特征不合理的例子"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/wrong_wrong.png" alt="预测结果错误，依据的关键特征不合理的例子"><span class="img-wrapper"><img src="../img/ch11/wrong_wrong.png" alt="预测结果错误，依据的关键特征不合理的例子"></span></label></p>
 <p align="center">图15.1.11 预测结果错误，依据的关键特征不合理的例子</p>
 
 <p>在上图中，预测标签为“boat”，但是原始图像中并没有船只存在，通过图中右侧解释结果可以看到模型将水面作为分类的关键依据，得到预测结果“boat”，这个依据是错误的。通过对训练数据集中标签为“boat”的数据子集进行分析，发现绝大部分标签为“boat”的图片中，都有水面，这很可能导致模型训练的时候，误将水面作为“boat”类型的关键依据。基于此，按比例补充有船没有水面的图片集，从而大幅消减模型学习的时候误判关键特征的概率。</p>
@@ -362,7 +362,7 @@ lime_outputs = lime(inputs, targets, show=True)
 <p>解释器会显示出把该样本分类为setosa这一决定的决策边界，返回的 lime_outputs 是代表决策边界的一个结构数据。
 可视化解释,可得到
 <a id="tabular_lime"></a></p>
-<p><img src="../img/ch11/tabular.png" alt="LIME解释结果"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tabular.png" alt="LIME解释结果"><span class="img-wrapper"><img src="../img/ch11/tabular.png" alt="LIME解释结果"></span></label></p>
 <p align="center">图15.1.12 LIME解释结果</p>
 
 上述解释说明针对setosa这一决策,最为重要的特征为petal length。
@@ -370,7 +370,7 @@ lime_outputs = lime(inputs, targets, show=True)
 <p>除了针对黑盒模型的事后解释方法,XAI工具同样提供业界领先的白盒模型,使得用户可基于这些白盒模型进行训练,在推理过程中模型可同时输出推理结果及解释结果。以TB-Net为例(可参考<a href="#tb_net">图15.1.7</a>及其<a href="https://e.gitee.com/mind_spore/repos/mindspore/xai/tree/master/models/whitebox/tbnet">官网教程</a>进行使用)，该方法已上线商用，为百万级客户提供带有语义级解释的理财产品推荐服务。TB-Net利用知识图谱对理财产品的属性和客户的历史数据进行建模。在图谱中，具有共同属性值的理财产品会被连接起来，待推荐产品与客户的历史购买或浏览的产品会通过共同的属性值连接成路径，构成该客户的子图谱。然后，TB-Net对图谱中的路径进行双向传导计算，从而识别关键产品和关键路径，作为推荐和解释的依据。</p>
 <p>一个可解释推荐的例子如下：在历史数据中，该客户近期曾购买或浏览了理财产品A、B和N等等。通过TB-Net的路径双向传导计算可知，路径（产品P，年化利率_中等偏高，产品A）和路径（产品P，风险等级_中等风险，产品N）的权重较高，即为关键路径。此时，TB-Net输出的解释为：“推荐理财产品P给该客户，是因为它的年化利率_中等偏高，风险等级_中等风险，分别与该客户近期购买或浏览的理财产品A和B一致。”</p>
 <p><a id="tbnet_finance"></a></p>
-<p><img src="../img/ch11/tbnet_finance.png" alt="TBNet应用金融理财场景"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tbnet_finance.png" alt="TBNet应用金融理财场景"><span class="img-wrapper"><img src="../img/ch11/tbnet_finance.png" alt="TBNet应用金融理财场景"></span></label></p>
 <p align="center">图15.1.13 TBNet应用金融理财场景</p>
 
 <p>除了上面介绍的解释方法外，MindSpore XAI还会提供一系列的度量方法用以评估不同解释方法的优劣，另外也会陆续增加自带解释的白盒模型，用户可直接取用成熟的模型架构以快速构建自己的可解释AI系统。</p>
@@ -459,11 +459,11 @@ lime_outputs = lime(inputs, targets, show=True)
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

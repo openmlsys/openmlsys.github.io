@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -250,7 +250,7 @@ for (unsigned m = 0; m &lt; M; ++m) {
 </code></pre>
 <p>其可视化结构如 <a href="#cuda_naive_gemm">图7.4.1</a>所示，矩阵\(C\)中每一个元素由一个线程计算，在GPU Kernel的第5和6行计算该线程对应矩阵\(C\)中的元素行号\(m\)及列号\(n\)，然后在第9到11行该线程利用行号与列号读取矩阵\(A\)和矩阵\(B\)中相应的行列向量元素并计算向量内积，最后在第17行将结果写回\(C\)矩阵。</p>
 <p><a id="cuda_naive_gemm"></a></p>
-<p><img src="../img/ch06/6.4/naive.png" alt="矩阵乘法的朴素实现"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/naive.png" alt="矩阵乘法的朴素实现"><span class="img-wrapper"><img src="../img/ch06/6.4/naive.png" alt="矩阵乘法的朴素实现"></span></label></p>
 <p align="center">图7.4.1 矩阵乘法的朴素实现</p>
 
 <p>使用以下代码启动核函数：</p>
@@ -279,12 +279,12 @@ Average Throughput: 185.313 GFLOPS
 <p>具体的实现如下，由于每个 <code>float</code> 类型大小为32个比特，可以将4个 <code>float</code> 堆叠在一起构成一个128比特的 <code>float4</code> 类，对 <code>float4</code> 的访存将会是使用宽指令完成。其具体代码实现见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/util.cuh">util.cuh</a>中。</p>
 <p>在实现GPU核函数过程中要注意，每个线程需要从原本各读取矩阵\(A\)和矩阵\(B\)中一个 <code>float</code> 数据变为各读取4个 <code>float</code> 数据，这就要求现在每个线程负责处理矩阵\(C\)中\(4\times 4\)的矩阵块，称之为 <code>thread tile</code> 。如 <a href="#use_float4">图7.4.2</a>所示，每个线程从左到右、从上到下分别读取矩阵\(A\)和矩阵\(B\)的数据并运算，最后写入到矩阵\(C\)中。</p>
 <p><a id="use_float4"></a></p>
-<p><img src="../img/ch06/6.4/use_float4.png" alt="提高计算强度"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/use_float4.png" alt="提高计算强度"><span class="img-wrapper"><img src="../img/ch06/6.4/use_float4.png" alt="提高计算强度"></span></label></p>
 <p align="center">图7.4.2 提高计算强度</p>
 
 <p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_128.cu">gemm_use_128.cu</a>。我们可以进一步让每个线程处理更多的数据，从而进一步提升计算强度，如 <a href="#use_tile">图7.4.3</a>所示。完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_tile.cu">gemm_use_tile.cu</a>。</p>
 <p><a id="use_tile"></a></p>
-<p><img src="../img/ch06/6.4/use_tile.png" alt="通过提高线程所处理矩阵块的数量来进一步提高计算强度"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/use_tile.png" alt="通过提高线程所处理矩阵块的数量来进一步提高计算强度"><span class="img-wrapper"><img src="../img/ch06/6.4/use_tile.png" alt="通过提高线程所处理矩阵块的数量来进一步提高计算强度"></span></label></p>
 <p align="center">图7.4.3 通过提高线程所处理矩阵块的数量来进一步提高计算强度</p>
 
 <p>测试得到以下结果：</p>
@@ -311,16 +311,16 @@ Average Time: 3.188 ms, Average Throughput: 2694.440 GFLOPS
 <p><a id="sec-accelerator-use-smem"></a></p>
 <p>虽然令一个线程一次读取更多的数据能取得计算强度的提升进而带来性能的提升，但是这种令单个线程处理数据增多的设计会导致开启总的线程数量减少，进而导致并行度下降，因此需要使用其他硬件特性在尽可能不影响并行度的前提下取得性能提升。在之前的代码中，开启若干个线程块，每个线程块处理矩阵\(C\)中的一个或多个矩阵块。在 <a href="#duplicated_data">图7.4.4</a> 中，可以观察到，处理矩阵\(C\)同一行的线程\(x, y\)会读取矩阵\(A\)中相同的数据，可以借助共享内存让同一个线程块中不同的线程读取不重复的数据而提升程序吞吐量。</p>
 <p><a id="duplicated_data"></a></p>
-<p><img src="../img/ch06/6.4/duplicated_data.png" alt="线程间重复读取数据"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/duplicated_data.png" alt="线程间重复读取数据"><span class="img-wrapper"><img src="../img/ch06/6.4/duplicated_data.png" alt="线程间重复读取数据"></span></label></p>
 <p align="center">图7.4.4 线程间重复读取数据</p>
 
 <p>具体地，需要对代码进行如下改造：首先此前代码在计算内积过程是进行\(K\)次循环读取数据并累加计算，在此设定下每次循环中处理矩阵\(C\)中相同行的线程会读取相同的矩阵\(A\)的数据，处理矩阵\(C\)中相同列的线程会读取相同的矩阵\(B\)的数据。可以通过将此\(K\)次循环拆解成两层循环，外层循环\(\frac{K}{tileK}\)次，每次外层循环的迭代读取一整块数据，内层循环\(tileK\)次进行累加数据。数据从全局内存向共享内存的搬运过程如图 <a href="#use_smem_store">图7.4.5</a> 所示，每次内层循环开始前将矩阵\(A\)和矩阵\(B\)中一整个 <code>tile</code> 读取到共享内存中；数据从共享内存到寄存器的搬运如图 <a href="#use_smem_load">图7.4.6</a> 所示，每次内层循环循环从共享内存读取数据并计算。这种设计带来的好处是，可以让每个线程不必独自从全局内存读取所有需要的数据，整个线程块将共同需要的数据从全局内存中读取并写入到共享内存中，此后每个线程在计算过程中只需要从共享内存中读取所需要的数据即可。</p>
 <p><a id="use_smem_store"></a></p>
-<p><img src="../img/ch06/6.4/use_smem_store.png" alt="向共享内存中写入数据"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/use_smem_store.png" alt="向共享内存中写入数据"><span class="img-wrapper"><img src="../img/ch06/6.4/use_smem_store.png" alt="向共享内存中写入数据"></span></label></p>
 <p align="center">图7.4.5 向共享内存中写入数据</p>
 
 <p><a id="use_smem_load"></a></p>
-<p><img src="../img/ch06/6.4/use_smem_load.png" alt="从共享内存中读取数据"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/use_smem_load.png" alt="从共享内存中读取数据"><span class="img-wrapper"><img src="../img/ch06/6.4/use_smem_load.png" alt="从共享内存中读取数据"></span></label></p>
 <p align="center">图7.4.6 从共享内存中读取数据</p>
 
 <p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_use_smem.cu">gemm_use_smem.cu</a>。</p>
@@ -340,11 +340,11 @@ Average Time: 0.610 ms, Average Throughput: 14083.116 GFLOPS
 <h3 id="隐藏共享内存读取延迟"><a class="header" href="#隐藏共享内存读取延迟">隐藏共享内存读取延迟</a></h3>
 <p>在GPU中使用指令 <code>LDS</code> 读取共享内存中的数据，在这条指令发出后并不会等待数据读取到寄存器后再执行下一条语句，只有执行到依赖 <code>LDS</code> 指令读取的数据的指令时才会等待读取的完成。而在上一小节中，在内层\(tileK\)次循环中，每次发射完读取共享内存的指令之后就会立即执行依赖于读取数据的数学运算，这样就会导致计算单元等待数据从共享内存的读取，如 <a href="#use_smem_pipeline">图7.4.7</a> 所示。事实上，对共享内存的访问周期能多达几十个时钟周期，而计算指令的执行往往只有几个时钟周期，因此通过一定方式隐藏对共享内存的访问会取得不小的收益。可以通过重新优化流水线隐藏一定的数据读取延迟。如图 <a href="#hide_smem_latency">图7.4.8</a> 所示，可以在内层的\(tileK\)次循环中每次循环开始时读取发射下一次内层循环数据的读取指令。由于在执行本次运算时计算指令并不依赖于下一次循环的数据，因此计算过程不会等待之前发出的读取下一次内层循环数据的指令。</p>
 <p><a id="use_smem_pipeline"></a></p>
-<p><img src="../img/ch06/6.4/use_smem_pipeline.png" alt="上一个GPU核函数的流水线"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/use_smem_pipeline.png" alt="上一个GPU核函数的流水线"><span class="img-wrapper"><img src="../img/ch06/6.4/use_smem_pipeline.png" alt="上一个GPU核函数的流水线"></span></label></p>
 <p align="center">图7.4.7 上一个GPU核函数的流水线</p>
 
 <p><a id="hide_smem_latency"></a></p>
-<p><img src="../img/ch06/6.4/hide_smem_latency.png" alt="隐藏共享内存读取延迟的流水线"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/hide_smem_latency.png" alt="隐藏共享内存读取延迟的流水线"><span class="img-wrapper"><img src="../img/ch06/6.4/hide_smem_latency.png" alt="隐藏共享内存读取延迟的流水线"></span></label></p>
 <p align="center">图7.4.8 隐藏共享内存读取延迟的流水线</p>
 
 <p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_hide_smem_latency.cu">gemm_hide_smem_latency.cu</a>。</p>
@@ -357,7 +357,7 @@ Average Time: 0.585 ms, Average Throughput: 14686.179 GFLOPS
 <p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU再读取全局内存中使用的指令 <code>LDG</code> 也有与共享内存读取指令 <code>LDS</code> 类似的行为特性。因此类似的在\(\frac{K}{tileK}\)次外层循环中每次循环开始时发出下一次外层循环需要的矩阵\(A\)中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵\(A\)中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。具体流水线可视化见 <a href="#hide_global_latency">图7.4.9</a> 。</p>
 <p>上一小节中介绍了对共享内存读取流水线优化的方法，事实上，GPU在读取全局内存中使用的指令 <code>LDG</code> 也有与共享内存读取指令 <code>LDS</code> 类似的行为特性。因此类似的在\(\frac{K}{tileK}\)次外层循环中每次循环开始时发出下一次外层循环需要的矩阵\(A\)中的数据块的读取指令，而本次外循环的整个内层循环过程中不依赖下一次外循环的数据，因此本次外循环的内循环过程中不会等待对下一次外层循环需要的矩阵\(A\)中的数据块的读取指令完成，从而实现隐藏全局内存读取延迟的目的。此外，可以让内层循环先执行\(tileK - 1\)次，在最后一次执行前将 <code>buffer</code> 中的数据写入 <code>tile</code> ，其后再执行内层循环的最后一次迭代，这样能更进一步隐藏向 <code>tile</code> 写入的内存延迟。具体流水线可视化见图 <a href="#hide_global_latency">图7.4.9</a> 。</p>
 <p><a id="hide_global_latency"></a></p>
-<p><img src="../img/ch06/6.4/hide_global_latency.png" alt="隐藏全局内存读取延迟的流水线"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/6.4/hide_global_latency.png" alt="隐藏全局内存读取延迟的流水线"><span class="img-wrapper"><img src="../img/ch06/6.4/hide_global_latency.png" alt="隐藏全局内存读取延迟的流水线"></span></label></p>
 <p align="center">图7.4.9 隐藏全局内存读取延迟的流水线</p>
 
 <p>完整代码见<a href="https://github.com/openmlsys/openmlsys-cuda/blob/main/gemm_final.cu">gemm_final.cu</a>。</p>
@@ -447,11 +447,11 @@ Average Time: 0.613 ms, Throughput: 14002.600 GFLOPS
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

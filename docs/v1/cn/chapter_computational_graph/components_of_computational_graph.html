@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -196,13 +196,13 @@
                         <h2 id="计算图的基本构成"><a class="header" href="#计算图的基本构成">计算图的基本构成</a></h2>
 <p>计算图由基本数据结构张量（Tensor）和基本运算单元算子构成。在计算图中通常使用节点来表示算子，节点间的有向边（Directed Edge）来表示张量状态，同时也描述了计算间的依赖关系。如 <a href="#simpledag">图3.2.1</a>所示，将\(\boldsymbol{Z}=ReLU(\boldsymbol{X}\times\boldsymbol{Y})\)转化为计算图表示。</p>
 <p><a id="simpledag"></a></p>
-<p><img src="../img/ch03/simpledag.png" alt="简单计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/simpledag.png" alt="简单计算图"><span class="img-wrapper"><img src="../img/ch03/simpledag.png" alt="简单计算图"></span></label></p>
 <p align="center">图3.2.1 简单计算图</p>
 
 <h3 id="张量和算子"><a class="header" href="#张量和算子">张量和算子</a></h3>
 <p>在数学中定义张量是基于标量与向量的推广。在机器学习领域内将多维数据称为张量，使用秩来表示张量的轴数或维度。如 <a href="#tensor">图3.2.2</a>所示，标量为零秩张量，包含单个数值，没有轴；向量为一秩张量，拥有一个轴；拥有RGB三个通道的彩色图像即为三秩张量，包含三个轴。</p>
 <p><a id="tensor"></a></p>
-<p><img src="../img/ch03/tensor.png" alt="张量"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/tensor.png" alt="张量"><span class="img-wrapper"><img src="../img/ch03/tensor.png" alt="张量"></span></label></p>
 <p align="center">图3.2.2 张量</p>
 
 <dl>
@@ -230,7 +230,7 @@
 <p>机器学习框架在训练时需要确定在CPU、GPU或其他硬件上执行计算，数据和权重参数也应当存放在对应的硬件内存中才能正确被调用，张量存储位置属性则用来指明存储的设备位置。存储位置属性通常由机器学习框架根据硬件环境自动赋予张量。在模型训练过程中，张量数据的存储状态可以分为可变和不可变两种，可变张量存储神经网络模型权重参数，根据梯度信息更新自身数据，如参与卷积运算的卷积核张量；不可变张量用于用户初始化的数据或者输入模型的数据，如上文提到的图像数据张量。</p>
 <p>那么在机器学习场景下的张量一般长什么样子呢？上文提到的图像数据张量以及卷积核张量，形状一般是“整齐”的。即每个轴上的具有相同的元素个数，就像一个“矩形”或者“立方体”。在特定的环境中，也会使用特殊类型的张量，比如不规则张量和稀疏张量。如 <a href="#tensorclass">图3.2.3</a>中所示，不规则张量在某个轴上可能具有不同的元素个数，它们支持存储和处理包含非均匀形状的数据，如在自然语言处理领域中不同长度文本的信息；稀疏张量则通常应用于图数据与图神经网络中，采用特殊的存储格式如坐标表格式（Coordinate List，COO），可以高效存储稀疏数据节省存储空间。</p>
 <p><a id="tensorclass"></a></p>
-<p><img src="../img/ch03/tensorclass.svg" alt="张量分类"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/tensorclass.svg" alt="张量分类"><span class="img-wrapper"><img src="../img/ch03/tensorclass.svg" alt="张量分类"></span></label></p>
 <p align="center">图3.2.3 张量分类</p>
 
 <p>算子是构成神经网络的基本计算单元，对张量数据进行加工处理，实现了多种机器学习中常用的计算逻辑，包括数据转换、条件控制、数学运算等。为了便于梳理算子类别，按照功能将算子分类为张量操作算子、神经网络算子、数据流算子和控制流算子等。</p>
@@ -252,7 +252,7 @@
 <p>在计算图中，算子之间存在依赖关系，而这种依赖关系影响了算子的执行顺序与并行情况。机器学习算法模型中，计算图是一个有向无环图，即在计算图中造成循环依赖（Circular Dependency）的数据流向是不被允许的。循环依赖会形成计算逻辑上的死循环，模型的训练程序将无法正常结束，而流动在循环依赖闭环上的数据将会趋向于无穷大或者零成为无效数据。为了分析计算执行顺序和模型拓扑设计思路，下面将对计算图中的计算节点依赖关系进行讲解。</p>
 <p>如 <a href="#dependence">图3.2.4</a>中所示，在此计算图中，若将Matmul1算子移除则该节点无输出，导致后续的激活函数无法得到输入，从而计算图中的数据流动中断，这表明计算图中的算子间具有依赖关系并且存在传递性。</p>
 <p><a id="dependence"></a></p>
-<p><img src="../img/ch03/dependence.svg" alt="计算依赖"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/dependence.svg" alt="计算依赖"><span class="img-wrapper"><img src="../img/ch03/dependence.svg" alt="计算依赖"></span></label></p>
 <p align="center">图3.2.4 计算依赖</p>
 
 <p>将依赖关系进行区分如下：</p>
@@ -269,12 +269,12 @@
 </ul>
 <p>掌握依赖关系后，分析 <a href="#recurrent">图3.2.5</a>可以得出节点Add间接依赖于节点Matmul，而节点Matmul直接依赖于节点Add，此时两个节点互相等待对方计算完成输出数据，将无法执行计算任务。若我们手动同时给两个节点赋予输入，计算将持续不间断进行，模型训练将无法停止造成死循环。循环依赖产生正反馈数据流，被传递的数值可能在正方向上无限放大，导致数值上溢，或者负方向上放大导致数值下溢，也可能导致数值无限逼近于0，这些情况都会致使模型训练无法得到预期结果。在构建深度学习模型时，应避免算子间产生循环依赖。</p>
 <p><a id="recurrent"></a></p>
-<p><img src="../img/ch03/recurrent.svg" alt="循环依赖"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/recurrent.svg" alt="循环依赖"><span class="img-wrapper"><img src="../img/ch03/recurrent.svg" alt="循环依赖"></span></label></p>
 <p align="center">图3.2.5 循环依赖</p>
 
 <p>在机器学习框架中，表示循环关系（Loop Iteration）通常是以<strong>展开</strong>机制（Unrolling）来实现。循环三次的计算图进行展开如 <a href="#unroll">图3.2.6</a>，循环体的计算子图按照迭代次数进行复制3次，将代表相邻迭代轮次的子图进行串联，相邻迭代轮次的计算子图之间是直接依赖关系。在计算图中，每一个张量和运算符都具有独特的标识符，即使是相同的操作运算，在参与循环不同迭代中的计算任务时具有不同的标识符。区分循环关系和循环依赖的关键在于，具有两个独特标识符的计算节点之间是否存在相互依赖关系。循环关系在展开复制计算子图的时候会给复制的所有张量和运算符赋予新的标识符，区分被复制的原始子图，以避免形成循环依赖。</p>
 <p><a id="unroll"></a></p>
-<p><img src="../img/ch03/unroll.png" alt="循环展开"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/unroll.png" alt="循环展开"><span class="img-wrapper"><img src="../img/ch03/unroll.png" alt="循环展开"></span></label></p>
 <p align="center">图3.2.6 循环展开</p>
 
 <h3 id="控制流"><a class="header" href="#控制流">控制流</a></h3>
@@ -304,7 +304,7 @@
 </code></pre>
 <p><a href="#if">图3.2.7</a>描述上述代码的前向计算图和反向计算图。对于具有if条件的模型，梯度计算需要知道采用了条件的哪个分支，然后将梯度计算逻辑应用于该分支。在前向计算图中张量\(\boldsymbol{C}\)经过条件控制不参与计算，在反向计算时同样遵守控制流决策，不会计算关于张量\(\boldsymbol{C}\)的梯度。</p>
 <p><a id="if"></a></p>
-<p><img src="../img/ch03/if.png" alt="条件控制计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/if.png" alt="条件控制计算图"><span class="img-wrapper"><img src="../img/ch03/if.png" alt="条件控制计算图"></span></label></p>
 <p align="center">图3.2.7 条件控制计算图</p>
 
 <p>当模型中有循环控制时，循环中的操作可以执行零次或者多次。此时采用展开机制，对每一次操作都赋予独特的运算标识符，以此来区分相同运算操作的多次调用。每一次循环都直接依赖于前一次循环的计算结果，所以在循环控制中需要维护一个张量列表，将循环迭代的中间结果缓存起来，这些中间结果将参与前向计算和梯度计算。下面这段代码描述了简单的循环控制，将其展开得到等价代码后，可以清楚的理解需要维护张量\(\boldsymbol{X_i}\)和\(\boldsymbol{W_i}\)的列表。</p>
@@ -321,7 +321,7 @@ def recurrent_control(X : Tensor, W : Sequence[Tensor]):
 </code></pre>
 <p>如 <a href="#while">图3.2.8</a>描述了上述代码的前向计算图和反向计算图，循环控制的梯度同样也是一个循环，它与前向循环的迭代次数相同。执行循环体的梯度计算中，循环体当前迭代计算输出的梯度值作为下一次迭代中梯度计算的输入值，直至循环结束。</p>
 <p><a id="while"></a></p>
-<p><img src="../img/ch03/while.png" alt="循环控制计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/while.png" alt="循环控制计算图"><span class="img-wrapper"><img src="../img/ch03/while.png" alt="循环控制计算图"></span></label></p>
 <p align="center">图3.2.8 循环控制计算图</p>
 
 <h3 id="基于链式法则计算梯度"><a class="header" href="#基于链式法则计算梯度">基于链式法则计算梯度</a></h3>
@@ -336,7 +336,7 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
 <p>其中\(\nabla_{\boldsymbol{X}}\boldsymbol{z}\)表示\(\boldsymbol{z}\)关于\(\boldsymbol{X}\)的梯度矩阵。</p>
 <p>为了便于理解链式法则在神经网络模型中的运用，给出如 <a href="#chain">图3.2.9</a>所示前向和反向结合的简单计算图。这个神经网络模型经过两次矩阵相乘得到预测值\(\boldsymbol{Y}\)，然后根据输出与标签值之间的误差值进行反向梯度传播，以最小化误差值的目的来更新参数权重，模型中需要更新的参数权重包含\(\boldsymbol{W}\)和\(\boldsymbol{W_1}\)。</p>
 <p><a id="chain"></a></p>
-<p><img src="../img/ch03/chain.png" alt="反向传播局部计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/chain.png" alt="反向传播局部计算图"><span class="img-wrapper"><img src="../img/ch03/chain.png" alt="反向传播局部计算图"></span></label></p>
 <p align="center">图3.2.9 反向传播局部计算图</p>
 
 <p>假设选取均方误差为损失函数，那么损失值是怎样通过链式法则将梯度信息传递给图中的\(\boldsymbol{W}\)和\(\boldsymbol{W_1}\)呢？又为什么要计算非参数数据\(\boldsymbol{X}\)和\(\boldsymbol{X_1}\)的梯度呢？为了解决上述两个疑问，要详细思考前向传播和反向传播的计算过程。首先通过前向传播来计算损失值三个步骤：（1）\(\boldsymbol{X_1}=\boldsymbol{XW}\)；(2)\(\boldsymbol{Y}=\boldsymbol{X_1W_1}\)；（3）Loss=\(\frac{1}{2}\)(\(\boldsymbol{Y}\)-Label)\(^2\), 此处Label即为标签值。</p>
@@ -395,11 +395,11 @@ propagation）。在深度神经网络模型训练过程中，前向传播的输
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

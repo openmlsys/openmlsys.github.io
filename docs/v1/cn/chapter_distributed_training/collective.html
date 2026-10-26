@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -202,12 +202,12 @@
 设备之间的点对点（Point-to-Point, P2P）通信由全双工传输（Full-Duplex Transmission)实现。该通信模型的基本行为可以定义如下：</p>
 <ul>
 <li>每次通信有且仅有一个发送者（Sender）和一个接收者（Receiver）。在某个特定时刻，每个设备仅能至多发送或接收一个消息（Message）。每个设备可以同时发送一个消息和接收一个消息。一个网络中可以同时传输多个来自于不同设备的消息。</li>
-<li>传输一个长度为\(l\)个字节（Byte）的消息会花费\(a+b \times l\)的时间，其中\(a\)代表延迟（Latency），即一个字节通过网络从一个设备出发到达另一个设备所需的时间；\(b\)代表传输延迟（Transmission Delay），即传输一个具有\(l\)个字节的消息所需的全部时间。前者取决于两个设备间的物理距离（如跨设备、跨机器、跨集群等），后者取决于通信网络的带宽。需要注意的是，这里简化了传输延迟的定义，其并不考虑在真实网络传输中会出现的丢失的消息（Dropped Message）和损坏的消息（Corrupted Message）的情况。</li>
+<li>传输一个长度为\(l\)个字节（Byte）的消息会花费\(a+b \times l\)的时间，其中\(a\)代表延迟（Latency），即一个字节通过网络从一个设备出发到达另一个设备所需的时间；\(b \times l\) 代表传输延迟（Transmission Delay），即传输一个具有\(l\)个字节的消息所需的全部时间。前者取决于两个设备间的物理距离（如跨设备、跨机器、跨集群等），后者取决于通信网络的带宽。需要注意的是，这里简化了传输延迟的定义，其并不考虑在真实网络传输中会出现的丢失的消息（Dropped Message）和损坏的消息（Corrupted Message）的情况。</li>
 </ul>
 <p>根据上述通信模型，我们可以定义集合通信算子，并且分析算子的通信性能。下面介绍一些常见的集合通信算子。</p>
 <h4 id="broadcast"><a class="header" href="#broadcast">Broadcast</a></h4>
 <p><a id="ch10-collective-operators"></a></p>
-<p><img src="../img/ch09/ch10-collective-operators.png" alt="常用集合通信算子"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch09/ch10-collective-operators.png" alt="常用集合通信算子"><span class="img-wrapper"><img src="../img/ch09/ch10-collective-operators.png" alt="常用集合通信算子"></span></label></p>
 <p align="center">图10.4.1 常用集合通信算子</p>
 
 <p>一个分布式机器学习系统经常需要将一个设备\(i\)上的模型参数或者配置文件广播（Broadcast）给其余全部设备。因此，可以把Broadcast算子定义为从编号为\(i\)的设备发送长度为\(l\)字节的消息给剩余的\(p-1\)个设备。 <a href="#ch10-collective-operators">图10.4.1</a>展示了设备1（在三个设备的集群里）调用Broadcast的初始和结束状态。</p>
@@ -232,7 +232,7 @@
 <p>下面讨论如何利用AllReduce算子实现大型集群中的高效梯度平均。首先，参照前面的分析，可以考虑一种简单的计算平均梯度的方法：在集群中分配一个设备收集本地梯度，并在计算平均梯度后再将其广播到全部的设备。这种做法易于实现，但是引入了两个问题。首先，多台设备同时给该聚合设备发送数据时，聚合设备会因严重的带宽不足产生网络拥塞。其次，单台设备需要负担大量的梯度平均计算，而受限于单台设备上的有限算力，这种计算往往会受限于算力瓶颈。</p>
 <p>为了解决上述问题，可以引入AllReduce算子的Reduce-Broadcast实现来优化算法，其设计思路是：通过让全部的节点参与到梯度的网络通信和平均计算中，将巨大的网络和算力开销均摊给全部节点。这种做法可以解决先前单个梯度聚合节点的问题。假设有\(M\)个设备，每个设备存有一个模型副本，该模型由\(N\)个参数/梯度构成。那么按照AllReduce算子的要求，需要先将全部的参数按照设备数量切分成\(M\)个分区（Partition），使得每个分区具有\(N/M\)个参数。首先给出这个算法的初始和结束状态。如 <a href="#ch10-collective-operators">图10.4.1</a>的AllReduce的例子所示，该例子含有3个设备。在每个设备有一个模型副本的情况下，这个副本有3个参数。那么按照AllReduce的分区方法，参数会被划分成3个分区（3个设备），而每一个分区则有1个参数（\(N/M\)，\(N\)代表3个参数，\(M\)代表3个设备）。在这个例子中，假定设备1拥有参数2,4,6，设备2拥有参数1,2,3，设备3拥有参数4,8,12，那么在使用一个AllReduce算子进行计算过后，全部的设备都将拥有梯度相加后的结果7,14,21，其中分区1的结果7是由3个设备中分区1的初始结果相加而成（7 = 1 + 2 + 4）。为了计算平均梯度，每个设备只需要在最后将梯度之和除以设备数量即可（分区1的最终结果为7除以3）。</p>
 <p><a id="ch10-allreduce-process"></a></p>
-<p><img src="../img/ch09/ch10-allreduce-process.png" alt="AllReduce算法的过程"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch09/ch10-allreduce-process.png" alt="AllReduce算法的过程"><span class="img-wrapper"><img src="../img/ch09/ch10-allreduce-process.png" alt="AllReduce算法的过程"></span></label></p>
 <p align="center">图10.4.2 AllReduce算法的过程</p>
 
 <p>AllReduce算子会把梯度的计算拆分成\(M-1\)个Reduce算子和\(M-1\)个Broadcast算子（其中\(M\)是节点的数量）。其中，Reduce算子用于计算出梯度的加和，Broadcast算子用于把梯度之和广播给全部的节点。 <a href="#ch10-allreduce-process">图10.4.2</a>展示了一个AllReduce算子的执行过程。AllReduce算子由Reduce算子开始，在第一个Reduce算子中，AllReduce算子会对全部节点进行配对（Pairing），让它们共同完成梯度相加的操作。在 <a href="#ch10-allreduce-process">图10.4.2</a>的第一个Reduce算子中，设备1和设备2进行了配对共同对分区1的数据相加。其中，设备2把本地的梯度数据1发送给设备1，设备1将接收到的梯度数据1和本地的分区1内的梯度数据2进行相加，计算出中间梯度相加的结果3。与此同时，设备1和设备3进行配对，共同完成对分区3的数据相加。而设备3和设备2进行配对，共同完成对于分区2的数据相加。</p>
@@ -357,7 +357,7 @@ model.train(epoch_size, dataset, dataset_sink_mode=True)
 </code></pre>
 <p><a href="#ch10-redistribution">图10.4.3</a> 展示了上述代码中matmul1和matmul2在调用shard函数后的数据排布情况。matmul1算子将输入\(X\)按照行切成4份后，分别放置在4个计算设备上（D1-D4），\(W\)不切分，则以复制的形式放置在4个计算设备上，此时matmul1算子计算的结果\(Y\)，以行切的形式被放置在不同设备上，而matmul2算子在做计算时，需要\(Y\)的全量数据，因此两个计算算子之间需要插入AllGather集合通信算子，来从4个不同的设备上收集到\(Y\)的全量数据。MindSpore能够自动识别不同切分方式的算子之间应该插入哪种集合通信算子，并且将该逻辑对用户隐藏，只暴露出shard接口供用户配置，开发者可以通过合理的策略配置，来减少算子间重排布通信算子在神经网络计算图中的占比，以提升混合并行分布式训练的端到端速率。</p>
 <p><a id="ch10-redistribution"></a></p>
-<p><img src="../img/ch09/ch10-redistribution.png" alt="相邻算子之间插入集合通信算子举例"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch09/ch10-redistribution.png" alt="相邻算子之间插入集合通信算子举例"><span class="img-wrapper"><img src="../img/ch09/ch10-redistribution.png" alt="相邻算子之间插入集合通信算子举例"></span></label></p>
 <p align="center">图10.4.3 相邻算子之间插入集合通信算子举例</p>
 
 
@@ -405,11 +405,11 @@ model.train(epoch_size, dataset, dataset_sink_mode=True)
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

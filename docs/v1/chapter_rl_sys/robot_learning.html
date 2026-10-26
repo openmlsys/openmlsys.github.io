@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Modern Robot Learning - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="modern-robot-learning"><a class="header" href="#modern-robot-learning">Modern Robot Learning</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>We human can interact with objects with various shapes, sizes, materials
+and physics properties. And we have a fantanstic ability to do it under
+different environment settings: we can avoid potentially dangerous
+collisions, we can finish a task with a long horizon; and we can learn
+extremely hard task after practice. However, it still a challenge to
+teach a machine to have above ability. A key challenge in intelligent
+robotics is creating robots that are capable of directly interacting
+with the world around them to achieve their goals. The last decade has
+seen substantial growth in research on the problem of robot
+manipulation, which aims to exploit the increasing availability of
+affordable robot arms and grippers to create robots capable of directly
+interacting with the world to achieve their goals. Learning will be
+central to such autonomous systems, as the real world contains too much
+variation for a robot to expect to have an accurate model of its
+environment, the objects in it, or the skills required to manipulate
+them.</p>
+<p><a id="robot-framework"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/robot_learning_overview.png" alt="An Overview of Common Frameworks for RobotLearning."><span class="img-wrapper"><img src="../img/ch13/robot_learning_overview.png" alt="An Overview of Common Frameworks for RobotLearning."></span></label></p>
+<p align="center">图16.4.1 An Overview of Common Frameworks for RobotLearning.</p>
+
+<h2 id="robot-interaction-environments"><a class="header" href="#robot-interaction-environments">Robot Interaction Environments</a></h2>
+<p>In the realm of robot learning, the process of acquiring the ability to
+manipulate objects in real-world settings can be a time-consuming and
+resource-intensive endeavor. Not only does it demand considerable
+effort, but it also necessitates substantial hardware investments. To
+tackle these challenges and expedite the learning process, researchers
+have turned to data-driven methods that make use of simulation
+environments. By simulating various scenarios, these environments enable
+robots to learn and make informed decisions without the need for
+physically interacting with the real world. In this chapter, we will
+explore the concept of using simulation environments for robot decision
+making, highlighting some simulator examples and their key features,
+while drawing comparisons to the real world and the underlying hardware
+considerations.</p>
+<h3 id="learning-in-simulation-environments"><a class="header" href="#learning-in-simulation-environments">Learning in Simulation Environments:</a></h3>
+<dl>
+<dt id="simulators-have-emerged-as-indispensable-tools-for-training-robots-in-a-controlled-and-efficient-manner-instead-of-relying-solely-on-real-world-experiences-simulation-environments-provide-a-cost-effective-means-of-generating-large-amounts-of-training-data-this-approach-not-only-saves-time-but-also-minimizes-the-risks-associated-with-operating-physical-robots-in-potentially-hazardous-or-expensive-settings-furthermore-simulators-offer-the-flexibility-to-create-diverse-scenarios-and-manipulate-various-environmental-parameters-allowing-researchers-to-thoroughly-explore-different-learning-strategies-and-optimize-robot-decision-making-algorithms"><a class="header" href="#simulators-have-emerged-as-indispensable-tools-for-training-robots-in-a-controlled-and-efficient-manner-instead-of-relying-solely-on-real-world-experiences-simulation-environments-provide-a-cost-effective-means-of-generating-large-amounts-of-training-data-this-approach-not-only-saves-time-but-also-minimizes-the-risks-associated-with-operating-physical-robots-in-potentially-hazardous-or-expensive-settings-furthermore-simulators-offer-the-flexibility-to-create-diverse-scenarios-and-manipulate-various-environmental-parameters-allowing-researchers-to-thoroughly-explore-different-learning-strategies-and-optimize-robot-decision-making-algorithms">Simulators have emerged as indispensable tools for training robots in a
+controlled and efficient manner. Instead of relying solely on real-world
+experiences, simulation environments provide a cost-effective means of
+generating large amounts of training data. This approach not only saves
+time but also minimizes the risks associated with operating physical
+robots in potentially hazardous or expensive settings. Furthermore,
+simulators offer the flexibility to create diverse scenarios and
+manipulate various environmental parameters, allowing researchers to
+thoroughly explore different learning strategies and optimize robot
+decision-making algorithms.</a></dt>
+<dd>
+<p>Physics Simulation Libraries and Environments</p>
+</dd>
+</dl>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Year</strong></th><th><strong>Simulator</strong></th><th><strong>Description</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>2012</td><td>MuJoCo [@todorov2012mujoco]</td><td>MuJoCo offers a unique combination of speed, accuracy and modeling power, designed from the ground up for model-based optimization and optimization through contacts.</td></tr>
+<tr><td>2016</td><td>PyBullet [@coumans2016pybullet]</td><td>PyBullet is an easy to use Python module for physics simulation, robotics and deep reinforcement learning based on the Bullet Physics SDK.</td></tr>
+<tr><td>2016</td><td>Unreal CV [@qiu2016unrealcv]</td><td>Unreal CV provides functions for perception, navigation, physical simulations, and learning and evaluation of algorithms.</td></tr>
+<tr><td>2016</td><td>DeepMind Lab [@beattie2016deepmind]</td><td>DeepMind Lab is a first-person 3D game platform designed for research and development of general artificial intelligence and machine learning systems.</td></tr>
+<tr><td>2016</td><td>Habitat [@beattie2016deepmind]</td><td>Habitat-Sim is a flexible, high-performance 3D simulator with configurable agents, sensors, and generic 3D dataset handling.</td></tr>
+<tr><td>2017</td><td>AI2-THOR [@kolve2017ai2]</td><td>AI2-THOR consists of near photo-realistic 3D indoor scenes, enabling research in various domains including deep reinforcement learning and visual question answering.</td></tr>
+<tr><td>2018</td><td>CHALET [@yan2018chalet]</td><td>CHALET includes rooms and house configurations for training and evaluating autonomous agents in a challenging dynamic environment.</td></tr>
+<tr><td>2018</td><td>VirtualHome [@puig2018virtualhome]</td><td>VirtualHome simulator allows the creation of a large activity video dataset with rich ground-truth, enabling training and testing of video understanding models.</td></tr>
+<tr><td>2019</td><td>VRKitchen [@gao2019vrkitchen]</td><td>VRKitchen enables embodied agents to perform complex tasks involving fine-grained object manipulations in a realistic environment, and supports learning from demonstration.</td></tr>
+<tr><td>2020</td><td>SAPIEN [@xiang2020sapien]</td><td>SAPIEN is a realistic and physics-rich simulated environment that hosts a large-scale set of articulated objects, enabling various robotic vision and interaction tasks.</td></tr>
+<tr><td>2020</td><td>ThreeDWorld [@gan2020threedworld]</td><td>ThreeDWorld is a platform for interactive multi-modal physical simulation, supporting real-time near-photo-realistic image rendering, high-fidelity audio rendering, and more.</td></tr>
+<tr><td>2021</td><td>Brax [@freeman2021brax]</td><td>Brax is an open-source library for rigid body simulation with a focus on performance and parallelism on accelerators, written in JAX.</td></tr>
+<tr><td>2021</td><td>iGibson2.0 [@li2021igibson]</td><td>iGibson 2.0 supports object states, predicate logic functions, and can sample valid physical states based on logic states.</td></tr>
+<tr><td>2021</td><td>Issac Gym [@makoviychuk2021isaac]</td><td>Isaac Gym offers a high performance learning platform to train policies for a wide variety of robotics tasks directly on GPU.</td></tr>
+<tr><td><a id="simulations"></a></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<p>As shown in Table <a href="#simulations">simulations</a>, there are several simulator examples used
+in the field.</p>
+<h3 id="comparing-simulators-to-the-real-world"><a class="header" href="#comparing-simulators-to-the-real-world">Comparing Simulators to the Real World:</a></h3>
+<p>While simulation environments offer numerous advantages, it is essential
+to recognize the differences between these virtual worlds and the real
+world. One crucial distinction is the potential discrepancy in physics
+and dynamics modeling. Simulators often approximate physical
+interactions, which may deviate from the intricacies and complexities of
+the actual physical systems. Researchers must be cognizant of these
+limitations and carefully validate their learned policies in real-world
+scenarios to ensure robustness and generalizability.</p>
+<p>Another consideration is the sensory input. In simulation, sensors can
+provide perfect, noise-free data, whereas real-world sensors are prone
+to noise, calibration issues, and limited field of view. Accounting for
+these discrepancies during the learning process and applying appropriate
+techniques, such as sensor noise injection or domain adaptation, is
+crucial for achieving successful transfer of learned policies from
+simulation to reality.</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/real-world.png" alt="Robot manipulation environments in real world [@geng2022end]."><span class="img-wrapper"><img src="../img/ch13/real-world.png" alt="Robot manipulation environments in real world [@geng2022end]."></span></label></p>
+<h3 id="hardware-considerations"><a class="header" href="#hardware-considerations">Hardware Considerations:</a></h3>
+<p><a id="hardware-considerations"></a></p>
+<p>While simulation environments alleviate the need for expensive hardware
+setups, certain hardware-related aspects should not be overlooked. To
+accurately simulate robot behaviors, it is necessary to employ hardware
+models and kinematic representations that closely resemble the physical
+robots being studied. Additionally, to ensure efficient and real-time
+simulation, high-performance computing resources may be required,
+especially when dealing with complex scenarios or large-scale
+simulations.</p>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion:</a></h3>
+<p><a id="conclusion"></a></p>
+<p>Simulation environments have become invaluable tools for training robots
+and enabling efficient decision making. By leveraging these virtual
+worlds, researchers can expedite the learning process while minimizing
+the costs and risks associated with real-world experimentation. However,
+it is important to acknowledge the limitations of simulations and the
+challenges in transferring learned policies to physical systems. Through
+a combination of careful validation, sensor calibration, and hardware
+modeling, the gap between simulation and reality can be bridged, paving
+the way for robust and reliable robot decision-making capabilities in
+real-world settings.</p>
+<h2 id="robot-skill-learning"><a class="header" href="#robot-skill-learning">Robot Skill Learning</a></h2>
+<h3 id="perception"><a class="header" href="#perception">Perception</a></h3>
+<p><a id="perception"></a></p>
+<p>In the fascinating realm of robotics, perception plays a crucial role in
+enabling robots to interact with and understand the world around them.
+Just like humans rely on their senses to gather information, robots
+employ various sensing modalities to perceive and make sense of their
+environment. This chapter delves into the realm of robot perception,
+focusing on the integration of multiple sensing modalities and their
+significance in enhancing a robot’s understanding of its surroundings.
+We will explore the diverse range of sensing modalities available to
+robots and their unique capabilities in perception.</p>
+<p><strong>Visual Perception:</strong> Visual perception is one of the primary sensing
+modalities for robots, mimicking human vision. Cameras and image sensors
+capture visual data, allowing robots to perceive objects, scenes, and
+spatial information. This section discusses the role of computer vision
+techniques, such as image processing, object recognition, and depth
+estimation, in enabling robots to interpret visual data and extract
+meaningful information.</p>
+<p><strong>Tactile Perception:</strong> Tactile perception focuses on a robot’s ability
+to sense and interpret physical contact with objects and surfaces.
+Tactile sensors embedded in robotic fingers or hands provide information
+about texture, shape, hardness, and temperature. This section explores
+the integration of tactile sensors and their application in object
+manipulation, grasping, and fine motor control, enabling robots to
+interact with the physical world in a more human-like manner.</p>
+<p><strong>Auditory Perception:</strong> Sound and auditory cues are valuable sources of
+information for robots. By integrating microphones or specialized
+auditory sensors, robots can perceive and analyze audio signals, such as
+speech, environmental sounds, and localization cues. This section
+discusses the role of auditory perception in tasks like speech
+recognition, sound source localization, and human-robot interaction,
+highlighting the importance of audio-based information for comprehensive
+robot perception.</p>
+<p><strong>Range Sensing:</strong> Range sensing modalities, such as LiDAR (Light
+Detection and Ranging) and depth cameras, provide robots with depth
+information about their surroundings. By emitting and measuring the
+time-of-flight or structured light patterns, robots can create detailed
+3D representations of the environment. This section explores the
+capabilities of range sensing modalities in object detection,
+simultaneous localization and mapping (SLAM), and navigation in dynamic
+environments.</p>
+<p><strong>Environmental Sensing:</strong> Robots can also perceive the environment
+using various sensors that capture information beyond the range of human
+senses. This section covers sensing modalities like infrared sensors,
+gas sensors, and environmental monitoring devices. These sensors enable
+robots to detect temperature, gas concentrations, humidity, and other
+environmental factors, making them suitable for applications in
+environmental monitoring, disaster response, and industrial settings.</p>
+<p><strong>Fusion and Integration of Sensing Modalities:</strong> To achieve a more
+comprehensive understanding of the environment, robots often integrate
+multiple sensing modalities. This section explores the challenges and
+techniques involved in fusing data from different sensors, such as
+sensor calibration, data alignment, and sensor fusion algorithms. It
+also discusses the benefits of sensor fusion in improving perception
+accuracy, robustness, and adaptability in real-world scenarios.</p>
+<p><strong>Conclusion:</strong> Robot perception is a fascinating field that encompasses
+multiple sensing modalities, each contributing to a robot’s ability to
+perceive and understand its surroundings. By integrating visual,
+tactile, auditory, range, and environmental sensing, robots can create a
+rich representation of the world. This chapter provided an overview of
+different sensing modalities, highlighting their significance in
+enabling robots to navigate, interact, and make informed decisions in
+complex environments. By harnessing the power of diverse sensing
+modalities, robots continue to advance in their ability to perceive,
+learn, and adapt, bringing us closer to a world where intelligent
+machines coexist seamlessly with humans.</p>
+<h3 id="decision"><a class="header" href="#decision">Decision</a></h3>
+<p><code>decision</code></p>
+<p>In the field of robotics, decision-making plays a vital role in enabling
+robots to interact intelligently with their environment. This chapter
+explores various approaches to robot decision-making, including
+heuristic policy, reinforcement learning, affordance learning, and
+knowledge extraction from large models. By understanding these
+techniques, we can gain insights into how robots can make informed and
+adaptive decisions.</p>
+<p><strong>Heuristic Policy:</strong> Heuristic policy refers to a decision-making
+strategy based on predefined rules or heuristics. These rules are
+typically crafted by human experts and capture domain-specific knowledge
+to guide the robot’s actions. Heuristic policies provide a fast and
+reliable way for robots to make decisions in certain contexts, but they
+may lack adaptability and struggle in complex and dynamic environments.
+Nevertheless, they can serve as a useful starting point for robot
+decision-making before more sophisticated techniques are employed.</p>
+<p><strong>Reinforcement Learning:</strong> Reinforcement learning (RL) is a powerful
+approach that enables robots to learn decision-making policies through
+interactions with the environment [@chen2022towards]. In RL, a robot
+learns to maximize a numerical reward signal by taking actions and
+observing their outcomes. By exploring different actions and receiving
+feedback in the form of rewards or penalties, the robot gradually
+discovers the optimal policy for decision-making.</p>
+<p>Reinforcement learning consists of the following key elements: a. Agent:
+The robot or decision-making entity. b. Environment: The external world
+or simulation in which the agent interacts. c. State: The representation
+of the current situation or context. d. Action: The choices available to
+the agent. e. Reward: The feedback signal indicating the desirability of
+an action in a given state.</p>
+<p><strong>Affordance Learning:</strong></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/affordance.png" alt="Affordance visualization results in robot manipulation tasks [@geng2022end]."><span class="img-wrapper"><img src="../img/ch13/affordance.png" alt="Affordance visualization results in robot manipulation tasks [@geng2022end]."></span></label></p>
+<p>Affordance learning focuses on understanding the action possibilities
+that the environment offers to a
+robot [@mo2021where2act; @wu2021vat; @zhao2022dualafford; @wang2022adaafford; @geng2022end].
+It involves perceiving and extracting relevant information about the
+affordances, which are the potential actions or interactions that an
+object or a scene can afford. By recognizing and understanding
+affordances, robots can make more informed decisions about their
+actions. Affordance learning includes the following steps: a.
+Perception: Sensing the environment through various sensors (e.g.,
+cameras, depth sensors) to capture relevant data. b. Feature Extraction:
+Extracting meaningful features from the sensory data to represent the
+objects or scenes. c. Affordance Recognition: Identifying and
+categorizing the potential actions or interactions that the objects or
+scenes afford. d. Decision-Making: Utilizing the recognized affordances
+to guide the robot’s decision-making process.</p>
+<p><strong>Knowledge Extraction from Large Models:</strong> With the advancement of deep
+learning and large-scale language models, extracting knowledge from
+these models has become increasingly valuable for decision-making in
+robotics. These models are trained on vast amounts of data and capture
+intricate patterns and relationships. By leveraging this knowledge,
+robots can benefit from the collective intelligence captured in these
+models [@brohan2023can; @liang2023cod; @huang2023visual]. Typically,
+knowledge extraction from large models involves the following steps: a.
+Model Interpretability: Understanding how the model processes input data
+and generates predictions or decisions. b. Feature Extraction:
+Extracting relevant features or representations from the model that
+capture the essential information for decision-making. c. Transfer
+Learning: Transferring knowledge from pre-trained models to improve
+decision-making in specific robotic tasks. d. Decision Fusion: Combining
+the knowledge extracted from the large models with other decision-making
+techniques to make more informed and robust decisions.</p>
+<p>Robot decision-making is a critical aspect of enabling robots to
+interact intelligently with their environment. Heuristic policies
+provide initial guidelines, while reinforcement learning allows robots
+to learn optimal decision-making policies through interaction with the
+environment. Affordance learning helps robots recognize and understand
+the potential actions in their surroundings. Finally, knowledge
+extraction from large models leverages the wealth of information
+captured in these models to enhance decision-making capabilities. By
+integrating these techniques, robots can make more adaptive,
+context-aware, and intelligent decisions in various scenarios, leading
+to significant advancements in the field of robot learning.</p>
+<h2 id="deployment-in-real-environments"><a class="header" href="#deployment-in-real-environments">Deployment in real environments</a></h2>
+<p>In the field of robotics, the ability of a robot to make intelligent
+decisions is crucial for its effective interaction with the real world.
+Over the years, significant progress has been made in developing
+algorithms and techniques to enable robots to learn and make decisions
+directly in real environments. In this chapter, we will explore some key
+topics related to robot decision-making, including learning directly in
+real environments, the Sim2Real approach, real-world feedback, learning
+from real-world demonstrations, and the concept of Teacher-Student
+Distillation.</p>
+<h3 id="learning-directly-in-real-environments"><a class="header" href="#learning-directly-in-real-environments">Learning Directly in Real Environments</a></h3>
+<p><a id="learning-directly-in-real-environments"></a></p>
+<p>One of the fundamental approaches to robot decision-making involves
+learning directly in real environments. Traditional methods often rely
+on simulations or simplified scenarios, but learning in real-world
+conditions provides robots with a more accurate understanding of the
+complexities and uncertainties they encounter. This approach leverages
+techniques such as reinforcement learning, where robots learn through
+trial and error, optimizing their decision-making policies based on
+feedback received from the environment.</p>
+<h3 id="sim2real-and-real-world-feedback"><a class="header" href="#sim2real-and-real-world-feedback">Sim2Real and Real-World Feedback</a></h3>
+<p><a id="sim2real-and-real-world-feedback"></a></p>
+<p>While learning in real environments is desirable, it can be challenging
+due to constraints such as safety concerns, cost, and limited access to
+real-world scenarios. The Sim2Real approach [@hofer2021sim2real]
+addresses these challenges by training robots initially in simulation
+environments, which are cheaper, safer, and provide more extensive data.
+However, to ensure effective decision-making in the real world, the
+trained policies need to be transferred and adapted to the physical
+domain. Real-world feedback mechanisms, such as domain adaptation
+techniques and reinforcement learning with fine-tuning, play a vital
+role in this process by bridging the simulation-to-reality gap.</p>
+<h3 id="learning-from-real-world-demonstrations"><a class="header" href="#learning-from-real-world-demonstrations">Learning from Real-World Demonstrations</a></h3>
+<p><a id="learning-from-real-world-demonstrations"></a></p>
+<p>Learning from real-world demonstrations is another powerful paradigm for
+robot decision-making. By observing and imitating human or expert
+demonstrations, robots can acquire valuable knowledge about appropriate
+decision-making strategies. This approach often involves techniques such
+as imitation learning or inverse reinforcement learning, where robots
+learn from the actions and decisions of skilled individuals. By
+generalizing from a limited number of demonstrations, robots can learn
+to make intelligent decisions in similar contexts.</p>
+<h3 id="teacher-student-distillation"><a class="header" href="#teacher-student-distillation">Teacher-Student Distillation</a></h3>
+<p><a id="teacher-student-distillation"></a></p>
+<p>Teacher-Student Distillation is a methodology that leverages the
+knowledge of a more capable teacher model to enhance the decision-making
+capabilities of a less experienced student
+model [@gou2021knowledge; @hussein2017imitation; @ross2011reduction; @geng2023partmanip].
+In the context of robot learning, this approach involves training a
+high-performing policy (the teacher) and using its expertise to guide
+and improve the learning process of a less optimal policy (the student).
+This technique can be particularly useful in scenarios where direct
+reinforcement learning is challenging or time-consuming. The teacher
+model can provide valuable feedback and constraints to facilitate
+efficient decision-making in complex real-world environments.</p>
+<h3 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h3>
+<p><a id="conclusion-1"></a></p>
+<p>Robot decision-making in real environments is a multifaceted field that
+encompasses various approaches and techniques. Learning directly in real
+environments, leveraging Sim2Real methods, incorporating real-world
+feedback, learning from demonstrations, and employing Teacher-Student
+Distillation are all essential aspects of advancing the capabilities of
+robots. As researchers and practitioners, we continue to explore these
+topics to enhance robot learning and decision-making, enabling robots to
+operate effectively and intelligently in diverse real-world settings.
+Teacher-Student Distillation</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_rl_sys/ros_code_ex.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_rl_sys/summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_rl_sys/ros_code_ex.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_rl_sys/summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

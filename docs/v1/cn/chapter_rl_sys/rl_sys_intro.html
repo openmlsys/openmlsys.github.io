@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,12 +197,12 @@
 <p>机器人学是一个交叉学科，它涉及了计算机科学、机械工程、电气工程、生物医学工程、数学等多种学科，并有诸多应用，比如自动驾驶汽车、机械臂、无人机、医疗机器人等。机器人能够自主地完成一种或多种任务或者辅助人类完成指定任务。通常，人们把机器人系统划分为感知系统、决策（规划）和控制系统等组成部分。</p>
 <p>机器人系统按照涉及的机器人数量，可以划分为单机器人学习系统和多机器人学习系统。多机器人学习系统协作和沟通中涉及的安全和隐私问题，也会是一个值得研究的方向。最近机器人学习系统在室内自主移动 <sup id="cite-9123682"><a href="#ref-9123682">[1]</a></sup><sup id="cite-huang2018navigationnet"><a href="#ref-huang2018navigationnet">[2]</a></sup>，道路自动驾驶 <sup id="cite-pmlr-v155-huang21a"><a href="#ref-pmlr-v155-huang21a">[3]</a></sup><sup id="cite-pmlr-v155-sun21a"><a href="#ref-pmlr-v155-sun21a">[4]</a></sup><sup id="cite-Sun2022SelfSupervisedTA"><a href="#ref-Sun2022SelfSupervisedTA">[5]</a></sup>，机械臂工业操作等行业场景得到充分应用和发展。一些机器人学习基础设施项目也在进行中，如具备从公开可用的互联网资源、计算机模拟和 真实机器人试验中学习能力的大规模的计算系统RoboBrain。在自动驾驶领域，受联网的自动驾驶汽车 (CAV) 对传统交通运输行业的影响，“车辆计算”(Vehicle Computing) 概念引起广泛关注，并激发了如何让计算能力有限使用周围的CAV计算平台来执行复杂的计算任务的研究。最近，有很多自动驾驶系统的模拟器，代表性的比如CARLA，MetaDrive <sup id="cite-li2021metadrive"><a href="#ref-li2021metadrive">[6]</a></sup>，CarSim和TruckSim，它们可以作为各种自动驾驶算法的训练场并对算法效果进行评估。另外针对自动驾驶的系统开发平台也不断涌现，如ERDOS、D3 (Dynamic Deadline-Driven)和Pylot，可以让模型训练与部署系统与这些平台对接。</p>
 <p><a id="vehicle-computing"></a></p>
-<p><img src="../img/ch13/vehicle_computing.png" alt="车辆计算框架图 &lt;sup id=&quot;cite-9491826&quot;&gt;&lt;a href=&quot;#ref-9491826&quot;&gt;[7]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/vehicle_computing.png" alt="车辆计算框架图 &lt;sup id=&quot;cite-9491826&quot;&gt;&lt;a href=&quot;#ref-9491826&quot;&gt;[7]&lt;/a&gt;&lt;/sup&gt;"><span class="img-wrapper"><img src="../img/ch13/vehicle_computing.png" alt="车辆计算框架图 &lt;sup id=&quot;cite-9491826&quot;&gt;&lt;a href=&quot;#ref-9491826&quot;&gt;[7]&lt;/a&gt;&lt;/sup&gt;"></span></label></p>
 <p align="center">图16.1.1 车辆计算框架图 <sup id="cite-9491826"><a href="#ref-9491826">[7]</a></sup></p>
 
 <p><a href="#learning_decision_module">图16.1.2</a>是一个典型的感知、规划、控制的模块化设计的自动驾驶系统框架图，绿线表示自主驾驶系统的模块化流程，而橙色虚线表示规划和控制模块是不可微的。但是决策策略可以通过重新参数化技术进行训练，如蓝色虚线所示。接下来将按照这个顺序依次介绍感知系统、规划系统和控制系统。</p>
 <p><a id="learning_decision_module"></a></p>
-<p><img src="../img/ch13/idm.png" alt="通过模仿学习进行自动驾驶框架图。"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/idm.png" alt="通过模仿学习进行自动驾驶框架图。"><span class="img-wrapper"><img src="../img/ch13/idm.png" alt="通过模仿学习进行自动驾驶框架图。"></span></label></p>
 <p align="center">图16.1.2 通过模仿学习进行自动驾驶框架图。</p>
 
 <h3 id="感知系统"><a class="header" href="#感知系统">感知系统</a></h3>
@@ -233,7 +233,7 @@ SLAM大致过程包括地标提取、数据关联、状态估计、状态更新�
 最近，随着机器学习的兴起，基于学习的VO框架也被提了出来。
 TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可以推广到多个数据集和现实世界场景，并优于传统基于几何的方法。</p>
 <p><a id="orbslam3"></a></p>
-<p><img src="../img/ch13/orbslam3.png" alt="ORB-SLAM3主要系统组件 &lt;sup id=&quot;cite-campos2021orb&quot;&gt;&lt;a href=&quot;#ref-campos2021orb&quot;&gt;[13]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/orbslam3.png" alt="ORB-SLAM3主要系统组件 &lt;sup id=&quot;cite-campos2021orb&quot;&gt;&lt;a href=&quot;#ref-campos2021orb&quot;&gt;[13]&lt;/a&gt;&lt;/sup&gt;"><span class="img-wrapper"><img src="../img/ch13/orbslam3.png" alt="ORB-SLAM3主要系统组件 &lt;sup id=&quot;cite-campos2021orb&quot;&gt;&lt;a href=&quot;#ref-campos2021orb&quot;&gt;[13]&lt;/a&gt;&lt;/sup&gt;"></span></label></p>
 <p align="center">图16.1.3 ORB-SLAM3主要系统组件 <sup id="cite-campos2021orb"><a href="#ref-campos2021orb">[13]</a></sup></p>
 
 <h3 id="规划系统"><a class="header" href="#规划系统">规划系统</a></h3>
@@ -241,7 +241,7 @@ TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可�
 <p>同时，机器学习的一些进展为机器人专家研究运动规划问题开辟了新视角：以数据驱动的方式解决经典运动规划器的瓶颈。基于深度学习的规划器可以使用视觉或语义输入进行规划等。ML4KP是一个可用于运动动力学进行运动规划的C++库，可以轻松地将机器学习方法集成到规划过程中。</p>
 <p>强化学习在规划系统上也有重要应用 <sup id="cite-sun2021adversarial"><a href="#ref-sun2021adversarial">[17]</a></sup>，最近有一些工作基于MetaDrive模拟器 <sup id="cite-li2021metadrive"><a href="#ref-li2021metadrive">[6]</a></sup>进行多智能体强化学习、驾驶行为分析等 <sup id="cite-peng2021learning"><a href="#ref-peng2021learning">[18]</a></sup> <sup id="cite-peng2021safe"><a href="#ref-peng2021safe">[19]</a></sup> <sup id="cite-li2021efficient"><a href="#ref-li2021efficient">[20]</a></sup>。为了更好地说明强化学习是如何应用在自动驾驶中，尤其是作为自动驾驶规划模块的应用， <a href="#rl_ad">图16.1.4</a>展示了一个基于深度强化学习的自动驾驶POMDP模型，包含环境、奖励、智能体等重要组件。</p>
 <p><a id="rl_ad"></a></p>
-<p><img src="../img/ch13/rl_ad.png" alt="基于深度强化学习的自动驾驶POMDP模型 &lt;sup id=&quot;cite-aradi2020survey&quot;&gt;&lt;a href=&quot;#ref-aradi2020survey&quot;&gt;[21]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/rl_ad.png" alt="基于深度强化学习的自动驾驶POMDP模型 &lt;sup id=&quot;cite-aradi2020survey&quot;&gt;&lt;a href=&quot;#ref-aradi2020survey&quot;&gt;[21]&lt;/a&gt;&lt;/sup&gt;"><span class="img-wrapper"><img src="../img/ch13/rl_ad.png" alt="基于深度强化学习的自动驾驶POMDP模型 &lt;sup id=&quot;cite-aradi2020survey&quot;&gt;&lt;a href=&quot;#ref-aradi2020survey&quot;&gt;[21]&lt;/a&gt;&lt;/sup&gt;"></span></label></p>
 <p align="center">图16.1.4 基于深度强化学习的自动驾驶POMDP模型 <sup id="cite-aradi2020survey"><a href="#ref-aradi2020survey">[21]</a></sup></p>
 
 <h3 id="控制系统"><a class="header" href="#控制系统">控制系统</a></h3>
@@ -253,7 +253,7 @@ TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可�
 <h4 id="控制系统的稳定性分析"><a class="header" href="#控制系统的稳定性分析">控制系统的稳定性分析</a></h4>
 <p>因为安全对机器人应用是至关重要的，有的强化学习方法通过学习动力学的不确定性来提高安全性，鼓励安全、稳健、以及可以正式认证所学控制策略的方法，如 <a href="#safe_learning_control">图16.1.5</a>展示了安全学习控制（Safe Learning Control）系统的框架图。Lyapunov 函数是评估非线性动力系统稳定性的有效工具，最近有人提出Neural Lyapunov来将安全性纳入考虑。</p>
 <p><a id="safe_learning_control"></a></p>
-<p><img src="../img/ch13/safe_learning_control.png" alt="安全学习控制系统，数据被用来更新控制策略或或安全滤波器 &lt;sup id=&quot;cite-brunke2021safe&quot;&gt;&lt;a href=&quot;#ref-brunke2021safe&quot;&gt;[22]&lt;/a&gt;&lt;/sup&gt;"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch13/safe_learning_control.png" alt="安全学习控制系统，数据被用来更新控制策略或或安全滤波器 &lt;sup id=&quot;cite-brunke2021safe&quot;&gt;&lt;a href=&quot;#ref-brunke2021safe&quot;&gt;[22]&lt;/a&gt;&lt;/sup&gt;"><span class="img-wrapper"><img src="../img/ch13/safe_learning_control.png" alt="安全学习控制系统，数据被用来更新控制策略或或安全滤波器 &lt;sup id=&quot;cite-brunke2021safe&quot;&gt;&lt;a href=&quot;#ref-brunke2021safe&quot;&gt;[22]&lt;/a&gt;&lt;/sup&gt;"></span></label></p>
 <p align="center">图16.1.5 安全学习控制系统，数据被用来更新控制策略或或安全滤波器 <sup id="cite-brunke2021safe"><a href="#ref-brunke2021safe">[22]</a></sup></p>
 
 <h3 id="在机器人项目中安全的应用机器学习"><a class="header" href="#在机器人项目中安全的应用机器学习">在机器人项目中安全的应用机器学习</a></h3>
@@ -368,11 +368,11 @@ TartanVO是第一个基于学习的视觉里程计（VO）模型，该模型可�
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -204,7 +204,7 @@ DSL）实现的代码。而所谓编译，通俗来说起到的是针对目标�
 <p>如果不考虑优化和实际中芯片的体系结构特点，只需要按照算子表达式的<strong>计算逻辑</strong>，把输入进来的张量全部加载进计算核心里完成计算，之后再把计算结果从计算核心里面取出并保存下来即可。这里的<strong>计算逻辑</strong>指的就是基本数学运算（如加、减、乘、除）以及其他函数表达式（如卷积、转置、损失函数）等。</p>
 <p>但是 <a href="#ch05-memory_architecture">图6.6.1</a>向我们展示的现代计算机存储结构表明：越靠近金字塔顶尖的存储器造价越高但是访问速度越快。</p>
 <p><a id="ch05-memory_architecture"></a></p>
-<p><img src="../img/ch05/memory_architecture.png" alt="代计算机存储层次图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/memory_architecture.png" alt="代计算机存储层次图"><span class="img-wrapper"><img src="../img/ch05/memory_architecture.png" alt="代计算机存储层次图"></span></label></p>
 <p align="center">图6.6.1 代计算机存储层次图</p>
 
 <p>基于这一硬件设计的事实，有局部性（Locality）概念：</p>
@@ -213,7 +213,7 @@ DSL）实现的代码。而所谓编译，通俗来说起到的是针对目标�
 <p>满足这两者任一都会有较好的性能提升。基于局部性概念，希望尽量把需要重复处理的数据放在固定的内存位置，且这一内存位置离处理器越近越好，以通过提升访存速度而进行性能提升。</p>
 <p>另外，把传统的串行计算任务按逻辑和数据依赖关系进行分割后，有机会得到多组互不相关的数据，并把他们同时计算，如 <a href="#ch05-parallel_computing">图6.6.2</a>所示。</p>
 <p><a id="ch05-parallel_computing"></a></p>
-<p><img src="../img/ch05/parallel_computing.png" alt="串行计算和并行计算区别图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/parallel_computing.png" alt="串行计算和并行计算区别图"><span class="img-wrapper"><img src="../img/ch05/parallel_computing.png" alt="串行计算和并行计算区别图"></span></label></p>
 <p align="center">图6.6.2 串行计算和并行计算区别图</p>
 
 <p>以上种种在程序实际运行的时候针对数据做出的特殊操作，统称为<strong>调度（Schedule）</strong>。调度定义了：</p>
@@ -283,7 +283,7 @@ for (m.outer: int32, 0, 32) {
 </code></pre>
 <p>如 <a href="#ch05-poly_test">图6.6.3</a>所示，通过多面体模型算法先对此代码的访存结构进行建模，然后分析实例（即 <a href="#ch05-poly_test">图6.6.3</a>中节点）间的依赖关系（即 <a href="#ch05-poly_test">图6.6.3</a>中箭头）。</p>
 <p><a id="ch05-poly_test"></a></p>
-<p><img src="../img/ch05/poly_test.png" alt="示例代码的多面体模型"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/poly_test.png" alt="示例代码的多面体模型"><span class="img-wrapper"><img src="../img/ch05/poly_test.png" alt="示例代码的多面体模型"></span></label></p>
 <p align="center">图6.6.3 示例代码的多面体模型</p>
 
 <p>再进行复杂的依赖分析和调度变换之后得到一个符合内存模型的最优解。如下代码显示了经过多面体模型优化后得到的结果。</p>
@@ -294,7 +294,7 @@ for (m.outer: int32, 0, 32) {
 <p>观察得到的代码，发现优化后的代码较为复杂。但是仅凭肉眼很难发现其性能优势之处。仍需对此优化后的代码进行如算法描述那样建模，并分析依赖关系后得出结论，如 <a href="#ch05-poly">图6.6.4</a>所示：经过算法优化后解除了原代码中的循环间的依赖关系，从而提高了并行计算的机会。即沿着 <a href="#ch05-poly">图6.6.4</a>中虚线方向分割并以绿色块划分后，可以实现并行计算。
 该算法较为复杂，限于篇幅，在这里不再详细展开。读者可移步到笔者专门为此例写的文章-<a href="https://zhuanlan.zhihu.com/p/376285976">《深度学习编译之多面体模型编译——以优化简单的两层循环代码为例》</a>详读。</p>
 <p><a id="ch05-poly"></a></p>
-<p><img src="../img/ch05/poly.png" alt="多面体模型优化结果"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/poly.png" alt="多面体模型优化结果"><span class="img-wrapper"><img src="../img/ch05/poly.png" alt="多面体模型优化结果"></span></label></p>
 <p align="center">图6.6.4 多面体模型优化结果</p>
 
 <h3 id="芯片指令集适配"><a class="header" href="#芯片指令集适配">芯片指令集适配</a></h3>
@@ -305,11 +305,11 @@ SIMD），即单条指令一次性处理大量数据，如 <a href="#ch05-SIMD">
 Multiple Threads,
 SIMT），即单条指令一次性处理多个线程的数据，如 <a href="#ch05-SIMT">图6.6.6</a>所示。前者对应的是带有向量计算指令的芯片；后者对应的是带有明显的线程分级的芯片。另外，也有一些芯片开始结合这两种编程模型的特点，既有类似线程并行计算的概念，又有向量指令的支持。针对不同的编程模型，算子编译器在进行优化（如向量化等）时的策略也会有所不同。</p>
 <p><a id="ch05-SIMD"></a></p>
-<p><img src="../img/ch05/SIMD.png" alt="单指令多数据流示意图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/SIMD.png" alt="单指令多数据流示意图"><span class="img-wrapper"><img src="../img/ch05/SIMD.png" alt="单指令多数据流示意图"></span></label></p>
 <p align="center">图6.6.5 单指令多数据流示意图</p>
 
 <p><a id="ch05-SIMT"></a></p>
-<p><img src="../img/ch05/SIMT.png" alt="单指令多线程示意图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/SIMT.png" alt="单指令多线程示意图"><span class="img-wrapper"><img src="../img/ch05/SIMT.png" alt="单指令多线程示意图"></span></label></p>
 <p align="center">图6.6.6 单指令多线程示意图</p>
 
 <p>一般来说，算子编译器在具体的代码中会按照：前端、中端、后端，逐渐差异化的思路进行实现。即在前端设计中兼容多种不同芯片后端的指令集，以帮助编译器用户（即AI程序员）不需要在乎芯片差异，而只需要专注在AI算法逻辑上即可；在中间表示（IR）设计中对不同芯片的体系结构进行区分，从而可以实现对不同芯片进行不同的优化方法；在后端的目标代码生成部分对各个芯片的不同指令集详细区分，以保证生成出的目标代码能够顺利运行在目标芯片上。</p>
@@ -368,11 +368,11 @@ HPC）的优化思路，这种情况称为借助专家经验进行优化。另�
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

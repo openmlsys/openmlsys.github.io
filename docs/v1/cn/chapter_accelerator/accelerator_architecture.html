@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,7 +198,7 @@
 <h3 id="硬件加速器的架构"><a class="header" href="#硬件加速器的架构">硬件加速器的架构</a></h3>
 <p>现代GPU在十分有限的面积上实现了极强的计算能力和极高的储存器以及IO带宽。在一块高端的GPU中，晶体管数量已经达到主流CPU的两倍，而且显存已经达到了16GB以上，工作频率也达到了1GHz。GPU的体系架构由两部分组成，分别是流处理阵列和存储器系统，两部分通过一个片上互联网络连接。流处理器阵列和存储器系统都可以单独扩展，规格可以根据产品的市场定位单独裁剪。如GV100的组成 <sup id="cite-2017NVIDIA"><a href="#ref-2017NVIDIA">[1]</a></sup>如 <a href="#gv100">图7.2.1</a>所示：</p>
 <p><a id="gv100"></a></p>
-<p><img src="../img/ch06/V100_cn.png" alt="Volta GV100"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/V100_cn.png" alt="Volta GV100"><span class="img-wrapper"><img src="../img/ch06/V100_cn.png" alt="Volta GV100"></span></label></p>
 <p align="center">图7.2.1 Volta GV100</p>
 
 <ul>
@@ -257,19 +257,19 @@
 </li>
 </ul>
 <p><a id="compute-unit"></a></p>
-<p><img src="../img/ch06/compute_unit_cn.png" alt="多种计算单元"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/compute_unit_cn.png" alt="多种计算单元"><span class="img-wrapper"><img src="../img/ch06/compute_unit_cn.png" alt="多种计算单元"></span></label></p>
 <p align="center">图7.2.2 多种计算单元</p>
 
 <p>GPU计算单元主要由标量计算单元和三维向量计算单元组成。如 <a href="#SM">图7.2.3</a>所示,对于每个SM，其中64个32位浮点运算单元、64个32位整数运算单元、32个64位浮点运算单元均为标量计算单元。而8个张量计算核心则是专为神经网络应用设计的三维向量计算单元。</p>
 <p><a id="SM"></a></p>
-<p><img src="../img/ch06/SM_cn.png" alt="Volta GV100 流多处理器（SM）"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/SM_cn.png" alt="Volta GV100 流多处理器（SM）"><span class="img-wrapper"><img src="../img/ch06/SM_cn.png" alt="Volta GV100 流多处理器（SM）"></span></label></p>
 <p align="center">图7.2.3 Volta GV100 流多处理器（SM）</p>
 
 <p>张量计算核心每个时钟周期完成一次\(4\times4\)的矩阵乘累加计算,如 <a href="#tensorcore">图7.2.4</a>所示：</p>
 <pre><code class="language-cpp">    D = A * B + C
 </code></pre>
 <p><a id="tensorcore"></a></p>
-<p><img src="../img/ch06/tensor_core.svg" alt="张量计算核心&#92;(4&#92;times4&#92;)矩阵乘累加计算"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/tensor_core.svg" alt="张量计算核心&#92;(4&#92;times4&#92;)矩阵乘累加计算"><span class="img-wrapper"><img src="../img/ch06/tensor_core.svg" alt="张量计算核心&#92;(4&#92;times4&#92;)矩阵乘累加计算"></span></label></p>
 <p align="center">图7.2.4 张量计算核心\\(4\times4\\)矩阵乘累加计算</p>
 
 <p>其中A,B,C和D都是\(4\times4\)的矩阵，矩阵乘累加的输入矩阵A和B是FP16的矩阵，累加矩阵C和D可以是FP16也可以是FP32。 V100的张量计算核心是可编程的矩阵乘法和累加计算单元，可以提供多达125 Tensor TFLOPS(Tera Floating-point Operations Per Second)的训练和推理应用。相比于普通的FP32计算单元可以提速10倍以上。</p>
@@ -278,7 +278,7 @@
 <p>昇腾AI芯片的计算核心主要由AI Core构成，负责执行标量、向量和张量相关的计算密集型算子。AI Core采用了达芬奇架构 <sup id="cite-2021Ascend"><a href="#ref-2021Ascend">[2]</a></sup>，基本结构如 <a href="#davinci_architecture">图7.2.5</a>所示，从控制上可以看成是一个相对简化的现代微处理器基本架构。它包括了三种基础计算单元：矩阵计算单元（Cube Unit）、向量计算单元（Vector Unit）和标量计算单元（Scalar Unit）。这三种计算单元分别对应了张量、向量和标量三种常见的计算模式，在实际的计算过程中各司其职，形成了三条独立的执行流水线，在系统软件的统一调度下互相配合达到优化计算效率的目的。
 同GPU类似，在矩阵乘加速设计上，在AICore中也提供了矩阵计算单元作为昇腾AI芯片的核心计算模块，意图高效解决矩阵计算的瓶颈问题。矩阵计算单元提供强大的并行乘加计算能力，可以用一条指令完成两个\(16\times16\)矩阵的相乘运算，等同于在极短时间内进行了\(16\times16\times16=4096\)个乘加运算，并且可以实现FP16的运算精度。</p>
 <p><a id="davinci_architecture"></a></p>
-<p><img src="../img/ch06/davinci_architecture.svg" alt="达芬奇架构设计"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch06/davinci_architecture.svg" alt="达芬奇架构设计"><span class="img-wrapper"><img src="../img/ch06/davinci_architecture.svg" alt="达芬奇架构设计"></span></label></p>
 <p align="center">图7.2.5 达芬奇架构设计</p>
 
 <hr>
@@ -335,11 +335,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

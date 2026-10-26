@@ -1,0 +1,474 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Background - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p>Throughout human history, technological progress, production relations, and the development of ethical regulations have evolved dynamically. When a new technology achieves a breakthrough in the laboratory, the resulting changes in value creation sequentially impact commodity forms, production relations, and other aspects. At the same time, once the value gains brought by new technology are recognized, the organizational forms of business logic, in their spontaneous adjustment process, also place demands on the path, content, and even pace of technological development, and adapt new ethical regulations when these demands are met. Through such interactions, technological systems and social systems resonate and co-evolve—this is what constitutes a technological revolution.</p>
+<p>Over the past decade, driven by the cost-performance ratio of computational power and data scale surpassing critical thresholds, connectionist model architectures represented by deep neural networks and statistical learning paradigms (hereinafter referred to as deep learning) have achieved breakthrough advances in feature representation capabilities, greatly advancing the development of artificial intelligence and achieving remarkable results in many scenarios. For example, face recognition accuracy has reached over 97%, and Google’s intelligent voice assistant achieved a 92.9% correct response rate in 2019 tests. In these typical scenarios, deep learning’s intelligent performance has surpassed that of ordinary humans (and even experts), reaching a tipping point for technology replacement. In recent years, in domains where business logic is technology-friendly or where ethical regulations are temporarily sparse—such as security, real-time scheduling, process optimization, competitive gaming, and information feed distribution—artificial intelligence and deep learning have achieved rapid technical and commercial breakthroughs.</p>
+<p>Having tasted success, no domain wants to miss out on the benefits of technological progress. However, when the commercial application of deep learning enters domains that are technology-sensitive and closely related to human survival or safety—such as autonomous driving, finance, healthcare, and judicial high-risk application scenarios—the existing business logic encounters resistance during technology replacement, leading to slowdowns or even failures in commercialization. The root cause is that the business logic and underlying ethical regulations of these scenarios center on stable, traceable accountability and responsibility distribution; yet the models produced by deep learning are black boxes from which we cannot extract any information about model behavior from the model’s structure or weights, rendering the accountability and distribution mechanisms in these scenarios inoperative and causing technical and structural difficulties for AI in business applications.</p>
+<p>Here are two specific examples: Example 1, in the financial risk control scenario, a deep learning model identifies a small subset of users with suspected fraud, but the business department does not dare to directly act on these results. Because people cannot understand how the results were obtained, they cannot determine whether the results are accurate. Moreover, the results lack clear evidence, and if acted upon, cannot be justified to regulatory agencies.
+Example 2, in the medical field, a deep learning model determines that a patient has tuberculosis based on the patient’s test data, but the doctor does not know how the diagnosis was reached and does not dare to directly adopt it, instead relying on their own experience, carefully reviewing the relevant test data, and then making their own judgment. These two examples demonstrate that black-box models seriously hinder the application and promotion of models in real-world scenarios.</p>
+<p>Moreover, model interpretability has attracted national-level attention, with relevant institutions issuing related policies and regulations.</p>
+<ul>
+<li>
+<p>In July 2017, the State Council issued the “New Generation Artificial Intelligence Development Plan,” which for the first time encompassed explainable AI.</p>
+</li>
+<li>
+<p>In March 2021, the People’s Bank of China released the financial industry standard “Evaluation Specification for Financial Applications of Artificial Intelligence Algorithms,” which set explicit requirements for the interpretability of AI models in the financial industry.</p>
+</li>
+<li>
+<p>In August 2021, the Cyberspace Administration of China issued the “Provisions on the Management of Algorithmic Recommendations for Internet Information Services,” proposing requirements for the interpretability of algorithmic recommendations in the internet industry.</p>
+</li>
+<li>
+<p>In September 2021, the Ministry of Science and Technology released the “Ethical Norms for New Generation Artificial Intelligence.”</p>
+</li>
+</ul>
+<p>Therefore, from both the commercial promotion and regulatory perspectives, we need to open up the black box model and provide explanations for models. Explainable AI is precisely the technology that addresses this class of problems.</p>
+<h2 id="definition-of-explainable-ai"><a class="header" href="#definition-of-explainable-ai">Definition of Explainable AI</a></h2>
+<p>According to DARPA (Defense Advanced Research Projects Agency), as shown in <a href="#xai_concept">图15.1.1</a>,
+the concept of explainable AI is: unlike existing AI systems, explainable AI systems can address the problems users face with black-box models, enabling users to know not only what, but also why.</p>
+<p><a id="xai_concept"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_concept.png" alt="Concept of Explainable AI (Image source: Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16-53)"><span class="img-wrapper"><img src="../img/ch11/xai_concept.png" alt="Concept of Explainable AI (Image source: Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16-53)"></span></label></p>
+<p align="center">图15.1.1 Concept of Explainable AI (Image source: Broad Agency Announcement Explainable Artificial Intelligence (XAI) DARPA-BAA-16-53)</p>
+
+<p>However, neither academia nor industry has a unified definition of explainable AI (eXplainable AI, XAI). Here we list three typical definitions for discussion:</p>
+<ul>
+<li>
+<p>Interpretability is the desire to directly understand the working mechanism of a model, breaking open the black box of artificial intelligence.</p>
+</li>
+<li>
+<p>Explainable AI provides human-readable and understandable explanations for decisions made by AI algorithms.</p>
+</li>
+<li>
+<p>Explainable AI is a set of methods that ensures humans can easily understand and trust the decisions made by AI agents.</p>
+</li>
+</ul>
+<p>Based on our practical experience and understanding, we define explainable AI as: a collection of techniques oriented toward machine learning (primarily deep neural networks), including visualization, data mining, logical reasoning, knowledge graphs, etc. The purpose is to use this collection of techniques to make deep neural networks exhibit a certain degree of understandability, so as to satisfy the information needs (such as causal or background information) of relevant users regarding models and application services, thereby establishing cognitive-level trust in AI services among users.</p>
+<h2 id="overview-of-explainable-ai-algorithms"><a class="header" href="#overview-of-explainable-ai-algorithms">Overview of Explainable AI Algorithms</a></h2>
+<p>With the emergence of the concept of explainable AI, XAI has received increasing attention from both academia and industry. The figure below shows the trend of explainable AI keywords in top academic conferences in the field of artificial intelligence. To provide readers with a holistic understanding of existing explainable AI algorithms, we summarize and categorize the types of XAI algorithms with reference to <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>, as shown in <a href="#XAI_methods">图15.1.2</a>.</p>
+<p><a id="XAI_methods"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/XAI_methods.PNG" alt="Explainable AI (XAI) algorithm branches"><span class="img-wrapper"><img src="../img/ch11/XAI_methods.PNG" alt="Explainable AI (XAI) algorithm branches"></span></label></p>
+<p align="center">图15.1.2 Explainable AI (XAI) algorithm branches</p>
+
+<p>There are diverse methods for explaining models. Here, based on whether the explanation process introduces external knowledge beyond the dataset, we divide them into data-driven explanation methods and knowledge-aware explanation methods.</p>
+<p><strong>Data-Driven Explanations</strong></p>
+<p>Data-driven explanations refer to methods that generate explanations purely from the data itself, without requiring external information such as prior knowledge. To provide explanations, data-driven methods typically start by selecting a dataset (with global or local distribution). Then, the selected dataset or its variants are fed into the black-box model (in some cases, selecting a dataset is not necessary; for example, the maximum activation method proposed by <sup id="cite-erhan2009visualizing"><a href="#ref-erhan2009visualizing">[2]</a></sup>), and explanations are generated through certain analysis of the corresponding predictions from the black-box model (e.g., computing derivatives of predictions w.r.t. input features). Based on the scope of interpretability, these methods can be further divided into global methods or local methods—that is, whether they explain the global model behavior across all data points or the behavior of a subset of predictions. In particular, instance-based methods provide a special type of explanation—they directly return data instances as explanations. Although from the perspective of explanation scope, instance-based methods can also fit into global methods (representative samples) or local methods (counterfactuals), we list them separately to emphasize their distinctive way of providing explanations.</p>
+<p>Global methods aim to provide an understanding of the model logic and complete reasoning for all predictions, based on a holistic view of its features, learned components, and structure. Several directions can be explored for global interpretability. For ease of understanding, we divide them into the following three subcategories:
+(i)
+Model extraction—extracting an interpretable model from the original black-box model, for example, distilling the original black-box model into an interpretable decision tree through model distillation <sup id="cite-frosst2017distilling"><a href="#ref-frosst2017distilling">[3]</a></sup> <sup id="cite-zhang2019interpreting"><a href="#ref-zhang2019interpreting">[4]</a></sup>, thereby using the rules in the decision tree to explain the original model;
+(ii)
+Feature-based methods—estimating feature importance or relevance, as shown in <a href="#xai_global_feature_importance">图15.1.3</a>.
+This type of explanation can provide explanations such as “credit overdue records are the most important feature relied upon by the model,” thereby helping to determine whether the model has bias. A typical global feature explanation method is SHAP (which can only output global explanations for tree models) <sup id="cite-lundberg2017unified"><a href="#ref-lundberg2017unified">[5]</a></sup>.
+(iii) Transparent model design—modifying or redesigning black-box models to improve their interpretability. This class of methods has also gradually become a research hotspot, with recent related work including ProtoPNet <sup id="cite-chen2019looks"><a href="#ref-chen2019looks">[6]</a></sup>, Interpretable CNN <sup id="cite-zhang2018interpretable"><a href="#ref-zhang2018interpretable">[7]</a></sup>, ProtoTree <sup id="cite-nauta2021neural"><a href="#ref-nauta2021neural">[8]</a></sup>, etc.</p>
+<p><a id="xai_global_feature_importance"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_global_feature_importance.png" alt="Global feature importance explanation"><span class="img-wrapper"><img src="../img/ch11/xai_global_feature_importance.png" alt="Global feature importance explanation"></span></label></p>
+<p align="center">图15.1.3 Global feature importance explanation</p>
+
+<p>Global explanations can provide an overall understanding of the black-box model. However, due to the high complexity of black-box models, in practice it is often difficult to obtain simple transparent models with behavior similar to the original model through model extraction/design, and it is often difficult to abstract unified feature importance across the entire dataset. Furthermore, global explanations also lack local fidelity when generating explanations for individual observations, as globally important features may not accurately explain decisions for individual samples. Therefore, local methods have become an important research direction in recent years. Local methods attempt to verify the reasonableness of model behavior for individual instances or a set of instances. When focusing only on local behavior, complex models can become simple, so even simple functions can provide highly credible explanations for local regions. Based on the process of obtaining explanations, local methods can be divided into two categories: local approximation and propagation-based methods.</p>
+<p>Local approximation generates understandable sub-models by simulating the behavior of the black-box model in the neighborhood of a sample. Compared to model extraction in global methods, local approximation only needs to focus on the neighborhood of the sample, making it easier to obtain sub-models that accurately describe local behavior. As shown in <a href="#xai_lime">图15.1.4</a>, by generating \(m\) data points \((x_i^\prime, f(x_i^\prime)), for\  i=1,2, …m\) (where \(f\) is the black-box model decision function) near the data point of interest \(x\), and linearly fitting these data points, we can obtain a linear model \(g=\sum_i^k w_ix^i\), where \(k\) represents the feature dimensionality of the data. The weights \(w_i\) in the linear model can then be used to represent the importance of the \(i\)-th feature of data \(x\) for model \(f\).</p>
+<p><a id="xai_lime"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_lime.png" alt="Example of local approximation method"><span class="img-wrapper"><img src="../img/ch11/xai_lime.png" alt="Example of local approximation method"></span></label></p>
+<p align="center">图15.1.4 Example of local approximation method</p>
+
+<p>Propagation-based methods typically propagate certain information to directly locate relevant features. These methods include backpropagation-based methods and forward propagation-based methods. Backpropagation-based methods attribute the output contributions to input features through gradient backpropagation. As shown in <a href="#xai_gradient_based">图15.1.5</a>, through gradient backpropagation, the gradient of the model output with respect to the input \(\frac{d(f(x))}{dx}\) is computed as the model explanation. Common gradient propagation-based methods include the basic Gradient method, GuidedBackprop <sup id="cite-zeiler2014visualizing"><a href="#ref-zeiler2014visualizing">[9]</a></sup>, GradCAM <sup id="cite-selvaraju2017grad"><a href="#ref-selvaraju2017grad">[10]</a></sup>, etc.
+Forward propagation-based methods quantify the correlation between outputs and features by perturbing features and observing the differences in forward inference outputs. Common methods in this category include RISE <sup id="cite-petsiuk2018rise"><a href="#ref-petsiuk2018rise">[11]</a></sup>, ScoreCAM <sup id="cite-wang2020score"><a href="#ref-wang2020score">[12]</a></sup>, etc.</p>
+<p><a id="xai_gradient_based"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_gradient_based.PNG" alt="Example of gradient-based method"><span class="img-wrapper"><img src="../img/ch11/xai_gradient_based.PNG" alt="Example of gradient-based method"></span></label></p>
+<p align="center">图15.1.5 Example of gradient-based method</p>
+
+<p><strong>Knowledge-Aware Explanations</strong></p>
+<p>Data-driven explanation methods can provide comprehensive explanations from datasets or the relationships between inputs and outputs. Building on this, external knowledge can also be leveraged to enrich explanations and make them more human-friendly. Laypersons without machine learning background knowledge may find it difficult to directly understand feature importance and the connections between features and targets. With external domain knowledge, we can not only generate explanations indicating feature importance, but also describe why certain features are more important than others. Therefore, knowledge-aware explainable AI methods have attracted increasing attention in recent years. Compared to raw datasets collected from multiple scenarios, knowledge is typically regarded as entities or relationships derived from human life experience or rigorous theoretical reasoning. Generally, knowledge can take many forms. It can reside in people’s minds, or be recorded in natural language, audio, or rules with strict logic. To systematically review these methods, we categorize them based on knowledge sources into two types: general knowledge methods and knowledge base (KB) methods. The former uses unstructured data as a knowledge source to construct explanations, while the latter uses structured knowledge bases as the foundation for building explanations.</p>
+<p>A relatively straightforward approach to providing knowledge is through human involvement. In fact, with the explosive growth of AI research and applications, the critical role of humans in AI systems has gradually become apparent. Such systems are called human-centered AI systems. <sup id="cite-riedl2019human"><a href="#ref-riedl2019human">[13]</a></sup> argue that human-centered AI can not only enable AI systems to better understand humans from a sociocultural perspective, but also enable AI systems to help humans understand themselves. To achieve these goals, AI needs to satisfy several properties including interpretability and transparency.</p>
+<p>Specifically, humans can play a role in AI systems by providing a considerable number of human-defined concepts. <sup id="cite-kim2018interpretability"><a href="#ref-kim2018interpretability">[14]</a></sup> uses Concept Activation Vectors (CAV) to test the importance of concepts in classification tasks (TCAV). A CAV is a vector perpendicular to the decision boundary between the activation and non-activation of a target concept of interest. This vector can be obtained as follows: input positive and negative samples of the target concept, perform linear regression to get the decision boundary, and thereby obtain the CAV. Taking the “stripes” concept for “zebra” as an example, the user first collects data samples containing “stripes” and data samples not containing “stripes,” feeds them into the network, obtains the activation values of intermediate layers, fits these based on positive and negative sample labels (\(1\) for containing the concept, \(0\) for not containing the concept) to the intermediate layer activation values, obtains the decision boundary, and the CAV is the perpendicular vector to this decision boundary.</p>
+<p>As shown in <a href="#xai_tcav">图15.1.6</a>, to compute the TCAV score, the “concept sensitivity” representing the importance of a concept at layer \(l\) for class \(k\) prediction can first be computed as the directional derivative \(S_{C,k,l}(\mathbf{x})\):
+\[\begin{split}
+S_{C,k,l}(\mathbf{x}) =  &amp;\lim_{\epsilon\rightarrow 0}\frac{h_{l,k}(f_{l}(\mathbf{x})+\epsilon \mathbf{v}^{l}_{C})-h_{l,k}(f_{l}(\mathbf{x}))}{\epsilon} \\ = &amp;\nabla h_{l,k}(f_{l}(\mathbf{x})) \cdot \mathbf{v}^{l}_{C}
+\end{split}
+\label{eq:TCAV_score}\]
+where \(f_{l}(\mathbf{x})\) is the activation at layer \(l\), \(h_{l,k}(\cdot)\) is the logit for class \(k\), \(\nabla h_{l,k}(\cdot)\) is the gradient of \(h_{l,k}\)
+w.r.t. the activations at layer \(l\). \(\mathbf{v}^{l}_{C}\) is the CAV for concept \(C\) that the user aims to explore. Positive (or negative) sensitivity indicates that concept \(C\) has a positive (or negative) influence on the activation of the input.</p>
+<p>Based on \(S_{C,k,l}\),
+TCAV can then be obtained by computing the ratio of samples of class \(k\) with positive \(S_{C,k,l}\)’s:</p>
+<p>\[\textbf{TCAV}_{Q_{C,k,l}}=\frac{\vert {\mathbf{x}\in X_{k}:S_{C,k,l}(\mathbf{x})&gt;0}\vert}{\vert X_{k}\vert}
+\label{eq:TCAV}\]
+Combined with the \(t\)-distribution hypothesis method, if \(\textbf{TCAV}_{Q_{C,k,l}}\) is greater than 0.5, it indicates that concept \(C\) has a significant influence on class \(k\).</p>
+<p><a id="xai_tcav"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_tcav.png" alt="TCAV pipeline (Image source: &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"><span class="img-wrapper"><img src="../img/ch11/xai_tcav.png" alt="TCAV pipeline (Image source: &lt;sup id=&quot;cite-2020tkde_li&quot;&gt;&lt;a href=&quot;#ref-2020tkde_li&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;)"></span></label></p>
+<p align="center">图15.1.6 TCAV pipeline (Image source: <sup id="cite-2020tkde_li"><a href="#ref-2020tkde_li">[1]</a></sup>)</p>
+
+<p>Human knowledge can be subjective, while KB can be objective. In current research, KB is usually modeled as a Knowledge Graph (KG). The following uses the explainable recommendation model TB-Net, supported by MindSpore, as an example to explain how to build an explainable model using knowledge graphs. Knowledge graphs can capture rich semantic relationships between entities. One of TB-Net’s objectives is to identify which pair of entities (i.e., item-item) has the most significant influence on the user, and through which relationships and key nodes they are connected. Unlike existing KG embedding-based methods (RippleNet uses KG completion methods to predict paths between users and items), TB-Net extracts real paths to achieve high accuracy and superior interpretability of recommendation results.</p>
+<p><a id="tb_net"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tb_net.png" alt="TB-Net network training framework"><span class="img-wrapper"><img src="../img/ch11/tb_net.png" alt="TB-Net network training framework"></span></label></p>
+<p align="center">图15.1.7 TB-Net network training framework</p>
+
+<p>The framework of TB-Net is shown in <a href="#tb_net">图15.1.7</a>: where \(i_c\) represents the candidate item to be recommended, \(h_n\) represents items that the user has interacted with in their history, \(r\) and \(e\) represent relations and entities in the knowledge graph, and their vectorized representations are concatenated to form relation matrices and entity matrices. First, TB-Net constructs a subgraph for user \(u\) by connecting \(i_c\) and \(h_n\) through shared attribute values. Each pair of \(i_c\) and \(h_n\) is connected by a path composed of relations and entities. Then, TB-Net’s bidirectional path propagation method propagates the computation of item, entity, and relation vectors from the left and right sides of the path to the middle node, computing the probability that the two directional flows converge at the same intermediate entity. This probability is used to represent the user’s preference for the intermediate entity and serves as the basis for explanations. Finally, TB-Net identifies key paths (i.e., key entities and relations) in the subgraph, outputting recommendation results and explanations with semantic-level detail.</p>
+<p>Taking game recommendation as a scenario, randomly recommending a new game to a user, as shown in <a href="#xai_kg_recommendation">xai_kg_recommendation</a>, where Half-Life, DOTA 2, Team Fortress 2, etc. are game titles. In the relation attributes, game.year represents the game release year, game.genres represents game genre, game.developer represents the game developer, and game.categories represents game categories. In the attribute nodes, MOBA stands for Multiplayer Online Battle Arena, Valve is the Valve Corporation, Action stands for action genre, Multi-player stands for multiplayer mode, Valve Anti-Cheat enabled represents the Valve Anti-Cheat system, Free means free-to-play, and Cross-Platform means cross-platform support. The games on the right are games the user has played according to their history. The correctly recommended game in the test data is “Team Fortress 2.”</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/xai_kg_recommendation.png" alt="Steam game recommendation explainability example (Games played by user: Half-Life, DOTA 2. Correctly recommended game: “Team Fortress 2.” Nodes with attribute information such as game.genres: Action, free-to-play; game.developer: Valve; game.categories: Multiplayer, MOBA.)"><span class="img-wrapper"><img src="../img/ch11/xai_kg_recommendation.png" alt="Steam game recommendation explainability example (Games played by user: Half-Life, DOTA 2. Correctly recommended game: “Team Fortress 2.” Nodes with attribute information such as game.genres: Action, free-to-play; game.developer: Valve; game.categories: Multiplayer, MOBA.)"></span></label></p>
+<p><a id="xai_kg_recommendation"></a></p>
+<p>In <a href="#xai_kg_recommendation">xai_kg_recommendation</a>, there are two highlighted relevance probabilities (38.6%, 21.1%), which are the probabilities of key paths being activated during the recommendation process as computed by the model. The red arrows highlight the key path from “Team Fortress 2” to the historical item “Half-Life.” This shows that TB-Net can recommend items to users through various relational connections and identify key paths as explanations. Therefore, the explanation for recommending “Team Fortress 2” to the user can be translated into a fixed narrative: “Team Fortress 2 is an action, multiplayer online, shooting video game developed by game company Valve. It is highly correlated with the game Half-Life that the user has played before.”</p>
+<h2 id="explainable-ai-systems-and-practice"><a class="header" href="#explainable-ai-systems-and-practice">Explainable AI Systems and Practice</a></h2>
+<p>As the demand for explainability grows rapidly across various domains, an increasing number of enterprises are integrating explainable AI toolkits to provide users with fast and convenient explainability solutions. The mainstream toolkits currently available in the industry include:</p>
+<ul>
+<li>TensorFlow team’s What-if Tool, which allows users to explore learning models without writing any code, enabling non-developers to participate in model tuning.</li>
+<li>IBM’s AIX360, which provides multiple explanation and measurement methods to evaluate model interpretability and trustworthiness across different dimensions.</li>
+<li>Facebook’s Torch team’s Captum, which offers multiple mainstream explanation methods for image and text scenarios.</li>
+<li>Microsoft’s InterpretML, which allows users to train different white-box models and explain black-box models.</li>
+<li>SeldonIO’s Alibi, which focuses on inspecting model internals and decision explanations, providing implementations of various white-box, black-box, single-sample, and global explanation methods.</li>
+<li>Huawei MindSpore’s XAI tool, which provides data tools, explanation methods, white-box models, and measurement methods, offering users explanations at different levels (local, global, semantic-level, etc.).</li>
+</ul>
+<p>This section uses the MindSpore XAI tool as an example to explain how to use explainable AI tools in practice to provide explanations for image classification models and tabular data classification models, thereby helping users understand models for further debugging and optimization.
+The architecture of the MindSpore XAI tool is shown below. It is an explainability tool built on the MindSpore deep learning framework and can be deployed on Ascend and GPU devices.
+<a id="mindspore_xai"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/mindspore_xai.png" alt="MindSpore XAI architecture diagram"><span class="img-wrapper"><img src="../img/ch11/mindspore_xai.png" alt="MindSpore XAI architecture diagram"></span></label></p>
+<p align="center">图15.1.8 MindSpore XAI architecture diagram</p>
+
+<p>To use MindSpore Explainable AI, readers first need to install the MindSpore XAI package via pip (supporting MindSpore 1.7 or above, GPU and Ascend processors, recommended to use with JupyterLab):</p>
+<pre><code class="language-bash">pip install mindspore-xai
+</code></pre>
+<p>In the MindSpore XAI <a href="https://www.mindspore.cn/xai/docs/zh-CN/r1.8/index.html">official tutorial</a>, detailed instructions on how to install and use the provided explanation methods are available for readers to consult.</p>
+<h3 id="mindspore-xai-tool-for-image-classification-explanation"><a class="header" href="#mindspore-xai-tool-for-image-classification-explanation">MindSpore XAI Tool for Image Classification Explanation</a></h3>
+<p>Below is a code demonstration example combining the saliency map visualization method GradCAM, which is supported in MindSpore XAI version 1.8. Readers can refer to the <a href="https://www.mindspore.cn/xai/docs/zh-CN/1.8/using_cv_explainers.html">official tutorial</a> to obtain the demo dataset, model, and complete script code.</p>
+<pre><code class="language-python">
+from mindspore_xai.explainer import GradCAM
+
+# Typically specify the last convolutional layer
+grad_cam = GradCAM(net, layer="layer4")
+
+# 3 is the ID for the 'boat' class
+saliency = grad_cam(boat_image, targets=3)
+</code></pre>
+<p>If the input is an image tensor of dimension \(1*3*224*224\), the returned saliency is a saliency map tensor of dimension \(1*1*224*224\). Below we present several examples demonstrating how to use explainable AI capabilities to better understand the prediction results of image classification models, identify the key feature regions used as the basis for classification predictions, and thereby judge the reasonableness and correctness of the classification results to accelerate model optimization.</p>
+<p><a id="correct_correct"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/correct_correct.png" alt="Example where the prediction result is correct and the key features relied upon are reasonable"><span class="img-wrapper"><img src="../img/ch11/correct_correct.png" alt="Example where the prediction result is correct and the key features relied upon are reasonable"></span></label></p>
+<p align="center">图15.1.9 Example where the prediction result is correct and the key features relied upon are reasonable</p>
+
+<p>In the figure above, the predicted label is “bicycle,” and the explanation result shows that the key features relied upon are on the wheels, indicating that this classification judgment basis is reasonable and the model can be preliminarily deemed trustworthy.</p>
+<p><a id="correct_wrong"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/correct_wrong.png" alt="Example where the prediction result is correct but the key features relied upon are unreasonable"><span class="img-wrapper"><img src="../img/ch11/correct_wrong.png" alt="Example where the prediction result is correct but the key features relied upon are unreasonable"></span></label></p>
+<p align="center">图15.1.10 Example where the prediction result is correct but the key features relied upon are unreasonable</p>
+
+<p>In the figure above, one of the predicted labels is “person,” which is correct. However, in the explanation, the highlighted region is on the horse’s head, so the key feature basis is likely incorrect, and the reliability of this model needs further verification.</p>
+<p><a id="wrong_wrong"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/wrong_wrong.png" alt="Example where the prediction result is incorrect and the key features relied upon are unreasonable"><span class="img-wrapper"><img src="../img/ch11/wrong_wrong.png" alt="Example where the prediction result is incorrect and the key features relied upon are unreasonable"></span></label></p>
+<p align="center">图15.1.11 Example where the prediction result is incorrect and the key features relied upon are unreasonable</p>
+
+<p>In the figure above, the predicted label is “boat,” but there is no boat in the original image. Through the explanation result on the right side of the figure, we can see that the model used the water surface as the key basis for classification to arrive at the prediction “boat”—this basis is incorrect. By analyzing the subset of the training dataset labeled “boat,” it was found that the vast majority of images labeled “boat” contain water surfaces, which likely caused the model to mistakenly learn water surfaces as a key feature for the “boat” class during training. Based on this finding, proportionally supplementing images with boats but without water surfaces can significantly reduce the probability of the model misjudging key features during learning.</p>
+<h3 id="mindspore-xai-tool-for-tabular-classification-explanation"><a class="header" href="#mindspore-xai-tool-for-tabular-classification-explanation">MindSpore XAI Tool for Tabular Classification Explanation</a></h3>
+<p>MindSpore XAI version 1.8 supports three commonly used tabular data model explanation methods in the industry: LIMETabular, SHAPKernel, and SHAPGradient.</p>
+<p>Using LIMETabular as an example, it provides a locally interpretable model to explain individual samples for a complex, hard-to-explain model:</p>
+<pre><code class="language-python">from mindspore_xai.explainer import LIMETabular
+
+# Convert features to feature statistics
+feature_stats = LIMETabular.to_feat_stats(data, feature_names=feature_names)
+
+# Initialize the explainer
+lime = LIMETabular(net, feature_stats, feature_names=feature_names, class_names=class_names)
+
+# Explain
+lime_outputs = lime(inputs, targets, show=True)
+</code></pre>
+<p>The explainer displays the decision boundary for classifying the sample as setosa. The returned lime_outputs is a structured data representing the decision boundary.
+Visualizing the explanation yields
+<a id="tabular_lime"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tabular.png" alt="LIME explanation result"><span class="img-wrapper"><img src="../img/ch11/tabular.png" alt="LIME explanation result"></span></label></p>
+<p align="center">图15.1.12 LIME explanation result</p>
+
+The above explanation shows that for the setosa classification decision, the most important feature is petal length.
+<h3 id="mindspore-xai-tool-white-box-models"><a class="header" href="#mindspore-xai-tool-white-box-models">MindSpore XAI Tool: White-Box Models</a></h3>
+<p>In addition to post-hoc explanation methods for black-box models, the XAI tool also provides industry-leading white-box models, enabling users to train on these white-box models so that during inference the model can simultaneously output both inference results and explanations. Taking TB-Net as an example (refer to <a href="#tb_net">图15.1.7</a> and its <a href="https://e.gitee.com/mind_spore/repos/mindspore/xai/tree/master/models/whitebox/tbnet">official tutorial</a> for usage), this method has been deployed commercially, providing millions of customers with semantic-level explainable financial product recommendation services. TB-Net leverages knowledge graphs to model the attributes of financial products and customers’ historical data. In the graph, financial products with common attribute values are connected. The candidate product and the customer’s historically purchased or browsed products are connected through common attribute values into paths, forming the customer’s subgraph. Then, TB-Net performs bidirectional propagation computation on the paths in the graph to identify key products and key paths as the basis for recommendations and explanations.</p>
+<p>An example of explainable recommendation is as follows: in the historical data, the customer has recently purchased or browsed financial products A, B, N, etc. Through TB-Net’s bidirectional path propagation computation, it is found that the path (Product P, moderate-to-high annualized return, Product A) and the path (Product P, moderate risk level, Product N) have high weights, making them key paths. At this point, TB-Net outputs the following explanation: “Financial product P is recommended to this customer because its moderate-to-high annualized return and moderate risk level are consistent with financial products A and B that the customer has recently purchased or browsed.”</p>
+<p><a id="tbnet_finance"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch11/tbnet_finance.png" alt="TB-Net application in financial wealth management scenario"><span class="img-wrapper"><img src="../img/ch11/tbnet_finance.png" alt="TB-Net application in financial wealth management scenario"></span></label></p>
+<p align="center">图15.1.13 TB-Net application in financial wealth management scenario</p>
+
+<p>In addition to the explanation methods introduced above, MindSpore XAI also provides a series of measurement methods for evaluating the quality of different explanation methods, and will continue to add white-box models with built-in explanations. Users can directly adopt mature model architectures to quickly build their own explainable AI systems.</p>
+<h2 id="future-of-explainable-ai"><a class="header" href="#future-of-explainable-ai">Future of Explainable AI</a></h2>
+<p>To further advance research in explainable AI, we summarize several noteworthy research directions here.</p>
+<p>First, knowledge-aware XAI still has significant room for research expansion. However, there are still many open questions regarding how to effectively leverage external knowledge. One issue is how to acquire or retrieve useful knowledge from such a vast knowledge space. For example, Wikipedia contains knowledge related to various fields, but if the goal is to solve a medical image classification problem, most Wikipedia entries are irrelevant or noisy, making it difficult to accurately find appropriate knowledge to incorporate into the XAI system.</p>
+<p>Furthermore, the deployment of XAI systems also urgently needs a more standardized and unified evaluation framework. To build such a standardized and unified evaluation framework, we may need to simultaneously leverage different metrics that complement each other. Different metrics may be applicable to different tasks and users. A unified evaluation framework should have corresponding flexibility.</p>
+<p>Finally, we believe that interdisciplinary collaboration will be beneficial. The development of XAI requires not only computer scientists to develop advanced algorithms, but also physicists, biologists, and cognitive scientists to unravel the mysteries of human cognition, as well as domain experts to contribute their domain knowledge.</p>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<p>:bibliography:<code>../references/explainable.bib</code></p>
+<hr>
+<h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
+<ol>
+<li id="ref-2020tkde_li">Li, Xiao-Hui and Cao, Caleb Chen and Shi, Yuhan and Bai, Wei and Gao, Han and Qiu, Luyu and Wang, Cong and Gao, Yuanyuan and Zhang, Shenjia and Xue, Xun and Chen, Lei. <em>A Survey of Data-driven and Knowledge-aware eXplainable AI</em>. IEEE Transactions on Knowledge and Data Engineering. 2020. <a href="#cite-2020tkde_li">↩</a></li>
+
+<li id="ref-erhan2009visualizing">Erhan, Dumitru and Bengio, Yoshua and Courville, Aaron and Vincent, Pascal. <em>Visualizing higher-layer features of a deep network</em>. University of Montreal. 2009. <a href="#cite-erhan2009visualizing">↩</a></li>
+
+<li id="ref-frosst2017distilling">Frosst, Nicholas and Hinton, Geoffrey. <em>Distilling a neural network into a soft decision tree</em>. arXiv preprint arXiv:1711.09784. 2017. <a href="#cite-frosst2017distilling">↩</a></li>
+
+<li id="ref-zhang2019interpreting">Zhang, Quanshi and Yang, Yu and Ma, Haotian and Wu, Ying Nian. <em>Interpreting cnns via decision trees</em>. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2019. <a href="#cite-zhang2019interpreting">↩</a></li>
+
+<li id="ref-lundberg2017unified">Lundberg, Scott M and Lee, Su-In. <em>A unified approach to interpreting model predictions</em>. Advances in neural information processing systems. 2017. <a href="#cite-lundberg2017unified">↩</a></li>
+
+<li id="ref-chen2019looks">Chen, Chaofan and Li, Oscar and Tao, Daniel and Barnett, Alina and Rudin, Cynthia and Su, Jonathan K. <em>This looks like that: deep learning for interpretable image recognition</em>. Advances in neural information processing systems. 2019. <a href="#cite-chen2019looks">↩</a></li>
+
+<li id="ref-zhang2018interpretable">Zhang, Quanshi and Wu, Ying Nian and Zhu, Song-Chun. <em>Interpretable convolutional neural networks</em>. Proceedings of the IEEE conference on computer vision and pattern recognition. 2018. <a href="#cite-zhang2018interpretable">↩</a></li>
+
+<li id="ref-nauta2021neural">Nauta, Meike and van Bree, Ron and Seifert, Christin. <em>Neural prototype trees for interpretable fine-grained image recognition</em>. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021. <a href="#cite-nauta2021neural">↩</a></li>
+
+<li id="ref-zeiler2014visualizing">Zeiler, Matthew D and Fergus, Rob. <em>Visualizing and understanding convolutional networks</em>. European conference on computer vision. 2014. <a href="#cite-zeiler2014visualizing">↩</a></li>
+
+<li id="ref-selvaraju2017grad">Selvaraju, Ramprasaath R and Cogswell, Michael and Das, Abhishek and Vedantam, Ramakrishna and Parikh, Devi and Batra, Dhruv. <em>Grad-cam: Visual explanations from deep networks via gradient-based localization</em>. Proceedings of the IEEE international conference on computer vision. 2017. <a href="#cite-selvaraju2017grad">↩</a></li>
+
+<li id="ref-petsiuk2018rise">Petsiuk, Vitali and Das, Abir and Saenko, Kate. <em>Rise: Randomized input sampling for explanation of black-box models</em>. arXiv preprint arXiv:1806.07421. 2018. <a href="#cite-petsiuk2018rise">↩</a></li>
+
+<li id="ref-wang2020score">Wang, Haofan and Wang, Zifan and Du, Mengnan and Yang, Fan and Zhang, Zijian and Ding, Sirui and Mardziel, Piotr and Hu, Xia. <em>Score-CAM: Score-weighted visual explanations for convolutional neural networks</em>. Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops. 2020. <a href="#cite-wang2020score">↩</a></li>
+
+<li id="ref-riedl2019human">Riedl, Mark O.. <em>Human-centered artificial intelligence and machine learning</em>. Human Behavior and Emerging Technologies. 2019. <a href="#cite-riedl2019human">↩</a></li>
+
+<li id="ref-kim2018interpretability">Been Kim and Martin Wattenberg and Justin Gilmer and Carrie Cai and James Wexler and Fernanda Viegas and Rory Sayres. <em>Interpretability Beyond Feature Attribution: Quantitative Testing with Concept Activation Vectors (TCAV)</em>. 2018. <a href="#cite-kim2018interpretability">↩</a></li>
+
+</ol>
+
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_explainable_AI/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_rl_sys/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_explainable_AI/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_rl_sys/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

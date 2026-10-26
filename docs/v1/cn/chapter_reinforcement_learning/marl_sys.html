@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,7 +197,7 @@
 <p>上述的简单例子只是为了帮助读者理解强化学习在多智能体问题里的角色，而如今前沿的多智能体强化学习算法已经能够解决相当大规模的复杂多智能体问题，如星际争霸（StarCraft II）、Dota 2等游戏，已相继被DeepMind、OpenAI等公司所研究的智能体AlphaStar <sup id="cite-vinyals2019grandmaster"><a href="#ref-vinyals2019grandmaster">[1]</a></sup>和OpenAI Five <sup id="cite-berner2019dota"><a href="#ref-berner2019dota">[2]</a></sup>攻克，达到超越人类顶级玩家的水平。国内公司如腾讯、启元世界等也提出了星际争霸游戏的多智能体强化学习解决方案TStarBot-X <sup id="cite-han2020tstarbot"><a href="#ref-han2020tstarbot">[3]</a></sup>和SCC <sup id="cite-wang2021scc"><a href="#ref-wang2021scc">[4]</a></sup>。对于这类高度复杂的游戏环境，整个训练过程对分布式计算系统的要求更高，而整个训练过程可能需要分为多个阶段。以 AlphaStar 为例，它训练的智能体采用了监督学习与强化学习结合的方式。在训练早期，往往先采用大量的人类专业玩家标定数据进行有监督的学习，从而使智能体快速获得较好的能力，随后，训练会切换到强化学习过程，使用前面介绍的虚构自学习的算法进行训练，即自我博弈。为了得到一个表现最好的智能体，算法需要充分探索整个策略空间，从而在训练中不止对一个策略进行训练，而是对一个策略集群（League）进行训练，并通过类似演化算法的方式对策略集群进行筛选，得到大量策略中表现最好的策略。如 <a href="#ch12/ch12-marl_train">图14.4.1</a>所示，在训练过程中每个智能体往往需要
 和其他智能体以及剥削者（Exploiter）进行博弈，剥削者是专门针对某一个智能体策略的最佳对手策略，与之对抗可以提高策略自身的防剥削能力。通过对大量智能体策略进行训练并筛选的这类方法称为集群式训练（Population-based Training/League Training），是一种通过分布式训练提高策略种群多样性进而提升模型表现的方式。可见，在实践中这类方法自然需要分布式系统支持，来实现多个智能体的训练和相互博弈，这很好地体现了多智能体强化学习对分布式计算的依赖性。</p>
 <p><a id="ch12/ch12-marl_train"></a></p>
-<p><img src="../img/ch12/ch12-marl-train.svg" alt="集群式多智能体强化学习训练示意图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch12/ch12-marl-train.svg" alt="集群式多智能体强化学习训练示意图"><span class="img-wrapper"><img src="../img/ch12/ch12-marl-train.svg" alt="集群式多智能体强化学习训练示意图"></span></label></p>
 <p align="center">图14.4.1 集群式多智能体强化学习训练示意图</p>
 
 <p>我们将对构建多智能体强化学习系统中的困难分为以下几点进行讨论：</p>
@@ -231,7 +231,7 @@
 </ul>
 <p>如 <a href="#ch12/ch12_marl_sys">图14.4.2</a>所示，为一个分布式多智能体强化学习系统。图中的两个智能体可以类似扩展到多个智能体。每个智能体包含多个行动者（Actor）用于采样和学习者（Learner）用于更新模型，这些行动者和学习者可以并行处理来加速训练过程，具体方法可以参考单智能体分布式系统章节介绍的A3C和IMPALA架构。训练好的模型被统一存储和管理在模型存储器中，是否对各个智能体的模型统一存储取决于各个智能体是否对称——如果不对称，需要将模型分别存储。存储器中的模型可以被模型评估器用来打分，从而为下一步模型选择器做准备。模型选择器根据模型评估器或者元学习者（如PSRO算法 <sup id="cite-lanctot2017unified"><a href="#ref-lanctot2017unified">[8]</a></sup>）以及均衡求解器等进行模型选择，并将选出的模型分发到各个智能体的行动者上。这一处理过程，我们称为联盟型管理（League-based Management）。对于与环境交互的部分，分布式系统可以通过一个推理服务器（Inference Server）对各个并行进程中的模型进行集中推理，将基于观察量（Observation）的动作（Action）发送给环境。环境部分也可以是并行的，对推理服务器传递来的动作进行并行处理后，返回观察量。推理服务器将采集到的交互轨迹发送给各个智能体进行模型训练。以上为一个分布式多智能体系统的例子，实际中根据不同的游戏类型和算法结构可能会有不同的设计。</p>
 <p><a id="ch12/ch12_marl_sys"></a></p>
-<p><img src="../img/ch12/ch12-marl-sys.png" alt="分布式多智能体强化学习系统"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch12/ch12-marl-sys.png" alt="分布式多智能体强化学习系统"><span class="img-wrapper"><img src="../img/ch12/ch12-marl-sys.png" alt="分布式多智能体强化学习系统"></span></label></p>
 <p align="center">图14.4.2 分布式多智能体强化学习系统</p>
 
 <hr>
@@ -300,11 +300,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

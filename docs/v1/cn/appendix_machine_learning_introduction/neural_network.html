@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -196,7 +196,7 @@
                         <h2 id="神经网络"><a class="header" href="#神经网络">神经网络</a></h2>
 <h3 id="感知器"><a class="header" href="#感知器">感知器</a></h3>
 <p><a id="single_neuron"></a></p>
-<p><img src="../img/ch_basic/single_neuron2.png" alt="有三个输入和单一输出的神经元"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/single_neuron2.png" alt="有三个输入和单一输出的神经元"><span class="img-wrapper"><img src="../img/ch_basic/single_neuron2.png" alt="有三个输入和单一输出的神经元"></span></label></p>
 <p align="center">图17.1.1 有三个输入和单一输出的神经元</p>
 
 <p><a href="#single_neuron">图17.1.1</a>是一个神经元的例子，输入数据\(x\)根据连线上的权重\(w\)做加权求和得到输出\(z\)，我们把这样的模型叫作<strong>感知器</strong>（Perceptron）。
@@ -229,10 +229,10 @@ y =
 为了解决这个问题，可以在神经元上加入一个<strong>偏置</strong>（Bias）。 <a href="#single_neuron_bias2">图17.1.2</a>
 是一个有偏置\(b\)的神经元模型，可以用 (1)表达：
 \[z = w_{1}x_{1}+ w_{2}x_{2}+ w_{3}x_{3} + b\tag{1}\label{singleneuron_bias}\]</p>
-<p><img src="../img/ch_basic/single_neuron_decision_boundary2.png" alt="两个输入（左）和三个输入（右）时的决策边界。不同形状的点代表不同类别的数据，需要找到&#92;(z=0&#92;)作为决策边界来把不同数据点分开。两个输入时决策边界是一直线，三个输入时决策边界是一个平面，高维度输入时决策边界称为超平面（Hyperplane）。 左： &#92;(z=w_{1}x_{1}+w_{2}x_{2}+b&#92;)。右：&#92;(z=w_{1}x_{1}+w_{2}x_{2}+w_{3}x_{3}+b&#92;)。没有偏置时，决策边界必然经过原点，所以不能分开不同类别的数据样本。"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/single_neuron_decision_boundary2.png" alt="两个输入（左）和三个输入（右）时的决策边界。不同形状的点代表不同类别的数据，需要找到&#92;(z=0&#92;)作为决策边界来把不同数据点分开。两个输入时决策边界是一直线，三个输入时决策边界是一个平面，高维度输入时决策边界称为超平面（Hyperplane）。 左： &#92;(z=w_{1}x_{1}+w_{2}x_{2}+b&#92;)。右：&#92;(z=w_{1}x_{1}+w_{2}x_{2}+w_{3}x_{3}+b&#92;)。没有偏置时，决策边界必然经过原点，所以不能分开不同类别的数据样本。"><span class="img-wrapper"><img src="../img/ch_basic/single_neuron_decision_boundary2.png" alt="两个输入（左）和三个输入（右）时的决策边界。不同形状的点代表不同类别的数据，需要找到&#92;(z=0&#92;)作为决策边界来把不同数据点分开。两个输入时决策边界是一直线，三个输入时决策边界是一个平面，高维度输入时决策边界称为超平面（Hyperplane）。 左： &#92;(z=w_{1}x_{1}+w_{2}x_{2}+b&#92;)。右：&#92;(z=w_{1}x_{1}+w_{2}x_{2}+w_{3}x_{3}+b&#92;)。没有偏置时，决策边界必然经过原点，所以不能分开不同类别的数据样本。"></span></label></p>
 <p><a id="single_neuron_decision_boundary2"></a></p>
 <p><a id="single_neuron_bias2"></a></p>
-<p><img src="../img/ch_basic/single_neuron_bias2.png" alt="一个有偏置的单层神经网络"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/single_neuron_bias2.png" alt="一个有偏置的单层神经网络"><span class="img-wrapper"><img src="../img/ch_basic/single_neuron_bias2.png" alt="一个有偏置的单层神经网络"></span></label></p>
 <p align="center">图17.1.2 一个有偏置的单层神经网络</p>
 
 <p>有了偏置以后，决策边界（直线、平面或超平面）可以不经过坐标原点，因此能更好地分类样本。
@@ -248,7 +248,7 @@ Regression）。</p>
 <p>\[a = f({z}) = \frac{1}{1+{\rm e}^{-{z}}}\tag{2}\label{sigmoid}\]</p>
 <h3 id="多个神经元"><a class="header" href="#多个神经元">多个神经元</a></h3>
 <p><a id="two_neurons2"></a></p>
-<p><img src="../img/ch_basic/two_neurons2.png" alt="多个神经元"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/two_neurons2.png" alt="多个神经元"><span class="img-wrapper"><img src="../img/ch_basic/two_neurons2.png" alt="多个神经元"></span></label></p>
 <p align="center">图17.1.3 多个神经元</p>
 
 <p>上述网络只有一个输出，若多个神经元在一起就可以有多个输出。 <a href="#two_neurons2">图17.1.3</a>是有两个输出的网络，每个输出都和所有输入相连，所以也被称<strong>全连接层</strong>（Fully-Connected(FC) Layer），
@@ -279,7 +279,7 @@ b_1 \\ b_2
 可用 (4)的<strong>Softmax</strong> 函数来实现，\(K\)为输出的个数：</p>
 <p>\[f({z})_{i} = \frac{{\rm e}^{z_{i}}}{\sum_{k=1}^{K}{\rm e}^{z_{k}}}\tag{4}\label{e_softmax}\]</p>
 <h3 id="多层感知器"><a class="header" href="#多层感知器">多层感知器</a></h3>
-<p><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。&#92;(a^l_i&#92;)表示神经元输出&#92;(z&#92;)经过激活函数后的值，其中&#92;(l&#92;)代表层的序号（&#92;(L&#92;)代表输出层），&#92;(i&#92;)代表输出的序号"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。&#92;(a^l_i&#92;)表示神经元输出&#92;(z&#92;)经过激活函数后的值，其中&#92;(l&#92;)代表层的序号（&#92;(L&#92;)代表输出层），&#92;(i&#92;)代表输出的序号"><span class="img-wrapper"><img src="../img/ch_basic/mlp2.png" alt="多层感知器例子。&#92;(a^l_i&#92;)表示神经元输出&#92;(z&#92;)经过激活函数后的值，其中&#92;(l&#92;)代表层的序号（&#92;(L&#92;)代表输出层），&#92;(i&#92;)代表输出的序号"></span></label></p>
 <p><strong>多层感知器</strong>（Multi-Layer
 Perceptron，MLP） <sup id="cite-rosenblatt1958perceptron"><a href="#ref-rosenblatt1958perceptron">[1]</a></sup>通过叠加多层全连接层来提升网络的表达能力。相比单层网络，多层感知器有很多中间层的输出并不暴露给最终输出，这些层被称为<strong>隐含层</strong>（Hidden
 Layers）。这个例子中的网络可以通过下方的串联式矩阵运算实现，其中\(W^l\)和\(b^l\)代表不同层的权重矩阵和偏置，\(l\)代表层号，\(L\)代表输出层。</p>
@@ -287,7 +287,7 @@ Layers）。这个例子中的网络可以通过下方的串联式矩阵运算�
 <p>在深度学习时代，网络模型基本都是多层的神经网络层连接起来的，输入数据经过多层的特征提取，可以学到不同抽象层级的<strong>特征向量</strong>（Feature
 Vector）。下面我们介绍一下其他常用的神经网络层。</p>
 <h3 id="卷积网络"><a class="header" href="#卷积网络">卷积网络</a></h3>
-<p><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为&#92;(4 &#92;times 4 &#92;times 3&#92;)（高 &#92;(&#92;times&#92;) 宽 &#92;(&#92;times&#92;) 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为&#92;(3 &#92;times 3 &#92;times 3 &#92;times 1&#92;)（高 &#92;(&#92;times&#92;) 宽&#92;(&#92;times&#92;)输入通道数&#92;(&#92;times&#92;)输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为&#92;(4 &#92;times 4 &#92;times 3&#92;)（高 &#92;(&#92;times&#92;) 宽 &#92;(&#92;times&#92;) 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为&#92;(3 &#92;times 3 &#92;times 3 &#92;times 1&#92;)（高 &#92;(&#92;times&#92;) 宽&#92;(&#92;times&#92;)输入通道数&#92;(&#92;times&#92;)输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"><span class="img-wrapper"><img src="../img/ch_basic/conv_computation_v4.png" alt="卷积运算例子。 输入一个三通道的数据，其大小为&#92;(4 &#92;times 4 &#92;times 3&#92;)（高 &#92;(&#92;times&#92;) 宽 &#92;(&#92;times&#92;) 通道数），为了对各个通道做卷积，卷积核也必须有三个通道，一个卷积核的大小为&#92;(3 &#92;times 3 &#92;times 3 &#92;times 1&#92;)（高 &#92;(&#92;times&#92;) 宽&#92;(&#92;times&#92;)输入通道数&#92;(&#92;times&#92;)输出通道数（卷积核的个数））。有多少个卷积核就有多少个输出的特征图（Feature Map），在这个例子中因为只有一个卷积核，所以输出的通道数为1，高宽为2。与此同时，我们把这种高维度的输入数据称为张量（Tensor），比如RGB图像、视频、前一层卷积层的输出等等。"></span></label></p>
 <p><a id="conv_computation_v4"></a></p>
 <p><strong>卷积神经网络</strong> （Convolutional Neural
 Network，CNN） <sup id="cite-lecun1989backpropagation"><a href="#ref-lecun1989backpropagation">[2]</a></sup>由多层<strong>卷积层</strong>（Convolutional
@@ -299,7 +299,7 @@ Padding）操作。 <a href="#conv_computation_v4">conv_computation_v4</a>例子
 <p>为了对输入的图像数据做特征提取，卷积核数量往往比输入数据的通道数据要多，这样的话输出数据的数值会很多，计算量变大。然而图像数据中相邻像素的特征往往相似，所以我们可以对相邻的输出特征进行聚合操作。<strong>池化层</strong>就是为了实现这个目的，我们通常有两种池化方法最大值池化（Max
 Pooling）和平均值池化（Mean
 Pooling）。如 <a href="#pooling_v3">pooling_v3</a>所示，假设池化的卷积核高宽为\(2\times2\)，输入\(4\times4\)的数据，步长为2（步长为1时，则输出等于输入），则输出为\(2\times2\)。</p>
-<p><img src="../img/ch_basic/pooling_v3.png" alt="&#92;(2 &#92;times 2&#92;) 最大值池化和平均值池化的例子，它们的步长为2，输入大小是&#92;(4 &#92;times 4&#92;)"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/pooling_v3.png" alt="&#92;(2 &#92;times 2&#92;) 最大值池化和平均值池化的例子，它们的步长为2，输入大小是&#92;(4 &#92;times 4&#92;)"><span class="img-wrapper"><img src="../img/ch_basic/pooling_v3.png" alt="&#92;(2 &#92;times 2&#92;) 最大值池化和平均值池化的例子，它们的步长为2，输入大小是&#92;(4 &#92;times 4&#92;)"></span></label></p>
 <p><a id="pooling_v3"></a></p>
 <p>卷积层和全连接层都是很常用的，但是卷积层在输入是高维度的图像时，需要的参数量远远小于全连接层。卷积层的运算和全连接层是类似的，前者基于高维度张量运算，后者基于二维矩阵运算。</p>
 <h3 id="时序模型"><a class="header" href="#时序模型">时序模型</a></h3>
@@ -309,7 +309,7 @@ Neural Networks，RNN） <sup id="cite-rumelhart1986learning"><a href="#ref-rume
 State）来存储过去输入的信息。具体来说，对输入模型的每个数据\(x\)，根据公式 (5)，循环单元会反复计算新的隐状态，用于记录当前和过去输入的信息。而新的隐状态会被用到下一单元的计算中。</p>
 <p>\[{h}_t = {W}[{x}_t; {h}_{t-1}] + {b}\tag{5}\label{aligned}\]</p>
 <p><a id="rnn_simple_cell2"></a></p>
-<p><img src="../img/ch_basic/rnn_simple_cell2.png" alt="朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态&#92;({h}_{t-1}&#92;)和当前的输入&#92;({x}_t&#92;)，求得当前的隐状态&#92;({h}_t&#92;)。"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch_basic/rnn_simple_cell2.png" alt="朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态&#92;({h}_{t-1}&#92;)和当前的输入&#92;({x}_t&#92;)，求得当前的隐状态&#92;({h}_t&#92;)。"><span class="img-wrapper"><img src="../img/ch_basic/rnn_simple_cell2.png" alt="朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态&#92;({h}_{t-1}&#92;)和当前的输入&#92;({x}_t&#92;)，求得当前的隐状态&#92;({h}_t&#92;)。"></span></label></p>
 <p align="center">图17.1.4 朴素循环神经网络。 在每一步的计算中，循环单元通过过去时刻的隐状态\\({h}\_{t-1}\\)和当前的输入\\({x}\_t\\)，求得当前的隐状态\\({h}\_t\\)。</p>
 
 <p>然而这种简单的朴素循环神经网络有严重的信息遗忘问题。比如说我们的输入是“我是中国人，我的母语是___“，隐状态记住了“中国人“的信息，使得网络最后可以预测出“中文“一词；但是如果句子很长的时候，隐状态可能记不住太久之前的信息了，比如说“我是中国人，我去英国读书，后来在法国工作，我的母语是___”，这时候在最后的隐状态中关于“中国人“的信息可能会被因为多次的更新而遗忘了。
@@ -379,11 +379,11 @@ Short-Term Memory，LSTM） <sup id="cite-Hochreiter1997lstm"><a href="#ref-Hoch
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

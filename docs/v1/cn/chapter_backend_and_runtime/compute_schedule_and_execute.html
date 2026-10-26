@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -215,19 +215,19 @@ print(c)
 <p>上述脚本将所有的计算逻辑定义在Computation类的construct方法中，由于在脚本开头的context中预先设置了单算子执行模式，construct中的计算将被Python的运行时逐行调用执行，同时可以在代码中的任意位置添加print命令以便打印中间的计算结果。</p>
 <p>单算子执行的调用链路如 <a href="#single_op_exec">图6.5.1</a>所示，算子在Python侧被触发执行后，会经过机器学习框架初始化，其中需要确定包括算子的精度，输入与输出的类型和大小以及对应的硬件设备等信息，接着框架会为该算子分配计算所需的内存，最后交给具体的硬件计算设备完成计算的执行。</p>
 <p><a id="single_op_exec"></a></p>
-<p><img src="../img/ch05/single_op_exec.PNG" alt="单算子执行"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/single_op_exec.PNG" alt="单算子执行"><span class="img-wrapper"><img src="../img/ch05/single_op_exec.PNG" alt="单算子执行"></span></label></p>
 <p align="center">图6.5.1 单算子执行</p>
 
 <p>单算子调度方式的好处在于其灵活性，由于算子直接通过Python运行时调度，一方面可以表达任意复杂的计算逻辑，尤其是在需要复杂控制流以及需要Python原生数据结构支持来实现复杂算法的场景；另一方面单算子调度对于程序正确性的调试非常便利，开发人员可以在代码执行过程中打印任意需要调试的变量；最后一点是通过Python运行时驱动算子的方式，可以在计算中与Python庞大而丰富的生态库协同完成计算任务。</p>
 <h3 id="计算图调度"><a class="header" href="#计算图调度">计算图调度</a></h3>
 <p>虽然单算子调度具有如上所述的优点，其缺点也很明显。一方面是难于进行计算性能的优化，原因是由于缺乏计算图的全局信息，单算子执行时无法根据上下文完成算子融合，代数化简等优化；另一方面由于缺乏计算的拓扑关系，整个计算只能串行调度执行，即无法通过运行时完成并行计算。例如上述示例代码的计算逻辑可以表达为 <a href="#graph_exec">图6.5.2</a>所示。由该计算图可以看出，其中乘法和减法之间并没有依赖关系，因此这两个计算可以并行执行，而这样的并行执行信息只有将计算表达为计算图后才能完成分析，这也是计算图调度相对于单算子调度的优势之一。</p>
 <p><a id="graph_exec"></a></p>
-<p><img src="../img/ch05/graph_exec.png" alt="计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec.png" alt="计算图"><span class="img-wrapper"><img src="../img/ch05/graph_exec.png" alt="计算图"></span></label></p>
 <p align="center">图6.5.2 计算图</p>
 
 <p>下面我们开始介绍计算图的调度方式，在一个典型的异构计算环境中，主要存在CPU、GPU以及NPU等多种计算设备，因此一张计算图可以由运行在不同设备上的算子组成为异构计算图。 <a href="#computation_graph">图6.5.3</a>展示了一个典型的由异构硬件共同参与的计算图。</p>
 <p><a id="computation_graph"></a></p>
-<p><img src="../img/ch05/computation_graph.png" alt="异构硬件计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/computation_graph.png" alt="异构硬件计算图"><span class="img-wrapper"><img src="../img/ch05/computation_graph.png" alt="异构硬件计算图"></span></label></p>
 <p align="center">图6.5.3 异构硬件计算图</p>
 
 <p>所述计算图由如下几类异构硬件对应的算子组成：</p>
@@ -305,12 +305,12 @@ x = x - y
 </code></pre>
 <p>这段简单的计算逻辑翻译到计算图上可以表示为 <a href="#side_effect_1">图6.5.4</a>所示。</p>
 <p><a id="side_effect_1"></a></p>
-<p><img src="../img/ch05/side_effect_1.png" alt="并发算子执行"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/side_effect_1.png" alt="并发算子执行"><span class="img-wrapper"><img src="../img/ch05/side_effect_1.png" alt="并发算子执行"></span></label></p>
 <p align="center">图6.5.4 并发算子执行</p>
 
 <p>代码中所示三行计算之间并没有依赖关系，因此这三个算子在计算图的逻辑上可以被并发执行，然而根据代码的语义，显而易见是需要确保程序能够被顺序执行，这里引入的问题被称为副作用，副作用是指修改了在函数外部定义的状态变量的行为。由于副作用的引入而导致了错误并发关系的发生，一种解决方案是在计算图编译阶段通过添加算子间的依赖，将并发执行逻辑转换为顺序执行逻辑，转换后的计算图如 <a href="#side_effect_2">图6.5.5</a>所示。</p>
 <p><a id="side_effect_2"></a></p>
-<p><img src="../img/ch05/side_effect_2.png" alt="消除副作用"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/side_effect_2.png" alt="消除副作用"><span class="img-wrapper"><img src="../img/ch05/side_effect_2.png" alt="消除副作用"></span></label></p>
 <p align="center">图6.5.5 消除副作用</p>
 
 <p>图中虚线箭头表达了算子之间的依赖关系，添加依赖关系后，算子会按照Assign_1、Assign_2、Sub_1的顺序串行执行，与代码原本的语义保持一致。</p>
@@ -318,16 +318,16 @@ x = x - y
 <p>如上所述，交互式执行模式下，框架的运行时根据计算图中算子的依赖关系，按照某种执行序（例如广度优先序）逐个将算子下发到硬件上执行。为了助于理解和对比，先引入非异构计算图（计算图中的算子都是在同一类设备上）的执行方式，异构计算图的执行是基于非异构计算图基础之上的。</p>
 <p>1、非异构计算图的执行方式</p>
 <p><a id="graph_exec_1"></a></p>
-<p><img src="../img/ch05/graph_exec_1.png" alt="非异构计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_1.png" alt="非异构计算图"><span class="img-wrapper"><img src="../img/ch05/graph_exec_1.png" alt="非异构计算图"></span></label></p>
 <p align="center">图6.5.6 非异构计算图</p>
 
 <p>如 <a href="#graph_exec_1">图6.5.6</a>是一张非异构计算图，计算图上全部Kernel均为GPU算子，执行方式一般分为串行执行和并行执行：</p>
 <p><a id="graph_exec_2"></a></p>
-<p><img src="../img/ch05/graph_exec_2.png" alt="串行执行"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_2.png" alt="串行执行"><span class="img-wrapper"><img src="../img/ch05/graph_exec_2.png" alt="串行执行"></span></label></p>
 <p align="center">图6.5.7 串行执行</p>
 
 <p><a id="graph_exec_3"></a></p>
-<p><img src="../img/ch05/graph_exec_3.png" alt="并行执行"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_3.png" alt="并行执行"><span class="img-wrapper"><img src="../img/ch05/graph_exec_3.png" alt="并行执行"></span></label></p>
 <p align="center">图6.5.8 并行执行</p>
 
 <ul>
@@ -359,13 +359,13 @@ x = x - y
 </div>
 <p>2、异构计算图的执行方式</p>
 <p><a id="graph_exec_4"></a></p>
-<p><img src="../img/ch05/graph_exec_4.png" alt="异构计算图"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_4.png" alt="异构计算图"><span class="img-wrapper"><img src="../img/ch05/graph_exec_4.png" alt="异构计算图"></span></label></p>
 <p align="center">图6.5.9 异构计算图</p>
 
 <p>如 <a href="#graph_exec_4">图6.5.9</a>是一张异构计算图，其中Kernel_1、Kernel_2、Kernel_5、Kernel_9为CPU算子，Kernel_6为python算子（执行也是在CPU上），Kernel_3和Kernel_4为GPU算子，Kernel_7和Kernel_8为GPU算子。
 一般来说计算图的优化都是基于非异构计算图来实现的，要求计算图中的算子为同一设备上的，方便算子间的融合替换等优化操作，因此需要将一张异构计算图切分为多个非异构计算图，这里切分就比较灵活了，可以定义各种切分规则，一般按照产生尽量少的子图的切分规则来切分，尽量将多的同一设备上的算子放在一张子图中，如 <a href="#graph_exec_5">图6.5.10</a>所示，最后产生5张子图：Graph_1_CPU、Graph_2_GPU、Graph_3_CPU、Graph_4_Ascend、Graph_5_CPU。</p>
 <p><a id="graph_exec_5"></a></p>
-<p><img src="../img/ch05/graph_exec_5.png" alt="异构计算图切分"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_5.png" alt="异构计算图切分"><span class="img-wrapper"><img src="../img/ch05/graph_exec_5.png" alt="异构计算图切分"></span></label></p>
 <p align="center">图6.5.10 异构计算图切分</p>
 
 <p>将一张异构计算图切分为多个子计算图后，执行方式一般分为子图拆分执行和子图合并执行：</p>
@@ -378,11 +378,11 @@ x = x - y
 </li>
 </ul>
 <p><a id="graph_exec_6"></a></p>
-<p><img src="../img/ch05/graph_exec_6.png" alt="子图拆分"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_6.png" alt="子图拆分"><span class="img-wrapper"><img src="../img/ch05/graph_exec_6.png" alt="子图拆分"></span></label></p>
 <p align="center">图6.5.11 子图拆分</p>
 
 <p><a id="graph_exec_7"></a></p>
-<p><img src="../img/ch05/graph_exec_7.png" alt="子图合并"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_7.png" alt="子图合并"><span class="img-wrapper"><img src="../img/ch05/graph_exec_7.png" alt="子图合并"></span></label></p>
 <p align="center">图6.5.12 子图合并</p>
 
 <dl>
@@ -407,7 +407,7 @@ x = x - y
 <p>3、异构计算图的执行加速</p>
 <p>前面讲述了非异构计算图的两种执行方式和异构计算图的两种执行方式，其中异构计算图又是在非异构计算图的基础之上，因此异构计算图按照两两组合共有四种执行方式，以MindSpore为例，采用的是子图合并并行执行，示例图如 <a href="#graph_exec_5">图6.5.10</a>所示，首先是作为一张整图来执行可以避免子图切换的执行开销，然后在整图内并行执行，可以最大粒度的发挥并发执行优势，达到最优的执行性能。</p>
 <p><a id="graph_exec_8"></a></p>
-<p><img src="../img/ch05/graph_exec_8.png" alt="异构硬件加速"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_8.png" alt="异构硬件加速"><span class="img-wrapper"><img src="../img/ch05/graph_exec_8.png" alt="异构硬件加速"></span></label></p>
 <p align="center">图6.5.13 异构硬件加速</p>
 
 <h3 id="下沉式执行"><a class="header" href="#下沉式执行">下沉式执行</a></h3>
@@ -458,11 +458,11 @@ x = x - y
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

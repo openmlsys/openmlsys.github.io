@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -200,7 +200,7 @@
 <p>我们先对前三个，神经网络、适配器、策略网络和价值网络进行介绍。神经网络即一般深度学习中的神经网络，用于实现基于数据的函数拟合，我们在图中简单列出常见的三类神经网络：全连接网络，卷积网络和循环网络。策略网络和价值网络是一般深度强化学习的常见组成部分，策略网络即一个由深度神经网络参数化的策略表示，而价值网络为神经网络表示的状态价值（State-Value）或状态-动作价值（State-Action Value）函数。这里我们不妨称前三类神经网络为一般神经网络，策略网络和价值网络为强化学习特定网络，前者往往是后者的重要组成部分。在RLzoo中，适配器则是为实现强化学习特定网络而选配一般神经网络的功能模块。首先，根据不同的观察量类型，强化学习智能体所用的神经网络头部会有不同的结构，这一选择可以由一个基于观察量的适配器来实现；其次，根据所采用的强化学习算法类型，相应的策略网络尾部需要有不同的输出类型，包括确定性策略和随机性策略，RLzoo 中使用一个策略适配器来进行选择；最后，根据不同的动作输出，如离散型、连续型、类别型等，需要使用一个动作适配器来选择。<a href="#ch12/ch12-rlzoo">图14.2.1</a>中我们统称这三个不类型的适配器为适配器。</p>
 <p>介绍完这些，我们已经有了可用的策略网络和价值网络，这构成了强化学习智能体核心学习模块。除此之外，还需要一个学习器（Learner）来更新这些学习模块，更新的规则就是强化学习算法给出的损失函数。而要想实现学习模块的更新，最重要的是输入的学习数据，即智能体跟环境交互过程中所采集的样本。对于<strong>离线</strong>（Oﬀ-Policy）强化学习，这些样本通常被存储于一个称为经验回放缓存的地方，学习器在需要更新模型时从该缓存中采得一些样本来进行更新。这里说到的离线强化学习是强化学习算法中的一类，强化学习算法可以分为在线（On-Policy）强化学习和离线（Oﬀ-Policy）强化学习两类，按照某个特定判据。这个判据是，用于更新的模型和用于采样的模型是否为同一个，如果是，则称在线强化学习算法，否则为离线强化学习算法。因而，离线强化学习通常允许与环境交互所采集的样本被存储于一个较大的缓存内，从而允许在许久之后再从这个缓存中抽取样本对模型进行更新。而对于在线强化学习，这个“缓存”有时其实也是存在的，只不过它所存储的是非常近期内采集的数据，从而被更新模型和用于采样的模型可以近似认为是同一个。从而，这里我们简单表示 RLzoo 的强化学习系统统一包括这个经验回放缓存模块。有了以上策略和价值网络、经验回放缓存、适配器、学习器，我们就得到了 RLzoo 中一个单节点的强化学习智能体，将这个智能体与环境实例交互，并采集数据进行模型更新，我们就得到了一个完整的单节点强化学习系统。这里的环境实例化我们允许多个环境并行采样。</p>
 <p><a id="ch12/ch12-rlzoo"></a></p>
-<p><img src="../img/ch12/ch12-rlzoo.png" alt="RLzoo算法库中使用的强化学习系统"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch12/ch12-rlzoo.png" alt="RLzoo算法库中使用的强化学习系统"><span class="img-wrapper"><img src="../img/ch12/ch12-rlzoo.png" alt="RLzoo算法库中使用的强化学习系统"></span></label></p>
 <p align="center">图14.2.1 RLzoo算法库中使用的强化学习系统</p>
 
 近来研究人员发现，强化学习算法领域的发展瓶颈，可能不仅在于算法本身，而在于让智能体在其中采集数据的模拟器的模拟速度。Isaac Gym <sup id="cite-makoviychuk2021isaac"><a href="#ref-makoviychuk2021isaac">[2]</a></sup>是Nvidia公司于2021年推出的基于GPU（Graphics Processing Unit）的模拟引擎，在单GPU上实现2-3倍于之前基于CPU（Central Processing Unit）的模拟器的运行速度。关于 GPU上运行加速我们已经在章节 5 中有所介绍。之所以 GPU 模拟能够对强化学习任务实现显著的加
@@ -260,11 +260,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>

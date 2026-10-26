@@ -1,0 +1,605 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Model Compression - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="model-compression"><a class="header" href="#model-compression">Model Compression</a></h1>
+<p><a id="ch-deploy/model-compression"></a></p>
+<p>The previous section briefly described the purpose of model conversion
+and focused on some common model optimization methods for model
+deployment. Hardware restrictions differ depending on where models are
+deployed. For instance, smartphones are more sensitive to the model
+size, usually supporting models only at the MB level. Larger models need
+to be compressed using compression techniques before they can be
+deployed on different computing hardware.</p>
+<h2 id="quantization"><a class="header" href="#quantization">Quantization</a></h2>
+<p>Model quantization is a technique that approximates floating-point
+weights of contiguous values (usually float32 or many possibly discrete
+values) at the cost of slightly reducing accuracy to a limited number of
+discrete values (usually int8). As shown in Figure
+<a href="#ch-deploy/quant-minmax">图9.3.1</a>, \(T\) represents the data range
+before quantization. In order to reduce the model size, model
+quantization represents floating-point data with fewer bits. As such,
+the memory usage during inference can be reduced, and the inference on
+processors that are good at processing low-precision operations can be
+accelerated.</p>
+<p><a id="ch-deploy/quant-minmax"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch08/quant-minmax.png" alt="Principles ofquantization"><span class="img-wrapper"><img src="../img/ch08/quant-minmax.png" alt="Principles ofquantization"></span></label></p>
+<p align="center">图9.3.1 Principles ofquantization</p>
+
+<p>The number of bits and the range of data represented by different data
+types in a computer are different. Based on service requirements, a
+model may be quantized into models with different number of bits based
+on service requirements. Generally, single-precision floating-point
+numbers are used to represent a deep neural network. If signed integers
+can be used to approximate parameters, the size of the quantized weight
+parameters may be reduced to a quarter of the original size. Using fewer
+bits to quantize a model results in a higher compression rate — 8-bit
+quantization is the mostly used in the industry. The lower limit is
+1-bit quantization, which can compress a model to 1/32 of its original
+size. During inference, efficient XNOR and BitCount bit-wise operations
+can be used to accelerate the inference.</p>
+<p>According to the uniformity of the original ranges represented by the
+quantized data, quantization can be further divided into linear
+quantization and non-linear quantization. Because the weights and
+activations of a deep neural network are usually not uniform in
+practice, non-linear quantization can theoretically achieve a smaller
+loss of accuracy. In real-world inference, however, non-linear
+quantization typically involves higher computation complexity, meaning
+that linear quantization is more commonly used. The following therefore
+focuses on the principles of linear quantization.</p>
+<p>In Equation
+(1), assume that \(r\) represents
+the floating-point number before quantization. We are then able to
+obtain the integer \(q\) after quantization.</p>
+<p>\[q=clip(round(\frac{r}{s}+z),q_{min},q_{max})\tag{1}\label{ch-deploy/quantization-q}\]</p>
+<p>\(clip(\cdot)\) and \(round(\cdot)\) indicate the truncation and rounding
+operations, and \(q_{min}\) and \(q_{max}\) indicate the minimum and maximum
+values after quantization, respectively. \(s\) is the quantization
+interval, and \(z\) is the bias representing the data offset. The
+quantization is symmetric if the bias (\(z\)) used in the quantization is
+0, or asymmetric in other cases. Symmetric quantization reduces the
+computation complexity during inference because it avoids computation
+related to \(z\). In contrast, asymmetric quantization determines the
+minimum and maximum values based on the actual data distribution, and
+the information about the quantized data is more effectively used. As
+such, asymmetric quantization reduces the loss of accuracy caused by
+quantization.</p>
+<p>According to the shared range of quantization parameters \(s\) and \(z\),
+quantization methods may be classified into layer-wise quantization and
+channel-wise quantization. In the former, separate quantization
+parameters are defined for each layer. Whereas the latter involves
+defining separate quantization parameters for each channel.
+Finer-grained channel-wise quantization yields higher quantization
+precision, but increases the computation complexity.</p>
+<p>Model quantization can also be classified into quantization aware
+training (QAT) and post-training quantization (PTQ) based on whether
+training is involved. In QAT, fake-quantization operators are added, and
+statistics on the input and output ranges before and after quantization
+are collected during training to improve the accuracy of the quantized
+model. This method is therefore suitable for scenarios that place strict
+requirements on accuracy. In PTQ, models are directly quantized after
+training, requiring only a small amount of calibration data. This method
+is therefore suitable for scenarios that place strict requirements on
+usability and have limited training resources.</p>
+<p><strong>1. Quantization aware training</strong></p>
+<p>QAT simulates quantization during training by including the accuracy
+loss introduced by fake-quantization operators. In this way, the
+optimizer can minimize the quantization error during training, leading
+to higher model accuracy. QAT involves the following steps:</p>
+<ol>
+<li>
+<p>Initialization: Set initial values for the \(q_{min}\)/\(q_{max}\)
+ranges of weights and activations.</p>
+</li>
+<li>
+<p>Building a network for simulated quantization: Insert
+fake-quantization operators after weights and activations that
+require quantization.</p>
+</li>
+<li>
+<p>Running QAT: Compute the range (i.e., \(q_{min}\) and \(q_{max}\)) for
+each weight and activation of the quantized network layer. Then,
+perform forward computation with the quantization loss considered,
+so that the loss can be involved in subsequent backpropagation and
+network parameter update.</p>
+</li>
+<li>
+<p>Exporting the quantized network: Obtain \(q_{min}\) and \(q_{max}\), and
+compute the quantization parameters \(s\) and \(z\). Substitute the
+quantization parameters into the quantized formula to transform the
+network weights into quantized integer values. Then, delete the
+fake-quantization operators, and add quantization and dequantization
+operators before and after the quantization network layer,
+respectively.</p>
+</li>
+</ol>
+<p><strong>2. Post-training quantization</strong></p>
+<p>PTQ can be divided into two types: weight quantization and full
+quantization. Weight quantization quantizes only the weights of a model
+to compress its size, and then the weights are dequantized to the
+original float32 format during inference. The subsequent inference
+process is the same as that of a common float32 model. The advantage of
+weight quantization is that calibration dataset and quantized operators
+are not required, and that the accuracy loss is small. However, it does
+not improve the inference performance, because the operators used during
+inference are still float32. Full quantization quantizes both the
+weights and activations of a model, and the quantized operators are
+executed to accelerate model inference. The quantization of activations
+requires a small number of calibration datasets (training dataset or
+inputs of real scenarios) to collect the distribution of the activations
+at each layer and calibrate the quantized operators. Calibration
+datasets are used as the input during the quantization of activations.
+After the inference, the distribution of activations at each layer is
+collected to obtain quantization parameters. The process is summarized
+as follows:</p>
+<ol>
+<li>
+<p>Use a histogram to represent the distribution \(P_f\) of the original
+float32 data.</p>
+</li>
+<li>
+<p>Select several \(q_{min}\) and \(q_{max}\) values from a given search
+space, quantize the activations, and obtain the quantized data
+\(Q_q\).</p>
+</li>
+<li>
+<p>Use a histogram to represent the distribution of \(Q_q\).</p>
+</li>
+<li>
+<p>Compute the distribution difference between \(Q_q\) and \(P_f\), and
+find the \(q_{min}\) and \(q_{max}\) values corresponding to the
+smallest difference between \(Q_q\) and \(P_f\) in order to compute the
+quantization parameters. Common indicators used to measure the
+distribution differences include symmetric Kullback-Leibler
+divergence and Jenson-Shannon divergence.</p>
+</li>
+</ol>
+<p>In addition, the inherent error of quantization requires calibration
+during quantization. Take the matrix multiplication
+\(a=\sum_{i=1}^Nw_ix_i+b\) as an example. \(w\) denotes the weight, \(x\) the
+activation, and \(b\) the bias. To overcome the quantization error, we
+first calibrate the quantized mean value, and then obtain the mean value
+of each channel output by the float32 operator and the quantized
+operator. Assume that the mean value output by the float32 operator of
+channel \(i\) is \(a_i\), and that output by the quantized operator after
+dequantization is \(a_{qi}\). From this, we can obtain the final mean
+value by adding the mean value difference \(a_i-a_q\) of the two channels
+to the corresponding channel. In this manner, the final mean value is
+consistent with that output by the float32 operator. We also need to
+ensure that the distribution after quantization is the same as that
+before quantization. Assume that the mean value and variance of the
+weight of a channel are \(E(w_c)\) and \(||w_c-E(w_c)||\), and the mean
+value and variance after quantization are \(E(\hat{w_c})\) and
+\(||\hat{w_c}-E(\hat{w_c})||\), respectively. Equation
+(2) is the calibration of the
+weight:</p>
+<p>\[
+\begin{aligned}
+\hat{w_c}\leftarrow\zeta_c(\hat{w_c}+u_c) \\
+u_c=E(w_c)-E(\hat{w_c})   \\
+\zeta_c=\frac{||w_c-E(w_c)||}{||\hat{w_c}-E(\hat{w_c})||}
+\end{aligned}
+\tag{2}\label{ch-deploy/post-quantization}
+\]</p>
+<p>As a general model compression method, quantization can significantly
+improve the memory and compression efficiency of neural networks, and
+has been widely used.</p>
+<h2 id="model-sparsification"><a class="header" href="#model-sparsification">Model Sparsification</a></h2>
+<p>Model sparsification reduces the memory and computation overheads by
+removing some components (such as weights, feature maps, and convolution
+kernels) from a neural network. It is a type of strong inductive bias
+introduced to reduce the computation complexity of the model, just like
+weight quantization, weight sharing, and pooling.</p>
+<p><strong>1. Motivation of model sparsification</strong></p>
+<p>Convolution on a convolutional neural network can be considered as a
+weighted linear combination of the input and the weights of the
+convolution kernel. In this sense, tiny weights have a relatively small
+impact on the output. Model sparsification can be justified based on two
+assumptions:</p>
+<ol>
+<li>
+<p>Most neural network models have over-parameterized weights. The
+number of weight parameters can reach tens or even hundreds of
+millions.</p>
+</li>
+<li>
+<p>For most computer vision tasks such as detection, classification,
+and segmentation, useful information accounts for only a small
+proportion in an activation feature map generated during inference.</p>
+</li>
+</ol>
+<p>As such, model sparsification can be classified into two types according
+to the source of sparsity: weight sparsification and activation
+sparsification. Both types reduce the computation workload and model
+storage requirements by reducing redundant components in a model. In
+model sparsification, some weak connections are pruned based on the
+absolute value of weights or activations (i.e. the weight or activation
+of such connections is set to 0), with the goal of improving the model
+performance. The sparsity of a model is measured by the proportion of
+zero-value weights or activation tensors. Because the accuracy of a
+model typically decreases as its sparsity increases, we hope to minimize
+such loss when increasing the sparsity.</p>
+<p>Neurobiology was the inspiration for inventing neural networks — it
+has also inspired the sparsification of neural network models.
+Neurobiologists found that most mammalian brains, including humans, have
+a process called synapse pruning, which occurs between infancy and
+adulthood. During synapse pruning, neuron axons and dendrites decay and
+die off, and the neuron connections are continuously simplified and
+reconstructed. This process allows brains to work more efficiently and
+consume less energy.</p>
+<p><strong>2. Structured and unstructured sparsification</strong></p>
+<p>Let’s first look at weight sparsification. It can be classified into
+structured and unstructured sparsification. Structured sparsification
+involves pruning channels or convolution kernels in order to generate
+regular and smaller weight matrices that are more likely to obtain
+speedup on CPUs and GPUs. However, this mode is coarse-grained, meaning
+that it severely reduces the model accuracy.</p>
+<p>In contrast, unstructured sparsification allows a weight at any location
+to be pruned, meaning it is a fine-grained mode that causes less loss to
+the model accuracy. However, the unstructured mode limits the speedup of
+sparse models on hardware for a number of reasons:</p>
+<ol>
+<li>
+<p>The irregular layout of weights requires many control flow
+instructions. For instance, the presence of zero values introduces
+many <code>if-else</code> instructions for decision-making, which inevitably
+reduces instruction-level parallelism.</p>
+</li>
+<li>
+<p>The computation of convolution kernels is typically multi-threaded.
+However, the irregular layout of weight matrices on memory causes
+thread divergence and load imbalance, which therefore affects
+thread-level parallelism.</p>
+</li>
+<li>
+<p>The irregular layout of weight matrices on the memory hinders data
+locality and reduces the cache hit rate. Consequently, the
+load/store efficiency is reduced.</p>
+</li>
+</ol>
+<p>In an attempt to solve these problems, recent work combines structured
+sparsification with unstructured sparsification. This approach
+incorporates the advantages of both modes, and overcomes their
+disadvantages to an extent.</p>
+<p><strong>3. Sparsification strategies</strong></p>
+<p>Given a neural network model, after deciding to sparsify the weights or
+activations, we need to determine when and how to perform the
+sparsification. The most common sparsification process is currently
+pre-training, pruning, and fine-tuning. With this process, we need to
+sparsify and fine-tune a converged dense model obtained through
+training. Given the fact that a pre-trained model contains knowledge it
+has learned, sparsification on such models will achieve a better effect
+than directly on the initial model. In addition to pruning the
+pre-trained model, we usually interleave pruning with network training.
+Compared with one-shot pruning, iterative pruning is integrated more
+closely with training, so that redundant convolution kernels can be
+identified more efficiently. As such, iterative pruning is widely used.</p>
+<p>To illustrate how to prune a network, we will use Deep
+Compression [@han2015deep] as an example. Removing most weights leads to
+a loss of accuracy of the neural network, as shown in Figure
+<a href="#ch-deploy/deepcomp">图9.3.2</a>. Fine-tuning a pruned sparse neural
+network can help improve model accuracy, and the pruned network may be
+quantized to represent weights using fewer bits. In addition, using
+Huffman coding can further reduce the memory cost of the deep neural
+network.</p>
+<p><a id="ch-deploy/deepcomp"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch08/deepcomp.png" alt="Deep Compressionalgorithm"><span class="img-wrapper"><img src="../img/ch08/deepcomp.png" alt="Deep Compressionalgorithm"></span></label></p>
+<p align="center">图9.3.2 Deep Compressionalgorithm</p>
+
+<p>In addition to removing redundant neurons, a dictionary learning-based
+method can be used to remove unnecessary weights on a deep convolutional
+neural network. By learning the bases of convolution kernels, the
+original convolutional kernels can be transformed into the coefficient
+domain for sparsification. An example of this approach is the work by
+Bagherinezhad et al. [@bagherinezhad2017lcnn], in which they proposed
+that the original convolution kernel can be decomposed into a weighted
+linear combination of the base of the convolution kernel and sparse
+coefficient.</p>
+<h2 id="knowledge-distillation"><a class="header" href="#knowledge-distillation">Knowledge Distillation</a></h2>
+<p>Knowledge distillation (KD), also known as the teacher-student learning
+algorithm, has gained much attention in the industry. Large deep
+networks tend to deliver good performance in practice, because
+over-parameterization increases the generalization capability when it
+comes to new data. In KD, a large pre-trained network serves as the
+teacher, a deep and thin brand-new neural network serves as the student,
+supervised by the teacher network. The key to this learning algorithm is
+how to transfer knowledge converted by the teacher to the student.</p>
+<p>Hinton et al. [@Distill] first proposed a teacher-student learning
+framework. It is used for the learning of deep and thin neural networks
+by minimizing the differences between the teacher and student neural
+networks. The teacher network is denoted as \(\mathcal{N}_{T}\) with
+parameters \(\theta_T\), and the student network is denoted as
+\(\mathcal{N}_{S}\) with parameters \(\theta_S\). In general, the student
+network has fewer parameters than the teacher network.</p>
+<p>[@Distill] proposed KD, which makes the classification result of the
+student network more closely resembles the ground truth as well as the
+classification result of the teacher network, that is, Equation (3).</p>
+<p>\[\mathcal{L}_{KD}(\theta_S) = \mathcal{H}(o_S,\mathbf{y}) +\lambda\mathcal{H}(\tau(o_S),\tau(o_T)),\tag{3}\label{c2Fcn:distill}\]</p>
+<p>where \(\mathcal{H}(\cdot,\cdot)\) is the cross-entropy function, \(o_S\)
+and \(o_T\) are outputs of the student network and the teacher network,
+respectively, and \(\mathbf{y}\) is the label. The first item in
+Equation (3) makes the classification result of the
+student network resemble the expected ground truth, and the second item
+aims to extract useful information from the teacher network and transfer
+the information to the student network, \(\lambda\) is a weight parameter
+used to balance two objective functions, and \(\tau(\cdot)\) is a soften
+function that smooths the network output.</p>
+<p>Equation (3) only extracts useful information from the
+output of the teacher network classifier — it does not mine
+information from other intermediate layers of the teacher network.
+Romero et al. [@FitNet] proposed an algorithm for transferring useful
+information from any layer of a teacher network to a small student
+network. Note that not all inputs are useful for convolutional neural
+network computing and subsequent task execution. For example, in an
+image containing an animal, it is important to classify and identify the
+region where the animal is rather than the background information.
+Therefore, it is an efficient way to select useful information from the
+teacher network. Zagoruyko and Komodakis [@attentionTS] proposed a
+learning method based on an attention loss function to improve the
+performance of the student network. This method introduces an attention
+module. The attention module generates an attention map, which
+identifies the importance of different areas of an input image to the
+classification result. The attention map is then transferred from the
+teacher network to the student network, as depicted in Figure
+ <code>ch-deploy/attentionTS</code>.</p>
+<p>KD is an effective method to optimize small networks. It can be combined
+with other compression methods such as pruning and quantization to train
+efficient models with higher accuracy and less computation workload.</p>
+<figure id="fig:ch-deploy/attentionTS">
+<div class="center">
+<img src="../img/ch08/distillation.png" style="width:80.0%" />
+</div>
+
+<figcaption>Teacher-student neural network learning
+algorithm</figcaption>
+</figure>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_model_deployment/model_converter_and_optimizer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_model_deployment/model_inference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_model_deployment/model_converter_and_optimizer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_model_deployment/model_inference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

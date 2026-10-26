@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Computation Scheduling and Execution - Machine Learning Systems: Design and Implementation (1st Edition)</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
+            webFont: "TeX"
+          },
+          SVG: {
+            font: "TeX"
+          }
+        });
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/dark-mode-images-d9c595d5.css">
+        <link rel="stylesheet" href="../theme/version-selector-57b32ee2.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-0bd144ba.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-a6f7f354.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Machine Learning Systems: Design and Implementation (1st Edition)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/openmlsys/openmlsys-zh" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="computation-scheduling-and-execution"><a class="header" href="#computation-scheduling-and-execution">Computation Scheduling and Execution</a></h2>
+<p>After operator selection and memory allocation, computation tasks can be scheduled and executed on hardware through the runtime. Depending on whether operators are compiled into a computational graph, computation scheduling can be divided into two approaches: single-operator scheduling and graph scheduling. For example, MindSpore provides the PyNative mode and Graph mode respectively. Furthermore, depending on the hardware capabilities, the execution of computational graphs can be divided into two modes: interactive execution, where operators are dispatched and executed one by one, and sink execution, where the entire computational graph or partial subgraphs are dispatched to the hardware at once.</p>
+<h3 id="single-operator-scheduling"><a class="header" href="#single-operator-scheduling">Single-Operator Scheduling</a></h3>
+<p>Single-operator scheduling, as opposed to graph-based scheduling, means that operators contained in algorithms or models are scheduled and executed one by one through the Python runtime. Examples include PyTorch’s default execution mode, TensorFlow’s eager mode, and MindSpore’s PyNative mode. Taking MindSpore as an example, the code is shown below.</p>
+<pre><code class="language-python">import mindspore.nn as nn
+from mindspore import context
+
+class Computation(nn.Cell):
+   def construct(self, x, y):
+     m = x * y
+     n = x - y
+     print(m)
+     z = m + n
+     return z
+
+compute = Computation()
+c = compute(1, 2)
+print(c)
+</code></pre>
+<p>The above script defines all computation logic in the <code>construct</code> method of the <code>Computation</code> class. Since single-operator execution mode is preset in the context at the beginning of the script, the computations in <code>construct</code> will be called and executed line by line through the Python runtime, and <code>print</code> commands can be inserted at any position in the code to print intermediate computation results.</p>
+<p>The call chain for single-operator execution is shown in <a href="#single_op_exec">图6.5.1</a>. After an operator is triggered for execution on the Python side, it goes through the machine learning framework initialization, which determines information including the operator’s precision, input and output types and sizes, and the corresponding hardware device. Then the framework allocates the memory required for computation, and finally hands it over to the specific hardware computing device to complete the execution.</p>
+<p><a id="single_op_exec"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/single_op_exec.PNG" alt="Single-Operator Execution"><span class="img-wrapper"><img src="../img/ch05/single_op_exec.PNG" alt="Single-Operator Execution"></span></label></p>
+<p align="center">图6.5.1 Single-Operator Execution</p>
+
+<p>The advantage of single-operator scheduling lies in its flexibility. Since operators are directly scheduled through the Python runtime, it can express arbitrarily complex computation logic, especially in scenarios requiring complex control flow and Python native data structures to implement complex algorithms. Additionally, single-operator scheduling is very convenient for debugging program correctness, as developers can print any variable that needs to be debugged during code execution. Finally, by driving operators through the Python runtime, computation tasks can be completed in coordination with Python’s vast and rich ecosystem of libraries.</p>
+<h3 id="graph-scheduling"><a class="header" href="#graph-scheduling">Graph Scheduling</a></h3>
+<p>Although single-operator scheduling has the advantages described above, its disadvantages are also obvious. On one hand, it is difficult to optimize computation performance, because without global information from the computational graph, single-operator execution cannot perform optimizations such as operator fusion and algebraic simplification based on context. On the other hand, due to the lack of topological relationships in the computation, the entire computation can only be scheduled and executed serially, meaning that parallel computation cannot be achieved through the runtime. For example, the computation logic of the above sample code can be expressed as shown in <a href="#graph_exec">图6.5.2</a>. From this computational graph, we can see that there is no dependency between the multiplication and subtraction operations, so these two computations can be executed in parallel. Such parallel execution information can only be analyzed after the computation is expressed as a computational graph, which is one of the advantages of graph scheduling over single-operator scheduling.</p>
+<p><a id="graph_exec"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec.png" alt="Computational Graph"><span class="img-wrapper"><img src="../img/ch05/graph_exec.png" alt="Computational Graph"></span></label></p>
+<p align="center">图6.5.2 Computational Graph</p>
+
+<p>Now let us introduce the scheduling methods for computational graphs. In a typical heterogeneous computing environment, there are multiple types of computing devices such as CPUs, GPUs, and NPUs. Therefore, a computational graph can be composed of operators running on different devices, forming a heterogeneous computational graph. <a href="#computation_graph">图6.5.3</a> shows a typical computational graph involving heterogeneous hardware.</p>
+<p><a id="computation_graph"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/computation_graph.png" alt="Heterogeneous Hardware Computational Graph"><span class="img-wrapper"><img src="../img/ch05/computation_graph.png" alt="Heterogeneous Hardware Computational Graph"></span></label></p>
+<p align="center">图6.5.3 Heterogeneous Hardware Computational Graph</p>
+
+<p>The computational graph described above consists of operators corresponding to the following types of heterogeneous hardware:</p>
+<ul>
+<li>
+<p><strong>CPU Operators</strong>: Operators written in C++ and executed on the host via the CPU. The performance of CPU computation depends on whether the multi-core computing capability of the CPU can be fully utilized.</p>
+</li>
+<li>
+<p><strong>GPU Operators</strong>: Taking NVIDIA GPU chips as an example, GPU Kernels are dispatched one by one from the host side to the GPU device, where the GPU chip executes the operator’s computation logic. Due to the large number of parallel execution units on the chip, it can provide powerful acceleration capabilities for highly parallel algorithms.</p>
+</li>
+<li>
+<p><strong>NPU Operators</strong>: Taking Huawei Ascend chips as an example, Ascend is a highly integrated SoC chip. The advantage of NPUs is their support for sinking part of or the entire computational graph into the chip to complete computation. During computation, there is no interaction with the host, resulting in higher computational performance.</p>
+</li>
+<li>
+<p><strong>Python Operators</strong>: Similar to CPU operators in execution mode, both are executed by the host’s CPU. The difference is that the computation logic is interpreted and executed by the Python runtime through the Python interpreter.</p>
+</li>
+</ul>
+<p>The prerequisite for correctly expressing a heterogeneous computational graph is to accurately identify the device on which each operator executes. For example, the CPU, GPU, and Ascend Kernels identified in the heterogeneous computational graph <a href="#computation_graph">图6.5.3</a>, as well as the Python Kernels marked to be executed by the Python runtime. Mainstream frameworks all provide the capability to specify the device on which an operator runs. Taking MindSpore as an example, a simple heterogeneous computation code is shown below.</p>
+<pre><code class="language-python">import numpy as np
+from mindspore import Tensor
+import mindspore.ops.operations as ops
+from mindspore.common.api import jit
+
+# Create operators and specify the hardware device for execution
+add = ops.Add().add_prim_attr('primitive_target', 'CPU')
+sub = ops.Sub().add_prim_attr('primitive_target', 'GPU')
+
+# Specify execution in static computational graph mode
+@jit
+def compute(x, y, z):
+    r = add(x, y)
+    return sub(r, z)
+
+# Create arguments
+x = Tensor(np.ones([2, 2]).astype(np.float32))
+y = Tensor(np.ones([2, 2]).astype(np.float32))
+z = Tensor(np.ones([2, 2]).astype(np.float32))
+
+# Execute computation
+output = compute(x, y, z)
+</code></pre>
+<p>The above code snippet completes the computation logic of x + y - z, where the Add operator is set to execute on the CPU and the Sub operator is set to execute on the GPU, forming CPU-GPU collaborative heterogeneous computation. Through a similar tagging mechanism, arbitrarily complex multi-hardware collaborative heterogeneous computation can be expressed.
+Another relatively special type of heterogeneity involves Python operators. The advantages of Python lie in its flexibility of expression, development efficiency, and rich surrounding ecosystem. Therefore, introducing Python operators into the computational graph to collaborate with operators on other heterogeneous hardware greatly enhances computation flexibility. Unlike the heterogeneity where CPU and GPU execute on different devices, Python operators and CPU operators implemented in C++ are both executed by the host-side CPU cores. The difference is that Python operators are described through a unified computational graph and therefore also need to be triggered for execution in the backend runtime. To express Python operators in the computational graph, the framework needs to provide corresponding support.</p>
+<p>After marking the devices corresponding to operators in the computational graph, the graph is ready to be scheduled and executed. Depending on hardware capabilities, the execution of heterogeneous computational graphs can be divided into three modes: operator-by-operator interactive execution, whole-graph sink execution, and subgraph sink execution. Interactive execution is mainly for CPU and GPU scenarios, where operators in the computational graph are scheduled and executed one by one according to the dependency relationships of inputs and outputs. Whole-graph sink execution is mainly for NPU chips, whose main advantage is the ability to dispatch the entire neural network’s computational graph to the device at once, independently completing the scheduling and execution of all operators in the graph without relying on the host’s CPU capability, reducing the number of interactions between host and chip, and improving computational efficiency and performance through the NPU’s tensor acceleration capability. Subgraph sink execution combines the previous two execution modes. Due to the flexibility of computational graph expression itself, whole-graph sink execution on NPU chips may not achieve optimal efficiency for complex scenarios. Therefore, parts with low execution efficiency on NPU chips can be separated and handed over to devices with higher execution efficiency such as CPUs or GPUs, while subgraphs more suitable for NPU computation are sunk to the NPU for computation, thus balancing both performance and flexibility.</p>
+<p>The above heterogeneous computational graph can serve two purposes. The first is heterogeneous hardware acceleration, placing specific computations on suitable hardware for execution. The second is achieving concurrent execution between operators. From the computational graph, we can see that there is no dependency between kernel_1 and kernel_2, nor between kernel_3 and kernel_4. Therefore, these two pairs of CPU and GPU operators can logically be invoked concurrently by the framework. However, kernel_5 depends on the outputs of kernel_3 and kernel_4 as its inputs, so kernel_5 needs to wait for kernel_3 and kernel_4 to complete before being triggered for execution.</p>
+<p>Although concurrency relationships between operators can be fully expressed on the computational graph, in practice, some unexpected side effects may arise due to concurrency, as shown in the following code:</p>
+<pre><code class="language-python">import mindspore as ms
+from mindspore import Parameter, Tensor
+import mindspore.ops.operations as ops
+from mindspore.common.api import jit
+
+# Define global variables
+x = Parameter(Tensor([1.0], ms.float32), name="x")
+y = Tensor([0.2], ms.float32)
+z = Tensor([0.3], ms.float32)
+
+# Specify execution in static computational graph mode
+@jit
+def compute(y, z):
+    ops.Assign()(x, y)
+    ops.Assign()(x, z)
+    r = ops.Sub()(x, y)
+    return r
+
+compute(y, z)
+</code></pre>
+<p>The above code expresses the following computation logic:</p>
+<pre><code class="language-text">x = y
+x = z
+x = x - y
+</code></pre>
+<p>This simple computation logic, when translated to the computational graph, can be represented as shown in <a href="#side_effect_1">图6.5.4</a>.</p>
+<p><a id="side_effect_1"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/side_effect_1.png" alt="Concurrent Operator Execution"><span class="img-wrapper"><img src="../img/ch05/side_effect_1.png" alt="Concurrent Operator Execution"></span></label></p>
+<p align="center">图6.5.4 Concurrent Operator Execution</p>
+
+<p>There are no dependencies among the three computations shown in the code, so these three operators can logically be executed concurrently on the computational graph. However, based on the code semantics, it is obvious that the program needs to be executed sequentially. The issue introduced here is called a side effect, which refers to the behavior of modifying state variables defined outside the function. Due to the introduction of side effects, incorrect concurrency relationships occur. One solution is to add dependencies between operators during the computational graph compilation phase to convert concurrent execution logic into sequential execution logic. The transformed computational graph is shown in <a href="#side_effect_2">图6.5.5</a>.</p>
+<p><a id="side_effect_2"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/side_effect_2.png" alt="Eliminating Side Effects"><span class="img-wrapper"><img src="../img/ch05/side_effect_2.png" alt="Eliminating Side Effects"></span></label></p>
+<p align="center">图6.5.5 Eliminating Side Effects</p>
+
+<p>The dashed arrows in the figure represent the dependency relationships between operators. After adding dependency relationships, the operators will execute serially in the order of Assign_1, Assign_2, Sub_1, which is consistent with the original code semantics.</p>
+<h3 id="interactive-execution"><a class="header" href="#interactive-execution">Interactive Execution</a></h3>
+<p>As described above, in interactive execution mode, the framework’s runtime dispatches operators to the hardware for execution one by one according to the dependency relationships of operators in the computational graph, following a certain execution order (e.g., breadth-first order). To aid understanding and comparison, we first introduce the execution method for non-heterogeneous computational graphs (where all operators in the graph run on the same type of device), as heterogeneous computational graph execution is built upon non-heterogeneous graphs.</p>
+<ol>
+<li>Execution of Non-Heterogeneous Computational Graphs</li>
+</ol>
+<p><a id="graph_exec_1"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_1.png" alt="Non-Heterogeneous Computational Graph"><span class="img-wrapper"><img src="../img/ch05/graph_exec_1.png" alt="Non-Heterogeneous Computational Graph"></span></label></p>
+<p align="center">图6.5.6 Non-Heterogeneous Computational Graph</p>
+
+<p>As shown in <a href="#graph_exec_1">图6.5.6</a>, this is a non-heterogeneous computational graph where all Kernels are GPU operators. The execution methods are generally divided into serial execution and parallel execution:</p>
+<p><a id="graph_exec_2"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_2.png" alt="Serial Execution"><span class="img-wrapper"><img src="../img/ch05/graph_exec_2.png" alt="Serial Execution"></span></label></p>
+<p align="center">图6.5.7 Serial Execution</p>
+
+<p><a id="graph_exec_3"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_3.png" alt="Parallel Execution"><span class="img-wrapper"><img src="../img/ch05/graph_exec_3.png" alt="Parallel Execution"></span></label></p>
+<p align="center">图6.5.8 Parallel Execution</p>
+
+<ul>
+<li>
+<p><strong>Serial Execution</strong>: The computational graph is unfolded into an execution sequence, and operators are executed serially one by one according to the execution order, as shown in <a href="#graph_exec_2">图6.5.7</a>. Its characteristics include a fixed execution order, single-threaded execution, and relatively low system resource requirements.</p>
+</li>
+<li>
+<p><strong>Parallel Execution</strong>: The computational graph is unfolded according to the dependency relationships between operators. Operators with dependencies maintain their execution order through input dependencies, while operators without dependencies can be executed in parallel, as shown in <a href="#graph_exec_3">图6.5.8</a>. Kernel_1 and Kernel_2 have no dependencies and can execute in parallel, and Kernel_3 and Kernel_4 have no dependencies and can execute in parallel. Its characteristics include a non-fixed execution order (the order of operators executed in each round is likely to differ), multi-threaded execution, and relatively high system resource requirements.</p>
+</li>
+</ul>
+<dl>
+<dt id="serial-execution-and-parallel-execution-each-have-their-advantages-and-disadvantages-summarized-in-serial_vs_parallel"><a class="header" href="#serial-execution-and-parallel-execution-each-have-their-advantages-and-disadvantages-summarized-in-serial_vs_parallel">Serial execution and parallel execution each have their advantages and disadvantages, summarized in <a href="#serial_vs_parallel">serial_vs_parallel</a>.</a></dt>
+<dd>
+<p>Comparison of Serial Execution and Parallel Execution</p>
+</dd>
+</dl>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Execution Method</th><th>Serial Execution</th><th>Parallel Execution</th></tr>
+</thead>
+<tbody>
+<tr><td>Operator Execution Order</td><td>Fixed</td><td>Non-fixed</td></tr>
+<tr><td>Operator Execution Thread</td><td>Single-threaded</td><td>Multi-threaded</td></tr>
+<tr><td>Required Execution Resources</td><td>Lower</td><td>Higher</td></tr>
+<tr><td><a id="serial_vs_parallel"></a></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="2">
+<li>Execution of Heterogeneous Computational Graphs</li>
+</ol>
+<p><a id="graph_exec_4"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_4.png" alt="Heterogeneous Computational Graph"><span class="img-wrapper"><img src="../img/ch05/graph_exec_4.png" alt="Heterogeneous Computational Graph"></span></label></p>
+<p align="center">图6.5.9 Heterogeneous Computational Graph</p>
+
+<p>As shown in <a href="#graph_exec_4">图6.5.9</a>, this is a heterogeneous computational graph, where Kernel_1, Kernel_2, Kernel_5, and Kernel_9 are CPU operators, Kernel_6 is a Python operator (also executed on the CPU), Kernel_3 and Kernel_4 are GPU operators, and Kernel_7 and Kernel_8 are GPU operators.
+Generally, computational graph optimizations are implemented based on non-heterogeneous computational graphs, requiring all operators in the graph to be on the same device to facilitate optimizations such as operator fusion and replacement. Therefore, a heterogeneous computational graph needs to be partitioned into multiple non-heterogeneous computational graphs. The partitioning can be quite flexible, with various partitioning rules defined. Generally, partitioning rules that produce as few subgraphs as possible are used, placing as many operators on the same device into one subgraph as possible. As shown in <a href="#graph_exec_5">图6.5.10</a>, five subgraphs are produced: Graph_1_CPU, Graph_2_GPU, Graph_3_CPU, Graph_4_Ascend, and Graph_5_CPU.</p>
+<p><a id="graph_exec_5"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_5.png" alt="Heterogeneous Computational Graph Partitioning"><span class="img-wrapper"><img src="../img/ch05/graph_exec_5.png" alt="Heterogeneous Computational Graph Partitioning"></span></label></p>
+<p align="center">图6.5.10 Heterogeneous Computational Graph Partitioning</p>
+
+<p>After partitioning a heterogeneous computational graph into multiple subgraphs, the execution methods are generally divided into subgraph partitioned execution and subgraph merged execution:</p>
+<ul>
+<li>
+<p><strong>Subgraph Partitioned Execution</strong>: The partitioned subgraphs are executed separately, i.e., one subgraph finishes execution before the next one starts, as shown in <a href="#graph_exec_6">图6.5.11</a>. The output data of the previous subgraph is transferred to the input of the next subgraph, and the next subgraph needs to copy the input data to its own device memory. For example, Graph_2_GPU needs to copy the output data of Graph_1_CPU from CPU to GPU, and conversely, Graph_3_CPU needs to copy the output data of Graph_2_GPU from GPU to CPU. There is a certain overhead in switching execution between subgraphs.</p>
+</li>
+<li>
+<p><strong>Subgraph Merged Execution</strong>: The partitioned subgraphs are merged into a single overall DAG for execution, as shown in <a href="#graph_exec_7">图6.5.12</a>. Copy operators are inserted based on operator device attributes to enable data transfer between operators on different devices, and the copy operators are also incorporated into the whole graph, forming a large unified graph for execution, reducing the overhead of switching between subgraphs.</p>
+</li>
+</ul>
+<p><a id="graph_exec_6"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_6.png" alt="Subgraph Partitioning"><span class="img-wrapper"><img src="../img/ch05/graph_exec_6.png" alt="Subgraph Partitioning"></span></label></p>
+<p align="center">图6.5.11 Subgraph Partitioning</p>
+
+<p><a id="graph_exec_7"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_7.png" alt="Subgraph Merging"><span class="img-wrapper"><img src="../img/ch05/graph_exec_7.png" alt="Subgraph Merging"></span></label></p>
+<p align="center">图6.5.12 Subgraph Merging</p>
+
+<dl>
+<dt id="since-subgraph-merged-execution-can-reduce-the-overhead-of-switching-between-subgraphs-it-generally-achieves-higher-performance-a-summary-comparison-is-shown-in-partitioning_vs_merging"><a class="header" href="#since-subgraph-merged-execution-can-reduce-the-overhead-of-switching-between-subgraphs-it-generally-achieves-higher-performance-a-summary-comparison-is-shown-in-partitioning_vs_merging">Since subgraph merged execution can reduce the overhead of switching between subgraphs, it generally achieves higher performance. A summary comparison is shown in <a href="#partitioning_vs_merging">partitioning_vs_merging</a>.</a></dt>
+<dd>
+<p>Comparison of Subgraph Partitioning and Subgraph Merging</p>
+</dd>
+</dl>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Execution Method</th><th>Subgraph Partitioning</th><th>Subgraph Merging</th></tr>
+</thead>
+<tbody>
+<tr><td>Heterogeneous Data Transfer</td><td>Copy between subgraphs</td><td>Copy between operators</td></tr>
+<tr><td>Additional Execution Overhead</td><td>Subgraph switching overhead</td><td>None</td></tr>
+<tr><td>Execution Concurrency Granularity</td><td>Subgraph-level concurrency</td><td>Native operator-level concurrency</td></tr>
+<tr><td><a id="partitioning_vs_merging"></a></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="3">
+<li>Execution Acceleration of Heterogeneous Computational Graphs</li>
+</ol>
+<p>The previous sections described two execution methods for non-heterogeneous computational graphs and two execution methods for heterogeneous computational graphs, where heterogeneous computational graphs are built upon non-heterogeneous ones. Therefore, heterogeneous computational graphs have four possible execution methods through pairwise combination. Taking MindSpore as an example, it adopts subgraph merged parallel execution, as illustrated in <a href="#graph_exec_5">图6.5.10</a>. First, executing as a single whole graph avoids the overhead of subgraph switching, and then parallel execution within the whole graph maximizes the advantage of concurrent execution, achieving optimal execution performance.</p>
+<p><a id="graph_exec_8"></a></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch05/graph_exec_8.png" alt="Heterogeneous Hardware Acceleration"><span class="img-wrapper"><img src="../img/ch05/graph_exec_8.png" alt="Heterogeneous Hardware Acceleration"></span></label></p>
+<p align="center">图6.5.13 Heterogeneous Hardware Acceleration</p>
+
+<h3 id="sink-execution"><a class="header" href="#sink-execution">Sink Execution</a></h3>
+<p>Sink execution leverages the SoC architecture of specialized chips to schedule the entire or partial computational graph onto the chip at once to complete the computation of the full data volume. For example, with Ascend chips, a computational graph composed of multiple Ascend operators can be compiled into a Task before execution. Through the interface provided by the Ascend driver, the Task containing multiple operators is dispatched to the hardware at once for scheduling and execution. Therefore, in the above example, the Ascend operators Kernel_7 and Kernel_8 can be optimized into a subgraph Graph_4_Ascend, which is then compiled into a Task and sunk to the Ascend for execution, as shown in <a href="#graph_exec_8">图6.5.13</a>.</p>
+<p>Sink execution achieves better overall computational performance by avoiding interactions between the host side and the device side during computation. However, sink execution also has some limitations. For example, it faces significant technical challenges in scenarios involving dynamic shape operators and complex control flow.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chapter_backend_and_runtime/memory_allocator.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../chapter_backend_and_runtime/op_compiler.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chapter_backend_and_runtime/memory_allocator.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../chapter_backend_and_runtime/op_compiler.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/version-selector-4b67dc8c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

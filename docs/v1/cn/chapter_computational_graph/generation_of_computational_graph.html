@@ -27,8 +27,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -51,10 +51,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a7b900.js";
+            window.path_to_searchindex_js = "../searchindex-6327e5e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-dda61407.js"></script>
+        <script src="../toc-51cf9b58.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,7 +199,7 @@
 <h3 id="静态生成"><a class="header" href="#静态生成">静态生成</a></h3>
 <p>静态图的生成与执行原理如 <a href="#static">图3.3.1</a>所示，采用先编译后执行的方式，该模式将计算图的定义和执行进行分离。</p>
 <p><a id="static"></a></p>
-<p><img src="../img/ch03/static.png" alt="静态图生成与执行"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/static.png" alt="静态图生成与执行"><span class="img-wrapper"><img src="../img/ch03/static.png" alt="静态图生成与执行"></span></label></p>
 <p align="center">图3.3.1 静态图生成与执行</p>
 
 <p>使用前端语言定义模型形成完整的程序表达后，机器学习框架首先对神经网络模型进行分析，获取网络层之间的连接拓扑关系以及参数变量设置、损失函数等信息。然后机器学习框架会将完整的模型描述编译为可被后端计算硬件调用执行的固定代码文本，这种固定代码文本通常被称为静态计算图。当使用静态计算图进行模型训练或者推理过程时，无需编译前端语言模型。静态计算图直接接收数据并通过相应硬件调度执行图中的算子来完成任务。静态计算图可以通过优化策略转换成等价的更加高效的结构，提高后端硬件的计算效率。</p>
@@ -215,7 +215,7 @@
 </code></pre>
 <p>机器学习框架在进行静态生成编译时并不读取输入数据，此时需要一种特殊的张量来表示输入数据辅助构建完整的计算图，这种特殊张量就被称为：数据占位符（Placeholder ）。在代码第1行中输入数据\(\boldsymbol{X}\)需要使用占位符在静态图中表示。由于静态生成时模型无数据输入，因此代码第2行中的条件控制，也无法进行逻辑计算，条件控制在编译阶段并不会完成判断，因此需要将条件控制算子以及所有的分支计算子图加入计算图中。在静态计算图执行计算阶段网络接收数据流入，调度条件控制算子根据输入数据进行逻辑判断，控制数据流入不同的分支计算子图中进行后续计算。在部分机器学习框架中前端语言Python的控制流不能够被正确编译为等价的静态图结构，因此需要机器学习框架的控制原语来实现控制流。</p>
 <p><a id="staticgen"></a></p>
-<p><img src="../img/ch03/static_gen.png" alt="静态生成"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/static_gen.png" alt="静态生成"><span class="img-wrapper"><img src="../img/ch03/static_gen.png" alt="静态生成"></span></label></p>
 <p align="center">图3.3.2 静态生成</p>
 
 <p>静态计算图具有两大优势：计算性能与直接部署。静态图经过机器学习框架编译时能够获取模型完整的图拓扑关系。机器学习框架掌控全局信息便更容易制定计算图的优化策略，比如算子融合将网络中的两个或多个细粒度的算子融合为一个粗粒度算子，比如 <a href="#staticgen">图3.3.2</a>中将Add算子与ReLU合并为一个操作，可节省中间计算结果的存储、读取等过程，降低框架底层算子调度的开销，从而提升执行性能和效率，降低内存开销。因此使用静态图模型运行往往能够获取更好的性能和更少的内存占用。在后续章节中将详细介绍更多关于机器学习框架在编译方面的优化策略。</p>
@@ -243,14 +243,14 @@ with tf.Session() as sess:
 <h3 id="动态生成"><a class="header" href="#动态生成">动态生成</a></h3>
 <p>动态图原理如 <a href="#dynamic">图3.3.3</a>所示，采用解析式的执行方式，其核心特点是编译与执行同时发生。动态图采用前端语言自身的解释器对代码进行解析，利用机器学习框架本身的算子分发功能，算子会即刻执行并输出结果。动态图模式采用用户友好的命令式编程范式，使用前端语言构建神经网络模型更加简洁，深受广大深度学习研究者青睐。</p>
 <p><a id="dynamic"></a></p>
-<p><img src="../img/ch03/eager.png" alt="动态图原理"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/eager.png" alt="动态图原理"><span class="img-wrapper"><img src="../img/ch03/eager.png" alt="动态图原理"></span></label></p>
 <p align="center">图3.3.3 动态图原理</p>
 
 <p>接下来使用上一小节的伪代码来讲解动态生成和静态生成的区别。</p>
 <p>静态图和动态图除了在前端语言表达上略有差异，本质的区别在于编译执行过程。使用前端语言构建完成模型表达后，动态生成并不采用机器学习框架编译器生成完整的静态计算图，而是采用前端语言的解释器Python API调用机器学习框架，框架利用自身的算子分发功能，将Python调用的算子在相应的硬件如CPU、GPU、NPU等上进行加速计算，然后再将计算结果返回给前端。该过程并不产生静态的计算图，而是按照前端语言描述模型结构，按照计算依赖关系进行调度执行，动态生成临时的图拓扑结构。</p>
 <p>如<a href="#dynamicgen">图3.3.4</a>中所示动态生成流程。</p>
 <p><a id="dynamicgen"></a></p>
-<p><img src="../img/ch03/eager-gen.png" alt="动态生成"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/eager-gen.png" alt="动态生成"><span class="img-wrapper"><img src="../img/ch03/eager-gen.png" alt="动态生成"></span></label></p>
 <p align="center">图3.3.4 动态生成</p>
 
 <p>神经网络前向计算按照模型声明定义的顺序进行执行。当模型接收输入数据\(\boldsymbol{X}\)后，机器学习框架开始动态生成图拓扑结构，添加输入节点并准备将数据传输给后续节点。模型中存在条件控制时，动态图模式下会即刻得到逻辑判断结果并确定数据流向，因此在图中假设判断结果为真的情况下，图结构中仅会添加关于张量\(\boldsymbol{W1}\)的Matmul算子节点。按照代码制定的模型计算顺序与算子依赖关系，机器学习框架会依次添加Add算子节点和ReLU算子节点。机器学习框架会在添加节点的同时完成算子分发计算并返回计算结果，同时做好准备向后续添加的节点传输数据。当模型再次进行前向计算时，动态生成的图结构则失效，并再次根据输入和控制条件生成新的图结构。相比于静态生成，可以发现动态生成的图结构并不能完整表示前端语言描述的模型结构，需要即时根据控制条件和数据流向产生图结构。由于机器学习框架无法通过动态生成获取完整的模型结构，因此动态图模式下难以进行模型优化以提高计算效率。</p>
@@ -326,7 +326,7 @@ with tf.Session() as sess:
 <p>动态图基于前端语言的解释器进行模型代码的解析执行，而静态图模式下需要经过机器学习框架自带的图编译器对模型进行建图后，再执行静态计算图。由于图编译器所支持编译的静态图代码与动态图代码之间存在差异，因此需要基于源码转换的方法将动态图代码转换为静态图代码描述，然后经过图编译器生成静态计算图。</p>
 <p><strong>基于源码转换</strong>的方式则能够改善基于追踪转换的缺陷。如 <a href="#ast">图3.3.5</a>中所示，基于源码转换的流程经历两个阶段。第一个阶段，对动态图模式下的代码扫描进行词法分析，通过词法分析器分析源代码中的所有字符，对代码进行分割并移除空白符、注释等，将所有的单词或字符都转化成符合规范的词法单元列表。接着进行语法分析即解析器，将得到的词法单元列表转换成树形式，并对语法进行检查避免错误。第二阶段，动态图转静态图的核心部分就是对抽象语法树进行转写，机器学习框架中对每一个需要转换的语法都预设有转换器，每一个转换器对语法树进行扫描改写，将动态图代码语法映射为静态图代码语法。其中最为重要的前端语言控制流，会在这一阶段分析转换为静态图接口进行实现，也就避免了基于追踪转换中控制流缺失的情况。转写完毕之后，即可从新的语法树还原出可执行的静态图代码。</p>
 <p><a id="ast"></a></p>
-<p><img src="../img/ch03/ast.svg" alt="基于源码转换流程"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../img/ch03/ast.svg" alt="基于源码转换流程"><span class="img-wrapper"><img src="../img/ch03/ast.svg" alt="基于源码转换流程"></span></label></p>
 <p align="center">图3.3.5 基于源码转换流程</p>
 
 <p>在使用上述功能的过程中，可以将整体模型动态图代码全部转换为静态图代码，提高计算效率并用于硬件部署。同时也可以将整体模型中的部分函数转化为局部静态子图，静态子图会被机器学习框架视为一个完整的算子并嵌入动态图中。执行整体动态图时，当计算到对应的函数会自动调用静态子图。使用该方式既提高了计算效率，又在一定程度上保留代码调试改进的灵活性。</p>
@@ -390,11 +390,11 @@ def model(X, flag):
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/version-selector-4b67dc8c.js"></script>
